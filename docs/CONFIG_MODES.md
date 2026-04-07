@@ -37,7 +37,7 @@ const DASHBOARD_CONFIG = {
         TEST_MODE: false,                              // ✅ Production mode
         USE_GITHUB: true,                              // ✅ Use GitHub API
         ADMIN_PASSWORD_HASH: '${{ secrets.ADMIN_PASSWORD_HASH }}', // From secret
-        GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN_OPTIONAL }}',       // From secret
+        GITHUB_TOKEN: '${{ secrets.DONATIONS_PAT }}',       // From secret
         GITHUB_REPO: '${{ secrets.GITHUB_REPO || github.event.repository.name }}',
         GITHUB_OWNER: '${{ secrets.GITHUB_OWNER || github.repository_owner }}',
         // ... other config
@@ -170,7 +170,7 @@ For production deployment, configure these secrets in GitHub:
   ```
 
 ### Optional Secrets (for GitHub API integration):
-- **Name**: `GITHUB_TOKEN_OPTIONAL`
+- **Name**: `DONATIONS_PAT`
 - **Value**: GitHub Personal Access Token (for saving data via API)
 
 - **Name**: `GITHUB_REPO`  

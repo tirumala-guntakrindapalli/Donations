@@ -47,7 +47,7 @@ jobs:
               
               // GitHub Integration (for production mode)
               USE_GITHUB: true,
-              GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN_OPTIONAL }}',
+              GITHUB_TOKEN: '${{ secrets.DONATIONS_PAT }}',
               GITHUB_REPO: '${{ secrets.GITHUB_REPO || github.event.repository.name }}',
               GITHUB_OWNER: '${{ secrets.GITHUB_OWNER || github.repository_owner }}',
               GITHUB_BRANCH: 'main',

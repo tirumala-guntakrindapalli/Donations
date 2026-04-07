@@ -88,7 +88,7 @@ Copy the output hash (it will look like: `5e884898da28047151d0e56f8dc6292773603d
 - **Value**: Paste your password hash from step 4.1
 
 **Optional Secrets** (for GitHub integration features):
-- **Name**: `GITHUB_TOKEN_OPTIONAL`
+- **Name**: `DONATIONS_PAT`
 - **Value**: Leave empty or add a GitHub personal access token
 - **Name**: `GITHUB_REPO`
 - **Value**: Your repository name (e.g., `vinayaka-chavithi-donations`)
@@ -245,7 +245,7 @@ GitHub Repository:
 
 GitHub Secrets (Settings → Secrets):
 ├── ADMIN_PASSWORD_HASH              # 🔒 Your password hash (encrypted)
-├── GITHUB_TOKEN_OPTIONAL            # 🔒 Optional GitHub token
+├── DONATIONS_PAT                    # 🔒 Optional GitHub token
 ├── GITHUB_REPO                      # Repository name
 └── GITHUB_OWNER                     # Your username
 

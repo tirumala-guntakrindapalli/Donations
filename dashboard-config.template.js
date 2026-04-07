@@ -121,13 +121,13 @@ const DASHBOARD_CONFIG = {
 //        GITHUB_OWNER: '${{ github.repository_owner }}',      // ← Auto-detected
 //        GITHUB_REPO: '${{ github.event.repository.name }}',  // ← Auto-detected
 //        GITHUB_BRANCH: 'main',                               // ← Fixed value
-//        GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN_OPTIONAL }}', // ← From Secret (optional)
+//        GITHUB_TOKEN: '${{ secrets.DONATIONS_PAT }}', // ← From Secret (optional)
 //        // ... rest of config
 //    };
 //
 // You ONLY need to set GitHub Secrets:
 //    - ADMIN_PASSWORD_HASH (required)
-//    - GITHUB_TOKEN_OPTIONAL (optional, for GitHub API writes)
+//    - DONATIONS_PAT (optional, for GitHub API writes)
 //
 // Everything else is automatic! 🎉
 // ================================================================================================
