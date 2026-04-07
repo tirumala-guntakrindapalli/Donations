@@ -1,7 +1,7 @@
 {
   "year": "2024",
   "settings": {
-    "dashboard_enabled": true
+    "dashboard_enabled": false
   },
   "lastUpdated": "2024-12-31T12:00:00Z",
   "donations": [
