@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Modal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        /* Prevent body scroll when modal is open */
+        body.modal-open {
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        .test-btn {
+            padding: 15px 30px;
+            background: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        /* Login Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            z-index: 99999;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .modal-overlay.show {
+            display: flex !important;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.2s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .login-modal {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 450px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            animation: slideInScale 0.3s ease-out;
+            border: 1px solid rgba(231, 76, 60, 0.2);
+            position: relative;
+            margin: auto;
+        }
+
+        @keyframes slideInScale {
+            from {
+                transform: scale(0.9) translateY(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1) translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .login-modal-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .login-modal-header i {
+            font-size: 3.5rem;
+            color: #667eea;
+            margin-bottom: 15px;
+            filter: drop-shadow(0 4px 8px rgba(102, 126, 234, 0.3));
+        }
+
+        .login-modal-header h2 {
+            margin: 0 0 8px 0;
+            color: #2c3e50;
+            font-size: 1.8rem;
+            font-weight: 800;
+        }
+
+        .login-modal-header p {
+            margin: 0;
+            color: #7f8c8d;
+            font-size: 0.95rem;
+        }
+
+        .login-form-group {
+            margin-bottom: 25px;
+        }
+
+        .login-form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c3e50;
+            font-size: 0.95rem;
+        }
+
+        .login-password-wrapper {
+            position: relative;
+        }
+
+        .login-form-group input {
+            width: 100%;
+            padding: 14px 45px 14px 18px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: white;
+            box-sizing: border-box;
+        }
+
+        .login-form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #7f8c8d;
+            cursor: pointer;
+            font-size: 1.1rem;
+            padding: 5px;
+            transition: color 0.2s;
+        }
+
+        .password-toggle:hover {
+            color: #667eea;
+        }
+
+        .login-modal-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 30px;
+        }
+
+        .login-modal-actions button {
+            flex: 1;
+            padding: 14px 24px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .btn-login {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-cancel {
+            background: #ecf0f1;
+            color: #2c3e50;
+        }
+
+        .btn-cancel:hover {
+            background: #dfe4e6;
+            transform: translateY(-2px);
+        }
+
+        .login-hint {
+            text-align: center;
+            margin-top: 20px;
+            padding: 12px;
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            border-radius: 10px;
+            color: #2e7d32;
+            font-size: 0.9rem;
+            border: 1px solid #a5d6a7;
+        }
+
+        .login-hint i {
+            margin-right: 6px;
+        }
+
+        .status {
+            margin-top: 20px;
+            padding: 15px;
+            background: white;
+            border-radius: 10px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="color: white;">Modal Test Page</h1>
+    <button class="test-btn" onclick="showModal()">Click to Test Modal</button>
+    <div class="status" id="status">Click the button above to test the modal</div>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal-overlay">
+        <div class="login-modal">
+            <div class="login-modal-header">
+                <i class="fas fa-shield-alt"></i>
+                <h2>Admin Login</h2>
+                <p>Enter password to access admin panel</p>
+            </div>
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <div class="login-form-group">
+                    <label for="adminPassword">
+                        <i class="fas fa-key"></i> Password
+                    </label>
+                    <div class="login-password-wrapper">
+                        <input 
+                            type="password" 
+                            id="adminPassword" 
+                            name="password"
+                            placeholder="Enter admin password"
+                            autocomplete="current-password"
+                            required
+                        />
+                        <button type="button" class="password-toggle" id="togglePassword" onclick="togglePassword()">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="login-modal-actions">
+                    <button type="button" class="btn-cancel" onclick="hideModal()">
+                        <i class="fas fa-times"></i> Cancel
+                    </button>
+                    <button type="submit" class="btn-login">
+                        <i class="fas fa-sign-in-alt"></i> Login
+                    </button>
+                </div>
+                <div class="login-hint">
+                    <i class="fas fa-info-circle"></i>
+                    <strong>Hint:</strong> Password is <code>vinayaka2026</code>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function showModal() {
+            const modal = document.getElementById('loginModal');
+            const passwordInput = document.getElementById('adminPassword');
+            
+            document.getElementById('status').textContent = 'Modal opening...';
+            
+            // Prevent body scroll
+            document.body.classList.add('modal-open');
+            
+            // Scroll to top before showing modal
+            window.scrollTo({ top: 0, behavior: 'instant' });
+            
+            modal.classList.add('show');
+            
+            // Focus on password input
+            setTimeout(() => {
+                if (passwordInput) {
+                    passwordInput.focus();
+                    passwordInput.value = '';
+                }
+                document.getElementById('status').textContent = 'Modal is now open! Try entering password.';
+            }, 150);
+        }
+
+        function hideModal() {
+            const modal = document.getElementById('loginModal');
+            const passwordInput = document.getElementById('adminPassword');
+            
+            modal.classList.remove('show');
+            document.body.classList.remove('modal-open');
+            
+            if (passwordInput) {
+                passwordInput.value = '';
+                passwordInput.type = 'password';
+                const toggleIcon = document.querySelector('#togglePassword i');
+                if (toggleIcon) {
+                    toggleIcon.className = 'fas fa-eye';
+                }
+            }
+            
+            document.getElementById('status').textContent = 'Modal closed.';
+        }
+
+        function togglePassword() {
+            const passwordInput = document.getElementById('adminPassword');
+            const toggleIcon = document.querySelector('#togglePassword i');
+            
+            if (passwordInput && toggleIcon) {
+                if (passwordInput.type === 'password') {
+                    passwordInput.type = 'text';
+                    toggleIcon.className = 'fas fa-eye-slash';
+                } else {
+                    passwordInput.type = 'password';
+                    toggleIcon.className = 'fas fa-eye';
+                }
+            }
+        }
+
+        async function handleLogin(e) {
+            e.preventDefault();
+            
+            const passwordInput = document.getElementById('adminPassword');
+            const password = passwordInput.value.trim();
+            
+            if (password === 'vinayaka2026') {
+                document.getElementById('status').textContent = '✅ Login successful!';
+                hideModal();
+            } else {
+                alert('❌ Incorrect password! Hint: vinayaka2026');
+                passwordInput.select();
+            }
+        }
+
+        // Close modal on overlay click
+        document.getElementById('loginModal').addEventListener('click', (e) => {
+            if (e.target.id === 'loginModal') {
+                hideModal();
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vinayaka Chavithi Dashboard - Simple GitHub Version</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>🕉️</text></svg>">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0"></script>
+    <style>
+        /* Enhanced UI Styles */
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background-attachment: fixed;
+        }
+        
+        /* Admin Panel Styles */
+        #adminPanel {
+            display: none;
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            padding: 25px;
+            max-width: 420px;
+            max-height: 85vh;
+            overflow-y: auto;
+            z-index: 1000;
+            border: 1px solid rgba(231, 76, 60, 0.2);
+            animation: slideInRight 0.3s ease-out;
+        }
+        
+        /* Mobile Responsive Admin Panel */
+        @media (max-width: 768px) {
+            #adminPanel {
+                top: 60px;
+                right: 10px;
+                left: 10px;
+                max-width: none;
+                width: calc(100% - 20px);
+                max-height: 80vh;
+                padding: 20px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            #adminPanel {
+                top: 50px;
+                right: 5px;
+                left: 5px;
+                width: calc(100% - 10px);
+                padding: 15px;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr !important;
+            }
+        }
+        
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid;
+            border-image: linear-gradient(90deg, #e74c3c, #3498db) 1;
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            margin: -25px -25px 25px -25px;
+            padding: 20px 25px;
+            border-radius: 16px 16px 0 0;
+        }
+
+        .admin-header h3 {
+            margin: 0;
+            color: white;
+            font-size: 20px;
+            font-weight: 700;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .admin-header-actions {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .btn-logout,
+        .btn-close-panel {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            padding: 8px 16px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-logout:hover,
+        .btn-close-panel:hover {
+            background: rgba(255,255,255,0.3);
+            border-color: rgba(255,255,255,0.5);
+        }
+        
+        .btn-close-panel {
+            padding: 8px 12px;
+        }
+        
+        @media (max-width: 480px) {
+            .btn-logout,
+            .btn-close-panel {
+                padding: 6px 10px;
+                font-size: 12px;
+            }
+            
+            .admin-header h3 {
+                font-size: 16px;
+            }
+        }
+
+        /* Cheeti Paid Dashboard - Admin Only */
+        #cheetiPaidDashboard {
+            display: none;
+        }
+
+        #cheetiPaidDashboard.show {
+            display: block;
+        }
+
+        .paid-status {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .paid-status.paid {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .paid-status.unpaid {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        
+        /* Form Info Message */
+        .form-info {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 12px 15px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            color: #1976d2;
+        }
+        
+        .form-info i {
+            margin-right: 8px;
+        }
+        
+        /* Form Select Dropdown */
+        .form-select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            background: white;
+            cursor: pointer;
+        }
+        
+        .form-select:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+        }
+        
+        /* Member Details Display */
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #dee2e6;
+        }
+        
+        .detail-row:last-child {
+            border-bottom: none;
+            padding-top: 12px;
+            margin-top: 8px;
+            border-top: 2px solid #dee2e6;
+        }
+        
+        .detail-label {
+            font-weight: 600;
+            color: #555;
+        }
+        
+        .detail-value {
+            font-weight: 500;
+            color: #2c3e50;
+        }
+        
+        /* Action Buttons in Tables */
+        .action-btn {
+            padding: 5px 10px;
+            margin: 0 2px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        
+        .action-btn.edit {
+            background: #3498db;
+            color: white;
+        }
+        
+        .action-btn.edit:hover {
+            background: #2980b9;
+        }
+        
+        .action-btn.save {
+            background: #27ae60;
+            color: white;
+        }
+        
+        .action-btn.save:hover {
+            background: #229954;
+        }
+        
+        .action-btn.cancel {
+            background: #95a5a6;
+            color: white;
+        }
+        
+        .action-btn.cancel:hover {
+            background: #7f8c8d;
+        }
+        
+        /* Edit mode input styles */
+        .edit-input {
+            width: 100%;
+            padding: 4px 8px;
+            border: 2px solid #3498db;
+            border-radius: 4px;
+            font-size: 13px;
+        }
+        
+        .edit-checkbox {
+            transform: scale(1.2);
+            cursor: pointer;
+        }
+
+        /* Confirmation Modal */
+        #confirmModal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
+            z-index: 100000;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        #confirmModal.show {
+            display: flex !important;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.2s ease-out;
+        }
+
+        .confirm-modal {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            animation: slideInScale 0.3s ease-out;
+            border: 3px solid #f39c12;
+            position: relative;
+        }
+
+        .confirm-modal-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .confirm-modal-header i {
+            font-size: 4rem;
+            color: #f39c12;
+            margin-bottom: 15px;
+            filter: drop-shadow(0 4px 8px rgba(243, 156, 18, 0.3));
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .confirm-modal-header h2 {
+            margin: 0 0 10px 0;
+            color: #e74c3c;
+            font-size: 1.8rem;
+            font-weight: 800;
+        }
+
+        .confirm-modal-body {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .confirm-modal-body p {
+            margin: 0;
+            color: #856404;
+            font-size: 1.05rem;
+            line-height: 1.6;
+            text-align: center;
+        }
+
+        .confirm-modal-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .confirm-modal-actions button {
+            padding: 14px 32px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .btn-confirm-cancel {
+            background: linear-gradient(135deg, #95a5a6 0%, #7f8c8d 100%);
+            color: white;
+        }
+
+        .btn-confirm-cancel:hover {
+            background: linear-gradient(135deg, #7f8c8d 0%, #6c7a7b 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        .btn-confirm-proceed {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white;
+        }
+
+        .btn-confirm-proceed:hover {
+            background: linear-gradient(135deg, #c0392b 0%, #a93226 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(231, 76, 60, 0.4);
+        }
+
+        @media (max-width: 480px) {
+            .confirm-modal {
+                padding: 30px 20px;
+            }
+
+            .confirm-modal-header h2 {
+                font-size: 1.5rem;
+            }
+
+            .confirm-modal-body p {
+                font-size: 0.95rem;
+            }
+
+            .confirm-modal-actions {
+                flex-direction: column;
+            }
+
+            .confirm-modal-actions button {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            background: white;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+            transform: translateY(-1px);
+        }
+
+        .form-section {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #dee2e6;
+            transition: all 0.3s ease;
+        }
+        
+        .form-section:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .form-section h4 {
+            margin-top: 0;
+            color: #2c3e50;
+            font-size: 17px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #dee2e6;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 700;
+            transition: all 0.3s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        
+        .btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn-primary {
+            background: #3498db;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #2980b9;
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
+        }
+
+        .header-controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        /* Loading Overlay */
+        #loadingOverlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #3498db;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        #loadingText {
+            color: white;
+            margin-top: 20px;
+            font-size: 18px;
+        }
+
+        /* Toast Notifications */
+        .toast {
+            position: fixed;
+            bottom: -100px;
+            right: 20px;
+            background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
+            color: white;
+            padding: 18px 28px;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            z-index: 10000;
+            transition: all 0.3s;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .toast.show {
+            bottom: 20px;
+        }
+
+        .toast-success {
+            background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+            border-color: rgba(255,255,255,0.2);
+        }
+        
+        .toast-error {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            border-color: rgba(255,255,255,0.2);
+        }
+
+        .toast i {
+            font-size: 20px;
+        }
+
+        /* Prevent body scroll when modal is open */
+        body.modal-open {
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        /* Login Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            z-index: 99999;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .modal-overlay.show {
+            display: flex !important;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.2s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .login-modal {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 450px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            animation: slideInScale 0.3s ease-out;
+            border: 1px solid rgba(231, 76, 60, 0.2);
+            position: relative;
+            margin: auto;
+        }
+
+        @keyframes slideInScale {
+            from {
+                transform: scale(0.9) translateY(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1) translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .login-modal-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .login-modal-header i {
+            font-size: 3.5rem;
+            color: #667eea;
+            margin-bottom: 15px;
+            filter: drop-shadow(0 4px 8px rgba(102, 126, 234, 0.3));
+        }
+
+        .login-modal-header h2 {
+            margin: 0 0 8px 0;
+            color: #2c3e50;
+            font-size: 1.8rem;
+            font-weight: 800;
+        }
+
+        .login-modal-header p {
+            margin: 0;
+            color: #7f8c8d;
+            font-size: 0.95rem;
+        }
+
+        .login-form-group {
+            margin-bottom: 25px;
+        }
+
+        .login-form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c3e50;
+            font-size: 0.95rem;
+        }
+
+        .login-password-wrapper {
+            position: relative;
+        }
+
+        .login-form-group input {
+            width: 100%;
+            padding: 14px 45px 14px 18px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: white;
+            box-sizing: border-box;
+        }
+
+        .login-form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #7f8c8d;
+            cursor: pointer;
+            font-size: 1.1rem;
+            padding: 5px;
+            transition: color 0.2s;
+        }
+
+        .password-toggle:hover {
+            color: #667eea;
+        }
+
+        .login-modal-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 30px;
+        }
+
+        .login-modal-actions button {
+            flex: 1;
+            padding: 14px 24px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .btn-login {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-cancel {
+            background: #ecf0f1;
+            color: #2c3e50;
+        }
+
+        .btn-cancel:hover {
+            background: #dfe4e6;
+            transform: translateY(-2px);
+        }
+
+        .login-hint {
+            text-align: center;
+            margin-top: 20px;
+            padding: 12px;
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            border-radius: 10px;
+            color: #2e7d32;
+            font-size: 0.9rem;
+            border: 1px solid #a5d6a7;
+        }
+
+        .login-hint i {
+            margin-right: 6px;
+        }
+        /* Edit Modal Styles */
+        #editModal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #editModal.show {
+            display: flex;
+        }
+
+        .edit-modal-content {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+
+        .edit-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .edit-modal-header h2 {
+            color: #2c3e50;
+            font-size: 1.5rem;
+            margin: 0;
+        }
+
+        .edit-modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #7f8c8d;
+            cursor: pointer;
+            padding: 5px;
+            transition: color 0.2s;
+        }
+
+        .edit-modal-close:hover {
+            color: #e74c3c;
+        }
+
+        .edit-form-group {
+            margin-bottom: 20px;
+        }
+
+        .edit-form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        .edit-form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            box-sizing: border-box;
+        }
+
+        .edit-form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .edit-modal-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 30px;
+        }
+
+        .edit-modal-actions button {
+            flex: 1;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-edit-save {
+            background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+            color: white;
+        }
+
+        .btn-edit-save:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.3);
+        }
+
+        .btn-edit-cancel {
+            background: linear-gradient(135deg, #95a5a6 0%, #7f8c8d 100%);
+            color: white;
+        }
+
+        .btn-edit-cancel:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(127, 140, 141, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <!-- Edit Modal -->
+    <div id="editModal">
+        <div class="edit-modal-content">
+            <div class="edit-modal-header">
+                <h2 id="editModalTitle">Edit Entry</h2>
+                <button class="edit-modal-close" onclick="hideEditModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div id="editModalBody">
+                <!-- Form fields will be inserted here dynamically -->
+            </div>
+            <div class="edit-modal-actions">
+                <button class="btn-edit-cancel" onclick="hideEditModal()">
+                    <i class="fas fa-times"></i> Cancel
+                </button>
+                <button class="btn-edit-save" onclick="saveEditModal()">
+                    <i class="fas fa-save"></i> Save
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirmation Modal for Unsaved Changes -->
+    <div id="confirmModal">
+        <div class="confirm-modal">
+            <div class="confirm-modal-header">
+                <i class="fas fa-exclamation-triangle"></i>
+                <h2>Unsaved Changes!</h2>
+            </div>
+            <div class="confirm-modal-body">
+                <p><strong>Warning:</strong> You have unsaved changes that will be lost if you continue.</p>
+                <p style="margin-top: 10px;">Are you sure you want to logout?</p>
+            </div>
+            <div class="confirm-modal-actions">
+                <button class="btn-confirm-cancel" onclick="hideConfirmModal()">
+                    <i class="fas fa-times"></i> Cancel
+                </button>
+                <button class="btn-confirm-proceed" onclick="confirmLogout()">
+                    <i class="fas fa-sign-out-alt"></i> Yes, Logout
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Committee Delete Confirmation Modal -->
+    <div id="committeeDeleteModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 10000; align-items: center; justify-content: center;">
+        <div class="confirm-modal">
+            <div class="confirm-modal-header">
+                <i class="fas fa-user-minus"></i>
+                <h2>Remove Committee Member?</h2>
+            </div>
+            <div class="confirm-modal-body">
+                <p id="committeeDeleteMessage"><strong>Are you sure?</strong></p>
+            </div>
+            <div class="confirm-modal-actions">
+                <button class="btn-confirm-cancel" onclick="hideCommitteeDeleteModal()">
+                    <i class="fas fa-times"></i> Cancel
+                </button>
+                <button class="btn-confirm-proceed" onclick="confirmCommitteeDelete()" style="background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);">
+                    <i class="fas fa-trash"></i> Yes, Remove
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Modal - Placed first for proper z-index -->
+    <div id="loginModal" class="modal-overlay">
+        <div class="login-modal">
+            <div class="login-modal-header">
+                <i class="fas fa-shield-alt"></i>
+                <h2>Admin Login</h2>
+                <p>Enter password to access admin panel</p>
+            </div>
+            <form id="loginForm">
+                <div class="login-form-group">
+                    <label for="adminPassword">
+                        <i class="fas fa-key"></i> Password
+                    </label>
+                    <div class="login-password-wrapper">
+                        <input 
+                            type="password" 
+                            id="adminPassword" 
+                            name="password"
+                            placeholder="Enter admin password"
+                            autocomplete="current-password"
+                            required
+                        />
+                        <button type="button" class="password-toggle" id="togglePassword" title="Show password">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="login-modal-actions">
+                    <button type="button" class="btn-cancel" id="cancelLogin">
+                        <i class="fas fa-times"></i> Cancel
+                    </button>
+                    <button type="submit" class="btn-login">
+                        <i class="fas fa-sign-in-alt"></i> Login
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay">
+        <div class="spinner"></div>
+        <div id="loadingText">Loading...</div>
+    </div>
+
+    <!-- Header -->
+    <div class="header">
+        <div class="header-left">
+            <a href="index.html" class="home-btn" title="Back to Home">
+                <i class="fas fa-home"></i>
+            </a>
+        </div>
+        <div class="header-center">
+            <h1><i class="fas fa-om"></i> Vinayaka Chavithi Dashboard</h1>
+            <div class="year-selector">
+                <label for="yearSelect"><i class="fas fa-calendar-alt"></i></label>
+                <select id="yearSelect" class="year-dropdown">
+                    <!-- Options will be populated dynamically -->
+                </select>
+            </div>
+            <p class="generated-date">Last Updated: <span id="generatedDate"></span></p>
+        </div>
+        <div class="header-controls">
+            <button id="refreshBtn" class="btn btn-primary" title="Refresh Data">
+                <i class="fas fa-sync-alt"></i> Refresh
+            </button>
+            <button id="adminLoginBtn" class="btn btn-primary">
+                <i class="fas fa-lock"></i> Admin Login
+            </button>
+        </div>
+    </div>
+
+    <!-- Admin Panel -->
+    <div id="adminPanel">
+        <div class="admin-header">
+            <h3><i class="fas fa-user-shield"></i> Admin Panel</h3>
+            <div class="admin-header-actions">
+                <button class="btn-close-panel" onclick="closeAdminPanel()" title="Close Panel">
+                    <i class="fas fa-times"></i>
+                </button>
+                <button class="btn-logout" onclick="logoutAdmin()">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </div>
+
+        <!-- TEST MODE Indicator -->
+        <div id="testModeIndicator" style="display: none; background: linear-gradient(135deg, #ff9800 0%, #ff5722 100%); color: white; padding: 12px 15px; margin-bottom: 15px; border-radius: 8px; font-size: 13px; text-align: center; box-shadow: 0 2px 8px rgba(255, 152, 0, 0.3);">
+            <i class="fas fa-flask"></i> <strong>TEST MODE</strong> - Changes are temporary and lost on refresh
+            <div style="font-size: 11px; margin-top: 5px; opacity: 0.9;">
+                To enable permanent saving, set TEST_MODE=false in config
+            </div>
+        </div>
+
+        <!-- Add Donation Form -->
+        <div class="form-section">
+            <h4><i class="fas fa-hand-holding-heart"></i> Add Donation</h4>
+            <div class="form-group">
+                <label>Donor Name</label>
+                <input type="text" id="donationName" placeholder="Enter donor name" oninput="markFormChanged()">
+            </div>
+            <div class="form-group">
+                <label>Amount (₹)</label>
+                <input type="number" id="donationAmount" placeholder="Enter amount" min="1" oninput="markFormChanged()">
+            </div>
+            <button class="btn btn-success" onclick="addDonation()">
+                <i class="fas fa-plus"></i> Add Donation
+            </button>
+        </div>
+
+        <!-- Add Cheeti Member Form - Dynamic based on year -->
+        <div class="form-section">
+            <h4 id="cheetiFormTitle"><i class="fas fa-users"></i> Add Cheeti Member</h4>
+            
+            <!-- Current Year Form: Add New Member -->
+            <div id="cheetiNewMemberForm" style="display: none;">
+                <p class="form-info"><i class="fas fa-info-circle"></i> Adding new cheeti members for current year (they will pay back next year)</p>
+                <div class="form-group">
+                    <label>Member Name</label>
+                    <input type="text" id="cheetiName" placeholder="Enter member name" oninput="markFormChanged()">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Amount (₹)</label>
+                        <input type="number" id="cheetiAmount" placeholder="Enter amount" min="1" oninput="markFormChanged()">
+                    </div>
+                    <div class="form-group">
+                        <label>Interest Rate (%)</label>
+                        <input type="number" id="cheetiInterestRate" value="12" min="0" max="100" step="0.1" oninput="markFormChanged()">
+                    </div>
+                </div>
+                <button class="btn btn-success" onclick="addCheetiMember()">
+                    <i class="fas fa-plus"></i> Add New Member
+                </button>
+            </div>
+            
+            <!-- Past Year Form: Record Payment from Existing Member -->
+            <div id="cheetiPaymentForm" style="display: none;">
+                <p class="form-info"><i class="fas fa-info-circle"></i> Recording payment collection from members who borrowed last year</p>
+                <div class="form-group">
+                    <label>Select Member</label>
+                    <select id="cheetiMemberSelect" class="form-select" onchange="loadMemberDetails(); markFormChanged();">
+                        <option value="">-- Select Member --</option>
+                    </select>
+                </div>
+                <div id="memberDetails" style="display: none; background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                    <div class="detail-row">
+                        <span class="detail-label">Principal Amount:</span>
+                        <span class="detail-value" id="memberPrincipal">₹0</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Interest:</span>
+                        <span class="detail-value" id="memberInterest">₹0</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Total Due:</span>
+                        <span class="detail-value" id="memberTotalDue" style="font-weight: 700; color: #e74c3c;">₹0</span>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Payment Date</label>
+                        <input type="date" id="repaymentDate" oninput="markFormChanged()" onchange="autoCalculateLateFeeForPaymentForm()">
+                    </div>
+                    <div class="form-group">
+                        <label>Late Fee (₹) <span id="adminLateFeeAutoCalc" style="color: #ff9800; font-size: 0.85rem;"></span></label>
+                        <input type="number" id="repaymentLateFee" value="0" min="0" oninput="markFormChanged()">
+                        <div id="adminLateFeeInfo" style="color: #666; font-size: 0.85rem; margin-top: 5px;"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="repaymentPaid" onchange="markFormChanged();" style="margin-right: 8px;">
+                        Mark as Paid
+                    </label>
+                </div>
+                <button class="btn btn-success" onclick="recordPayment()">
+                    <i class="fas fa-check"></i> Record Payment
+                </button>
+            </div>
+        </div>
+
+        <!-- Cheeti Payment Cutover Date Settings -->
+        <div class="form-section" style="background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%); border-left: 4px solid #ff9800;">
+            <h4><i class="fas fa-calendar-check"></i> Cheeti Payment Cutover Date</h4>
+            <p class="form-info" style="color: #e65100;"><i class="fas fa-info-circle"></i> Set payment deadline for this year's cheeti members. They must pay back by this date in the next year.</p>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Payment Deadline Date (Next Year)</label>
+                    <input type="date" id="cheetiCutoverDate" oninput="markFormChanged()">
+                    <small style="color: #666; display: block; margin-top: 5px;">
+                        <i class="fas fa-lightbulb"></i> Example: For 2025 members, set a date in 2026
+                    </small>
+                </div>
+                <div class="form-group">
+                    <label>Late Fee per Day (₹)</label>
+                    <input type="number" id="cheetiLateFeePerDay" value="50" min="0" step="1" oninput="markFormChanged()">
+                </div>
+            </div>
+            
+            <div id="currentCutoverInfo" style="background: white; padding: 12px; border-radius: 6px; margin: 10px 0; display: none;">
+                <div style="color: #666; font-size: 0.9rem;">
+                    <strong style="color: #333;">Current Settings:</strong><br>
+                    <span id="cutoverDateDisplay">Not set</span> | 
+                    <span id="lateFeeRateDisplay">₹50/day</span><br>
+                    <span id="cutoverAppliesTo" style="color: #ff9800; font-weight: 600;"></span>
+                </div>
+            </div>
+            
+            <button class="btn btn-success" onclick="setCheetiCutoverDate()">
+                <i class="fas fa-save"></i> Set Cutover Date
+            </button>
+        </div>
+
+        <!-- Add Expense Form -->
+        <div class="form-section">
+            <h4><i class="fas fa-receipt"></i> Add Expense</h4>
+            <div class="form-group">
+                <label>Item/Description</label>
+                <input type="text" id="expenseItem" placeholder="Enter item name" oninput="markFormChanged()">
+            </div>
+            <div class="form-group">
+                <label>Amount (₹)</label>
+                <input type="number" id="expenseAmount" placeholder="Enter amount" min="1" oninput="markFormChanged()">
+            </div>
+            <button class="btn btn-success" onclick="addExpense()">
+                <i class="fas fa-plus"></i> Add Expense
+            </button>
+        </div>
+
+        <!-- Add Sponsor Details Form -->
+        <div class="form-section">
+            <h4><i class="fas fa-hands-helping"></i> Add Sponsor</h4>
+            <div class="form-group">
+                <label>Sponsor Name</label>
+                <input type="text" id="sponsorName" placeholder="Enter sponsor name" oninput="markFormChanged()">
+            </div>
+            <div class="form-group">
+                <label>Sponsorship Type</label>
+                <select id="sponsorType" class="form-select" onchange="toggleCustomSponsorType()" oninput="markFormChanged()">
+                    <option value="">-- Select Type --</option>
+                    <option value="Laddu">Laddu</option>
+                    <option value="Prasadam">Prasadam</option>
+                    <option value="Vigraham (Idol)">Vigraham (Idol)</option>
+                    <option value="Decorations">Decorations</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+            <div class="form-group" id="customSponsorTypeGroup" style="display: none;">
+                <label>Custom Sponsorship Type</label>
+                <input type="text" id="customSponsorType" placeholder="Enter custom type" oninput="markFormChanged()">
+            </div>
+            <div class="form-group">
+                <label>Amount (₹) - Optional</label>
+                <input type="number" id="sponsorAmount" placeholder="Enter amount" min="0" oninput="markFormChanged()">
+            </div>
+            <button class="btn btn-success" onclick="addSponsor()">
+                <i class="fas fa-plus"></i> Add Sponsor
+            </button>
+        </div>
+
+        <!-- Add Laddu Winner Form -->
+        <div class="form-section">
+            <h4><i class="fas fa-trophy"></i> Add Laddu Winner</h4>
+            <div class="form-group">
+                <label>Winner Name</label>
+                <input type="text" id="winnerName" placeholder="Enter winner name" oninput="markFormChanged()">
+            </div>
+            <div class="form-group">
+                <label>Prize Amount (₹)</label>
+                <input type="number" id="winnerAmount" placeholder="Enter prize amount" min="0" oninput="markFormChanged()">
+            </div>
+            <button class="btn btn-success" onclick="addLadduWinner()">
+                <i class="fas fa-plus"></i> Add Winner
+            </button>
+        </div>
+
+        <!-- Committee Management Form -->
+        <div class="form-section" style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); border-left: 4px solid #4caf50;">
+            <h4><i class="fas fa-users-cog"></i> Manage Committee Members (Next Year)</h4>
+            <p class="form-info" style="color: #1b5e20;">
+                <i class="fas fa-info-circle"></i> Add committee members for <strong>next year</strong>. Current year's committee was decided last year.
+            </p>
+            
+            <div class="form-group">
+                <label>Member Name</label>
+                <input type="text" id="committeeMemberName" placeholder="Enter member name" oninput="markFormChanged()">
+            </div>
+            <div class="form-group">
+                <label>Role</label>
+                <select id="committeeMemberRole" class="form-select" oninput="markFormChanged()">
+                    <option value="">-- Select Role --</option>
+                    <option value="Organizer">Organizer</option>
+                    <option value="President">President</option>
+                    <option value="Vice President">Vice President</option>
+                    <option value="Secretary">Secretary</option>
+                    <option value="Treasurer">Treasurer</option>
+                    <option value="Member">Member</option>
+                </select>
+            </div>
+            <button class="btn btn-success" onclick="addCommitteeMember()">
+                <i class="fas fa-plus"></i> Add Committee Member
+            </button>
+            
+            <!-- Current Committee Members List -->
+            <div id="committeeManagementList" style="margin-top: 20px;">
+                <!-- Will be populated by JavaScript -->
+            </div>
+        </div>
+
+        <!-- Dashboard Visibility Control -->
+        <div class="form-section" style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); border-left: 4px solid #2196f3;">
+            <h4><i class="fas fa-eye"></i> Dashboard Visibility Control (Year-Specific)</h4>
+            <p class="form-info" style="color: #0d47a1;">
+                <i class="fas fa-info-circle"></i> Control which years members can view. Dashboard is <strong>hidden by default</strong> until you enable it.
+            </p>
+            
+            <!-- Current Year Toggle -->
+            <div style="background: white; padding: 15px; border-radius: 8px; margin: 15px 0; border: 2px solid #2196f3;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
+                    <h5 style="margin: 0; color: #1565c0;">
+                        <i class="fas fa-calendar-day"></i> Current Year 
+                        <span id="currentYearDisplay" style="font-weight: 700;"></span>
+                    </h5>
+                    <span id="currentYearBadge" style="padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 600;">
+                        <!-- Badge will be updated -->
+                    </span>
+                </div>
+                <label style="display: flex; align-items: center; gap: 12px; cursor: pointer; font-size: 15px; padding: 10px; background: #f5f5f5; border-radius: 6px;">
+                    <input type="checkbox" id="dashboardEnabledCheckbox" onchange="toggleDashboardVisibility()" style="width: 22px; height: 22px; cursor: pointer;">
+                    <span style="font-weight: 600; color: #333;">
+                        <i class="fas fa-toggle-on" style="color: #4caf50;"></i> Visible to Members
+                    </span>
+                </label>
+                <div id="dashboardStatusInfo" style="margin-top: 10px; padding: 10px; border-radius: 6px; font-size: 13px;">
+                    <!-- Status will be updated dynamically -->
+                </div>
+            </div>
+            
+            <!-- All Years Overview -->
+            <div style="background: white; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                <h5 style="margin: 0 0 12px 0; color: #333; display: flex; align-items: center; gap: 8px;">
+                    <i class="fas fa-list"></i> All Years Visibility
+                    <button onclick="refreshAllYearsVisibility()" style="margin-left: auto; padding: 4px 10px; border: 1px solid #ddd; background: white; border-radius: 4px; cursor: pointer; font-size: 12px;" title="Refresh list">
+                        <i class="fas fa-sync-alt"></i>
+                    </button>
+                </h5>
+                <div id="allYearsVisibilityList" style="max-height: 250px; overflow-y: auto;">
+                    <div style="text-align: center; padding: 20px; color: #999;">
+                        <i class="fas fa-spinner fa-spin"></i> Loading...
+                    </div>
+                </div>
+            </div>
+            
+            <p style="color: #666; font-size: 0.85rem; margin-top: 10px; background: #fff3e0; padding: 10px; border-radius: 6px; border-left: 3px solid #ff9800;">
+                <i class="fas fa-user-shield"></i> <strong>Admin Privilege:</strong> You always have access to all years regardless of visibility settings.<br>
+                <i class="fas fa-shield-alt"></i> <strong>Default Behavior:</strong> Dashboard is hidden from members until you enable it for each year.
+            </p>
+        </div>
+    </div>
+
+    <!-- Announcements Banner -->
+    <div id="announcementBanner" style="display: none; background: linear-gradient(135deg, #ff9800 0%, #ff5722 100%); color: white; padding: 15px 0; overflow: hidden; position: relative; box-shadow: 0 4px 12px rgba(255, 152, 0, 0.4); border-bottom: 3px solid #e65100;">
+        <div style="display: flex; align-items: center; white-space: nowrap; animation: scroll-left 30s linear infinite;">
+            <i class="fas fa-bullhorn" style="margin: 0 20px; font-size: 1.5rem;"></i>
+            <span id="announcementText" style="font-size: 1.1rem; font-weight: 600; letter-spacing: 0.5px;"></span>
+            <i class="fas fa-star" style="margin: 0 20px; font-size: 1.5rem; color: #ffd700;"></i>
+            <span id="announcementText2" style="font-size: 1.1rem; font-weight: 600; letter-spacing: 0.5px;"></span>
+            <i class="fas fa-trophy" style="margin: 0 20px; font-size: 1.5rem; color: #ffd700;"></i>
+        </div>
+    </div>
+
+    <style>
+        @keyframes scroll-left {
+            0% {
+                transform: translateX(100%);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            #announcementBanner {
+                padding: 12px 0;
+            }
+            #announcementBanner span {
+                font-size: 0.95rem !important;
+            }
+            #announcementBanner i {
+                font-size: 1.2rem !important;
+                margin: 0 15px !important;
+            }
+        }
+    </style>
+
+    <!-- Main Dashboard Content -->
+    <div id="mainContent" class="container">
+        <!-- Metrics Overview Section -->
+        <div class="dashboard-section">
+            <div class="section-header">
+                <h2><i class="fas fa-chart-bar"></i> Key Metrics Overview</h2>
+                <p class="section-subtitle">Real-time financial statistics at a glance</p>
+            </div>
+            <div class="metrics-grid">
+            <div class="metric-card">
+                <div class="metric-icon" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                    <i class="fas fa-rupee-sign"></i>
+                </div>
+                <div class="metric-content">
+                    <div class="metric-value" id="totalDonations">₹0</div>
+                    <div class="metric-label">Total Donations</div>
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-icon" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="metric-content">
+                    <div class="metric-value" id="totalDonors">0</div>
+                    <div class="metric-label">Total Donors</div>
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-icon" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <div class="metric-content">
+                    <div class="metric-value" id="avgDonation">₹0</div>
+                    <div class="metric-label">Average Donation</div>
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-icon" style="background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);">
+                    <i class="fas fa-trophy"></i>
+                </div>
+                <div class="metric-content">
+                    <div class="metric-value" id="ladduWinnings">₹0</div>
+                    <div class="metric-label">Laddu Winnings</div>
+                    <div style="font-size: 11px; color: #95a5a6; margin-top: 2px;">Added to Total Amount</div>
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-icon" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">
+                    <i class="fas fa-coins"></i>
+                </div>
+                <div class="metric-content">
+                    <div class="metric-value" id="totalIncome">₹0</div>
+                    <div class="metric-label">Total Amount</div>
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-icon" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
+                    <i class="fas fa-receipt"></i>
+                </div>
+                <div class="metric-content">
+                    <div class="metric-value" id="totalExpenses">₹0</div>
+                    <div class="metric-label">Total Expenses</div>
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-icon" style="background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);">
+                    <i class="fas fa-wallet"></i>
+                </div>
+                <div class="metric-content">
+                    <div class="metric-value" id="balance">₹0</div>
+                    <div class="metric-label">Balance</div>
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-icon" style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);">
+                    <i class="fas fa-user-friends"></i>
+                </div>
+                <div class="metric-content">
+                    <div class="metric-value" id="cheetiMembers">0</div>
+                    <div class="metric-label">Cheeti Members</div>
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-icon" style="background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);">
+                    <i class="fas fa-percentage"></i>
+                </div>
+                <div class="metric-content">
+                    <div class="metric-value" id="cheetiInterest">₹0</div>
+                    <div class="metric-label">Estimated Next Year Interest</div>
+                    <div style="font-size: 11px; color: #95a5a6; margin-top: 2px;">From current year members</div>
+                </div>
+            </div>
+        </div>
+        </div>
+
+        <!-- Charts Section -->
+        <div class="dashboard-section">
+            <div class="section-header">
+                <h2><i class="fas fa-chart-pie"></i> Visual Analytics</h2>
+                <p class="section-subtitle">Financial overview and spending breakdown at a glance</p>
+            </div>
+            <div class="charts-grid">
+            <div class="chart-card">
+                <h2><i class="fas fa-balance-scale"></i> Income vs Expenses</h2>
+                <div class="chart-container">
+                    <canvas id="financialChart"></canvas>
+                </div>
+            </div>
+
+            <div class="chart-card">
+                <h2><i class="fas fa-receipt"></i> Expense Categories</h2>
+                <div class="chart-container">
+                    <canvas id="expensesChart"></canvas>
+                </div>
+            </div>
+
+            <div class="chart-card chart-wide">
+                <h2><i class="fas fa-piggy-bank"></i> Cheeti Financial Summary</h2>
+                <div class="chart-container">
+                    <canvas id="cheetiChart"></canvas>
+                </div>
+            </div>
+        </div>
+        </div>
+
+        <!-- Data Tables Section -->
+        <div class="dashboard-section">
+            <div class="section-header">
+                <h2><i class="fas fa-table"></i> Detailed Reports</h2>
+                <p class="section-subtitle">Complete breakdown of donations, cheeti members, and expenses</p>
+            </div>
+            <div class="data-section">
+            <div class="table-card">
+                <h3>Donors List</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Name</th>
+                            <th>Amount</th>
+                            <th id="donorActionsHeader" style="display: none;">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="donorsTableBody"></tbody>
+                </table>
+            </div>
+
+            <div class="table-card">
+                <h3>Cheeti Members</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Sl No</th>
+                            <th>Name</th>
+                            <th>Amount</th>
+                            <th>Interest</th>
+                            <th style="font-size: 0.85em; white-space: nowrap;">Total (inc. late fees)</th>
+                            <th id="cheetiActionsHeader" style="display: none;">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cheetiTableBody"></tbody>
+                </table>
+            </div>
+
+            <!-- Cheeti Paid Dashboard (Admin Only) -->
+            <div class="table-card" id="cheetiPaidDashboard">
+                <h3><i class="fas fa-money-check-alt"></i> Cheeti Payment Tracking (Admin Only)</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Sl No</th>
+                            <th>Name</th>
+                            <th>Amount</th>
+                            <th>Interest</th>
+                            <th>Late Fee</th>
+                            <th>Total Due</th>
+                            <th>Status</th>
+                            <th>Payment Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cheetiPaidTableBody"></tbody>
+                </table>
+            </div>
+
+            <div class="table-card">
+                <h3>Expenses</h3>
+                <table id="expensesTable">
+                    <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Amount</th>
+                            <th id="expenseActionsHeader" style="display: none;">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+        </div>
+
+        <!-- Committee Members Section -->
+        <div class="dashboard-section" id="committeeSection" style="display: none;">
+            <div class="section-header">
+                <h2><i class="fas fa-users-cog"></i> Committee Members</h2>
+                <p class="section-subtitle">Meet the dedicated team organizing this year's festival</p>
+            </div>
+            <div class="data-section" id="committeeGrid">
+                <!-- Committee member cards will be populated here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>&copy; 2026 Vinayaka Chavithi Committee</p>
+        <p>Powered by Community • Managed with Transparency</p>
+    </div>
+
+    <!-- Scripts -->
+    <script src="dashboard-config.js"></script>
+    <script src="simple-dashboard.js"></script>
+    <script>
+        // Year Selection Handler
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if we should auto-show login modal
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('login') === 'true') {
+                // Small delay to ensure session is restored first
+                setTimeout(() => {
+                    // Only show login dialog if user is not already logged in
+                    if (!isAdmin) {
+                        showLoginDialog();
+                    } else {
+                        // User is already logged in, just show the admin panel
+                        showAdminPanel();
+                    }
+                }, 600); // Slightly longer delay to allow session restoration
+            }
+            
+            const yearSelect = document.getElementById('yearSelect');
+            
+            if (yearSelect) {
+                // Populate year options dynamically
+                DASHBOARD_CONFIG.AVAILABLE_YEARS.forEach(year => {
+                    const option = document.createElement('option');
+                    option.value = year;
+                    option.textContent = year;
+                    if (year === DASHBOARD_CONFIG.currentYear) {
+                        option.selected = true;
+                    }
+                    yearSelect.appendChild(option);
+                });
+                
+                // Handle year change
+                yearSelect.addEventListener('change', function() {
+                    const selectedYear = parseInt(this.value);
+                    DASHBOARD_CONFIG.currentYear = selectedYear;
+                    
+                    // Update cheeti form based on new year
+                    if (typeof updateCheetiForm === 'function') {
+                        updateCheetiForm();
+                    }
+                    
+                    // Show loading
+                    showLoading(`Loading ${selectedYear} data...`);
+                    
+                    // Reload data for selected year
+                    setTimeout(() => {
+                        loadDataFromGitHub();
+                    }, 300);
+                });
+            }
+        });
+    </script>
+</body>
+</html>

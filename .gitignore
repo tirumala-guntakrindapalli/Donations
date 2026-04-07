@@ -1,0 +1,18 @@
+# Sensitive Configuration Files
+dashboard-config.js
+
+# macOS
+.DS_Store
+*.swp
+*.swo
+*~
+
+# Editor directories
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
