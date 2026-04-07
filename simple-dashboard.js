@@ -1481,8 +1481,12 @@ async function saveYearDataToFile(year, data) {
         });
         if (checkResponse.ok) {
             const existingFile = await checkResponse.json();
+            console.log(`📋 GitHub API response for ${filePath}:`, existingFile);
             existingSha = existingFile.sha || null;
             console.warn(`⚠️ File ${filePath} already exists. SHA: ${existingSha}`);
+            if (!existingSha) {
+                console.error('❌ SHA is missing from GitHub response! Full response:', JSON.stringify(existingFile));
+            }
         } else {
             console.log(`✅ Creating new file: ${filePath}`);
         }
@@ -2040,7 +2044,11 @@ async function saveYearData(year, data) {
         });
         if (shaResponse.ok) {
             const shaData = await shaResponse.json();
+            console.log(`📋 saveYearData SHA response for ${year}:`, shaData);
             sha = shaData.sha || null;
+            if (!sha && shaData) {
+                console.error('❌ SHA missing in saveYearData! Response:', JSON.stringify(shaData));
+            }
         }
 
         data.lastUpdated = new Date().toISOString();
