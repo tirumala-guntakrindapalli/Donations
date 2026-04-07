@@ -1190,12 +1190,17 @@ async function loadDataFromGitHub() {
             currentData = await response.json();
             console.log(`✅ Local data loaded successfully for year ${currentYear}`);
         } else {
-            // PRODUCTION MODE: Load from GitHub
+            // PRODUCTION MODE: Load from GitHub Contents API (no CDN cache)
             const config = (typeof DASHBOARD_CONFIG !== 'undefined') ? DASHBOARD_CONFIG : CONFIG;
             const dataPath = `data/donations-${currentYear}.json`;
-            const url = `https://raw.githubusercontent.com/${config.GITHUB_OWNER}/${config.GITHUB_REPO}/${config.GITHUB_BRANCH}/${dataPath}`;
+            const apiUrl = `${GITHUB_API_BASE}/repos/${config.GITHUB_OWNER}/${config.GITHUB_REPO}/contents/${dataPath}?ref=${config.GITHUB_BRANCH}`;
             
-            const response = await fetch(url + '?t=' + new Date().getTime()); // Cache bust
+            const response = await fetch(apiUrl, {
+                headers: {
+                    'Authorization': `token ${config.GITHUB_TOKEN}`,
+                    'Accept': 'application/vnd.github.v3.raw'
+                }
+            });
             
             if (!response.ok) {
                 console.warn(`⚠️ Data file not found for year ${currentYear}`);
@@ -1206,7 +1211,7 @@ async function loadDataFromGitHub() {
             
             currentData = await response.json();
             
-            console.log(`Data loaded successfully from GitHub for year ${currentYear}:`, currentData);
+            console.log(`Data loaded successfully from GitHub API for year ${currentYear}:`, currentData);
         }
         
         // Hide warning if it was showing
@@ -1984,10 +1989,15 @@ async function loadYearData(year) {
             return await response.json();
         }
 
-        // GitHub mode - fetch from raw.githubusercontent.com
+        // GitHub mode - fetch from GitHub Contents API (no CDN cache)
         const config = (typeof DASHBOARD_CONFIG !== 'undefined') ? DASHBOARD_CONFIG : CONFIG;
-        const url = `https://raw.githubusercontent.com/${config.GITHUB_OWNER}/${config.GITHUB_REPO}/${config.GITHUB_BRANCH}/${dataPath}`;
-        const response = await fetch(url + '?t=' + new Date().getTime());
+        const apiUrl = `${GITHUB_API_BASE}/repos/${config.GITHUB_OWNER}/${config.GITHUB_REPO}/contents/${dataPath}?ref=${config.GITHUB_BRANCH}`;
+        const response = await fetch(apiUrl, {
+            headers: {
+                'Authorization': `token ${config.GITHUB_TOKEN}`,
+                'Accept': 'application/vnd.github.v3.raw'
+            }
+        });
         if (!response.ok) {
             throw new Error(`Failed to load data for year ${year} from GitHub`);
         }
