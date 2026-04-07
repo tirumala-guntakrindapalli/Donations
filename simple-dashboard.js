@@ -1471,23 +1471,21 @@ async function saveYearDataToFile(year, data) {
         
         // Check if file already exists (get SHA if it does)
         let existingSha = null;
-        try {
-            const checkUrl = `${GITHUB_API_BASE}/repos/${config.GITHUB_OWNER}/${config.GITHUB_REPO}/contents/${filePath}?ref=${config.GITHUB_BRANCH}`;
-            const checkResponse = await fetch(checkUrl, {
-                headers: {
-                    'Authorization': `token ${config.GITHUB_TOKEN}`
-                }
-            });
-            if (checkResponse.ok) {
-                const existingFile = await checkResponse.json();
-                existingSha = existingFile.sha;
-                console.warn(`⚠️ File ${filePath} already exists. Will update it.`);
+        const checkUrl = `${GITHUB_API_BASE}/repos/${config.GITHUB_OWNER}/${config.GITHUB_REPO}/contents/${filePath}?ref=${config.GITHUB_BRANCH}`;
+        const checkResponse = await fetch(checkUrl, {
+            headers: {
+                'Authorization': `token ${config.GITHUB_TOKEN}`,
+                'Accept': 'application/vnd.github+json'
             }
-        } catch (e) {
-            // File doesn't exist, which is expected for new year
+        });
+        if (checkResponse.ok) {
+            const existingFile = await checkResponse.json();
+            existingSha = existingFile.sha || null;
+            console.warn(`⚠️ File ${filePath} already exists. SHA: ${existingSha}`);
+        } else {
             console.log(`✅ Creating new file: ${filePath}`);
         }
-        
+
         // Prepare content
         const content = btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2))));
         
@@ -1495,12 +1493,12 @@ async function saveYearDataToFile(year, data) {
         const url = `${GITHUB_API_BASE}/repos/${config.GITHUB_OWNER}/${config.GITHUB_REPO}/contents/${filePath}`;
         
         const body = {
-            message: `Initialize year ${year} with estimated collections`,
+            message: `Update year ${year} data`,
             content: content,
             branch: config.GITHUB_BRANCH
         };
         
-        // Add SHA if file exists (for update)
+        // SHA is required when updating existing file
         if (existingSha) {
             body.sha = existingSha;
         }
@@ -2030,15 +2028,16 @@ async function saveYearData(year, data) {
 
         // Get current SHA for the year file
         let sha = null;
-        try {
-            const shaResponse = await fetch(apiUrl, {
-                headers: { 'Authorization': `token ${config.GITHUB_TOKEN}` }
-            });
-            if (shaResponse.ok) {
-                const shaData = await shaResponse.json();
-                sha = shaData.sha;
+        const shaResponse = await fetch(apiUrl + `?ref=${config.GITHUB_BRANCH}`, {
+            headers: {
+                'Authorization': `token ${config.GITHUB_TOKEN}`,
+                'Accept': 'application/vnd.github+json'
             }
-        } catch (e) { /* file may not exist yet */ }
+        });
+        if (shaResponse.ok) {
+            const shaData = await shaResponse.json();
+            sha = shaData.sha || null;
+        }
 
         data.lastUpdated = new Date().toISOString();
         const content = btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2))));
