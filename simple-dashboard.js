@@ -705,8 +705,10 @@ async function toggleYearVisibility(year, isEnabled) {
         }
         yearData.settings.dashboard_enabled = isEnabled;
         
-        // Save to file
-        await saveYearDataToFile(year, yearData);
+        // Save to file with descriptive commit message
+        const action = isEnabled ? '✅ Enable' : '🔒 Disable';
+        const commitMsg = `[Dashboard Bot] ${action} ${year} visibility | Admin action`;
+        await saveYearDataToFile(year, yearData, commitMsg);
         
         // If we're updating the current year, refresh the display
         if (year === parseInt(currentData.year)) {
@@ -1414,7 +1416,8 @@ async function initializeNewYear(year) {
         };
         
         // Save the new year data
-        await saveYearDataToFile(year, newYearData);
+        const initCommitMsg = `[Dashboard Bot] 🎉 Initialize ${year} | ${estimatedCollections > 0 ? `₹${estimatedCollections.toLocaleString('en-IN')} estimated` : 'Fresh start'}`;
+        await saveYearDataToFile(year, newYearData, initCommitMsg);
         
         let successMsg = `✅ Year ${year} initialized successfully!`;
         if (estimatedCollections > 0) {
@@ -1438,7 +1441,7 @@ async function initializeNewYear(year) {
 }
 
 // Save Year Data to File
-async function saveYearDataToFile(year, data) {
+async function saveYearDataToFile(year, data, commitMessage = null) {
     const testMode = (typeof DASHBOARD_CONFIG !== 'undefined') 
         ? DASHBOARD_CONFIG.TEST_MODE 
         : (typeof CONFIG !== 'undefined' ? CONFIG.TEST_MODE : true);
@@ -1497,10 +1500,25 @@ async function saveYearDataToFile(year, data) {
         // Create/Update file via GitHub API
         const url = `${GITHUB_API_BASE}/repos/${config.GITHUB_OWNER}/${config.GITHUB_REPO}/contents/${filePath}`;
         
+        const timestamp = new Date().toLocaleString('en-IN', { 
+            day: '2-digit', month: 'short', year: 'numeric', 
+            hour: '2-digit', minute: '2-digit', hour12: true,
+            timeZone: 'Asia/Kolkata'
+        });
+        const defaultMsg = `[Dashboard Bot] 📊 Update ${year} data | ${timestamp}`;
+        
         const body = {
-            message: `Update year ${year} data`,
+            message: commitMessage || defaultMsg,
             content: content,
-            branch: config.GITHUB_BRANCH
+            branch: config.GITHUB_BRANCH,
+            author: {
+                name: "Donations Bot",
+                email: "bot@vinayaka-donations.local"
+            },
+            committer: {
+                name: "Donations Bot",
+                email: "bot@vinayaka-donations.local"
+            }
         };
         
         // SHA is required when updating existing file
@@ -1677,10 +1695,18 @@ async function saveDataToGitHub() {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                message: `Update data - ${new Date().toLocaleString()}`,
+                message: `[Dashboard Bot] 💰 Update donations & expenses | ${new Date().toLocaleString('en-IN', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit', hour12: true, timeZone: 'Asia/Kolkata' })}`,
                 content: content,
                 sha: sha,
-                branch: config.GITHUB_BRANCH
+                branch: config.GITHUB_BRANCH,
+                author: {
+                    name: "Donations Bot",
+                    email: "bot@vinayaka-donations.local"
+                },
+                committer: {
+                    name: "Donations Bot",
+                    email: "bot@vinayaka-donations.local"
+                }
             })
         });
         
@@ -2054,10 +2080,23 @@ async function saveYearData(year, data) {
         data.lastUpdated = new Date().toISOString();
         const content = btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2))));
 
+        const timestamp = new Date().toLocaleString('en-IN', { 
+            day: '2-digit', month: 'short', year: 'numeric', 
+            hour: '2-digit', minute: '2-digit', hour12: true,
+            timeZone: 'Asia/Kolkata'
+        });
         const body = {
-            message: `Update ${year} data - ${new Date().toLocaleString()}`,
+            message: `[Dashboard Bot] 🔄 Cross-year sync ${year} | ${timestamp}`,
             content: content,
-            branch: config.GITHUB_BRANCH
+            branch: config.GITHUB_BRANCH,
+            author: {
+                name: "Donations Bot",
+                email: "bot@vinayaka-donations.local"
+            },
+            committer: {
+                name: "Donations Bot",
+                email: "bot@vinayaka-donations.local"
+            }
         };
         if (sha) body.sha = sha;
 
