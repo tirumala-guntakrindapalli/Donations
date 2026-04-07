@@ -1974,17 +1974,24 @@ async function loadYearData(year) {
             ? DASHBOARD_CONFIG.TEST_MODE 
             : (typeof CONFIG !== 'undefined' ? CONFIG.TEST_MODE : true);
         
+        const dataPath = `data/donations-${year}.json`;
+
         if (testMode) {
-            const dataPath = `data/donations-${year}.json`;
             const response = await fetch(dataPath + '?t=' + new Date().getTime());
             if (!response.ok) {
                 throw new Error(`Failed to load data for year ${year}`);
             }
             return await response.json();
         }
-        
-        // GitHub mode - not implemented in this example
-        throw new Error('GitHub mode not implemented for cross-year operations');
+
+        // GitHub mode - fetch from raw.githubusercontent.com
+        const config = (typeof DASHBOARD_CONFIG !== 'undefined') ? DASHBOARD_CONFIG : CONFIG;
+        const url = `https://raw.githubusercontent.com/${config.GITHUB_OWNER}/${config.GITHUB_REPO}/${config.GITHUB_BRANCH}/${dataPath}`;
+        const response = await fetch(url + '?t=' + new Date().getTime());
+        if (!response.ok) {
+            throw new Error(`Failed to load data for year ${year} from GitHub`);
+        }
+        return await response.json();
         
     } catch (error) {
         console.error(`Error loading data for year ${year}:`, error);
@@ -2005,9 +2012,47 @@ async function saveYearData(year, data) {
             console.log('⚠️ TEST MODE: Automatic file save not available. Data logged to console.');
             return true;
         }
-        
-        // GitHub mode - would implement actual save
-        throw new Error('GitHub mode not implemented for cross-year operations');
+
+        // GitHub mode - save via GitHub API
+        const config = (typeof DASHBOARD_CONFIG !== 'undefined') ? DASHBOARD_CONFIG : CONFIG;
+        const dataPath = `data/donations-${year}.json`;
+        const apiUrl = `${GITHUB_API_BASE}/repos/${config.GITHUB_OWNER || config.GITHUB_USERNAME}/${config.GITHUB_REPO}/contents/${dataPath}`;
+
+        // Get current SHA for the year file
+        let sha = null;
+        try {
+            const shaResponse = await fetch(apiUrl, {
+                headers: { 'Authorization': `token ${config.GITHUB_TOKEN}` }
+            });
+            if (shaResponse.ok) {
+                const shaData = await shaResponse.json();
+                sha = shaData.sha;
+            }
+        } catch (e) { /* file may not exist yet */ }
+
+        data.lastUpdated = new Date().toISOString();
+        const content = btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2))));
+
+        const body = {
+            message: `Update ${year} data - ${new Date().toLocaleString()}`,
+            content: content,
+            branch: config.GITHUB_BRANCH
+        };
+        if (sha) body.sha = sha;
+
+        const response = await fetch(apiUrl, {
+            method: 'PUT',
+            headers: {
+                'Authorization': `token ${config.GITHUB_TOKEN}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(body)
+        });
+
+        if (!response.ok) {
+            throw new Error(`GitHub API error saving year ${year}: ${response.statusText}`);
+        }
+        return true;
         
     } catch (error) {
         console.error(`Error saving data for year ${year}:`, error);
