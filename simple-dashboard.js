@@ -1473,9 +1473,10 @@ async function saveYearDataToFile(year, data) {
         let existingSha = null;
         const checkUrl = `${GITHUB_API_BASE}/repos/${config.GITHUB_OWNER}/${config.GITHUB_REPO}/contents/${filePath}?ref=${config.GITHUB_BRANCH}`;
         const checkResponse = await fetch(checkUrl, {
+            cache: 'no-store',
             headers: {
                 'Authorization': `token ${config.GITHUB_TOKEN}`,
-                'Accept': 'application/vnd.github+json'
+                'Accept': 'application/vnd.github.v3+json'
             }
         });
         if (checkResponse.ok) {
@@ -1708,8 +1709,10 @@ async function getFileSHA() {
         const url = `${GITHUB_API_BASE}/repos/${config.GITHUB_OWNER || config.GITHUB_USERNAME}/${config.GITHUB_REPO}/contents/${config.DATA_FILE_PATH || config.getDataFilePath(config.currentYear)}?ref=${config.GITHUB_BRANCH}`;
         
         const response = await fetch(url, {
+            cache: 'no-store',
             headers: {
-                'Authorization': `token ${config.GITHUB_TOKEN}`
+                'Authorization': `token ${config.GITHUB_TOKEN}`,
+                'Accept': 'application/vnd.github.v3+json'
             }
         });
         
@@ -2029,9 +2032,10 @@ async function saveYearData(year, data) {
         // Get current SHA for the year file
         let sha = null;
         const shaResponse = await fetch(apiUrl + `?ref=${config.GITHUB_BRANCH}`, {
+            cache: 'no-store',
             headers: {
                 'Authorization': `token ${config.GITHUB_TOKEN}`,
-                'Accept': 'application/vnd.github+json'
+                'Accept': 'application/vnd.github.v3+json'
             }
         });
         if (shaResponse.ok) {
