@@ -2,7 +2,7 @@
   "year": "2026",
   "lastUpdated": "2026-04-07T19:37:40.646Z",
   "settings": {
-    "dashboard_enabled": false
+    "dashboard_enabled": true
   },
   "donations": [],
   "cheeti": [],
