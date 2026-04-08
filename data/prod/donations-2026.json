@@ -1,16 +1,10 @@
 {
   "year": "2026",
-  "lastUpdated": "2026-04-08T07:19:41.808Z",
+  "lastUpdated": "2026-04-08T07:21:20.415Z",
   "settings": {
-    "dashboard_enabled": true
+    "dashboard_enabled": false
   },
-  "donations": [
-    {
-      "slNo": 1,
-      "name": "Test1",
-      "amount": 3000
-    }
-  ],
+  "donations": [],
   "cheeti": [],
   "cheeti_collections": [],
   "cheeti_expected": [
