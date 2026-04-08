@@ -634,6 +634,9 @@
         <p>Powered by Community • Managed with Transparency</p>
     </div>
 
+    <!-- Load Dashboard Configuration -->
+    <script src="dashboard-config.js"></script>
+
     <script>
         // Set current year dynamically
         const currentYear = new Date().getFullYear();
@@ -663,8 +666,11 @@
                 let displayYear = currentYear;
                 let dataSource = '';
                 
+                // Get config for environment-aware paths
+                const config = (typeof DASHBOARD_CONFIG !== 'undefined') ? DASHBOARD_CONFIG : null;
+                
                 // Step 1: Try to load current year data
-                const currentYearPath = `data/donations-${currentYear}.json`;
+                const currentYearPath = config ? config.getDataFilePath(currentYear) : `data/donations-${currentYear}.json`;
                 const currentYearResponse = await fetch(currentYearPath + '?t=' + new Date().getTime());
                 
                 if (currentYearResponse.ok) {
@@ -680,7 +686,7 @@
                 // Step 2: If no current year committee, try previous year's next_year committee
                 if (committee.length === 0) {
                     const previousYear = currentYear - 1;
-                    const previousYearPath = `data/donations-${previousYear}.json`;
+                    const previousYearPath = config ? config.getDataFilePath(previousYear) : `data/donations-${previousYear}.json`;
                     const previousYearResponse = await fetch(previousYearPath + '?t=' + new Date().getTime());
                     
                     if (previousYearResponse.ok) {
