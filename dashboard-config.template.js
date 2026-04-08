@@ -23,6 +23,14 @@ const DASHBOARD_CONFIG = {
     // Test Mode (true = load from local files, false = load from GitHub)
     TEST_MODE: true,
     
+    // Data Environment ('prod' = production data, 'dev' = development/testing data)
+    // ⚠️ FOR LOCAL USE ONLY: When deployed to GitHub Pages, this is AUTOMATICALLY
+    //    set to 'prod' by the workflow - no manual configuration needed!
+    // When TEST_MODE is true: uses local files from data/prod/ or data/dev/
+    // When TEST_MODE is false (local): uses GitHub API with prod or dev folder
+    // ⚠️ IMPORTANT: Set to 'dev' for local testing to avoid affecting production data
+    DATA_ENVIRONMENT: 'dev',  // Use 'dev' for testing, 'prod' only when testing prod data locally
+    
     // GitHub Integration
     USE_GITHUB: false,  // Set to true when using GitHub API (requires token)
     
@@ -36,9 +44,10 @@ const DASHBOARD_CONFIG = {
     GITHUB_BRANCH: 'main',                      // Your branch name (fixed in production)
     GITHUB_TOKEN: '',                           // Your Personal Access Token (from secrets in production)
     
-    // Data File Paths (year-based)
+    // Data File Paths (year-based, environment-aware)
     getDataFilePath: function(year) {
-        return `data/donations-${year}.json`;
+        const env = this.DATA_ENVIRONMENT || 'dev'; // Default to dev for safety
+        return `data/${env}/donations-${year}.json`;
     },
     
     // Form Templates for Dynamic Forms

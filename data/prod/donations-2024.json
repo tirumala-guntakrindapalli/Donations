@@ -1,0 +1,83 @@
+{
+  "year": "2024",
+  "settings": {
+    "dashboard_enabled": false
+  },
+  "lastUpdated": "2024-12-31T12:00:00Z",
+  "donations": [
+    {
+      "slNo": 1,
+      "name": "P Hari Krishna Reddy",
+      "amount": 10000
+    },
+    {
+      "slNo": 2,
+      "name": "M Narasimha Reddy",
+      "amount": 5016
+    }
+  ],
+  "cheeti": [
+    {
+      "slNo": 1,
+      "name": "M Krishna Reddy",
+      "amount": 27600,
+      "interest": 3312,
+      "total": 30912
+    },
+    {
+      "slNo": 2,
+      "name": "P Sasidhar",
+      "amount": 27600,
+      "interest": 3312,
+      "total": 30912
+    }
+  ],
+  "expenses": [
+    {
+      "item": "Bandset",
+      "amount": 14500
+    },
+    {
+      "item": "Vigraham",
+      "amount": 10000
+    }
+  ],
+  "report": [
+    {
+      "category": "2025 Cheeti + Interest",
+      "amount": 1224160
+    },
+    {
+      "category": "Donations",
+      "amount": 55885
+    },
+    {
+      "category": "Membership",
+      "amount": 13000
+    },
+    {
+      "category": "Expenses",
+      "amount": -32000
+    }
+  ],
+  "committee": [
+    {
+      "role": "Organizer",
+      "name": "P Sasidhar"
+    },
+    {
+      "role": "Member",
+      "name": "G Venkatesh (Sr)"
+    }
+  ],
+  "committee_next_year": [
+    {
+      "role": "Organizer",
+      "name": "P Sasidhar"
+    },
+    {
+      "role": "Member",
+      "name": "G Venkatesh (Sr)"
+    }
+  ]
+}

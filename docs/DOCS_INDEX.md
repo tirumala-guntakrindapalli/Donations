@@ -40,6 +40,13 @@ Complete guide to the Vinayaka Chavithi Donations Management System.
 - Configuration flow diagram
 - Code implementation details
 
+### [ENVIRONMENT_CONFIG.md](ENVIRONMENT_CONFIG.md)
+**Dev vs Prod data separation**
+- Using separate data folders
+- Environment switching guide
+- Safety checklist
+- Common scenarios
+
 ### [SECURITY_SETUP.md](SECURITY_SETUP.md)
 **Password configuration**
 - Generate SHA-256 password hash
@@ -104,6 +111,14 @@ Complete guide to the Vinayaka Chavithi Donations Management System.
 - Late fees calculation
 - Cross-year operations
 
+### ⭐ [DRAFT_MODE.md](DRAFT_MODE.md) - **Smart change tracking!**
+**Draft mode & batch publishing**
+- Intelligent change consolidation
+- Batch publishing workflow
+- Year switching protection
+- Business logic validations
+- Complete implementation guide
+
 ---
 
 ## 🔬 Technical Documentation
@@ -141,6 +156,7 @@ docs/
 │
 ├── 🔧 Configuration
 │   ├── CONFIG_MODES.md ⭐
+│   ├── ENVIRONMENT_CONFIG.md
 │   ├── SECURITY_SETUP.md
 │   └── SECURITY_NOTES.md
 │
@@ -153,7 +169,8 @@ docs/
 ├── 💡 Features & Usage
 │   ├── USAGE_GUIDE.md ⭐
 │   ├── YEAR_INITIALIZATION_GUIDE.md
-│   └── CHEETI_CYCLE_SYSTEM.md
+│   ├── CHEETI_CYCLE_SYSTEM.md
+│   └── DRAFT_MODE.md ⭐
 │
 └── 🔬 Technical
     ├── ARCHITECTURE.md
@@ -170,8 +187,10 @@ docs/
 | **Deploy to GitHub Pages** | [QUICK_SETUP.md](QUICK_SETUP.md) |
 | **Use the dashboard** | [USAGE_GUIDE.md](USAGE_GUIDE.md) |
 | **Understand config** | [CONFIG_MODES.md](CONFIG_MODES.md) |
+| **Dev vs Prod data** | [ENVIRONMENT_CONFIG.md](ENVIRONMENT_CONFIG.md) |
 | **Set up password** | [SECURITY_SETUP.md](SECURITY_SETUP.md) |
 | **Start new year** | [YEAR_INITIALIZATION_GUIDE.md](YEAR_INITIALIZATION_GUIDE.md) |
+| **Draft mode & batch publish** | [DRAFT_MODE.md](DRAFT_MODE.md) |
 | **Troubleshoot deployment** | [DEPLOYMENT_GUIDE.md](DEPLOYMENT_GUIDE.md) |
 | **Understand git workflow** | [GIT_WORKFLOW.md](GIT_WORKFLOW.md) |
 | **Learn file structure** | [STRUCTURE.md](STRUCTURE.md) |
@@ -186,7 +205,7 @@ docs/
 
 ---
 
-**Total Documentation Files: 15**  
+**Total Documentation Files: 17**  
 **All documentation is kept in the `docs/` folder to keep the project root clean and organized.**
 - GitHub integration
 - API usage

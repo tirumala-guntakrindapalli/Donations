@@ -30,6 +30,10 @@ jobs:
               // Test Mode: false = production (use GitHub), true = local files
               TEST_MODE: false,
               
+              // Data Environment: 'prod' for production, 'dev' for development
+              // Production deployment always uses prod data folder
+              DATA_ENVIRONMENT: 'prod',
+              
               // Available Years (dynamically generated: current year and 2 previous years)
               AVAILABLE_YEARS: (() => {
                   const currentYear = new Date().getFullYear();
@@ -55,9 +59,10 @@ jobs:
               // Application Settings
               APP_NAME: 'Vinayaka Chavithi Donations',
               
-              // Helper function to get data file path
+              // Helper function to get data file path (environment-aware)
               getDataFilePath: function(year) {
-                  return `data/donations-${year}.json`;
+                  const env = this.DATA_ENVIRONMENT || 'prod'; // Default to prod in production
+                  return `data/${env}/donations-${year}.json`;
               }
           };
           EOF

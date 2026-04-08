@@ -1,0 +1,68 @@
+{
+  "year": "2026",
+  "lastUpdated": "2026-04-07T20:16:14.500Z",
+  "settings": {
+    "dashboard_enabled": false
+  },
+  "donations": [
+    {
+      "slNo": 1,
+      "name": "Test1",
+      "amount": 3000
+    }
+  ],
+  "cheeti": [],
+  "cheeti_collections": [],
+  "cheeti_expected": [
+    {
+      "name": "M Krishna Reddy",
+      "amount": 27600,
+      "interest": 3312,
+      "expectedTotal": 30912,
+      "fromYear": 2025
+    },
+    {
+      "name": "P Sasidhar",
+      "amount": 27600,
+      "interest": 3312,
+      "expectedTotal": 30912,
+      "fromYear": 2025
+    }
+  ],
+  "expenses": [],
+  "sponsors": [],
+  "laddu_winners": [],
+  "report": [
+    {
+      "category": "Donations",
+      "amount": 0,
+      "type": "income"
+    },
+    {
+      "category": "Estimated Cheeti Collections (${previousYear})",
+      "amount": 61824,
+      "type": "income_estimated"
+    },
+    {
+      "category": "Actual Cheeti Collections",
+      "amount": 0,
+      "type": "income"
+    },
+    {
+      "category": "Total Expenses",
+      "amount": 0,
+      "type": "expense"
+    }
+  ],
+  "committee": [
+    {
+      "role": "Organizer",
+      "name": "P Sasidhar"
+    },
+    {
+      "role": "Member",
+      "name": "G Venkatesh (Sr)"
+    }
+  ],
+  "committee_next_year": []
+}

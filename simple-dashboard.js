@@ -15,9 +15,19 @@ let currentData = null;
 let refreshTimer = null;
 let hasUnsavedData = false;
 
+// Draft Mode Variables
+let draftMode = false;  // When true, changes are only saved in memory
+let unpublishedChanges = [];  // Track all unpublished changes
+let originalData = null;  // Backup of data from GitHub for discard functionality
+
 // Initialize Dashboard
 document.addEventListener('DOMContentLoaded', function() {
     console.log('Simple Dashboard initializing...');
+    console.log('🔧 Configuration:', {
+        'Test Mode': DASHBOARD_CONFIG.TEST_MODE,
+        'Data Environment': DASHBOARD_CONFIG.DATA_ENVIRONMENT || 'not set (will use dev)',
+        'Data Path': DASHBOARD_CONFIG.getDataFilePath(new Date().getFullYear())
+    });
     setGeneratedDate();
     loadDataFromGitHub();
     setupEventListeners();
@@ -44,8 +54,17 @@ function setupEventListeners() {
     // Refresh Button
     const refreshBtn = document.getElementById('refreshBtn');
     if (refreshBtn) {
-        refreshBtn.addEventListener('click', loadDataFromGitHub);
+        refreshBtn.addEventListener('click', handleRefreshClick);
     }
+
+    // Prevent accidental page refresh/close with unpublished changes
+    window.addEventListener('beforeunload', (e) => {
+        if (isAdmin && unpublishedChanges.length > 0) {
+            e.preventDefault();
+            e.returnValue = ''; // Required for Chrome
+            return ''; // Some browsers show custom message
+        }
+    });
 
     // Login Form Submit
     const loginForm = document.getElementById('loginForm');
@@ -226,6 +245,11 @@ function showAdminPanel() {
         testModeIndicator.style.display = 'block';
     }
     
+    // Enable draft mode (works in both test and production mode)
+    draftMode = true;
+    originalData = JSON.parse(JSON.stringify(currentData)); // Deep clone for backup
+    updateDraftModeUI();
+    
     updateAdminButton();
     
     // Show Actions column headers
@@ -286,8 +310,10 @@ function showAdminPanel() {
         // Update announcements banner
         updateAnnouncements();
         
-        // Update committee management list
+        // Update admin management lists (while isAdmin is still true)
         updateCommitteeManagementList();
+        updateSponsorsManagementList();
+        updateLadduWinnersManagementList();
         
         isAdmin = wasAdmin;
     }
@@ -337,9 +363,37 @@ function updateAdminButton() {
     }
 }
 
+// Handle Refresh Button Click
+async function handleRefreshClick() {
+    // Check if admin has unpublished changes
+    if (isAdmin && unpublishedChanges.length > 0) {
+        const confirmation = await showCustomConfirm({
+            title: '⚠️ Refresh Data',
+            message: `<strong>Warning:</strong> You have <strong>${unpublishedChanges.length} unpublished changes</strong>.<br><br>Refreshing will reload the latest data and <span style="color: #e74c3c;">discard all local changes</span>.<br><br>Are you sure you want to continue?`,
+            icon: 'fas fa-sync-alt',
+            iconColor: '#f39c12',
+            confirmText: 'Refresh',
+            cancelText: 'Cancel',
+            confirmBtnStyle: 'background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);'
+        });
+        
+        if (!confirmation) return;
+        
+        // Clear unpublished changes before refresh
+        unpublishedChanges = [];
+        updateDraftModeUI();
+    }
+    
+    // Proceed with refresh
+    await loadDataFromGitHub();
+}
+
 // Logout Admin
 function logoutAdmin() {
-    if (hasUnsavedData) {
+    // Check both form changes and draft changes
+    if (hasUnsavedData || unpublishedChanges.length > 0) {
+        // Update modal message based on type of unsaved data
+        updateLogoutModalMessage();
         // Show custom confirmation modal instead of browser confirm
         showConfirmModal();
         return;
@@ -347,6 +401,25 @@ function logoutAdmin() {
     
     // If no unsaved data, logout directly
     performLogout();
+}
+
+// Update logout modal message based on unsaved data type
+function updateLogoutModalMessage() {
+    const modalBody = document.querySelector('#confirmModal .confirm-modal-body');
+    if (!modalBody) return;
+    
+    let message = '<p><strong>Warning:</strong> ';
+    
+    if (hasUnsavedData && unpublishedChanges.length > 0) {
+        message += `You have unsaved form data and <strong>${unpublishedChanges.length} unpublished changes</strong> that will be lost if you continue.`;
+    } else if (unpublishedChanges.length > 0) {
+        message += `You have <strong>${unpublishedChanges.length} unpublished changes</strong> that will be lost if you continue.`;
+    } else {
+        message += 'You have unsaved form data that will be lost if you continue.';
+    }
+    
+    message += '</p><p style=\"margin-top: 10px;\">Are you sure you want to logout?</p>';
+    modalBody.innerHTML = message;
 }
 
 // Show Confirmation Modal
@@ -371,7 +444,90 @@ function hideConfirmModal() {
 function confirmLogout() {
     hideConfirmModal();
     hasUnsavedData = false; // Clear the flag before logout
+    unpublishedChanges = []; // Clear draft changes
     performLogout();
+}
+
+// Generic Custom Confirm Dialog
+function showCustomConfirm({ title, message, icon, iconClass, iconColor, confirmText, cancelText, confirmBtnStyle }) {
+    return new Promise((resolve) => {
+        const modal = document.getElementById('customConfirmModal');
+        const titleEl = document.getElementById('customConfirmTitle');
+        const messageEl = document.getElementById('customConfirmMessage');
+        const iconEl = document.getElementById('customConfirmIcon');
+        const headerEl = document.getElementById('customConfirmHeader');
+        const confirmTextEl = document.getElementById('customConfirmProceedText');
+        const cancelTextEl = document.getElementById('customConfirmCancelText');
+        const confirmBtn = document.getElementById('customConfirmProceedBtn');
+        const cancelBtn = document.getElementById('customConfirmCancelBtn');
+
+        // Set content
+        if (titleEl) titleEl.textContent = title || 'Confirm Action';
+        if (messageEl) messageEl.innerHTML = message || 'Are you sure?';
+        if (confirmTextEl) confirmTextEl.textContent = confirmText || 'Confirm';
+        if (cancelTextEl) cancelTextEl.textContent = cancelText || 'Cancel';
+
+        // Set icon and color
+        if (iconEl) {
+            iconEl.className = icon || 'fas fa-question-circle';
+            iconEl.style.color = iconColor || '#e74c3c';
+            iconEl.style.filter = iconColor ? `drop-shadow(0 4px 8px ${iconColor}40)` : 'drop-shadow(0 4px 8px rgba(231, 76, 60, 0.3))';
+        }
+
+        // Set header class for color
+        if (headerEl && iconClass) {
+            headerEl.className = 'confirm-modal-header ' + iconClass;
+        }
+
+        // Set confirm button style
+        if (confirmBtn && confirmBtnStyle) {
+            confirmBtn.style.cssText = confirmBtnStyle;
+        } else if (confirmBtn) {
+            confirmBtn.style.cssText = '';
+        }
+
+        // Show modal
+        if (modal) {
+            modal.style.display = 'flex';
+            document.body.classList.add('modal-open');
+        }
+
+        // Handle confirm
+        const handleConfirm = () => {
+            cleanup();
+            resolve(true);
+        };
+
+        // Handle cancel
+        const handleCancel = () => {
+            cleanup();
+            resolve(false);
+        };
+
+        // Cleanup function
+        const cleanup = () => {
+            if (modal) {
+                modal.style.display = 'none';
+                document.body.classList.remove('modal-open');
+            }
+            if (confirmBtn) confirmBtn.removeEventListener('click', handleConfirm);
+            if (cancelBtn) cancelBtn.removeEventListener('click', handleCancel);
+        };
+
+        // Attach event listeners
+        if (confirmBtn) confirmBtn.addEventListener('click', handleConfirm);
+        if (cancelBtn) cancelBtn.addEventListener('click', handleCancel);
+
+        // Close on escape key
+        const handleEscape = (e) => {
+            if (e.key === 'Escape') {
+                cleanup();
+                resolve(false);
+                document.removeEventListener('keydown', handleEscape);
+            }
+        };
+        document.addEventListener('keydown', handleEscape);
+    });
 }
 
 // Perform Logout - Actual logout logic
@@ -423,6 +579,651 @@ function closeAdminPanel() {
         panel.style.display = 'none';
     }
     updateAdminButton();
+}
+
+// Draft Mode Functions
+function updateDraftModeUI() {
+    const draftControls = document.getElementById('draftModeControls');
+    const countSpan = document.getElementById('unpublishedCount');
+    
+    if (draftControls && draftMode && unpublishedChanges.length > 0) {
+        draftControls.style.display = 'block';
+        if (countSpan) {
+            countSpan.textContent = unpublishedChanges.length;
+        }
+    } else if (draftControls) {
+        draftControls.style.display = 'none';
+    }
+}
+
+function trackChange(action, category, details) {
+    if (!draftMode) return;
+    
+    // Get a unique identifier for the item based on category
+    const getItemKey = (cat, det) => {
+        // Handle wrapped format from delete: { index, item: {...} }
+        // Check if det.item is an object (wrapped) or a primitive value (direct)
+        const actualItem = (det.item && typeof det.item === 'object') ? det.item : det;
+        
+        if (cat === 'donation') {
+            const name = actualItem.name || '';
+            const amount = actualItem.amount || 0;
+            return `${name}-${amount}`;
+        }
+        if (cat === 'expense') {
+            const item = actualItem.item || '';
+            const amount = actualItem.amount || 0;
+            return `${item}-${amount}`;
+        }
+        if (cat === 'cheeti') {
+            const name = actualItem.name || '';
+            const amount = actualItem.amount || 0;
+            return `${name}-${amount}`;
+        }
+        if (cat === 'sponsor') {
+            const name = actualItem.name || '';
+            const type = actualItem.type || '';
+            return `${name}-${type}`;
+        }
+        if (cat === 'committee') return actualItem.name;
+        if (cat === 'laddu') return actualItem.name;
+        return null;
+    };
+    
+    const itemKey = getItemKey(category, details);
+    
+    // Smart change tracking: handle opposite actions and multiple edits
+    if (itemKey) {
+        // Check if there's an opposite action for the same item
+        if (action === 'delete') {
+            // First, check if we have an edit for this item - remove it
+            const editIndex = unpublishedChanges.findIndex(c => 
+                c.action === 'edit' && 
+                c.category === category && 
+                c.details.index === details.index
+            );
+            
+            if (editIndex !== -1) {
+                // Remove the edit entry when deleting
+                unpublishedChanges.splice(editIndex, 1);
+            }
+            
+            // Then check if we're deleting something we just added
+            const addIndex = unpublishedChanges.findIndex(c => 
+                c.action === 'add' && 
+                c.category === category && 
+                getItemKey(category, c.details) === itemKey
+            );
+            
+            if (addIndex !== -1) {
+                // Remove the add entry - they cancel out
+                unpublishedChanges.splice(addIndex, 1);
+                updateDraftModeUI();
+                return; // Don't add the delete entry
+            }
+        } else if (action === 'add') {
+            // If we're adding something we just deleted, remove the delete entry
+            const deleteIndex = unpublishedChanges.findIndex(c => 
+                c.action === 'delete' && 
+                c.category === category && 
+                getItemKey(category, c.details) === itemKey
+            );
+            
+            if (deleteIndex !== -1) {
+                // Get the deleted item details
+                const deletedEntry = unpublishedChanges[deleteIndex];
+                const deletedItem = deletedEntry.details.item;
+                
+                // Remove the delete entry and convert to edit
+                unpublishedChanges.splice(deleteIndex, 1);
+                
+                // Restructure details for edit action
+                details = {
+                    old: deletedItem,
+                    new: details,
+                    index: deletedEntry.details.index
+                };
+                
+                // This is effectively an edit, so track it as such
+                action = 'edit';
+            }
+        } else if (action === 'edit') {
+            // First check if we're editing something we just added
+            // Match by the OLD item key (before edit) since that's what the ADD entry has
+            const editItemKey = getItemKey(category, details.old);
+            const addIndex = unpublishedChanges.findIndex(c => 
+                c.action === 'add' && 
+                c.category === category && 
+                getItemKey(category, c.details) === editItemKey
+            );
+            
+            if (addIndex !== -1) {
+                // Update the add entry with the new values (keep it as an add, not edit)
+                unpublishedChanges[addIndex] = {
+                    timestamp: new Date().toISOString(),
+                    action: 'add',
+                    category: category,
+                    details: details.new // Use the new values from the edit
+                };
+                updateDraftModeUI();
+                return; // Don't add a separate edit entry
+            }
+            
+            // If we're editing the same item again, update the existing edit entry
+            // Use index to identify the exact item being edited
+            const existingEditIndex = unpublishedChanges.findIndex(c => 
+                c.action === 'edit' && 
+                c.category === category && 
+                c.details.index === details.index
+            );
+            
+            if (existingEditIndex !== -1) {
+                // Update the existing edit entry with new values, but keep original "old" values
+                const existingEdit = unpublishedChanges[existingEditIndex];
+                unpublishedChanges[existingEditIndex] = {
+                    timestamp: new Date().toISOString(),
+                    action: 'edit',
+                    category: category,
+                    details: {
+                        ...details,
+                        old: existingEdit.details.old // Keep the original "old" values
+                    }
+                };
+                updateDraftModeUI();
+                return; // Don't add a new entry
+            }
+        }
+    }
+    
+    // Smart tracking for visibility toggles
+    if (action === 'toggle_visibility' && category === 'year_visibility') {
+        const year = details.year;
+        const newState = details.enabled;
+        
+        // Check if we already have a toggle for this year
+        const existingToggleIndex = unpublishedChanges.findIndex(c => 
+            c.action === 'toggle_visibility' && 
+            c.category === 'year_visibility' && 
+            c.details.year === year
+        );
+        
+        if (existingToggleIndex !== -1) {
+            // Get the original state from originalData
+            const originalState = originalData.settings && originalData.settings.dashboard_enabled === true;
+            
+            // If toggling back to original state, remove the change (cancel out)
+            if (newState === originalState) {
+                unpublishedChanges.splice(existingToggleIndex, 1);
+                updateDraftModeUI();
+                return;
+            } else {
+                // Update existing toggle to new state
+                unpublishedChanges[existingToggleIndex] = {
+                    timestamp: new Date().toISOString(),
+                    action: 'toggle_visibility',
+                    category: 'year_visibility',
+                    details: {
+                        year: year,
+                        enabled: newState
+                    }
+                };
+                updateDraftModeUI();
+                return;
+            }
+        } else {
+            // Check if this matches the original state
+            const originalState = originalData.settings && originalData.settings.dashboard_enabled === true;
+            
+            // If toggling to the same state as original, don't track it
+            if (newState === originalState) {
+                return;
+            }
+        }
+    }
+    
+    unpublishedChanges.push({
+        timestamp: new Date().toISOString(),
+        action: action,
+        category: category,
+        details: details
+    });
+    
+    updateDraftModeUI();
+}
+
+async function publishAllChanges() {
+    if (!isAdmin || unpublishedChanges.length === 0) {
+        showError('No changes to publish');
+        return;
+    }
+    
+    // Generate and show preview of all changes
+    const preview = generateChangesPreview();
+    
+    const confirmation = await showCustomConfirm({
+        title: '📦 Publish Changes',
+        message: preview,
+        icon: 'fas fa-cloud-upload-alt',
+        iconColor: '#10b981',
+        confirmText: 'Publish',
+        cancelText: 'Cancel',
+        confirmBtnStyle: 'background: linear-gradient(135deg, #27ae60 0%, #229954 100%);'
+    });
+    
+    if (!confirmation) return;
+    
+    showLoading('Publishing changes...');
+    
+    try {
+        // Generate commit message summarizing changes
+        const changeSummary = generateChangeSummary();
+        
+        // Save to GitHub with custom commit message
+        await saveDataToGitHub(changeSummary);
+        
+        // Clear draft state
+        unpublishedChanges = [];
+        originalData = JSON.parse(JSON.stringify(currentData));
+        updateDraftModeUI();
+        
+        showSuccess(`✅ Published ${changeSummary.totalChanges} changes successfully!`);
+        hideLoading();
+        
+    } catch (error) {
+        console.error('Error publishing changes:', error);
+        showError('Failed to publish changes. Check console for details.');
+        hideLoading();
+    }
+}
+
+function generateChangesPreview() {
+    // Group changes by action
+    const grouped = {
+        add: [],
+        edit: [],
+        delete: [],
+        toggle_visibility: []
+    };
+    
+    unpublishedChanges.forEach(change => {
+        if (grouped[change.action]) {
+            grouped[change.action].push(change);
+        }
+    });
+    
+    let preview = `
+        <div style="text-align: center; margin-bottom: 20px;">
+            <h3 style="margin: 0; color: #2c3e50; font-size: 1.1rem;">
+                📦 <strong>${unpublishedChanges.length}</strong> Change${unpublishedChanges.length !== 1 ? 's' : ''} Ready to Publish
+            </h3>
+        </div>
+        <div style="text-align: left; max-height: 350px; overflow-y: auto;">
+    `;
+    
+    // Show additions
+    if (grouped.add.length > 0) {
+        preview += `
+            <div style="margin-bottom: 15px; padding: 12px; background: #d4edda; border-left: 4px solid #28a745; border-radius: 6px;">
+                <div style="font-weight: 600; color: #155724; margin-bottom: 8px;">
+                    ➕ ADDITIONS (${grouped.add.length})
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 6px;">
+        `;
+        grouped.add.forEach((change, idx) => {
+            const details = formatChangeDetails(change);
+            const categoryIcon = getCategoryIcon(change.category);
+            preview += `
+                <div style="background: rgba(255,255,255,0.6); padding: 8px 12px; border-radius: 6px; display: flex; align-items: center; gap: 8px; font-size: 0.95rem;">
+                    <span style="font-size: 1.2rem;">${categoryIcon}</span>
+                    <span style="color: #155724;"><strong>${capitalizeFirst(change.category)}:</strong> ${details}</span>
+                </div>
+            `;
+        });
+        preview += `</div></div>`;
+    }
+    
+    // Show edits
+    if (grouped.edit.length > 0) {
+        preview += `
+            <div style="margin-bottom: 15px; padding: 12px; background: #fff3cd; border-left: 4px solid #ffc107; border-radius: 6px;">
+                <div style="font-weight: 600; color: #856404; margin-bottom: 8px;">
+                    ✏️ EDITS (${grouped.edit.length})
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 6px;">
+        `;
+        grouped.edit.forEach((change, idx) => {
+            const details = formatChangeDetails(change);
+            const categoryIcon = getCategoryIcon(change.category);
+            preview += `
+                <div style="background: rgba(255,255,255,0.6); padding: 8px 12px; border-radius: 6px; display: flex; align-items: center; gap: 8px; font-size: 0.95rem;">
+                    <span style="font-size: 1.2rem;">${categoryIcon}</span>
+                    <span style="color: #856404;"><strong>${capitalizeFirst(change.category)}:</strong> ${details}</span>
+                </div>
+            `;
+        });
+        preview += `</div></div>`;
+    }
+    
+    // Show deletions
+    if (grouped.delete.length > 0) {
+        preview += `
+            <div style="margin-bottom: 15px; padding: 12px; background: #f8d7da; border-left: 4px solid #dc3545; border-radius: 6px;">
+                <div style="font-weight: 600; color: #721c24; margin-bottom: 8px;">
+                    🗑️ DELETIONS (${grouped.delete.length})
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 6px;">
+        `;
+        grouped.delete.forEach((change, idx) => {
+            const details = formatChangeDetails(change);
+            const categoryIcon = getCategoryIcon(change.category);
+            preview += `
+                <div style="background: rgba(255,255,255,0.6); padding: 8px 12px; border-radius: 6px; display: flex; align-items: center; gap: 8px; font-size: 0.95rem;">
+                    <span style="font-size: 1.2rem;">${categoryIcon}</span>
+                    <span style="color: #721c24;"><strong>${capitalizeFirst(change.category)}:</strong> ${details}</span>
+                </div>
+            `;
+        });
+        preview += `</div></div>`;
+    }
+    
+    // Show visibility toggles
+    if (grouped.toggle_visibility.length > 0) {
+        preview += `
+            <div style="margin-bottom: 15px; padding: 12px; background: #d1ecf1; border-left: 4px solid #17a2b8; border-radius: 6px;">
+                <div style="font-weight: 600; color: #0c5460; margin-bottom: 8px;">
+                    👁️ VISIBILITY CHANGES (${grouped.toggle_visibility.length})
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 6px;">
+        `;
+        grouped.toggle_visibility.forEach((change, idx) => {
+            const details = formatChangeDetails(change);
+            preview += `
+                <div style="background: rgba(255,255,255,0.6); padding: 8px 12px; border-radius: 6px; display: flex; align-items: center; gap: 8px; font-size: 0.95rem;">
+                    <span style="font-size: 1.2rem;">👁️</span>
+                    <span style="color: #0c5460;"><strong>${capitalizeFirst(change.category)}:</strong> ${details}</span>
+                </div>
+            `;
+        });
+        preview += `</div></div>`;
+    }
+    
+    preview += `
+        </div>
+        <div style="text-align: center; margin-top: 20px; padding: 15px 20px; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border-radius: 10px; border: 2px solid #10b981;">
+            <p style="margin: 0; color: #2c3e50; font-weight: 600; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                <i class="fas fa-rocket" style="color: #10b981;"></i>
+                Confirm and publish all these changes?
+            </p>
+        </div>
+    `;
+    
+    return preview;
+}
+
+// Helper function to get category icon
+function getCategoryIcon(category) {
+    const icons = {
+        'donation': '💰',
+        'expense': '💸',
+        'cheeti': '🎯',
+        'sponsor': '🤝',
+        'committee': '👥',
+        'committee_next': '👥',
+        'laddu': '🎁',
+        'year_visibility': '📅'
+    };
+    return icons[category] || '📋';
+}
+
+// Helper function to capitalize first letter
+function capitalizeFirst(str) {
+    if (!str) return '';
+    return str.charAt(0).toUpperCase() + str.slice(1).replace(/_/g, ' ');
+}
+
+function formatChangeDetails(change) {
+    const details = change.details;
+    
+    switch (change.category) {
+        case 'donation':
+            if (change.action === 'edit') {
+                if (!details.old || !details.new) {
+                    return 'Donation: Invalid edit data';
+                }
+                return `${details.old.name} - ₹${details.old.amount} → ${details.new.name} - ₹${details.new.amount}`;
+            }
+            if (change.action === 'delete') {
+                return `${details.item?.name || 'Unknown'} - ₹${details.item?.amount || 0}`;
+            }
+            return `${details.name || 'Unknown'} - ₹${details.amount || 0}`;
+            
+        case 'expense':
+            if (change.action === 'edit') {
+                if (!details.old || !details.new) {
+                    return 'Expense: Invalid edit data';
+                }
+                return `${details.old.item} - ₹${details.old.amount} → ${details.new.item} - ₹${details.new.amount}`;
+            }
+            if (change.action === 'delete') {
+                return `${details.item?.item || 'Unknown'} - ₹${details.item?.amount || 0}`;
+            }
+            return `${details.item || 'Unknown'} - ₹${details.amount || 0}`;
+            
+        case 'cheeti':
+            if (change.action === 'edit') {
+                // Check if this is a payment status update
+                if (change.details.type === 'payment_update') {
+                    if (!change.details.new) {
+                        return 'Cheeti: Invalid payment update data';
+                    }
+                    const paidStatus = change.details.new.paid ? '✅ Paid' : '❌ Unpaid';
+                    return `Payment Status: ${paidStatus} (Late Fee: ₹${change.details.new.lateFee || 0})`;
+                }
+                if (!details.old || !details.new) {
+                    return 'Cheeti: Invalid edit data';
+                }
+                return `${details.old.name} - ₹${details.old.amount} → ${details.new.name} - ₹${details.new.amount}`;
+            }
+            if (change.action === 'delete') {
+                return `${details.item?.name || 'Unknown'} - ₹${details.item?.amount || 0}`;
+            }
+            return `${details.name || 'Unknown'} - ₹${details.amount || 0}`;
+            
+        case 'sponsor': {
+            if (change.action === 'edit') {
+                if (!details.old || !details.new) {
+                    return 'Sponsor: Invalid edit data';
+                }
+                return `${details.old.name} - ${details.old.type} - ₹${details.old.amount || 0} → ${details.new.name} - ${details.new.type} - ₹${details.new.amount || 0}`;
+            }
+            if (change.action === 'delete') {
+                const deleteType = details.item?.type ? ` (${details.item.type})` : '';
+                const deleteAmount = details.item?.amount || 0;
+                return `${details.item?.name || 'Unknown'}${deleteType}${deleteAmount > 0 ? ` - ₹${deleteAmount}` : ''}`;
+            }
+            const addType = details.type ? ` (${details.type})` : '';
+            const addAmount = details.amount || 0;
+            return `${details.name || 'Unknown'}${addType}${addAmount > 0 ? ` - ₹${addAmount}` : ''}`;
+        }
+            
+        case 'committee':
+            if (change.action === 'edit') {
+                if (!details.old || !details.new) {
+                    return 'Committee: Invalid edit data';
+                }
+                return `${details.old.name} - ${details.old.role} → ${details.new.name} - ${details.new.role}`;
+            }
+            if (change.action === 'delete') {
+                return `${details.item?.name || 'Unknown'} - ${details.item?.role || 'Member'}`;
+            }
+            return `${details.name || 'Unknown'} - ${details.role || 'Member'}`;
+            
+        case 'laddu': {
+            if (change.action === 'edit') {
+                if (!details.old || !details.new) {
+                    return 'Laddu Winner: Invalid edit data';
+                }
+                return `${details.old.name} - ₹${details.old.amount || 0} → ${details.new.name} - ₹${details.new.amount || 0}`;
+            }
+            if (change.action === 'delete') {
+                const deleteAmount = details.item?.amount || 0;
+                const deleteDate = details.item?.date ? new Date(details.item.date).toLocaleDateString('en-IN') : '';
+                return `${details.item?.name || 'Unknown'}${deleteAmount > 0 ? ` - ₹${deleteAmount}` : ''}${deleteDate ? ` (${deleteDate})` : ''}`;
+            }
+            const addAmount = details.amount || 0;
+            const addDate = details.date ? new Date(details.date).toLocaleDateString('en-IN') : '';
+            return `${details.name || 'Unknown'}${addAmount > 0 ? ` - ₹${addAmount}` : ''}${addDate ? ` (${addDate})` : ''}`;
+        }
+            
+        case 'year_visibility':
+            return `Year ${details.year} visibility ${details.enabled ? 'enabled' : 'disabled'}`;
+            
+        default:
+            return JSON.stringify(details).substring(0, 50);
+    }
+}
+
+function generateChangeSummary() {
+    const summary = {
+        additions: 0,
+        edits: 0,
+        deletions: 0,
+        visibilityToggles: 0,
+        byCategory: {}
+    };
+    
+    unpublishedChanges.forEach(change => {
+        if (change.action === 'add') summary.additions++;
+        else if (change.action === 'edit') summary.edits++;
+        else if (change.action === 'delete') summary.deletions++;
+        else if (change.action === 'toggle_visibility') summary.visibilityToggles++;
+        
+        if (!summary.byCategory[change.category]) {
+            summary.byCategory[change.category] = 0;
+        }
+        summary.byCategory[change.category]++;
+    });
+    
+    summary.totalChanges = unpublishedChanges.length;
+    
+    // Build commit message
+    const parts = [];
+    if (summary.additions > 0) parts.push(`${summary.additions} added`);
+    if (summary.edits > 0) parts.push(`${summary.edits} edited`);
+    if (summary.deletions > 0) parts.push(`${summary.deletions} deleted`);
+    if (summary.visibilityToggles > 0) parts.push(`${summary.visibilityToggles} visibility changed`);
+    
+    summary.message = `[Dashboard Bot] 📦 Batch update: ${parts.join(', ')} [skip ci]`;
+    
+    return summary;
+}
+
+async function discardDraftChanges() {
+    if (!isAdmin || unpublishedChanges.length === 0) {
+        showError('No changes to discard');
+        return;
+    }
+    
+    const confirmation = await showCustomConfirm({
+        title: '🗑️ Discard Changes',
+        message: `<strong>Discard ${unpublishedChanges.length} unpublished changes?</strong><br><br>This will reload the latest data and lose all local changes.`,
+        icon: 'fas fa-exclamation-triangle',
+        iconColor: '#f39c12',
+        confirmText: 'Discard',
+        cancelText: 'Keep Changes',
+        confirmBtnStyle: 'background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);'
+    });
+    
+    if (!confirmation) return;
+    
+    // Clear draft changes
+    unpublishedChanges = [];
+    updateDraftModeUI();
+    
+    // Trigger the same refresh as the refresh button
+    await loadDataFromGitHub();
+    
+    showSuccess('✅ Changes discarded. Data reloaded.');
+}
+
+// Delete functionality for all data types
+async function deleteItem(category, index, name) {
+    if (!isAdmin) {
+        showError('You must be logged in as admin');
+        return;
+    }
+    
+    const confirmation = await showCustomConfirm({
+        title: '🗑️ Delete Item',
+        message: `<div style="text-align: center;"><p style="margin-bottom: 15px; font-size: 1.05rem;">Delete this ${category}?</p><p style="font-size: 1.2rem; font-weight: 700; color: #2c3e50; margin-bottom: 15px;">${name || `Item #${index + 1}`}</p><p style="color: #e74c3c; font-weight: 600;"><i class="fas fa-exclamation-triangle"></i> This action cannot be undone.</p></div>`,
+        icon: 'fas fa-trash-alt',
+        iconColor: '#e74c3c',
+        confirmText: 'Delete',
+        cancelText: 'Cancel',
+        confirmBtnStyle: 'background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);'
+    });
+    
+    if (!confirmation) return;
+    
+    let dataArray;
+    let categoryName;
+    
+    switch(category) {
+        case 'donation':
+            dataArray = currentData.donations;
+            categoryName = 'Donation';
+            break;
+        case 'expense':
+            dataArray = currentData.expenses;
+            categoryName = 'Expense';
+            break;
+        case 'cheeti':
+            dataArray = currentData.cheeti;
+            categoryName = 'Cheeti Member';
+            break;
+        case 'sponsor':
+            dataArray = currentData.sponsors;
+            categoryName = 'Sponsor';
+            break;
+        case 'committee':
+            dataArray = currentData.committee;
+            categoryName = 'Committee Member';
+            break;
+        case 'committee_next':
+            dataArray = currentData.committee_next_year;
+            categoryName = 'Next Year Committee Member';
+            break;
+        case 'laddu':
+            dataArray = currentData.laddu_winners;
+            categoryName = 'Laddu Winner';
+            break;
+        default:
+            showError('Unknown category');
+            return;
+    }
+    
+    if (!dataArray || index < 0 || index >= dataArray.length) {
+        showError('Invalid item');
+        return;
+    }
+    
+    // Remove the item
+    const deletedItem = dataArray.splice(index, 1)[0];
+    
+    // Renumber sl_no if exists
+    if (dataArray.length > 0 && dataArray[0].hasOwnProperty('slNo')) {
+        dataArray.forEach((item, idx) => {
+            item.slNo = idx + 1;
+        });
+    }
+    
+    // Track change for draft mode
+    trackChange('delete', category, { index, item: deletedItem });
+    
+    // Refresh UI to show updated data
+    processData();
+    
+    showSuccess(`✅ ${categoryName} deleted successfully`);
 }
 
 // Mark form as changed (unsaved data)
@@ -495,6 +1296,12 @@ function setCheetiCutoverDate() {
 
 // Update Cutover Date Display
 function updateCutoverDisplay() {
+    // Check if currentData is loaded
+    if (!currentData) {
+        console.log('currentData not yet loaded, skipping cutover display update');
+        return;
+    }
+    
     const infoDiv = document.getElementById('currentCutoverInfo');
     const dateDisplay = document.getElementById('cutoverDateDisplay');
     const feeDisplay = document.getElementById('lateFeeRateDisplay');
@@ -542,16 +1349,19 @@ function toggleDashboardVisibility() {
     
     currentData.settings.dashboard_enabled = isEnabled;
     
+    // Track change for draft mode
+    trackChange('toggle_visibility', 'year_visibility', {
+        year: parseInt(currentData.year),
+        enabled: isEnabled
+    });
+    
     // Update status display
     updateDashboardStatusDisplay();
     
-    // Save to GitHub
-    saveDataToGitHub().then(() => {
-        const statusMsg = isEnabled 
-            ? '✅ Dashboard is now visible to all members' 
-            : '🔒 Dashboard is now hidden from members (only admins can view)';
-        showSuccess(statusMsg);
-    });
+    const statusMsg = isEnabled 
+        ? '✅ Dashboard visibility enabled (pending publish)' 
+        : '🔒 Dashboard visibility disabled (pending publish)';
+    showSuccess(statusMsg);
 }
 
 // Update Dashboard Status Display
@@ -690,6 +1500,34 @@ async function toggleYearVisibility(year, isEnabled) {
         return;
     }
     
+    // Check if this is the current year - if so, use draft mode
+    if (year === parseInt(currentData.year)) {
+        // Update settings
+        if (!currentData.settings) {
+            currentData.settings = {};
+        }
+        currentData.settings.dashboard_enabled = isEnabled;
+        
+        // Track change for draft mode
+        trackChange('toggle_visibility', 'year_visibility', {
+            year: year,
+            enabled: isEnabled
+        });
+        
+        // Update status display
+        updateDashboardStatusDisplay();
+        
+        // Refresh the all years list
+        loadAllYearsVisibility();
+        
+        const statusMsg = isEnabled 
+            ? `✅ Year ${year} visibility enabled (pending publish)` 
+            : `🔒 Year ${year} visibility disabled (pending publish)`;
+        showSuccess(statusMsg);
+        return;
+    }
+    
+    // For other years, save immediately (affects different file)
     try {
         showLoading(`Updating year ${year} visibility...`);
         
@@ -710,14 +1548,8 @@ async function toggleYearVisibility(year, isEnabled) {
         const commitMsg = `[Dashboard Bot] ${action} ${year} visibility | Admin action`;
         await saveYearDataToFile(year, yearData, commitMsg);
         
-        // If we're updating the current year, refresh the display
-        if (year === parseInt(currentData.year)) {
-            currentData.settings = yearData.settings;
-            updateDashboardStatusDisplay();
-        } else {
-            // Just refresh the all years list
-            loadAllYearsVisibility();
-        }
+        // Refresh the all years list
+        loadAllYearsVisibility();
         
         hideLoading();
         
@@ -1219,6 +2051,17 @@ async function loadDataFromGitHub() {
         // Hide warning if it was showing
         hideYearNotInitializedWarning();
         
+        // Reset draft mode for new year data
+        if (typeof unpublishedChanges !== 'undefined') {
+            unpublishedChanges = [];
+        }
+        if (typeof originalData !== 'undefined') {
+            originalData = JSON.parse(JSON.stringify(currentData));
+        }
+        if (typeof updateDraftModeUI === 'function') {
+            updateDraftModeUI();
+        }
+        
         // Update year display in header if element exists
         const yearDisplay = document.querySelector('.header h1');
         if (yearDisplay && !yearDisplay.textContent.includes(currentYear)) {
@@ -1543,7 +2386,7 @@ async function saveYearDataToFile(year, data, commitMessage = null) {
         const result = await response.json();
         console.log(`✅ File created/updated on GitHub:`, result.content.html_url);
         
-        showSuccess(`✅ Year ${year} initialized and saved to GitHub!`);
+        showSuccess(`✅ Year ${year} initialized and saved successfully!`);
         
         return true;
         
@@ -1601,8 +2444,10 @@ function processData() {
         populateCheetiPaidTable(cheetiData);
         // Update cheeti form based on selected year
         updateCheetiForm();
-        // Update committee management list
+        // Update management lists
         updateCommitteeManagementList();
+        updateSponsorsManagementList();
+        updateLadduWinnersManagementList();
     }
 }
 
@@ -1640,7 +2485,7 @@ function updateMetrics(donations, cheeti, expenses, report) {
 }
 
 // Save Data to GitHub
-async function saveDataToGitHub() {
+async function saveDataToGitHub(customSummary = null) {
     if (!isAdmin) {
         showError('You must be logged in as admin to save data');
         return Promise.reject(new Error('Not logged in'));
@@ -1653,8 +2498,8 @@ async function saveDataToGitHub() {
     
     // TEST MODE: Update in memory and refresh UI (temporary - lost on page refresh)
     if (testMode) {
-        console.log('🧪 TEST MODE: Data saved in memory (temporary)');
-        console.log('💡 Changes will be visible until page refresh');
+        console.log('🧪 TEST MODE: Data saved in memory only (not persisted to file)');
+        console.log('⚠️  Changes will be lost on page refresh or auto-refresh');
         console.log('📊 Current data:', currentData);
         
         // Update timestamp
@@ -1663,12 +2508,25 @@ async function saveDataToGitHub() {
         // Refresh the UI with updated data
         processData();
         
-        showSuccess('✅ Changes saved temporarily! (Lost on refresh - TEST MODE)');
+        // Only show success message if not called from publish flow
+        if (!customSummary) {
+            showSuccess('⚠️ TEST MODE: Changes saved in memory only! To persist, manually update the JSON file.');
+        } else {
+            showSuccess('✅ Published successfully! ⚠️ TEST MODE: Update JSON file manually or changes will be lost on refresh.');
+        }
         
         return Promise.resolve();
     }
     
-    showLoading('Saving data to GitHub...');
+    // DRAFT MODE: Just update memory and UI, don't commit to GitHub yet
+    if (draftMode && !customSummary) {
+        console.log('📝 DRAFT MODE: Changes saved in memory only');
+        currentData.lastUpdated = new Date().toISOString();
+        processData();
+        return Promise.resolve();
+    }
+    
+    showLoading('Saving data...');
     
     try {
         // Get current file SHA (required for update)
@@ -1685,6 +2543,11 @@ async function saveDataToGitHub() {
         // Get config (DASHBOARD_CONFIG or CONFIG)
         const config = (typeof DASHBOARD_CONFIG !== 'undefined') ? DASHBOARD_CONFIG : CONFIG;
         
+        // Generate commit message
+        const commitMessage = customSummary 
+            ? customSummary.message 
+            : `[Dashboard Bot] 💰 Update donations & expenses | ${new Date().toLocaleString('en-IN', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit', hour12: true, timeZone: 'Asia/Kolkata' })} [skip ci]`;
+        
         // Update file via GitHub API
         const url = `${GITHUB_API_BASE}/repos/${config.GITHUB_OWNER || config.GITHUB_USERNAME}/${config.GITHUB_REPO}/contents/${config.DATA_FILE_PATH || config.getDataFilePath(config.currentYear)}`;
         
@@ -1695,7 +2558,7 @@ async function saveDataToGitHub() {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                message: `[Dashboard Bot] 💰 Update donations & expenses | ${new Date().toLocaleString('en-IN', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit', hour12: true, timeZone: 'Asia/Kolkata' })}`,
+                message: commitMessage,
                 content: content,
                 sha: sha,
                 branch: config.GITHUB_BRANCH,
@@ -1714,7 +2577,10 @@ async function saveDataToGitHub() {
             throw new Error(`GitHub API error: ${response.statusText}`);
         }
         
-        showSuccess('✅ Data saved successfully to GitHub!');
+        // Only show success message if not called from publish flow
+        if (!customSummary) {
+            showSuccess('✅ Data saved successfully!');
+        }
         hideLoading();
         
         // Reload data after save
@@ -1724,7 +2590,7 @@ async function saveDataToGitHub() {
         
     } catch (error) {
         console.error('Error saving data:', error);
-        showError('Failed to save data to GitHub. Check console for details.');
+        showError('Failed to save data. Check console for details.');
         hideLoading();
         return Promise.reject(error);
     }
@@ -1792,6 +2658,9 @@ function addDonation() {
         amount: amount
     });
     
+    // Track change for draft mode
+    trackChange('add', 'donation', { name, amount });
+    
     // Clear form
     document.getElementById('donationName').value = '';
     document.getElementById('donationAmount').value = '';
@@ -1799,8 +2668,10 @@ function addDonation() {
     // Reset unsaved data flag
     hasUnsavedData = false;
     
-    // Save to GitHub
-    saveDataToGitHub();
+    // Refresh UI to show new donation
+    processData();
+    
+    showSuccess(`✅ Donation from ${name} added successfully!`);
 }
 
 // Add Cheeti Member
@@ -1849,18 +2720,18 @@ function addCheetiMember() {
     
     currentData.cheeti.push(cheetiMember);
     
+    // Track change for draft mode (use new object to avoid reference issues)
+    trackChange('add', 'cheeti', { name, amount });
+    
     // Clear form
     document.getElementById('cheetiName').value = '';
     document.getElementById('cheetiAmount').value = '';
     document.getElementById('cheetiInterestRate').value = '12';
     
-    // Reset unsaved data flag
-    hasUnsavedData = false;
-    
     showSuccess('✅ Cheeti member added successfully!');
     
-    // Save to GitHub
-    saveDataToGitHub();
+    // Process data to update UI
+    processData();
 }
 
 // Record Payment for Past Year Member
@@ -2147,20 +3018,22 @@ function addExpense() {
         return;
     }
     
-    currentData.expenses.push({
+    const newExpense = {
         item: item,
         amount: amount
-    });
+    };
+    
+    currentData.expenses.push(newExpense);
+    
+    // Track change for draft mode (use a new object to avoid reference issues)
+    trackChange('add', 'expense', { item, amount });
     
     // Clear form
     document.getElementById('expenseItem').value = '';
     document.getElementById('expenseAmount').value = '';
     
-    // Reset unsaved data flag
-    hasUnsavedData = false;
-    
-    // Save to GitHub
-    saveDataToGitHub();
+    // Process data to update UI
+    processData();
 }
 
 // Toggle Custom Sponsor Type Field
@@ -2209,12 +3082,28 @@ function addSponsor() {
     // Initialize sponsors array if it doesn't exist
     if (!currentData.sponsors) currentData.sponsors = [];
     
-    currentData.sponsors.push({
+    // Check for duplicate sponsor (same name and type combination)
+    const duplicate = currentData.sponsors.find(s => 
+        s.name.toLowerCase() === name.toLowerCase() && 
+        s.type.toLowerCase() === type.toLowerCase()
+    );
+    
+    if (duplicate) {
+        showError(`❌ Sponsor "${name}" with type "${type}" already exists. Duplicate sponsors not allowed.`);
+        return;
+    }
+    
+    const newSponsor = {
         slNo: currentData.sponsors.length + 1,
         name: name,
         type: type,
         amount: amount
-    });
+    };
+    
+    currentData.sponsors.push(newSponsor);
+    
+    // Track change for draft mode (use new object to avoid reference issues)
+    trackChange('add', 'sponsor', { name, type, amount });
     
     // Clear form
     document.getElementById('sponsorName').value = '';
@@ -2223,16 +3112,16 @@ function addSponsor() {
     document.getElementById('customSponsorTypeGroup').style.display = 'none';
     document.getElementById('sponsorAmount').value = '';
     
-    // Reset unsaved data flag
-    hasUnsavedData = false;
-    
     showSuccess('✅ Sponsor added successfully!');
     
     // Update announcements
     updateAnnouncements();
     
-    // Save to GitHub
-    saveDataToGitHub();
+    // Update sponsors management list
+    updateSponsorsManagementList();
+    
+    // Process data to update UI
+    processData();
 }
 
 // Add Laddu Winner
@@ -2253,27 +3142,38 @@ function addLadduWinner() {
     // Initialize laddu_winners array if it doesn't exist
     if (!currentData.laddu_winners) currentData.laddu_winners = [];
     
-    currentData.laddu_winners.push({
+    // Check if there's already a winner - only one winner allowed
+    if (currentData.laddu_winners.length > 0) {
+        showError('❌ A laddu winner already exists. Only one winner is allowed. Please delete the existing winner first.');
+        return;
+    }
+    
+    const newWinner = {
         slNo: currentData.laddu_winners.length + 1,
         name: name,
         amount: amount,
         date: new Date().toISOString()
-    });
+    };
+    
+    currentData.laddu_winners.push(newWinner);
+    
+    // Track change for draft mode (use new object to avoid reference issues)
+    trackChange('add', 'laddu', { name, amount });
     
     // Clear form
     document.getElementById('winnerName').value = '';
     document.getElementById('winnerAmount').value = '';
-    
-    // Reset unsaved data flag
-    hasUnsavedData = false;
     
     showSuccess('✅ Laddu winner added successfully!');
     
     // Update announcements
     updateAnnouncements();
     
-    // Save to GitHub
-    saveDataToGitHub();
+    // Update laddu winners management list
+    updateLadduWinnersManagementList();
+    
+    // Process data to update UI
+    processData();
 }
 
 // Update Announcements Banner
@@ -2525,21 +3425,26 @@ function saveDonorFromModal(index) {
         return;
     }
     
+    // Store original values for tracking
+    const oldDonor = { name: donor.name, amount: donor.amount };
+    
     // Update donor data
     donor.name = newName;
     donor.amount = newAmount;
     
     hideEditModal();
     
-    // Save to GitHub
-    showLoading('Saving changes...');
-    saveDataToGitHub().then(() => {
-        hideLoading();
-        showSuccess('✅ Donor updated successfully!');
-    }).catch(error => {
-        hideLoading();
-        showError('❌ Failed to save: ' + error.message);
+    // Track change for draft mode
+    trackChange('edit', 'donation', {
+        old: oldDonor,
+        new: { name: newName, amount: newAmount },
+        index: index
     });
+    
+    // Refresh UI
+    processData();
+    
+    showSuccess('✅ Donor updated successfully!');
 }
 
 function saveCheetiMemberFromModal(index) {
@@ -2569,6 +3474,9 @@ function saveCheetiMemberFromModal(index) {
         return;
     }
     
+    // Store original values for tracking
+    const oldMember = { name: member.name, amount: member.amount, interest: member.interest, total: member.total };
+    
     // Get interest rate (default to 12% if not defined)
     const interestRate = 12;
     const newInterest = Math.round(newAmount * (interestRate / 100));
@@ -2581,15 +3489,17 @@ function saveCheetiMemberFromModal(index) {
     
     hideEditModal();
     
-    // Save to GitHub
-    showLoading('Saving changes...');
-    saveDataToGitHub().then(() => {
-        hideLoading();
-        showSuccess('✅ Cheeti member updated successfully!');
-    }).catch(error => {
-        hideLoading();
-        showError('❌ Failed to save: ' + error.message);
+    // Track change for draft mode
+    trackChange('edit', 'cheeti', {
+        old: oldMember,
+        new: { name: newName, amount: newAmount, interest: newInterest, total: member.total },
+        index: index
     });
+    
+    // Refresh UI
+    processData();
+    
+    showSuccess('✅ Cheeti member updated successfully!');
 }
 
 function saveExpenseFromModal(index) {
@@ -2619,21 +3529,26 @@ function saveExpenseFromModal(index) {
         return;
     }
     
+    // Store original values for tracking
+    const oldExpense = { item: expense.item, amount: expense.amount };
+    
     // Update expense data
     expense.item = newItem;
     expense.amount = newAmount;
     
     hideEditModal();
     
-    // Save to GitHub
-    showLoading('Saving changes...');
-    saveDataToGitHub().then(() => {
-        hideLoading();
-        showSuccess('✅ Expense updated successfully!');
-    }).catch(error => {
-        hideLoading();
-        showError('❌ Failed to save: ' + error.message);
+    // Track change for draft mode
+    trackChange('edit', 'expense', {
+        old: oldExpense,
+        new: { item: newItem, amount: newAmount },
+        index: index
     });
+    
+    // Refresh UI
+    processData();
+    
+    showSuccess('✅ Expense updated successfully!');
 }
 
 function saveCheetiPaymentFromModal(index) {
@@ -2649,6 +3564,14 @@ function saveCheetiPaymentFromModal(index) {
     const lateFee = parseFloat(lateFeeInput.value) || 0;
     const isPaid = paidInput.checked;
     const paymentDate = dateInput.value;
+    
+    // Store original values for tracking
+    const oldPayment = { 
+        lateFee: member.lateFee, 
+        paid: member.paid, 
+        paymentDate: member.paymentDate,
+        total: member.total 
+    };
     
     // Update member payment details
     member.lateFee = lateFee;
@@ -2668,15 +3591,18 @@ function saveCheetiPaymentFromModal(index) {
     
     hideEditModal();
     
-    // Save to GitHub
-    showLoading('Saving changes...');
-    saveDataToGitHub().then(() => {
-        hideLoading();
-        showSuccess('✅ Payment details updated successfully!');
-    }).catch(error => {
-        hideLoading();
-        showError('❌ Failed to save: ' + error.message);
+    // Track change for draft mode (payment status update is an edit)
+    trackChange('edit', 'cheeti', {
+        old: oldPayment,
+        new: { lateFee: lateFee, paid: isPaid, paymentDate: paymentDate, total: member.total },
+        index: index,
+        type: 'payment_update'
     });
+    
+    // Refresh UI
+    processData();
+    
+    showSuccess('✅ Payment details updated successfully!');
 }
 
 // Auto-calculate late fee based on payment date
@@ -2966,9 +3892,11 @@ function populateDonorsTable(donationsData) {
             <td>${d.name}</td>
             <td>${formatCurrency(d.amount)}</td>
             <td style="${isAdmin ? '' : 'display: none;'}">
-                ${isAdmin ? `<button class="action-btn edit" onclick="showEditModal('donor', ${originalIndex})">
+                ${isAdmin ? `<div style="display: flex; gap: 6px; justify-content: center;"><button class="action-btn edit" onclick="showEditModal('donor', ${originalIndex})">
                     <i class="fas fa-edit"></i> Edit
-                </button>` : ''}
+                </button><button class="action-btn delete" onclick="deleteItem('donation', ${originalIndex}, '${d.name.replace(/'/g, "\\'")}')">
+                    <i class="fas fa-trash"></i> Delete
+                </button></div>` : ''}
             </td>
         </tr>
     `}).join('');
@@ -2988,9 +3916,11 @@ function populateCheetiTable(cheetiData) {
             <td>${formatCurrency(c.interest || 0)}</td>
             <td><strong>${formatCurrency(totalWithLateFee)}</strong></td>
             <td style="${isAdmin ? '' : 'display: none;'}">
-                ${isAdmin ? `<button class="action-btn edit" onclick="showEditModal('cheeti', ${index})">
+                ${isAdmin ? `<div style="display: flex; gap: 6px; justify-content: center;"><button class="action-btn edit" onclick="showEditModal('cheeti', ${index})">
                     <i class="fas fa-edit"></i> Edit
-                </button>` : ''}
+                </button><button class="action-btn delete" onclick="deleteItem('cheeti', ${index}, '${c.name.replace(/'/g, "\\'")}')">
+                    <i class="fas fa-trash"></i> Delete
+                </button></div>` : ''}
             </td>
         </tr>
     `}).join('');
@@ -3019,9 +3949,11 @@ function populateCheetiPaidTable(cheetiData) {
                 </td>
                 <td class="date-cell">${formattedDate}</td>
                 <td>
-                    <button class="action-btn edit" onclick="editCheetiEntry(${index})">
+                    <div style="display: flex; gap: 6px; justify-content: center;"><button class="action-btn edit" onclick="editCheetiEntry(${index})">
                         <i class="fas fa-edit"></i> Edit
-                    </button>
+                    </button><button class="action-btn delete" onclick="deleteItem('cheeti', ${index}, '${c.name.replace(/'/g, "\\'")}')">
+                        <i class="fas fa-trash"></i> Delete
+                    </button></div>
                 </td>
             </tr>
         `;
@@ -3093,17 +4025,24 @@ function saveDonorEntry(index) {
         return;
     }
     
+    // Store original values for tracking
+    const oldDonor = { name: donor.name, amount: donor.amount };
+    
     // Update donor data
     donor.name = newName;
     donor.amount = newAmount;
     
-    // Save to GitHub
-    showLoading('Saving changes...');
-    saveDataToGitHub().then(() => {
-        showSuccess('✅ Donor updated successfully!');
-    }).catch(error => {
-        showError('❌ Failed to save: ' + error.message);
+    // Track change for draft mode
+    trackChange('edit', 'donation', {
+        old: oldDonor,
+        new: { name: newName, amount: newAmount },
+        index: index
     });
+    
+    // Refresh UI
+    processData();
+    
+    showSuccess('✅ Donor updated successfully!');
 }
 
 // Cancel Donor Edit
@@ -3169,6 +4108,9 @@ function saveCheetiMemberEntry(index) {
         return;
     }
     
+    // Store original values for tracking
+    const oldMember = { name: member.name, amount: member.amount, interest: member.interest, total: member.total };
+    
     // Get interest rate (default to 12% if not defined)
     const interestRate = 12;
     const newInterest = Math.round(newAmount * (interestRate / 100));
@@ -3179,13 +4121,17 @@ function saveCheetiMemberEntry(index) {
     member.interest = newInterest;
     member.total = newAmount + newInterest + (member.lateFee || 0);
     
-    // Save to GitHub
-    showLoading('Saving changes...');
-    saveDataToGitHub().then(() => {
-        showSuccess('✅ Cheeti member updated successfully!');
-    }).catch(error => {
-        showError('❌ Failed to save: ' + error.message);
+    // Track change for draft mode
+    trackChange('edit', 'cheeti', {
+        old: oldMember,
+        new: { name: newName, amount: newAmount, interest: newInterest, total: member.total },
+        index: index
     });
+    
+    // Refresh UI
+    processData();
+    
+    showSuccess('✅ Cheeti member updated successfully!');
 }
 
 // Cancel Cheeti Member Edit
@@ -3251,17 +4197,24 @@ function saveExpenseEntry(index) {
         return;
     }
     
+    // Store original values for tracking
+    const oldExpense = { item: expense.item, amount: expense.amount };
+    
     // Update expense data
     expense.item = newItem;
     expense.amount = newAmount;
     
-    // Save to GitHub
-    showLoading('Saving changes...');
-    saveDataToGitHub().then(() => {
-        showSuccess('✅ Expense updated successfully!');
-    }).catch(error => {
-        showError('❌ Failed to save: ' + error.message);
+    // Track change for draft mode
+    trackChange('edit', 'expense', {
+        old: oldExpense,
+        new: { item: newItem, amount: newAmount },
+        index: index
     });
+    
+    // Refresh UI
+    processData();
+    
+    showSuccess('✅ Expense updated successfully!');
 }
 
 // Cancel Expense Edit
@@ -3278,9 +4231,11 @@ function populateExpensesTable(expensesData) {
             <td>${e.item}</td>
             <td>${formatCurrency(e.amount)}</td>
             <td style="${isAdmin ? '' : 'display: none;'}">
-                ${isAdmin ? `<button class="action-btn edit" onclick="showEditModal('expense', ${index})">
+                ${isAdmin ? `<div style="display: flex; gap: 6px; justify-content: center;"><button class="action-btn edit" onclick="showEditModal('expense', ${index})">
                     <i class="fas fa-edit"></i> Edit
-                </button>` : ''}
+                </button><button class="action-btn delete" onclick="deleteItem('expense', ${index}, '${e.item.replace(/'/g, "\\'")}')">
+                    <i class="fas fa-trash"></i> Delete
+                </button></div>` : ''}
             </td>
         </tr>
     `).join('');
@@ -3319,25 +4274,27 @@ function addCommitteeMember() {
     }
     
     // Add new committee member
-    currentData.committee_next_year.push({
+    const newMember = {
         name: name,
         role: role
-    });
+    };
+    
+    currentData.committee_next_year.push(newMember);
+    
+    // Track change for draft mode (use new object to avoid reference issues)
+    trackChange('add', 'committee', { name, role });
     
     // Clear form
     document.getElementById('committeeMemberName').value = '';
     document.getElementById('committeeMemberRole').value = '';
-    
-    // Reset unsaved data flag
-    hasUnsavedData = false;
     
     showSuccess(`✅ ${name} added to next year's committee as ${role}`);
     
     // Update committee management list
     updateCommitteeManagementList();
     
-    // Save to GitHub
-    saveDataToGitHub();
+    // Process data to update UI
+    processData();
 }
 
 // Store index for deletion confirmation
@@ -3398,22 +4355,22 @@ function deleteCommitteeMember(index) {
     // Remove the member
     currentData.committee_next_year.splice(index, 1);
     
-    // Reset unsaved data flag
-    hasUnsavedData = false;
+    // Track change for draft mode
+    trackChange('delete', 'committee', member);
     
     showSuccess(`✅ ${member.name} removed from next year's committee`);
     
     // Update committee management list
     updateCommitteeManagementList();
     
-    // Save to GitHub
-    saveDataToGitHub();
+    // Process data to update UI
+    processData();
 }
 
 // Update Committee Management List
 function updateCommitteeManagementList() {
     const listContainer = document.getElementById('committeeManagementList');
-    if (!listContainer || !isAdmin) return;
+    if (!listContainer) return;
     
     const currentYear = parseInt(currentData.year);
     const nextYear = currentYear + 1;
@@ -3591,6 +4548,215 @@ function populateCommitteeTable(committeeData) {
     }
     
     committeeGrid.innerHTML = html;
+}
+
+// Sponsor Management Functions
+
+// Update Sponsors Management List
+function updateSponsorsManagementList() {
+    const listContainer = document.getElementById('sponsorsManagementList');
+    if (!listContainer) return;
+    
+    const sponsors = currentData.sponsors || [];
+    
+    let html = '';
+    
+    html += `
+        <div style="background: white; padding: 15px; border-radius: 8px; border: 2px solid #ff9800;">
+            <h5 style="margin: 0 0 12px 0; color: #e65100;">
+                <i class="fas fa-hands-helping"></i> Current Sponsors
+                ${sponsors.length > 0 ? `<span style="font-size: 12px; color: #666; font-weight: normal;"> - ${sponsors.length} sponsor(s)</span>` : ''}
+            </h5>
+    `;
+    
+    if (sponsors.length === 0) {
+        html += `
+            <div style="text-align: center; padding: 20px; color: #999;">
+                <i class="fas fa-hands-helping" style="font-size: 2rem; margin-bottom: 10px; opacity: 0.5;"></i>
+                <p style="margin: 0;">No sponsors added yet</p>
+            </div>
+        `;
+    } else {
+        html += `
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+                ${sponsors.map((sponsor, index) => {
+                    return `
+                        <div style="display: flex; align-items: center; justify-content: space-between; padding: 10px; background: #fff3e0; border-radius: 6px; border-left: 4px solid #ff9800;">
+                            <div style="flex: 1;">
+                                <strong style="color: #333;">${sponsor.name}</strong>
+                                <span style="margin-left: 10px; padding: 3px 10px; background: #ff9800; color: white; border-radius: 12px; font-size: 12px; font-weight: 600;">
+                                    ${sponsor.type}
+                                </span>
+                                ${sponsor.amount > 0 ? `<span style="margin-left: 10px; color: #2e7d32; font-weight: 600;">${formatCurrency(sponsor.amount)}</span>` : ''}
+                            </div>
+                            <button onclick="deleteSponsor(${index})" style="padding: 6px 12px; background: #f44336; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 12px;" title="Remove sponsor">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    `;
+                }).join('')}
+            </div>
+        `;
+    }
+    
+    html += '</div>';
+    
+    listContainer.innerHTML = html;
+}
+
+// Delete Sponsor
+async function deleteSponsor(index) {
+    if (!isAdmin) {
+        showError('You must be logged in as admin');
+        return;
+    }
+    
+    if (!currentData.sponsors || !currentData.sponsors[index]) {
+        showError('Sponsor not found');
+        return;
+    }
+    
+    const sponsor = currentData.sponsors[index];
+    
+    const confirmation = await showCustomConfirm({
+        title: '🗑️ Delete Sponsor',
+        message: `<div style="text-align: center;"><p style="margin-bottom: 15px; font-size: 1.05rem;">Delete this sponsor?</p><p style="font-size: 1.2rem; font-weight: 700; color: #2c3e50; margin-bottom: 15px;">${sponsor.name} - ${sponsor.type}</p><p style="color: #e74c3c; font-weight: 600;"><i class="fas fa-exclamation-triangle"></i> This action cannot be undone.</p></div>`,
+        icon: 'fas fa-trash-alt',
+        iconColor: '#e74c3c',
+        confirmText: 'Delete',
+        cancelText: 'Cancel',
+        confirmBtnStyle: 'background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);'
+    });
+    
+    if (!confirmation) return;
+    
+    // Remove the sponsor
+    const deletedSponsor = currentData.sponsors.splice(index, 1)[0];
+    
+    // Renumber sl_no if exists
+    if (currentData.sponsors.length > 0 && currentData.sponsors[0].hasOwnProperty('slNo')) {
+        currentData.sponsors.forEach((item, idx) => {
+            item.slNo = idx + 1;
+        });
+    }
+    
+    // Track change for draft mode
+    trackChange('delete', 'sponsor', { index, item: deletedSponsor });
+    
+    // Update sponsors list
+    updateSponsorsManagementList();
+    
+    // Update announcements
+    updateAnnouncements();
+    
+    // Refresh UI
+    processData();
+    
+    showSuccess('✅ Sponsor deleted successfully');
+}
+
+// Laddu Winner Management Functions
+
+// Update Laddu Winners Management List
+function updateLadduWinnersManagementList() {
+    const listContainer = document.getElementById('ladduWinnersManagementList');
+    if (!listContainer) return;
+    
+    const winners = currentData.laddu_winners || [];
+    
+    let html = '';
+    
+    html += `
+        <div style="background: white; padding: 15px; border-radius: 8px; border: 2px solid #9c27b0;">
+            <h5 style="margin: 0 0 12px 0; color: #6a1b9a;">
+                <i class="fas fa-trophy"></i> Laddu Winners
+                ${winners.length > 0 ? `<span style="font-size: 12px; color: #666; font-weight: normal;"> - ${winners.length} winner(s)</span>` : ''}
+            </h5>
+    `;
+    
+    if (winners.length === 0) {
+        html += `
+            <div style="text-align: center; padding: 20px; color: #999;">
+                <i class="fas fa-trophy" style="font-size: 2rem; margin-bottom: 10px; opacity: 0.5;"></i>
+                <p style="margin: 0;">No laddu winners added yet</p>
+            </div>
+        `;
+    } else {
+        html += `
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+                ${winners.map((winner, index) => {
+                    const winDate = winner.date ? new Date(winner.date).toLocaleDateString('en-IN') : '';
+                    return `
+                        <div style="display: flex; align-items: center; justify-content: space-between; padding: 10px; background: #f3e5f5; border-radius: 6px; border-left: 4px solid #9c27b0;">
+                            <div style="flex: 1;">
+                                <strong style="color: #333;">${winner.name}</strong>
+                                ${winner.amount > 0 ? `<span style="margin-left: 10px; color: #2e7d32; font-weight: 600;">${formatCurrency(winner.amount)}</span>` : ''}
+                                ${winDate ? `<span style="margin-left: 10px; color: #666; font-size: 12px;"><i class="fas fa-calendar"></i> ${winDate}</span>` : ''}
+                            </div>
+                            <button onclick="deleteLadduWinner(${index})" style="padding: 6px 12px; background: #f44336; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 12px;" title="Remove winner">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    `;
+                }).join('')}
+            </div>
+        `;
+    }
+    
+    html += '</div>';
+    
+    listContainer.innerHTML = html;
+}
+
+// Delete Laddu Winner
+async function deleteLadduWinner(index) {
+    if (!isAdmin) {
+        showError('You must be logged in as admin');
+        return;
+    }
+    
+    if (!currentData.laddu_winners || !currentData.laddu_winners[index]) {
+        showError('Laddu winner not found');
+        return;
+    }
+    
+    const winner = currentData.laddu_winners[index];
+    
+    const confirmation = await showCustomConfirm({
+        title: '🗑️ Delete Winner',
+        message: `<div style="text-align: center;"><p style="margin-bottom: 15px; font-size: 1.05rem;">Delete this laddu winner?</p><p style="font-size: 1.2rem; font-weight: 700; color: #2c3e50; margin-bottom: 15px;">${winner.name}</p><p style="color: #e74c3c; font-weight: 600;"><i class="fas fa-exclamation-triangle"></i> This action cannot be undone.</p></div>`,
+        icon: 'fas fa-trash-alt',
+        iconColor: '#e74c3c',
+        confirmText: 'Delete',
+        cancelText: 'Cancel',
+        confirmBtnStyle: 'background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);'
+    });
+    
+    if (!confirmation) return;
+    
+    // Remove the winner
+    const deletedWinner = currentData.laddu_winners.splice(index, 1)[0];
+    
+    // Renumber sl_no if exists
+    if (currentData.laddu_winners.length > 0 && currentData.laddu_winners[0].hasOwnProperty('slNo')) {
+        currentData.laddu_winners.forEach((item, idx) => {
+            item.slNo = idx + 1;
+        });
+    }
+    
+    // Track change for draft mode
+    trackChange('delete', 'laddu', { index, item: deletedWinner });
+    
+    // Update laddu winners list
+    updateLadduWinnersManagementList();
+    
+    // Update announcements
+    updateAnnouncements();
+    
+    // Refresh UI
+    processData();
+    
+    showSuccess('✅ Laddu winner deleted successfully');
 }
 
 console.log('Simple GitHub Dashboard loaded!');
