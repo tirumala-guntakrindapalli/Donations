@@ -2011,7 +2011,7 @@ async function loadDataFromGitHub() {
         // TEST MODE: Load local file for testing
         if (testMode) {
             console.log(`🧪 TEST MODE: Loading local data for year ${currentYear}...`);
-            const dataPath = `data/donations-${currentYear}.json`;
+            const dataPath = DASHBOARD_CONFIG.getDataFilePath(currentYear);
             const response = await fetch(dataPath + '?t=' + new Date().getTime());
             
             if (!response.ok) {
@@ -2026,7 +2026,7 @@ async function loadDataFromGitHub() {
         } else {
             // PRODUCTION MODE: Load from GitHub Contents API (no CDN cache)
             const config = (typeof DASHBOARD_CONFIG !== 'undefined') ? DASHBOARD_CONFIG : CONFIG;
-            const dataPath = `data/donations-${currentYear}.json`;
+            const dataPath = config.getDataFilePath(currentYear);
             const apiUrl = `${GITHUB_API_BASE}/repos/${config.GITHUB_OWNER}/${config.GITHUB_REPO}/contents/${dataPath}?ref=${config.GITHUB_BRANCH}`;
             
             const response = await fetch(apiUrl, {
@@ -2295,17 +2295,19 @@ async function saveYearDataToFile(year, data, commitMessage = null) {
         console.log(JSON.stringify(data, null, 2));
         
         // Create a downloadable file
+        const config = (typeof DASHBOARD_CONFIG !== 'undefined') ? DASHBOARD_CONFIG : CONFIG;
+        const fileName = config.getDataFilePath(year).split('/').pop();
         const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = `donations-${year}.json`;
+        a.download = fileName;
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
         URL.revokeObjectURL(url);
         
-        showSuccess(`✅ File downloaded! Save it as: data/donations-${year}.json`);
+        showSuccess(`✅ File downloaded! Save it as: ${config.getDataFilePath(year)}`);
         
         return true;
     }
@@ -2313,7 +2315,7 @@ async function saveYearDataToFile(year, data, commitMessage = null) {
     // PRODUCTION MODE: Save directly to GitHub
     try {
         const config = (typeof DASHBOARD_CONFIG !== 'undefined') ? DASHBOARD_CONFIG : CONFIG;
-        const filePath = `data/donations-${year}.json`;
+        const filePath = config.getDataFilePath(year);
         
         // Check if file already exists (get SHA if it does)
         let existingSha = null;
@@ -2881,7 +2883,8 @@ async function loadYearData(year) {
             ? DASHBOARD_CONFIG.TEST_MODE 
             : (typeof CONFIG !== 'undefined' ? CONFIG.TEST_MODE : true);
         
-        const dataPath = `data/donations-${year}.json`;
+        const config = (typeof DASHBOARD_CONFIG !== 'undefined') ? DASHBOARD_CONFIG : CONFIG;
+        const dataPath = config.getDataFilePath(year);
 
         if (testMode) {
             const response = await fetch(dataPath + '?t=' + new Date().getTime());
@@ -2892,7 +2895,6 @@ async function loadYearData(year) {
         }
 
         // GitHub mode - fetch from GitHub Contents API (no CDN cache)
-        const config = (typeof DASHBOARD_CONFIG !== 'undefined') ? DASHBOARD_CONFIG : CONFIG;
         const apiUrl = `${GITHUB_API_BASE}/repos/${config.GITHUB_OWNER}/${config.GITHUB_REPO}/contents/${dataPath}?ref=${config.GITHUB_BRANCH}`;
         const response = await fetch(apiUrl, {
             headers: {
@@ -2927,7 +2929,7 @@ async function saveYearData(year, data) {
 
         // GitHub mode - save via GitHub API
         const config = (typeof DASHBOARD_CONFIG !== 'undefined') ? DASHBOARD_CONFIG : CONFIG;
-        const dataPath = `data/donations-${year}.json`;
+        const dataPath = config.getDataFilePath(year);
         const apiUrl = `${GITHUB_API_BASE}/repos/${config.GITHUB_OWNER || config.GITHUB_USERNAME}/${config.GITHUB_REPO}/contents/${dataPath}`;
 
         // Get current SHA for the year file
