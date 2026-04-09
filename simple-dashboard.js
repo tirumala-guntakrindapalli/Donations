@@ -428,6 +428,32 @@ function hideConfirmModal() {
     }
 }
 
+// Manual Committee Sync - triggered by button click
+async function manualSyncCommittee() {
+    if (!isAdmin) {
+        showError('❌ Admin access required to sync committee');
+        return;
+    }
+    
+    if (!currentData) {
+        showError('❌ No data loaded');
+        return;
+    }
+    
+    const currentYear = (typeof DASHBOARD_CONFIG !== 'undefined') ? DASHBOARD_CONFIG.currentYear : new Date().getFullYear();
+    
+    showLoading('Syncing committee from previous year...');
+    
+    try {
+        await syncCommitteeFromPreviousYear(currentYear, true); // Pass true for manual sync
+        hideLoading();
+    } catch (error) {
+        hideLoading();
+        showError('❌ Failed to sync committee: ' + error.message);
+        console.error('Committee sync error:', error);
+    }
+}
+
 // Confirm Logout - User clicked "Yes, Logout"
 function confirmLogout() {
     hideConfirmModal();
@@ -1035,6 +1061,10 @@ function formatChangeDetails(change) {
         }
             
         case 'committee':
+            // Special case for committee sync
+            if (change.type === 'committee_sync') {
+                return `${change.oldValue} → ${change.newValue}`;
+            }
             if (change.action === 'edit') {
                 if (!details.old || !details.new) {
                     return 'Committee: Invalid edit data';
@@ -2039,9 +2069,6 @@ async function loadDataFromGitHub() {
         // Hide warning if it was showing
         hideYearNotInitializedWarning();
         
-        // Auto-sync committee from previous year's planning (if needed)
-        await syncCommitteeFromPreviousYear(currentYear);
-        
         // Reset draft mode for new year data
         if (typeof unpublishedChanges !== 'undefined') {
             unpublishedChanges = [];
@@ -2082,9 +2109,22 @@ async function loadDataFromGitHub() {
     }
 }
 
-// Auto-sync committee from previous year's planning
-async function syncCommitteeFromPreviousYear(currentYear) {
-    if (!isAdmin || !currentData) return; // Only sync for admin users
+// Manual-only committee sync from previous year's planning
+async function syncCommitteeFromPreviousYear(currentYear, isManual = false) {
+    console.log(`🔍 Sync check: isAdmin=${isAdmin}, currentData exists=${!!currentData}, isManual=${isManual}`);
+    
+    // Only run if manually triggered
+    if (!isManual) {
+        console.log('⏭️ Skipping automatic committee sync (manual sync only)');
+        return;
+    }
+    
+    if (!isAdmin || !currentData) {
+        console.log('⏭️ Skipping committee sync (not admin or no data)');
+        return;
+    }
+    
+    console.log(`🔄 Starting committee sync for year ${currentYear}...`);
     
     try {
         const previousYear = currentYear - 1;
@@ -2116,6 +2156,9 @@ async function syncCommitteeFromPreviousYear(currentYear) {
         
         if (!previousYearData) {
             console.log(`ℹ️ No previous year (${previousYear}) data found for committee sync`);
+            if (isManual) {
+                showInfo(`ℹ️ No data found for ${previousYear} to sync from`);
+            }
             return;
         }
         
@@ -2123,6 +2166,9 @@ async function syncCommitteeFromPreviousYear(currentYear) {
         const nextYearCommittee = previousYearData.committee_next_year;
         if (!nextYearCommittee || nextYearCommittee.length === 0) {
             console.log(`ℹ️ No next year committee planning found in ${previousYear}`);
+            if (isManual) {
+                showInfo(`ℹ️ No committee planning found in ${previousYear} for ${currentYear}`);
+            }
             return;
         }
         
@@ -2140,13 +2186,18 @@ async function syncCommitteeFromPreviousYear(currentYear) {
             currentData.committee = JSON.parse(JSON.stringify(nextYearCommittee));
             
             // Mark as unpublished change
-            const changeDescription = `Auto-synced committee from ${previousYear} planning (${nextYearCommittee.length} members)`;
+            const changeDescription = `Synced from ${previousYear} planning - updated from ${currentCommittee.length} to ${nextYearCommittee.length} members`;
             unpublishedChanges.push({
+                action: 'edit',
+                category: 'committee',
                 type: 'committee_sync',
                 description: changeDescription,
                 timestamp: new Date().toISOString(),
                 from: `${previousYear} committee_next_year`,
-                to: `${currentYear} committee`
+                to: `${currentYear} committee`,
+                name: 'Committee Members',
+                oldValue: `${currentCommittee.length} members`,
+                newValue: `${nextYearCommittee.length} members`
             });
             
             // Update draft mode UI
@@ -2154,19 +2205,25 @@ async function syncCommitteeFromPreviousYear(currentYear) {
                 updateDraftModeUI();
             }
             
-            // Show info notification
-            setTimeout(() => {
-                showInfo(`📋 Committee auto-synced from ${previousYear} planning. ${nextYearCommittee.length} members updated. Remember to publish changes!`);
-            }, 1000);
+            // Reprocess data to update committee table
+            processData();
+            
+            // Show success notification
+            showSuccess(`✅ Committee synced from ${previousYear}! Updated from ${currentCommittee.length} to ${nextYearCommittee.length} members. Click "Publish All" to save.`);
             
             console.log(`✅ Committee synced successfully from ${previousYear} to ${currentYear}`);
         } else {
             console.log(`✅ Committee already in sync with ${previousYear} planning`);
+            if (isManual) {
+                showInfo(`ℹ️ Committee is already in sync with ${previousYear} planning (${nextYearCommittee.length} members)`);
+            }
         }
         
     } catch (error) {
         console.error('Error syncing committee from previous year:', error);
-        // Non-fatal error - just log it
+        if (isManual) {
+            throw error; // Re-throw for manual sync to handle
+        }
     }
 }
 
