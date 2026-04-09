@@ -21,19 +21,40 @@ let unpublishedChanges = [];  // Track all unpublished changes
 let originalData = null;  // Backup of data from GitHub for discard functionality
 
 // Initialize Dashboard
+// Wait for config to be available
+function waitForConfig(callback, maxAttempts = 20) {
+    let attempts = 0;
+    const checkConfig = setInterval(() => {
+        attempts++;
+        if (typeof DASHBOARD_CONFIG !== 'undefined') {
+            clearInterval(checkConfig);
+            callback();
+        } else if (attempts >= maxAttempts) {
+            clearInterval(checkConfig);
+            console.error('❌ Dashboard config failed to load after 1 second');
+            callback(); // Proceed anyway to avoid breaking the page
+        }
+    }, 50); // Check every 50ms
+}
+
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('Simple Dashboard initializing...');
-    console.log('🔧 Configuration:', {
-        'Test Mode': DASHBOARD_CONFIG.TEST_MODE,
-        'Data Environment': DASHBOARD_CONFIG.DATA_ENVIRONMENT || 'not set (will use dev)',
-        'Data Path': DASHBOARD_CONFIG.getDataFilePath(new Date().getFullYear())
+    waitForConfig(async function() {
+        console.log('Simple Dashboard initializing...');
+        console.log('🔧 Configuration:', {
+            'Test Mode': DASHBOARD_CONFIG.TEST_MODE,
+            'Data Environment': DASHBOARD_CONFIG.DATA_ENVIRONMENT || 'not set (will use dev)',
+            'Data Path': DASHBOARD_CONFIG.getDataFilePath(new Date().getFullYear())
+        });
+        setGeneratedDate();
+        setupEventListeners();
+        
+        // Restore admin session FIRST (before loading data)
+        // This ensures isAdmin is set before processData() runs
+        restoreAdminSession();
+        
+        // THEN load data (now isAdmin will be correct)
+        await loadDataFromGitHub();
     });
-    setGeneratedDate();
-    loadDataFromGitHub();
-    setupEventListeners();
-    
-    // Restore admin session if exists
-    restoreAdminSession();
 });
 
 // Setup Event Listeners
@@ -279,43 +300,10 @@ function showAdminPanel() {
     updateDashboardStatusDisplay();
     
     // Reprocess data to show dashboard for admin
+    // Now that isAdmin is true, processData() will pass the visibility check
     if (currentData) {
-        // Temporarily bypass the visibility check
-        const wasAdmin = isAdmin;
-        isAdmin = true;
-        
-        // Extract and process data
-        const donationsData = currentData.donations || [];
-        const cheetiData = currentData.cheeti || [];
-        const expensesData = currentData.expenses || [];
-        const reportData = currentData.report || [];
-        
-        // Update metrics
-        updateMetrics(donationsData, cheetiData, expensesData, reportData);
-        
-        // Create charts
-        try {
-            createFinancialChart(reportData);
-            createExpensesChart(expensesData);
-            createCheetiChart(cheetiData);
-        } catch (e) {
-            console.error('Error creating charts:', e);
-        }
-        
-        // Populate tables
-        populateDonorsTable(donationsData);
-        populateCheetiTable(cheetiData);
-        populateExpensesTable(expensesData);
-        
-        // Update announcements banner
-        updateAnnouncements();
-        
-        // Update admin management lists (while isAdmin is still true)
-        updateCommitteeManagementList();
-        updateSponsorsManagementList();
-        updateLadduWinnersManagementList();
-        
-        isAdmin = wasAdmin;
+        console.log('🔄 Reprocessing data for admin view (isAdmin=' + isAdmin + ')');
+        processData();
     }
 }
 
@@ -2051,6 +2039,9 @@ async function loadDataFromGitHub() {
         // Hide warning if it was showing
         hideYearNotInitializedWarning();
         
+        // Auto-sync committee from previous year's planning (if needed)
+        await syncCommitteeFromPreviousYear(currentYear);
+        
         // Reset draft mode for new year data
         if (typeof unpublishedChanges !== 'undefined') {
             unpublishedChanges = [];
@@ -2088,6 +2079,94 @@ async function loadDataFromGitHub() {
         console.error('Error loading data:', error);
         showError('Failed to load data. Check console for details.');
         hideLoading();
+    }
+}
+
+// Auto-sync committee from previous year's planning
+async function syncCommitteeFromPreviousYear(currentYear) {
+    if (!isAdmin || !currentData) return; // Only sync for admin users
+    
+    try {
+        const previousYear = currentYear - 1;
+        const config = (typeof DASHBOARD_CONFIG !== 'undefined') ? DASHBOARD_CONFIG : CONFIG;
+        const testMode = (typeof DASHBOARD_CONFIG !== 'undefined') ? DASHBOARD_CONFIG.TEST_MODE : (typeof CONFIG !== 'undefined' ? CONFIG.TEST_MODE : true);
+        
+        let previousYearData = null;
+        
+        // Load previous year data
+        if (testMode) {
+            const previousYearPath = DASHBOARD_CONFIG.getDataFilePath(previousYear);
+            const response = await fetch(previousYearPath + '?t=' + new Date().getTime());
+            if (response.ok) {
+                previousYearData = await response.json();
+            }
+        } else {
+            const dataPath = config.getDataFilePath(previousYear);
+            const apiUrl = `${GITHUB_API_BASE}/repos/${config.GITHUB_OWNER}/${config.GITHUB_REPO}/contents/${dataPath}?ref=${config.GITHUB_BRANCH}`;
+            const response = await fetch(apiUrl, {
+                headers: {
+                    'Authorization': `token ${config.GITHUB_TOKEN}`,
+                    'Accept': 'application/vnd.github.v3.raw'
+                }
+            });
+            if (response.ok) {
+                previousYearData = await response.json();
+            }
+        }
+        
+        if (!previousYearData) {
+            console.log(`ℹ️ No previous year (${previousYear}) data found for committee sync`);
+            return;
+        }
+        
+        // Check if previous year has committee_next_year defined
+        const nextYearCommittee = previousYearData.committee_next_year;
+        if (!nextYearCommittee || nextYearCommittee.length === 0) {
+            console.log(`ℹ️ No next year committee planning found in ${previousYear}`);
+            return;
+        }
+        
+        // Check if current year's committee is different
+        const currentCommittee = currentData.committee || [];
+        
+        // Compare committees (simple JSON stringify comparison)
+        const isDifferent = JSON.stringify(currentCommittee) !== JSON.stringify(nextYearCommittee);
+        
+        if (isDifferent) {
+            console.log(`🔄 Committee sync needed: ${previousYear}'s planning differs from ${currentYear}'s committee`);
+            console.log(`   Previous year planned ${nextYearCommittee.length} members, current has ${currentCommittee.length} members`);
+            
+            // Update current year's committee with previous year's planning
+            currentData.committee = JSON.parse(JSON.stringify(nextYearCommittee));
+            
+            // Mark as unpublished change
+            const changeDescription = `Auto-synced committee from ${previousYear} planning (${nextYearCommittee.length} members)`;
+            unpublishedChanges.push({
+                type: 'committee_sync',
+                description: changeDescription,
+                timestamp: new Date().toISOString(),
+                from: `${previousYear} committee_next_year`,
+                to: `${currentYear} committee`
+            });
+            
+            // Update draft mode UI
+            if (typeof updateDraftModeUI === 'function') {
+                updateDraftModeUI();
+            }
+            
+            // Show info notification
+            setTimeout(() => {
+                showInfo(`📋 Committee auto-synced from ${previousYear} planning. ${nextYearCommittee.length} members updated. Remember to publish changes!`);
+            }, 1000);
+            
+            console.log(`✅ Committee synced successfully from ${previousYear} to ${currentYear}`);
+        } else {
+            console.log(`✅ Committee already in sync with ${previousYear} planning`);
+        }
+        
+    } catch (error) {
+        console.error('Error syncing committee from previous year:', error);
+        // Non-fatal error - just log it
     }
 }
 
@@ -3702,6 +3781,10 @@ function showSuccess(message) {
 
 function showError(message) {
     showToast(message, 'error');
+}
+
+function showInfo(message) {
+    showToast(message, 'info');
 }
 
 function showToast(message, type = 'info') {

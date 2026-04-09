@@ -659,6 +659,22 @@
             committeeYear.textContent = currentYear;
         }
 
+        // Wait for config to be available
+        function waitForConfig(callback, maxAttempts = 20) {
+            let attempts = 0;
+            const checkConfig = setInterval(() => {
+                attempts++;
+                if (typeof DASHBOARD_CONFIG !== 'undefined') {
+                    clearInterval(checkConfig);
+                    callback();
+                } else if (attempts >= maxAttempts) {
+                    clearInterval(checkConfig);
+                    console.warn('⚠️ Dashboard config not loaded, proceeding with fallback');
+                    callback(); // Proceed anyway with fallback paths
+                }
+            }, 50); // Check every 50ms
+        }
+
         // Load and display committee members with fallback logic
         async function loadCommitteeMembers() {
             try {
@@ -777,7 +793,9 @@
         }
 
         // Load committee members when page loads
-        document.addEventListener('DOMContentLoaded', loadCommitteeMembers);
+        document.addEventListener('DOMContentLoaded', function() {
+            waitForConfig(loadCommitteeMembers);
+        });
     </script>
 </body>
 </html>
