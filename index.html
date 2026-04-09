@@ -684,13 +684,33 @@
                 
                 // Get config for environment-aware paths
                 const config = (typeof DASHBOARD_CONFIG !== 'undefined') ? DASHBOARD_CONFIG : null;
+                const isProduction = config && !config.TEST_MODE;
+                
+                // Helper function to fetch data (production uses GitHub API to bypass cache)
+                async function fetchYearData(year) {
+                    const dataPath = config ? config.getDataFilePath(year) : `data/donations-${year}.json`;
+                    
+                    if (isProduction) {
+                        // Production: Use GitHub API to bypass CDN cache
+                        const apiUrl = `https://api.github.com/repos/${config.GITHUB_OWNER}/${config.GITHUB_REPO}/contents/${dataPath}?ref=${config.GITHUB_BRANCH}`;
+                        const response = await fetch(apiUrl, {
+                            headers: {
+                                'Authorization': config.GITHUB_TOKEN ? `token ${config.GITHUB_TOKEN}` : undefined,
+                                'Accept': 'application/vnd.github.v3.raw'
+                            }
+                        });
+                        return response.ok ? await response.json() : null;
+                    } else {
+                        // Local: Direct file fetch with cache busting
+                        const response = await fetch(dataPath + '?t=' + new Date().getTime());
+                        return response.ok ? await response.json() : null;
+                    }
+                }
                 
                 // Step 1: Try to load current year data
-                const currentYearPath = config ? config.getDataFilePath(currentYear) : `data/donations-${currentYear}.json`;
-                const currentYearResponse = await fetch(currentYearPath + '?t=' + new Date().getTime());
+                const currentYearData = await fetchYearData(currentYear);
                 
-                if (currentYearResponse.ok) {
-                    const currentYearData = await currentYearResponse.json();
+                if (currentYearData) {
                     committee = currentYearData.committee || [];
                     
                     if (committee.length > 0) {
@@ -702,11 +722,9 @@
                 // Step 2: If no current year committee, try previous year's next_year committee
                 if (committee.length === 0) {
                     const previousYear = currentYear - 1;
-                    const previousYearPath = config ? config.getDataFilePath(previousYear) : `data/donations-${previousYear}.json`;
-                    const previousYearResponse = await fetch(previousYearPath + '?t=' + new Date().getTime());
+                    const previousYearData = await fetchYearData(previousYear);
                     
-                    if (previousYearResponse.ok) {
-                        const previousYearData = await previousYearResponse.json();
+                    if (previousYearData) {
                         const nextYearCommittee = previousYearData.committee_next_year || [];
                         
                         if (nextYearCommittee.length > 0) {
