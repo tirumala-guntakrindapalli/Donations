@@ -1,6 +1,6 @@
 {
   "year": "2026",
-  "lastUpdated": "2026-04-09T06:36:22.166Z",
+  "lastUpdated": "2026-04-09T06:38:31.523Z",
   "settings": {
     "dashboard_enabled": false
   },
@@ -56,10 +56,6 @@
     {
       "role": "Member",
       "name": "G Venkatesh (Sr)"
-    },
-    {
-      "name": "P Tharun",
-      "role": "Member"
     },
     {
       "name": "Nagaraju",
