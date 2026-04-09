@@ -1,6 +1,6 @@
 {
   "year": "2025",
-  "lastUpdated": "2026-04-08T11:25:48.464Z",
+  "lastUpdated": "2026-04-09T06:35:27.910Z",
   "settings": {
     "dashboard_enabled": false
   },
@@ -109,6 +109,10 @@
     },
     {
       "name": "P Tharun",
+      "role": "Member"
+    },
+    {
+      "name": "Nagaraju",
       "role": "Member"
     }
   ]
