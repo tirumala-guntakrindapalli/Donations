@@ -45,6 +45,19 @@ document.addEventListener('DOMContentLoaded', function() {
         footerYear.textContent = new Date().getFullYear();
     }
     
+    // Force hide all modals on page load (defensive cleanup)
+    const modalsToHide = ['customConfirmModal', 'confirmModal', 'loginModal', 'committeeDeleteModal'];
+    modalsToHide.forEach(modalId => {
+        const modal = document.getElementById(modalId);
+        if (modal) {
+            modal.style.display = 'none';
+            modal.classList.remove('show');
+        }
+    });
+    document.body.classList.remove('modal-open');
+    
+    console.log('✅ All modals forcibly hidden on page load');
+    
     waitForConfig(async function() {
         console.log('Simple Dashboard initializing...');
         console.log('🔧 Configuration:', {
@@ -69,7 +82,11 @@ function setupEventListeners() {
     // Admin Login Button
     const loginBtn = document.getElementById('adminLoginBtn');
     if (loginBtn) {
-        loginBtn.addEventListener('click', function() {
+        loginBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log('🔐 Admin Login button clicked, isAdmin:', isAdmin);
+            
             // If already logged in, toggle the panel
             if (isAdmin) {
                 toggleAdminPanel();
@@ -135,15 +152,24 @@ function setupEventListeners() {
 
 // Show Login Dialog
 function showLoginDialog() {
+    console.log('🔐 showLoginDialog called');
     const modal = document.getElementById('loginModal');
     const passwordInput = document.getElementById('adminPassword');
     
     if (modal) {
+        console.log('✅ loginModal found, showing...', { 
+            currentDisplay: modal.style.display,
+            hasShowClass: modal.classList.contains('show')
+        });
+        
         // Prevent body scroll
         document.body.classList.add('modal-open');
         
         // Scroll to top before showing modal
         window.scrollTo({ top: 0, behavior: 'instant' });
+        
+        // Remove inline display style if it exists (let CSS class control it)
+        modal.style.display = '';
         
         modal.classList.add('show');
         
@@ -832,8 +858,26 @@ function confirmLogout() {
 
 // Generic Custom Confirm Dialog
 function showCustomConfirm({ title, message, icon, iconClass, iconColor, confirmText, cancelText, confirmBtnStyle }) {
+    // Debug logging to track modal calls with stack trace
+    console.log('🔔 showCustomConfirm called:', { title, confirmText, cancelText });
+    console.trace('Call stack:');
+    
+    // Safety check - don't show modal if no meaningful content
+    if (!title && !message) {
+        console.warn('⚠️ showCustomConfirm called with no title/message - ignoring');
+        return Promise.resolve(false);
+    }
+    
     return new Promise((resolve) => {
         const modal = document.getElementById('customConfirmModal');
+        
+        // Defensive check - ensure modal exists
+        if (!modal) {
+            console.error('customConfirmModal not found');
+            resolve(false);
+            return;
+        }
+        
         const titleEl = document.getElementById('customConfirmTitle');
         const messageEl = document.getElementById('customConfirmMessage');
         const iconEl = document.getElementById('customConfirmIcon');
@@ -872,6 +916,7 @@ function showCustomConfirm({ title, message, icon, iconClass, iconColor, confirm
         if (modal) {
             modal.style.display = 'flex';
             document.body.classList.add('modal-open');
+            console.log('✅ Modal displayed');
         }
 
         // Handle confirm
@@ -891,6 +936,7 @@ function showCustomConfirm({ title, message, icon, iconClass, iconColor, confirm
             if (modal) {
                 modal.style.display = 'none';
                 document.body.classList.remove('modal-open');
+                console.log('✅ Modal hidden');
             }
             if (confirmBtn) confirmBtn.removeEventListener('click', handleConfirm);
             if (cancelBtn) cancelBtn.removeEventListener('click', handleCancel);

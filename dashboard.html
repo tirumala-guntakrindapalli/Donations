@@ -818,7 +818,8 @@
         }
 
         @media (max-width: 768px) {
-            #customConfirmModal {
+            /* Don't override display - let JavaScript control it */
+            #customConfirmModal:not([style*="display: none"]) {
                 padding: 10px !important;
                 display: flex !important;
                 align-items: flex-start !important;
@@ -1579,8 +1580,8 @@
     </div>
 
     <!-- Generic Custom Confirm Modal -->
-    <div id="customConfirmModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 10000; align-items: center; justify-content: center; overflow-y: auto; padding: 20px;">
-        <div class="confirm-modal" style="animation: slideDown 0.3s ease; margin: auto;">
+    <div id="customConfirmModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 10000; align-items: center; justify-content: center; overflow-y: auto; padding: 20px;" onclick="event.stopPropagation();">
+        <div class="confirm-modal" style="animation: slideDown 0.3s ease; margin: auto;" onclick="event.stopPropagation();">
             <div class="confirm-modal-header" id="customConfirmHeader">
                 <i class="fas fa-question-circle" id="customConfirmIcon"></i>
                 <h2 id="customConfirmTitle">Confirm Action</h2>
