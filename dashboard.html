@@ -2521,8 +2521,12 @@
             });
         }
         
+        // Track currently open table modal
+        let currentTableModalType = null;
+        
         // Show table in fullscreen modal
         function showTableModal(tableType) {
+            currentTableModalType = tableType;
             const modal = document.getElementById('tableModal');
             const modalTitle = document.getElementById('tableModalTitle');
             const modalBody = document.getElementById('tableModalBody');
@@ -2554,11 +2558,37 @@
             document.body.style.overflow = 'hidden';
         }
         
+        // Refresh table modal if it's open
+        function refreshTableModal() {
+            const modal = document.getElementById('tableModal');
+            if (modal && modal.classList.contains('show') && currentTableModalType) {
+                const modalBody = document.getElementById('tableModalBody');
+                let tableHTML = '';
+                
+                if (currentTableModalType === 'donors') {
+                    const originalTable = document.querySelector('#donorsTableBody').closest('table');
+                    tableHTML = originalTable.outerHTML;
+                } else if (currentTableModalType === 'cheetiMembers') {
+                    const originalTable = document.querySelector('#cheetiTableBody').closest('table');
+                    tableHTML = originalTable.outerHTML;
+                } else if (currentTableModalType === 'cheetiPaid') {
+                    const originalTable = document.querySelector('#cheetiPaidTableBody').closest('table');
+                    tableHTML = originalTable.outerHTML;
+                } else if (currentTableModalType === 'expenses') {
+                    const originalTable = document.querySelector('#expensesTable');
+                    tableHTML = originalTable.outerHTML;
+                }
+                
+                modalBody.innerHTML = tableHTML;
+            }
+        }
+        
         // Hide table modal
         function hideTableModal() {
             const modal = document.getElementById('tableModal');
             modal.classList.remove('show');
             document.body.style.overflow = '';
+            currentTableModalType = null;
         }
         
         // Close modal on ESC key

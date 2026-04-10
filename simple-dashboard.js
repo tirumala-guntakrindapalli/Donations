@@ -2684,6 +2684,11 @@ function processData() {
         updateSponsorsManagementList();
         updateLadduWinnersManagementList();
     }
+    
+    // Refresh table modal if it's open
+    if (typeof refreshTableModal === 'function') {
+        refreshTableModal();
+    }
 }
 
 // Update Metrics
