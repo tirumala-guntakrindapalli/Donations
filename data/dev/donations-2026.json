@@ -1,6 +1,6 @@
 {
   "year": "2026",
-  "lastUpdated": "2026-04-07T20:16:14.500Z",
+  "lastUpdated": "2026-04-10T06:18:22.876Z",
   "settings": {
     "dashboard_enabled": false
   },
@@ -12,15 +12,17 @@
     }
   ],
   "cheeti": [],
-  "cheeti_collections": [],
-  "cheeti_expected": [
+  "cheeti_collections": [
     {
-      "name": "M Krishna Reddy",
-      "amount": 27600,
-      "interest": 3312,
-      "expectedTotal": 30912,
-      "fromYear": 2025
-    },
+      "slNo": 1,
+      "memberName": "M Krishna Reddy",
+      "amount": 35912,
+      "fromYear": 2025,
+      "collectionDate": "2026-04-10",
+      "addedOn": "2026-04-10T06:18:22.283Z"
+    }
+  ],
+  "cheeti_expected": [
     {
       "name": "P Sasidhar",
       "amount": 27600,
@@ -40,7 +42,7 @@
     },
     {
       "category": "Estimated Cheeti Collections (${previousYear})",
-      "amount": 61824,
+      "amount": 30912,
       "type": "income_estimated"
     },
     {
@@ -52,6 +54,11 @@
       "category": "Total Expenses",
       "amount": 0,
       "type": "expense"
+    },
+    {
+      "category": "Cheeti Collections",
+      "amount": 35912,
+      "type": "income"
     }
   ],
   "committee": [
