@@ -1,0 +1,35 @@
+{
+  "year": "2026",
+  "lastUpdated": "2026-04-10T19:57:58.656Z",
+  "donations": [],
+  "cheeti": [],
+  "cheeti_collections": [],
+  "cheeti_expected": [],
+  "expenses": [],
+  "sponsors": [],
+  "laddu_winners": [],
+  "committee": [],
+  "committee_next_year": [],
+  "report": [
+    {
+      "category": "Donations",
+      "amount": 0,
+      "type": "income"
+    },
+    {
+      "category": "Estimated Cheeti Collections (2025)",
+      "amount": 0,
+      "type": "income_estimated"
+    },
+    {
+      "category": "Actual Cheeti Collections",
+      "amount": 0,
+      "type": "income"
+    },
+    {
+      "category": "Total Expenses",
+      "amount": 0,
+      "type": "expense"
+    }
+  ]
+}
