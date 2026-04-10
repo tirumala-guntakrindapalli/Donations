@@ -1,24 +1,39 @@
 {
   "year": "2026",
-  "lastUpdated": "2026-04-10T19:58:31.211Z",
-  "donations": [],
-  "cheeti": [
+  "lastUpdated": "2026-04-10T20:00:16.485Z",
+  "donations": [
     {
       "slNo": 1,
-      "name": "Test1",
-      "amount": 5000,
-      "interest": 600,
-      "total": 5600,
-      "paid": false,
-      "paymentDate": null,
-      "lateFee": 0
+      "name": "test1",
+      "amount": 1000
     }
   ],
+  "cheeti": [],
   "cheeti_collections": [],
   "cheeti_expected": [],
   "expenses": [],
-  "sponsors": [],
-  "laddu_winners": [],
+  "sponsors": [
+    {
+      "slNo": 1,
+      "name": "TBC",
+      "type": "Vigraham (Idol)",
+      "amount": 0
+    },
+    {
+      "slNo": 2,
+      "name": "TBC",
+      "type": "Prasadam",
+      "amount": 0
+    }
+  ],
+  "laddu_winners": [
+    {
+      "slNo": 1,
+      "name": "TBC",
+      "amount": 5000,
+      "date": "2026-04-10T19:59:54.207Z"
+    }
+  ],
   "committee": [],
   "committee_next_year": [],
   "report": [
