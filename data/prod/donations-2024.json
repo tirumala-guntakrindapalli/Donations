@@ -3,7 +3,7 @@
   "settings": {
     "dashboard_enabled": false
   },
-  "lastUpdated": "2026-04-10T19:27:54.374Z",
+  "lastUpdated": "2026-04-10T19:29:29.798Z",
   "donations": [
     {
       "slNo": 1,
@@ -412,10 +412,10 @@
       "name": "M Krishna Reddy",
       "amount": 24800,
       "interest": 2976,
-      "total": 28276,
-      "lateFee": 500,
-      "paid": true,
-      "paymentDate": "2026-04-10",
+      "total": 27776,
+      "lateFee": 0,
+      "paid": false,
+      "paymentDate": null,
       "days_overdue": 0
     },
     {
