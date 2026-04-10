@@ -1,6 +1,6 @@
 {
   "year": "2025",
-  "lastUpdated": "2026-04-10T05:39:35.113Z",
+  "lastUpdated": "2026-04-10T05:56:00.252Z",
   "settings": {
     "dashboard_enabled": false
   },
@@ -22,10 +22,10 @@
       "name": "M Krishna Reddy",
       "amount": 27600,
       "interest": 3312,
-      "total": 31912,
-      "lateFee": 1000,
+      "total": 32412,
+      "lateFee": 1500,
       "paid": true,
-      "paymentDate": "2026-04-09",
+      "paymentDate": "2026-04-10",
       "days_overdue": 0
     },
     {
