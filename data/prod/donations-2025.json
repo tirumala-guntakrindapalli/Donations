@@ -1,32 +1,13 @@
 {
   "year": "2025",
-  "lastUpdated": "2026-04-10T18:57:58.229Z",
+  "lastUpdated": "2026-04-10T19:00:46.086Z",
   "settings": {
     "dashboard_enabled": false
   },
   "donations": [],
   "cheeti": [],
   "expenses": [],
-  "sponsors": [
-    {
-      "slNo": 1,
-      "name": "Sri. Ramesh Babu",
-      "type": "Laddu",
-      "amount": 12000
-    },
-    {
-      "slNo": 2,
-      "name": "Smt. Padmavathi",
-      "type": "Prasadam",
-      "amount": 8000
-    },
-    {
-      "slNo": 3,
-      "name": "Sri. Venkatesh Garu",
-      "type": "Vigraham (Idol)",
-      "amount": 15000
-    }
-  ],
+  "sponsors": [],
   "laddu_winners": [],
   "report": [
     {
