@@ -2337,7 +2337,13 @@ function showYearNotInitializedWarning(year) {
         warningDiv = document.createElement('div');
         warningDiv.id = 'yearWarning';
         const mainContent = document.getElementById('mainContent');
-        if (mainContent) {
+        const welcomeHero = document.querySelector('.welcome-hero');
+        
+        if (mainContent && welcomeHero) {
+            // Insert after welcome hero
+            welcomeHero.insertAdjacentElement('afterend', warningDiv);
+        } else if (mainContent) {
+            // Fallback to first child if welcome hero not found
             mainContent.insertBefore(warningDiv, mainContent.firstChild);
         }
     }
@@ -3082,26 +3088,26 @@ async function recordPayment() {
 // Add Cheeti Collection to Current Year
 async function addCheetiCollectionToCurrentYear(memberName, amount, paymentDate) {
     try {
-        const currentYear = new Date().getFullYear();
-        const selectedYear = (typeof DASHBOARD_CONFIG !== 'undefined') ? DASHBOARD_CONFIG.currentYear : currentYear;
+        const selectedYear = (typeof DASHBOARD_CONFIG !== 'undefined') ? DASHBOARD_CONFIG.currentYear : new Date().getFullYear();
+        const targetYear = selectedYear + 1; // Add to the next year after selected year
         
-        // Only add to current year if we're recording payment from a past year
-        if (selectedYear >= currentYear) {
-            console.log('Not adding collection - already in current year');
+        // Only add to next year if we're recording payment from a past year
+        if (selectedYear >= new Date().getFullYear()) {
+            console.log('Not adding collection - already in current real-world year');
             return;
         }
         
         // In draft mode, store the pending cross-year update but don't save to GitHub yet
         if (draftMode) {
-            console.log(`📝 DRAFT MODE: Pending cross-year update - ₹${amount} will be added to ${currentYear} when you publish`);
-            showInfo(`ℹ️ Payment tracked. When you publish, ₹${amount.toLocaleString('en-IN')} will also be added to ${currentYear}'s income.`);
+            console.log(`📝 DRAFT MODE: Pending cross-year update - ₹${amount} will be added to ${targetYear} when you publish`);
+            showInfo(`ℹ️ Payment tracked. When you publish, ₹${amount.toLocaleString('en-IN')} will also be added to ${targetYear}'s income.`);
             
             // Store pending update for later
             if (!window.pendingCrossYearUpdates) {
                 window.pendingCrossYearUpdates = [];
             }
             window.pendingCrossYearUpdates.push({
-                targetYear: currentYear,
+                targetYear: targetYear,
                 memberName: memberName,
                 amount: amount,
                 paymentDate: paymentDate,
@@ -3110,22 +3116,22 @@ async function addCheetiCollectionToCurrentYear(memberName, amount, paymentDate)
             return;
         }
         
-        // Load current year data
-        const currentYearData = await loadYearData(currentYear);
+        // Load target year data (next year after selected)
+        const targetYearData = await loadYearData(targetYear);
         
-        if (!currentYearData) {
-            console.error('Could not load current year data');
+        if (!targetYearData) {
+            console.error(`Could not load target year ${targetYear} data`);
             return;
         }
         
         // Initialize cheeti_collections array if it doesn't exist
-        if (!currentYearData.cheeti_collections) {
-            currentYearData.cheeti_collections = [];
+        if (!targetYearData.cheeti_collections) {
+            targetYearData.cheeti_collections = [];
         }
         
         // Add the collection
-        currentYearData.cheeti_collections.push({
-            slNo: currentYearData.cheeti_collections.length + 1,
+        targetYearData.cheeti_collections.push({
+            slNo: targetYearData.cheeti_collections.length + 1,
             memberName: memberName,
             amount: amount,
             fromYear: selectedYear,
@@ -3134,50 +3140,50 @@ async function addCheetiCollectionToCurrentYear(memberName, amount, paymentDate)
         });
         
         // Remove from cheeti_expected to avoid double counting
-        if (currentYearData.cheeti_expected) {
-            const expectedIndex = currentYearData.cheeti_expected.findIndex(
+        if (targetYearData.cheeti_expected) {
+            const expectedIndex = targetYearData.cheeti_expected.findIndex(
                 e => e.name === memberName && e.fromYear === selectedYear
             );
             if (expectedIndex >= 0) {
                 console.log(`🔄 Removing ${memberName} from cheeti_expected (already paid)`);
-                currentYearData.cheeti_expected.splice(expectedIndex, 1);
+                targetYearData.cheeti_expected.splice(expectedIndex, 1);
                 
                 // Recalculate estimated collections based on remaining expected members
-                const estimatedTotal = currentYearData.cheeti_expected.reduce((sum, e) => sum + (e.expectedTotal || 0), 0);
-                const estimatedIndex = currentYearData.report.findIndex(r => r.type === 'income_estimated');
+                const estimatedTotal = targetYearData.cheeti_expected.reduce((sum, e) => sum + (e.expectedTotal || 0), 0);
+                const estimatedIndex = targetYearData.report.findIndex(r => r.type === 'income_estimated');
                 if (estimatedIndex >= 0) {
-                    currentYearData.report[estimatedIndex].amount = estimatedTotal;
+                    targetYearData.report[estimatedIndex].amount = estimatedTotal;
                     console.log(`📊 Updated estimated collections to ₹${estimatedTotal}`);
                 }
             }
         }
         
         // Update report - add to income
-        if (!currentYearData.report) {
-            currentYearData.report = [];
+        if (!targetYearData.report) {
+            targetYearData.report = [];
         }
         
         // Add or update Cheeti Collections in report
-        const cheetiCollectionIndex = currentYearData.report.findIndex(r => r.category === 'Cheeti Collections');
+        const cheetiCollectionIndex = targetYearData.report.findIndex(r => r.category === 'Cheeti Collections');
         if (cheetiCollectionIndex >= 0) {
-            currentYearData.report[cheetiCollectionIndex].amount += amount;
+            targetYearData.report[cheetiCollectionIndex].amount += amount;
         } else {
-            currentYearData.report.push({
+            targetYearData.report.push({
                 category: 'Cheeti Collections',
                 amount: amount,
                 type: 'income'
             });
         }
         
-        // Save current year data (only in production mode or when not in draft)
-        await saveYearData(currentYear, currentYearData);
+        // Save target year data (only in production mode or when not in draft)
+        await saveYearData(targetYear, targetYearData);
         
-        console.log(`✅ Added ₹${amount} collection to ${currentYear} income`);
-        showSuccess(`✅ Payment added to ${currentYear} income: ₹${amount.toLocaleString('en-IN')}`);
+        console.log(`✅ Added ₹${amount} collection to ${targetYear} income`);
+        showSuccess(`✅ Payment added to ${targetYear} income: ₹${amount.toLocaleString('en-IN')}`);
         
     } catch (error) {
-        console.error('Error adding cheeti collection to current year:', error);
-        showError('⚠️ Payment recorded but failed to add to current year income');
+        console.error('Error adding cheeti collection to target year:', error);
+        showError('⚠️ Payment recorded but failed to add to target year income');
     }
 }
 
@@ -3858,7 +3864,7 @@ function saveExpenseFromModal(index) {
     showSuccess('✅ Expense updated successfully!');
 }
 
-function saveCheetiPaymentFromModal(index) {
+async function saveCheetiPaymentFromModal(index) {
     const member = currentData.cheeti[index];
     if (!member) return;
     
@@ -3906,6 +3912,11 @@ function saveCheetiPaymentFromModal(index) {
         index: index,
         type: 'payment_update'
     });
+    
+    // If payment is marked as paid, add to next year's income
+    if (isPaid && paymentDate) {
+        await addCheetiCollectionToCurrentYear(member.name, member.total, paymentDate);
+    }
     
     // Refresh UI
     processData();
@@ -3963,19 +3974,20 @@ function autoCalculateLateFee() {
         
         console.log('✅ Late fee auto-calculated:', calculatedLateFee);
     } else {
-        // No late fee
+        // No late fee calculated, but don't overwrite existing late fee
         if (lateFeeInfo) lateFeeInfo.textContent = '';
         if (lateFeeAutoCalc) lateFeeAutoCalc.textContent = '';
-        if (lateFeeInput) lateFeeInput.value = 0;
+        // Don't set lateFeeInput.value to 0 - keep existing value
         
-        // Update total due
-        if (totalDueAmount && currentEditIndex !== null) {
+        // Update total due with current late fee value
+        if (totalDueAmount && currentEditIndex !== null && lateFeeInput) {
             const member = currentData.cheeti[currentEditIndex];
-            const newTotal = (member.amount || 0) + (member.interest || 0);
+            const currentLateFee = parseFloat(lateFeeInput.value) || 0;
+            const newTotal = (member.amount || 0) + (member.interest || 0) + currentLateFee;
             totalDueAmount.textContent = formatCurrency(newTotal);
         }
         
-        console.log('ℹ️ No late fee:', daysOverdue <= 0 ? 'Payment on time' : 'No cutover settings');
+        console.log('ℹ️ No late fee auto-calculation:', daysOverdue <= 0 ? 'Payment on time' : 'No cutover settings');
     }
 }
 
