@@ -1,6 +1,6 @@
 {
   "year": "2026",
-  "lastUpdated": "2026-04-10T07:24:15.444Z",
+  "lastUpdated": "2026-04-10T20:29:00.031Z",
   "settings": {
     "dashboard_enabled": false
   },
@@ -11,7 +11,18 @@
       "amount": 3000
     }
   ],
-  "cheeti": [],
+  "cheeti": [
+    {
+      "slNo": 1,
+      "name": "test",
+      "amount": 1000,
+      "interest": 120,
+      "total": 1120,
+      "paid": false,
+      "paymentDate": null,
+      "lateFee": 0
+    }
+  ],
   "cheeti_collections": [
     {
       "slNo": 1,
