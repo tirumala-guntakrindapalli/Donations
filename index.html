@@ -185,25 +185,6 @@
             box-shadow: 0 25px 70px rgba(0,0,0,0.3);
             animation: slideUp 0.8s ease-out;
             border: 1px solid rgba(255,255,255,0.5);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .welcome-message::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(90deg, #667eea 0%, #764ba2 50%, #667eea 100%);
-            background-size: 200% 100%;
-            animation: shimmer 3s linear infinite;
-        }
-
-        @keyframes shimmer {
-            0% { background-position: -200% 0; }
-            100% { background-position: 200% 0; }
         }
 
         @keyframes slideUp {
@@ -607,12 +588,15 @@
 
         /* Footer */
         .footer {
+            background: linear-gradient(135deg, rgba(44, 62, 80, 0.95) 0%, rgba(52, 73, 94, 0.95) 100%);
+            backdrop-filter: blur(10px);
             text-align: center;
-            padding: 50px 20px 40px;
+            padding: 25px 20px 20px;
             color: white;
-            opacity: 0.95;
-            font-size: 1rem;
+            opacity: 1;
+            font-size: 0.95rem;
             position: relative;
+            box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.2);
         }
 
         .footer::before {
@@ -627,13 +611,13 @@
         }
 
         .footer p {
-            margin: 8px 0;
+            margin: 5px 0;
             letter-spacing: 0.5px;
         }
 
         .footer p:first-child {
             font-weight: 600;
-            font-size: 1.1rem;
+            font-size: 1rem;
         }
 
         /* Page Loader */
@@ -708,13 +692,31 @@
             }
 
             .welcome-message {
-                padding: 30px 25px;
-                margin: 0 auto 50px;
+                padding: 25px 20px;
+                margin: 0 20px 40px;
+                border-radius: 20px;
             }
 
             .welcome-message h2 {
-                font-size: 1.8rem;
+                font-size: 1.6rem;
                 flex-direction: column;
+                gap: 10px;
+                margin-bottom: 20px;
+            }
+
+            .welcome-message h2 i {
+                font-size: 2rem;
+            }
+
+            .welcome-message p {
+                font-size: 1rem;
+                line-height: 1.7;
+                margin-bottom: 15px;
+            }
+
+            .welcome-message .highlight {
+                font-size: 1.05rem;
+                display: inline;
             }
 
             .feature-card {
@@ -760,6 +762,28 @@
             .home-committee-card {
                 min-height: auto;
                 padding: 25px 20px;
+            }
+
+            .footer {
+                padding: 20px 15px 18px;
+                font-size: 0.85rem;
+            }
+
+            .footer::before {
+                width: 90%;
+            }
+
+            .footer p {
+                margin: 4px 0;
+            }
+
+            .footer p:first-child {
+                font-size: 0.9rem;
+            }
+
+            .footer p:last-child {
+                font-size: 0.8rem;
+                line-height: 1.5;
             }
         }
     </style>

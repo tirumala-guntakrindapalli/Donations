@@ -678,11 +678,13 @@ tbody tr:nth-child(even):hover {
 
 /* Footer */
 .footer {
-    background: var(--dark-color);
+    background: linear-gradient(135deg, rgba(44, 62, 80, 0.98) 0%, rgba(52, 73, 94, 0.98) 100%);
     color: var(--white);
-    padding: 40px 20px 30px;
+    padding: 25px 20px 20px;
     text-align: center;
     position: relative;
+    box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(10px);
 }
 
 .footer::before {
@@ -698,14 +700,14 @@ tbody tr:nth-child(even):hover {
 }
 
 .footer p {
-    margin: 8px 0;
+    margin: 5px 0;
     opacity: 0.95;
     letter-spacing: 0.5px;
 }
 
 .footer p:first-child {
     font-weight: 600;
-    font-size: 1.05rem;
+    font-size: 1rem;
 }
 
 /* Responsive Design */
@@ -921,6 +923,28 @@ tbody tr:nth-child(even):hover {
         width: 55px;
         height: 55px;
         font-size: 1.6rem;
+    }
+
+    .footer {
+        padding: 20px 15px 18px;
+        font-size: 0.85rem;
+    }
+
+    .footer::before {
+        width: 90%;
+    }
+
+    .footer p {
+        margin: 4px 0;
+    }
+
+    .footer p:first-child {
+        font-size: 0.9rem;
+    }
+
+    .footer p:last-child {
+        font-size: 0.8rem;
+        line-height: 1.5;
     }
 }
 
