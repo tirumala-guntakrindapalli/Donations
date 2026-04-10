@@ -450,7 +450,7 @@ async function createAdminSession() {
         const url = `${GITHUB_API_BASE}/repos/${config.GITHUB_OWNER}/${config.GITHUB_REPO}/contents/${sessionFilePath}`;
         
         const body = {
-            message: `[Dashboard Bot] [${config.DATA_ENVIRONMENT || 'prod'}] 🔐 Admin login | ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })}`,
+            message: `[Dashboard Bot] [${config.DATA_ENVIRONMENT || 'prod'}] 🔐 Admin login | ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })} [skip ci]`,
             content: content,
             branch: config.GITHUB_BRANCH
         };
@@ -523,7 +523,7 @@ async function releaseAdminSession() {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                message: `[Dashboard Bot] [${config.DATA_ENVIRONMENT || 'prod'}] 🔓 Admin logout | ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })}`,
+                message: `[Dashboard Bot] [${config.DATA_ENVIRONMENT || 'prod'}] 🔓 Admin logout | ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })} [skip ci]`,
                 sha: sha,
                 branch: config.GITHUB_BRANCH
             })
