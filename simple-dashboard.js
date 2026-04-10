@@ -2873,7 +2873,7 @@ function addCheetiMember() {
 }
 
 // Record Payment for Past Year Member
-function recordPayment() {
+async function recordPayment() {
     if (!isAdmin) {
         showError('You must be logged in as admin');
         return;
@@ -2921,9 +2921,9 @@ function recordPayment() {
         currentData.cheeti[memberIndex].days_overdue = 0;
     }
     
-    // If payment is marked as paid, add to current year's income
+    // If payment is marked as paid, add to current year's income (AWAIT to ensure it completes)
     if (isPaid) {
-        addCheetiCollectionToCurrentYear(member.name, paymentAmount, paymentDate);
+        await addCheetiCollectionToCurrentYear(member.name, paymentAmount, paymentDate);
     }
     
     // Clear form
@@ -2944,8 +2944,8 @@ function recordPayment() {
     
     showSuccess('✅ Payment recorded successfully!');
     
-    // Save to GitHub
-    saveDataToGitHub();
+    // Save to GitHub (AWAIT to ensure it completes)
+    await saveDataToGitHub();
 }
 
 // Add Cheeti Collection to Current Year
