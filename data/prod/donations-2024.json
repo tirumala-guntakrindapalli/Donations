@@ -3,7 +3,7 @@
   "settings": {
     "dashboard_enabled": false
   },
-  "lastUpdated": "2026-04-10T18:22:30.824Z",
+  "lastUpdated": "2026-04-10T18:54:59.519Z",
   "donations": [
     {
       "slNo": 1,
@@ -167,7 +167,7 @@
     },
     {
       "slNo": 33,
-      "name": "UV Ramana Reddy",
+      "name": "U V Ramana Reddy",
       "amount": 1000
     },
     {
@@ -308,7 +308,7 @@
     {
       "slNo": 61,
       "name": "M Penchal Reddy",
-      "amount": 500
+      "amount": 1000
     },
     {
       "slNo": 62,
@@ -333,12 +333,12 @@
     {
       "slNo": 66,
       "name": "T Nagur Reddy",
-      "amount": 500
+      "amount": 1000
     },
     {
       "slNo": 67,
       "name": "P Narendra",
-      "amount": 500
+      "amount": 1000
     },
     {
       "slNo": 68,
