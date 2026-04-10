@@ -14,6 +14,7 @@ let isAdmin = false;
 let currentData = null;
 let refreshTimer = null;
 let hasUnsavedData = false;
+let sessionValidationTimer = null;  // Check if session is still valid
 
 // Draft Mode Variables
 let draftMode = false;  // When true, changes are only saved in memory
@@ -224,7 +225,72 @@ async function handleLogin(e) {
         }
         
         if (hashedPassword === adminPasswordHash) {
+            // CHECK FOR EXISTING ADMIN SESSION (only in production mode)
+            const testMode = (typeof DASHBOARD_CONFIG !== 'undefined') ? DASHBOARD_CONFIG.TEST_MODE : true;
+            
+            if (!testMode) {
+                showLoading('Checking for active sessions...');
+                
+                const sessionCheck = await checkAdminSession();
+                
+                if (sessionCheck.hasActiveSession) {
+                    hideLoading();
+                    
+                    // Hide the login dialog before showing the conflict warning
+                    hideLoginDialog();
+                    
+                    const sessionTime = new Date(sessionCheck.loginTime).toLocaleString('en-IN', { 
+                        day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit', hour12: true 
+                    });
+                    
+                    const confirmation = await showCustomConfirm({
+                        title: '⚠️ Admin Already Logged In',
+                        message: `
+                            <div style="text-align: left; line-height: 1.8;">
+                                <p style="color: #e74c3c; font-weight: 700; font-size: 1.1rem; margin-bottom: 15px;">
+                                    <i class="fas fa-user-lock"></i> Another admin session is active!
+                                </p>
+                                <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 15px;">
+                                    <p style="margin: 5px 0;"><strong>Device/Browser:</strong> ${sessionCheck.device || 'Unknown'}</p>
+                                    <p style="margin: 5px 0;"><strong>Login time:</strong> ${sessionTime}</p>
+                                    <p style="margin: 5px 0;"><strong>Session ID:</strong> ${sessionCheck.sessionId.substring(0, 8)}...</p>
+                                </div>
+                                <p style="margin-bottom: 10px;">
+                                    <strong style="color: #e67e22;">Only ONE admin can be logged in at a time.</strong>
+                                </p>
+                                <p style="font-size: 0.95rem; color: #666;">
+                                    If this is you on another device, click <strong>"Force Login"</strong> to logout the other session and login here.
+                                </p>
+                                <p style="font-size: 0.95rem; color: #666;">
+                                    If someone else is working, click <strong>"Cancel"</strong> and try again later.
+                                </p>
+                            </div>
+                        `,
+                        icon: 'fas fa-exclamation-triangle',
+                        iconColor: '#f39c12',
+                        confirmText: 'Force Login',
+                        cancelText: 'Cancel',
+                        confirmBtnStyle: 'background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);'
+                    });
+                    
+                    if (!confirmation) {
+                        // User cancelled - show login dialog again and clear password
+                        showLoginDialog();
+                        passwordInput.value = '';
+                        return; // User cancelled - don't login
+                    }
+                    
+                    // User chose to force login - will release old session below
+                    showLoading('Releasing previous session...');
+                }
+            }
+            
             isAdmin = true;
+            
+            // Create admin session lock (releases any existing session)
+            if (!testMode) {
+                await createAdminSession();
+            }
             
             // Save admin session to sessionStorage
             saveAdminSession();
@@ -232,6 +298,7 @@ async function handleLogin(e) {
             // Clear login parameter from URL if present
             clearLoginUrlParameter();
             
+            hideLoading();
             hideLoginDialog();
             showSuccess('✅ Login successful! Admin panel unlocked.');
             showAdminPanel();
@@ -253,6 +320,286 @@ async function sha256(message) {
     const hashArray = Array.from(new Uint8Array(hashBuffer));
     const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
     return hashHex;
+}
+
+// Admin Session Management (Single Login Restriction)
+async function checkAdminSession() {
+    try {
+        const config = (typeof DASHBOARD_CONFIG !== 'undefined') ? DASHBOARD_CONFIG : CONFIG;
+        const sessionFilePath = 'data/.admin-session.json';
+        const apiUrl = `${GITHUB_API_BASE}/repos/${config.GITHUB_OWNER}/${config.GITHUB_REPO}/contents/${sessionFilePath}?ref=${config.GITHUB_BRANCH}&_=${Date.now()}`;
+        
+        console.log('🔍 Checking for existing admin session...');
+        
+        const response = await fetch(apiUrl, {
+            cache: 'no-store',
+            headers: {
+                'Authorization': `token ${config.GITHUB_TOKEN}`,
+                'Accept': 'application/vnd.github.v3.raw'
+            }
+        });
+        
+        if (!response.ok) {
+            // 404 = No session file exists = No active session (NORMAL for first login)
+            console.log('✅ No active admin session found (404 is expected) - login allowed');
+            return { hasActiveSession: false };
+        }
+        
+        const sessionData = await response.json();
+        
+        // Check if session is still valid (not expired)
+        const now = new Date().getTime();
+        const sessionTime = new Date(sessionData.loginTime).getTime();
+        const sessionAge = now - sessionTime;
+        const maxSessionAge = 24 * 60 * 60 * 1000; // 24 hours
+        
+        if (sessionAge > maxSessionAge) {
+            console.log('⏰ Admin session expired (>24 hours) - login allowed');
+            return { hasActiveSession: false };
+        }
+        
+        console.warn('⚠️ Active admin session detected!', sessionData);
+        
+        return {
+            hasActiveSession: true,
+            sessionId: sessionData.sessionId,
+            loginTime: sessionData.loginTime,
+            device: sessionData.device
+        };
+        
+    } catch (error) {
+        console.error('❌ Error checking admin session:', error);
+        // On error, allow login (fail-open)
+        console.log('✅ Allowing login due to session check error (fail-open)');
+        return { hasActiveSession: false };
+    }
+}
+
+async function createAdminSession() {
+    try {
+        console.log('🔐 Creating admin session lock...');
+        
+        const config = (typeof DASHBOARD_CONFIG !== 'undefined') ? DASHBOARD_CONFIG : CONFIG;
+        const sessionFilePath = 'data/.admin-session.json';
+        
+        // Generate unique session ID
+        const sessionId = crypto.randomUUID();
+        
+        // Get device/browser info
+        const device = `${navigator.userAgent.match(/(Chrome|Firefox|Safari|Edge)\/[\d.]+/)?.[0] || 'Unknown Browser'} on ${navigator.platform}`;
+        
+        const sessionData = {
+            sessionId: sessionId,
+            loginTime: new Date().toISOString(),
+            device: device,
+            env: config.DATA_ENVIRONMENT || 'prod'
+        };
+        
+        console.log('📝 Session data:', sessionData);
+        
+        // Check if file exists (get SHA if it does)
+        let existingSha = null;
+        const checkUrl = `${GITHUB_API_BASE}/repos/${config.GITHUB_OWNER}/${config.GITHUB_REPO}/contents/${sessionFilePath}?ref=${config.GITHUB_BRANCH}`;
+        const checkResponse = await fetch(checkUrl, {
+            cache: 'no-store',
+            headers: {
+                'Authorization': `token ${config.GITHUB_TOKEN}`,
+                'Accept': 'application/vnd.github.v3+json'
+            }
+        });
+        if (checkResponse.ok) {
+            const existingFile = await checkResponse.json();
+            existingSha = existingFile.sha || null;
+            console.log('♻️ Overwriting existing session (force login)');
+        } else {
+            console.log('🆕 Creating new session file');
+        }
+        
+        // Prepare content
+        const content = btoa(unescape(encodeURIComponent(JSON.stringify(sessionData, null, 2))));
+        
+        // Create/Update session file
+        const url = `${GITHUB_API_BASE}/repos/${config.GITHUB_OWNER}/${config.GITHUB_REPO}/contents/${sessionFilePath}`;
+        
+        const body = {
+            message: `[Dashboard Bot] [${config.DATA_ENVIRONMENT || 'prod'}] 🔐 Admin login | ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })}`,
+            content: content,
+            branch: config.GITHUB_BRANCH
+        };
+        
+        if (existingSha) {
+            body.sha = existingSha;
+        }
+        
+        const response = await fetch(url, {
+            method: 'PUT',
+            headers: {
+                'Authorization': `token ${config.GITHUB_TOKEN}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(body)
+        });
+        
+        if (!response.ok) {
+            const errorData = await response.json();
+            console.error('❌ Session creation failed:', errorData);
+            throw new Error('Failed to create session lock');
+        }
+        
+        // Store session ID in localStorage for this browser
+        localStorage.setItem('adminSessionId', sessionId);
+        
+        console.log('✅ Admin session created successfully:', sessionId);
+        
+    } catch (error) {
+        console.error('❌ Error creating admin session:', error);
+        // Don't fail login if session creation fails
+        console.warn('⚠️ Login continues despite session creation failure');
+    }
+}
+
+async function releaseAdminSession() {
+    try {
+        console.log('🔓 Releasing admin session lock...');
+        
+        const config = (typeof DASHBOARD_CONFIG !== 'undefined') ? DASHBOARD_CONFIG : CONFIG;
+        const sessionFilePath = 'data/.admin-session.json';
+        
+        // Get current file SHA
+        const checkUrl = `${GITHUB_API_BASE}/repos/${config.GITHUB_OWNER}/${config.GITHUB_REPO}/contents/${sessionFilePath}?ref=${config.GITHUB_BRANCH}`;
+        const checkResponse = await fetch(checkUrl, {
+            cache: 'no-store',
+            headers: {
+                'Authorization': `token ${config.GITHUB_TOKEN}`,
+                'Accept': 'application/vnd.github.v3+json'
+            }
+        });
+        
+        if (!checkResponse.ok) {
+            // Session file doesn't exist, nothing to release
+            console.log('ℹ️ No session file to release (already logged out or never created)');
+            return;
+        }
+        
+        const fileData = await checkResponse.json();
+        const sha = fileData.sha;
+        
+        // Delete the session file
+        const url = `${GITHUB_API_BASE}/repos/${config.GITHUB_OWNER}/${config.GITHUB_REPO}/contents/${sessionFilePath}`;
+        
+        const response = await fetch(url, {
+            method: 'DELETE',
+            headers: {
+                'Authorization': `token ${config.GITHUB_TOKEN}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                message: `[Dashboard Bot] [${config.DATA_ENVIRONMENT || 'prod'}] 🔓 Admin logout | ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })}`,
+                sha: sha,
+                branch: config.GITHUB_BRANCH
+            })
+        });
+        
+        if (!response.ok) {
+            const errorData = await response.json();
+            console.error('❌ Session release failed:', errorData);
+            throw new Error('Failed to release session lock');
+        }
+        
+        // Clear session ID from localStorage
+        localStorage.removeItem('adminSessionId');
+        
+        console.log('✅ Admin session released successfully');
+        
+    } catch (error) {
+        console.error('❌ Error releasing admin session:', error);
+        // Don't fail logout if session release fails
+        console.warn('⚠️ Logout continues despite session release failure');
+    }
+}
+
+// Periodically validate that our session is still active
+async function validateAdminSession() {
+    try {
+        const mySessionId = localStorage.getItem('adminSessionId');
+        if (!mySessionId) {
+            console.warn('⚠️ No session ID in localStorage - session validation skipped');
+            return;
+        }
+        
+        const config = (typeof DASHBOARD_CONFIG !== 'undefined') ? DASHBOARD_CONFIG : CONFIG;
+        const sessionFilePath = 'data/.admin-session.json';
+        const apiUrl = `${GITHUB_API_BASE}/repos/${config.GITHUB_OWNER}/${config.GITHUB_REPO}/contents/${sessionFilePath}?ref=${config.GITHUB_BRANCH}&_=${Date.now()}`;
+        
+        const response = await fetch(apiUrl, {
+            cache: 'no-store',
+            headers: {
+                'Authorization': `token ${config.GITHUB_TOKEN}`,
+                'Accept': 'application/vnd.github.v3.raw'
+            }
+        });
+        
+        if (!response.ok) {
+            // Session file doesn't exist = we were forcibly logged out
+            console.error('❌ Session file deleted - you were logged out by another admin!');
+            forceLogoutDueToSessionLoss();
+            return;
+        }
+        
+        const sessionData = await response.json();
+        
+        // Check if the session ID matches
+        if (sessionData.sessionId !== mySessionId) {
+            console.error('❌ Session ID mismatch - you were forcibly logged out!');
+            console.log('  Expected:', mySessionId);
+            console.log('  Found:', sessionData.sessionId);
+            forceLogoutDueToSessionLoss();
+            return;
+        }
+        
+        // Session is still valid
+        console.log('✅ Session validation passed');
+        
+    } catch (error) {
+        console.error('❌ Error validating session:', error);
+        // Don't force logout on validation errors (network issues, etc)
+    }
+}
+
+function startSessionValidation() {
+    // Clear any existing timer
+    if (sessionValidationTimer) {
+        clearInterval(sessionValidationTimer);
+    }
+    
+    // Check every 10 seconds
+    sessionValidationTimer = setInterval(validateAdminSession, 10000);
+    console.log('🔄 Started session validation (checking every 10 seconds)');
+}
+
+function stopSessionValidation() {
+    if (sessionValidationTimer) {
+        clearInterval(sessionValidationTimer);
+        sessionValidationTimer = null;
+        console.log('⏹️ Stopped session validation');
+    }
+}
+
+async function forceLogoutDueToSessionLoss() {
+    showToast('⚠️ You were logged out by another admin session! Page will reload...', 'warning');
+    
+    // Stop validation timer
+    stopSessionValidation();
+    
+    // Wait 2 seconds for user to see the message
+    setTimeout(() => {
+        // Clear local session storage
+        clearAdminSession();
+        localStorage.removeItem('adminSessionId');
+        
+        // Reload the page to reset state
+        window.location.reload();
+    }, 2000);
 }
 
 // Show Admin Panel
@@ -315,6 +662,12 @@ function showAdminPanel() {
     // Restore saved section collapse states
     if (typeof restoreSectionStates === 'function') {
         setTimeout(() => restoreSectionStates(), 100);
+    }
+    
+    // Start session validation (only in production mode)
+    // testMode already declared at the beginning of this function
+    if (!testMode) {
+        startSessionValidation();
     }
 }
 
@@ -556,10 +909,19 @@ function showCustomConfirm({ title, message, icon, iconClass, iconColor, confirm
 }
 
 // Perform Logout - Actual logout logic
-function performLogout() {
+async function performLogout() {
     // Reset admin state
     isAdmin = false;
     hasUnsavedData = false;
+    
+    // Stop session validation timer
+    stopSessionValidation();
+    
+    // Release admin session lock (only in production mode)
+    const testMode = (typeof DASHBOARD_CONFIG !== 'undefined') ? DASHBOARD_CONFIG.TEST_MODE : true;
+    if (!testMode) {
+        await releaseAdminSession();
+    }
     
     // Clear admin session from sessionStorage
     clearAdminSession();
