@@ -326,7 +326,8 @@ async function sha256(message) {
 async function checkAdminSession() {
     try {
         const config = (typeof DASHBOARD_CONFIG !== 'undefined') ? DASHBOARD_CONFIG : CONFIG;
-        const sessionFilePath = 'data/.admin-session.json';
+        const env = config.DATA_ENVIRONMENT || 'prod';
+        const sessionFilePath = `data/.admin-session-${env}.json`;
         const apiUrl = `${GITHUB_API_BASE}/repos/${config.GITHUB_OWNER}/${config.GITHUB_REPO}/contents/${sessionFilePath}?ref=${config.GITHUB_BRANCH}&_=${Date.now()}`;
         
         console.log('🔍 Checking for existing admin session...');
@@ -380,7 +381,8 @@ async function createAdminSession() {
         console.log('🔐 Creating admin session lock...');
         
         const config = (typeof DASHBOARD_CONFIG !== 'undefined') ? DASHBOARD_CONFIG : CONFIG;
-        const sessionFilePath = 'data/.admin-session.json';
+        const env = config.DATA_ENVIRONMENT || 'prod';
+        const sessionFilePath = `data/.admin-session-${env}.json`;
         
         // Generate unique session ID
         const sessionId = crypto.randomUUID();
@@ -463,7 +465,8 @@ async function releaseAdminSession() {
         console.log('🔓 Releasing admin session lock...');
         
         const config = (typeof DASHBOARD_CONFIG !== 'undefined') ? DASHBOARD_CONFIG : CONFIG;
-        const sessionFilePath = 'data/.admin-session.json';
+        const env = config.DATA_ENVIRONMENT || 'prod';
+        const sessionFilePath = `data/.admin-session-${env}.json`;
         
         // Get current file SHA
         const checkUrl = `${GITHUB_API_BASE}/repos/${config.GITHUB_OWNER}/${config.GITHUB_REPO}/contents/${sessionFilePath}?ref=${config.GITHUB_BRANCH}`;
@@ -528,7 +531,8 @@ async function validateAdminSession() {
         }
         
         const config = (typeof DASHBOARD_CONFIG !== 'undefined') ? DASHBOARD_CONFIG : CONFIG;
-        const sessionFilePath = 'data/.admin-session.json';
+        const env = config.DATA_ENVIRONMENT || 'prod';
+        const sessionFilePath = `data/.admin-session-${env}.json`;
         const apiUrl = `${GITHUB_API_BASE}/repos/${config.GITHUB_OWNER}/${config.GITHUB_REPO}/contents/${sessionFilePath}?ref=${config.GITHUB_BRANCH}&_=${Date.now()}`;
         
         const response = await fetch(apiUrl, {
