@@ -1,6 +1,6 @@
 {
   "year": "2025",
-  "lastUpdated": "2026-04-10T07:24:13.464Z",
+  "lastUpdated": "2026-04-10T20:23:44.710Z",
   "settings": {
     "dashboard_enabled": true
   },
@@ -9,11 +9,6 @@
       "slNo": 1,
       "name": "P Hari Krishna Reddy",
       "amount": 10000
-    },
-    {
-      "slNo": 2,
-      "name": "M Narasimha Reddy",
-      "amount": 5016
     }
   ],
   "cheeti": [
