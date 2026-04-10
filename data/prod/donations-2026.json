@@ -1,8 +1,19 @@
 {
   "year": "2026",
-  "lastUpdated": "2026-04-10T19:57:58.656Z",
+  "lastUpdated": "2026-04-10T19:58:31.211Z",
   "donations": [],
-  "cheeti": [],
+  "cheeti": [
+    {
+      "slNo": 1,
+      "name": "Test1",
+      "amount": 5000,
+      "interest": 600,
+      "total": 5600,
+      "paid": false,
+      "paymentDate": null,
+      "lateFee": 0
+    }
+  ],
   "cheeti_collections": [],
   "cheeti_expected": [],
   "expenses": [],
