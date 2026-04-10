@@ -1217,7 +1217,9 @@ function generateChangeSummary() {
     if (summary.deletions > 0) parts.push(`${summary.deletions} deleted`);
     if (summary.visibilityToggles > 0) parts.push(`${summary.visibilityToggles} visibility changed`);
     
-    summary.message = `[Dashboard Bot] 📦 Batch update: ${parts.join(', ')} [skip ci]`;
+    const config = (typeof DASHBOARD_CONFIG !== 'undefined') ? DASHBOARD_CONFIG : (typeof CONFIG !== 'undefined' ? CONFIG : {});
+    const env = config.DATA_ENVIRONMENT || 'prod';
+    summary.message = `[Dashboard Bot] [${env}] 📦 Batch update: ${parts.join(', ')} [skip ci]`;
     
     return summary;
 }
@@ -1655,7 +1657,9 @@ async function toggleYearVisibility(year, isEnabled) {
         
         // Save to file with descriptive commit message
         const action = isEnabled ? '✅ Enable' : '🔒 Disable';
-        const commitMsg = `[Dashboard Bot] ${action} ${year} visibility | Admin action`;
+        const config = (typeof DASHBOARD_CONFIG !== 'undefined') ? DASHBOARD_CONFIG : (typeof CONFIG !== 'undefined' ? CONFIG : {});
+        const env = config.DATA_ENVIRONMENT || 'prod';
+        const commitMsg = `[Dashboard Bot] [${env}] ${action} ${year} visibility | Admin action`;
         await saveYearDataToFile(year, yearData, commitMsg);
         
         // Refresh the all years list
@@ -2498,7 +2502,9 @@ async function initializeNewYear(year) {
         };
         
         // Save the new year data
-        const initCommitMsg = `[Dashboard Bot] 🎉 Initialize ${year} | ${estimatedCollections > 0 ? `₹${estimatedCollections.toLocaleString('en-IN')} estimated` : 'Fresh start'}`;
+        const config = (typeof DASHBOARD_CONFIG !== 'undefined') ? DASHBOARD_CONFIG : (typeof CONFIG !== 'undefined' ? CONFIG : {});
+        const env = config.DATA_ENVIRONMENT || 'prod';
+        const initCommitMsg = `[Dashboard Bot] [${env}] 🎉 Initialize ${year} | ${estimatedCollections > 0 ? `₹${estimatedCollections.toLocaleString('en-IN')} estimated` : 'Fresh start'}`;
         await saveYearDataToFile(year, newYearData, initCommitMsg);
         
         let successMsg = `✅ Year ${year} initialized successfully!`;
@@ -2589,7 +2595,8 @@ async function saveYearDataToFile(year, data, commitMessage = null) {
             hour: '2-digit', minute: '2-digit', hour12: true,
             timeZone: 'Asia/Kolkata'
         });
-        const defaultMsg = `[Dashboard Bot] 📊 Update ${year} data | ${timestamp}`;
+        const env = config.DATA_ENVIRONMENT || 'prod';
+        const defaultMsg = `[Dashboard Bot] [${env}] 📊 Update ${year} data | ${timestamp}`;
         
         const body = {
             message: commitMessage || defaultMsg,
@@ -2788,11 +2795,12 @@ async function saveDataToGitHub(customSummary = null) {
         
         // Get config (DASHBOARD_CONFIG or CONFIG)
         const config = (typeof DASHBOARD_CONFIG !== 'undefined') ? DASHBOARD_CONFIG : CONFIG;
+        const env = config.DATA_ENVIRONMENT || 'prod';
         
         // Generate commit message
         const commitMessage = customSummary 
             ? customSummary.message 
-            : `[Dashboard Bot] 💰 Update donations & expenses | ${new Date().toLocaleString('en-IN', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit', hour12: true, timeZone: 'Asia/Kolkata' })} [skip ci]`;
+            : `[Dashboard Bot] [${env}] 💰 Update donations & expenses | ${new Date().toLocaleString('en-IN', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit', hour12: true, timeZone: 'Asia/Kolkata' })} [skip ci]`;
         
         // Update file via GitHub API
         const url = `${GITHUB_API_BASE}/repos/${config.GITHUB_OWNER || config.GITHUB_USERNAME}/${config.GITHUB_REPO}/contents/${config.DATA_FILE_PATH || config.getDataFilePath(config.currentYear)}`;
@@ -2829,8 +2837,51 @@ async function saveDataToGitHub(customSummary = null) {
         }
         hideLoading();
         
-        // Reload data after save
-        setTimeout(() => loadDataFromGitHub(), 2000);
+        // Smart reload: Wait for GitHub API to propagate, then verify
+        // Only reload if API has newer data than our current version
+        const savedTimestamp = currentData.lastUpdated;
+        setTimeout(async () => {
+            try {
+                const config = (typeof DASHBOARD_CONFIG !== 'undefined') ? DASHBOARD_CONFIG : CONFIG;
+                const dataPath = config.getDataFilePath(config.currentYear);
+                const apiUrl = `${GITHUB_API_BASE}/repos/${config.GITHUB_OWNER}/${config.GITHUB_REPO}/contents/${dataPath}?ref=${config.GITHUB_BRANCH}&_=${Date.now()}`;
+                
+                const response = await fetch(apiUrl, {
+                    cache: 'no-store',
+                    headers: {
+                        'Authorization': `token ${config.GITHUB_TOKEN}`,
+                        'Accept': 'application/vnd.github.v3.raw'
+                    }
+                });
+                
+                if (response.ok) {
+                    const apiData = await response.json();
+                    
+                    // Only reload if API data is newer or different
+                    if (apiData.lastUpdated && apiData.lastUpdated >= savedTimestamp) {
+                        // Check if data structure is intact (all arrays present)
+                        const hasAllArrays = apiData.donations !== undefined && 
+                                            apiData.cheeti !== undefined && 
+                                            apiData.expenses !== undefined;
+                        
+                        if (hasAllArrays) {
+                            console.log('✅ API data verified - all arrays intact');
+                            currentData = apiData;
+                            processData();
+                        } else {
+                            console.warn('⚠️ API data incomplete - keeping current data');
+                        }
+                    } else {
+                        console.log('⚠️ API data stale - keeping current data');
+                    }
+                } else {
+                    console.warn('Failed to verify saved data from API');
+                }
+            } catch (error) {
+                console.error('Error verifying saved data:', error);
+                // Keep current data on error
+            }
+        }, 10000); // Wait 10 seconds for GitHub API propagation
         
         return Promise.resolve();
         
@@ -3269,8 +3320,9 @@ async function saveYearData(year, data) {
             hour: '2-digit', minute: '2-digit', hour12: true,
             timeZone: 'Asia/Kolkata'
         });
+        const env = config.DATA_ENVIRONMENT || 'prod';
         const body = {
-            message: `[Dashboard Bot] 🔄 Cross-year sync ${year} | ${timestamp}`,
+            message: `[Dashboard Bot] [${env}] 🔄 Cross-year sync ${year} | ${timestamp}`,
             content: content,
             branch: config.GITHUB_BRANCH,
             author: {
