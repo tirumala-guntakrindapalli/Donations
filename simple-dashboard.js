@@ -2371,7 +2371,7 @@ function showYearNotInitializedWarning(year) {
                 color: #2c3e50;
                 margin-bottom: 15px;
                 font-size: 28px;
-            ">Year ${year} Not Initialized</h2>
+            ">🎉 Welcome to Year ${year}!</h2>
             
             <p style="
                 color: #7f8c8d;
@@ -2379,8 +2379,8 @@ function showYearNotInitializedWarning(year) {
                 line-height: 1.6;
                 margin-bottom: 30px;
             ">
-                The data file for year <strong>${year}</strong> does not exist yet.<br>
-                ${isAdmin ? 'Click the button below to initialize this year\'s data.' : 'Please contact the administrator to initialize this year.'}
+                This year's festival records haven't been created yet.<br><br>
+                ${isAdmin ? 'Click the button below to get started with ' + year + ' data.' : 'Please reach out to your committee organizer to get started with ' + year + ' data.'}
             </p>
             
             ${isAdmin ? `
