@@ -1,21 +1,12 @@
 {
   "year": "2025",
-  "lastUpdated": "2026-04-10T18:56:27.919Z",
+  "lastUpdated": "2026-04-10T18:57:58.229Z",
   "settings": {
     "dashboard_enabled": false
   },
   "donations": [],
   "cheeti": [],
-  "expenses": [
-    {
-      "item": "Bandset",
-      "amount": 14500
-    },
-    {
-      "item": "Vigraham",
-      "amount": 10000
-    }
-  ],
+  "expenses": [],
   "sponsors": [
     {
       "slNo": 1,
@@ -36,14 +27,7 @@
       "amount": 15000
     }
   ],
-  "laddu_winners": [
-    {
-      "slNo": 1,
-      "name": "Sri. Suresh Kumar",
-      "amount": 30000,
-      "date": "2025-09-15T15:30:00.000Z"
-    }
-  ],
+  "laddu_winners": [],
   "report": [
     {
       "category": "2025 Cheeti + Interest",
