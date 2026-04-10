@@ -1,39 +1,12 @@
 {
   "year": "2025",
-  "lastUpdated": "2026-04-10T20:25:03.560Z",
+  "lastUpdated": "2026-04-10T20:25:38.175Z",
   "settings": {
     "dashboard_enabled": true
   },
-  "donations": [
-    {
-      "slNo": 1,
-      "name": "P Hari Krishna Reddy",
-      "amount": 10000
-    }
-  ],
-  "cheeti": [
-    {
-      "slNo": 1,
-      "name": "M Krishna Reddy",
-      "amount": 27600,
-      "interest": 3312,
-      "total": 36912,
-      "paid": true,
-      "paymentDate": "2026-04-10",
-      "lateFee": 6000,
-      "days_overdue": 0
-    }
-  ],
-  "expenses": [
-    {
-      "item": "Bandset",
-      "amount": 14500
-    },
-    {
-      "item": "Vigraham",
-      "amount": 10000
-    }
-  ],
+  "donations": [],
+  "cheeti": [],
+  "expenses": [],
   "sponsors": [
     {
       "slNo": 1,
