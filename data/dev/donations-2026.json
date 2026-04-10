@@ -1,6 +1,6 @@
 {
   "year": "2026",
-  "lastUpdated": "2026-04-10T06:18:22.876Z",
+  "lastUpdated": "2026-04-10T07:24:15.444Z",
   "settings": {
     "dashboard_enabled": false
   },
@@ -20,6 +20,14 @@
       "fromYear": 2025,
       "collectionDate": "2026-04-10",
       "addedOn": "2026-04-10T06:18:22.283Z"
+    },
+    {
+      "slNo": 2,
+      "memberName": "M Krishna Reddy",
+      "amount": 36912,
+      "fromYear": 2025,
+      "collectionDate": "2026-04-10",
+      "addedOn": "2026-04-10T07:24:14.898Z"
     }
   ],
   "cheeti_expected": [
@@ -57,7 +65,7 @@
     },
     {
       "category": "Cheeti Collections",
-      "amount": 35912,
+      "amount": 72824,
       "type": "income"
     }
   ],
