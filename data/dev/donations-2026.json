@@ -1,6 +1,6 @@
 {
   "year": "2026",
-  "lastUpdated": "2026-04-10T20:29:48.018Z",
+  "lastUpdated": "2026-04-10T20:35:23.321Z",
   "settings": {
     "dashboard_enabled": false
   },
@@ -11,38 +11,7 @@
       "amount": 3000
     }
   ],
-  "cheeti": [
-    {
-      "slNo": 1,
-      "name": "test",
-      "amount": 1000,
-      "interest": 120,
-      "total": 1120,
-      "paid": false,
-      "paymentDate": null,
-      "lateFee": 0
-    },
-    {
-      "slNo": 2,
-      "name": "test2",
-      "amount": 1200,
-      "interest": 144,
-      "total": 1344,
-      "paid": false,
-      "paymentDate": null,
-      "lateFee": 0
-    },
-    {
-      "slNo": 3,
-      "name": "test3",
-      "amount": 12000,
-      "interest": 1440,
-      "total": 13440,
-      "paid": false,
-      "paymentDate": null,
-      "lateFee": 0
-    }
-  ],
+  "cheeti": [],
   "cheeti_collections": [
     {
       "slNo": 1,
