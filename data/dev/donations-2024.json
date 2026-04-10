@@ -7,77 +7,832 @@
   "donations": [
     {
       "slNo": 1,
-      "name": "P Hari Krishna Reddy",
-      "amount": 10000
+      "name": "J Sai",
+      "amount": 14000
     },
     {
       "slNo": 2,
       "name": "M Narasimha Reddy",
-      "amount": 5016
+      "amount": 5000
+    },
+    {
+      "slNo": 3,
+      "name": "B Sudhakar Reddy (Suresh)",
+      "amount": 3001
+    },
+    {
+      "slNo": 4,
+      "name": "M Somu",
+      "amount": 2116
+    },
+    {
+      "slNo": 5,
+      "name": "P Sasidhar",
+      "amount": 2116
+    },
+    {
+      "slNo": 6,
+      "name": "G Venkatesh jr",
+      "amount": 2001
+    },
+    {
+      "slNo": 7,
+      "name": "P Sudarsan",
+      "amount": 2001
+    },
+    {
+      "slNo": 8,
+      "name": "P Ganga sr",
+      "amount": 2000
+    },
+    {
+      "slNo": 9,
+      "name": "B Amaranadh Reddy",
+      "amount": 1500
+    },
+    {
+      "slNo": 10,
+      "name": "P Siva",
+      "amount": 1116
+    },
+    {
+      "slNo": 11,
+      "name": "G Uday",
+      "amount": 1116
+    },
+    {
+      "slNo": 12,
+      "name": "T Suresh",
+      "amount": 1116
+    },
+    {
+      "slNo": 13,
+      "name": "B Raja Reddy",
+      "amount": 1116
+    },
+    {
+      "slNo": 14,
+      "name": "P Murali Krishna Reddy",
+      "amount": 1116
+    },
+    {
+      "slNo": 15,
+      "name": "C Munisubba Reddy",
+      "amount": 1116
+    },
+    {
+      "slNo": 16,
+      "name": "P Tharun",
+      "amount": 1016
+    },
+    {
+      "slNo": 17,
+      "name": "P Rosi Reddy",
+      "amount": 1016
+    },
+    {
+      "slNo": 18,
+      "name": "P Eswar Reddy (somu)",
+      "amount": 1016
+    },
+    {
+      "slNo": 19,
+      "name": "B Chandra Reddy",
+      "amount": 1016
+    },
+    {
+      "slNo": 20,
+      "name": "G Venkatesulu sr",
+      "amount": 1016
+    },
+    {
+      "slNo": 21,
+      "name": "P Hari",
+      "amount": 1016
+    },
+    {
+      "slNo": 22,
+      "name": "B Uma",
+      "amount": 1001
+    },
+    {
+      "slNo": 23,
+      "name": "M Krishna Reddy",
+      "amount": 1000
+    },
+    {
+      "slNo": 24,
+      "name": "M Venkateswar Reddy",
+      "amount": 1000
+    },
+    {
+      "slNo": 25,
+      "name": "M Balasubramanyam",
+      "amount": 1000
+    },
+    {
+      "slNo": 26,
+      "name": "V Munihara Reddy",
+      "amount": 1000
+    },
+    {
+      "slNo": 27,
+      "name": "P Mani Reddy",
+      "amount": 1000
+    },
+    {
+      "slNo": 28,
+      "name": "M Srinivasulu Reddy",
+      "amount": 1000
+    },
+    {
+      "slNo": 29,
+      "name": "T Maheswar Reddy",
+      "amount": 1000
+    },
+    {
+      "slNo": 30,
+      "name": "P Bhargav",
+      "amount": 1000
+    },
+    {
+      "slNo": 31,
+      "name": "P Siva chanti",
+      "amount": 1000
+    },
+    {
+      "slNo": 32,
+      "name": "V Manohar Reddy",
+      "amount": 1000
+    },
+    {
+      "slNo": 33,
+      "name": "UV Ramana Reddy",
+      "amount": 1000
+    },
+    {
+      "slNo": 34,
+      "name": "Y Vasu",
+      "amount": 1000
+    },
+    {
+      "slNo": 35,
+      "name": "P Gurunadham Reddy",
+      "amount": 1000
+    },
+    {
+      "slNo": 36,
+      "name": "P Sankar Reddy (Tharun)",
+      "amount": 1000
+    },
+    {
+      "slNo": 37,
+      "name": "M Balaji Reddy",
+      "amount": 1000
+    },
+    {
+      "slNo": 38,
+      "name": "J Suresh",
+      "amount": 1000
+    },
+    {
+      "slNo": 39,
+      "name": "P Veera Raghava Reddy",
+      "amount": 1000
+    },
+    {
+      "slNo": 40,
+      "name": "T Gurunadham Reddy",
+      "amount": 1000
+    },
+    {
+      "slNo": 41,
+      "name": "M Nagaraja Reddy (SI)",
+      "amount": 1000
+    },
+    {
+      "slNo": 42,
+      "name": "M Venkata Subba Reddy",
+      "amount": 1000
+    },
+    {
+      "slNo": 43,
+      "name": "P Tirumula Reddy",
+      "amount": 1000
+    },
+    {
+      "slNo": 44,
+      "name": "T Sambha Siva Reddy",
+      "amount": 1000
+    },
+    {
+      "slNo": 45,
+      "name": "K Venu Reddy",
+      "amount": 1000
+    },
+    {
+      "slNo": 46,
+      "name": "K Surendra",
+      "amount": 1000
+    },
+    {
+      "slNo": 47,
+      "name": "V Suneel",
+      "amount": 1000
+    },
+    {
+      "slNo": 48,
+      "name": "V Sudhakar",
+      "amount": 1000
+    },
+    {
+      "slNo": 49,
+      "name": "P Venkata Subba Reddy",
+      "amount": 1000
+    },
+    {
+      "slNo": 50,
+      "name": "Y Chandu Kumar",
+      "amount": 1000
+    },
+    {
+      "slNo": 51,
+      "name": "T Mahadeva Reddy",
+      "amount": 1000
+    },
+    {
+      "slNo": 52,
+      "name": "J Somu",
+      "amount": 558
+    },
+    {
+      "slNo": 53,
+      "name": "G Suresh Reddy",
+      "amount": 516
+    },
+    {
+      "slNo": 54,
+      "name": "K Srinivasulu Reddy",
+      "amount": 516
+    },
+    {
+      "slNo": 55,
+      "name": "P Ganga jr",
+      "amount": 516
+    },
+    {
+      "slNo": 56,
+      "name": "Polam Eswar",
+      "amount": 516
+    },
+    {
+      "slNo": 57,
+      "name": "V Muniraja Reddy",
+      "amount": 516
+    },
+    {
+      "slNo": 58,
+      "name": "P Panduranga Reddy",
+      "amount": 502
+    },
+    {
+      "slNo": 59,
+      "name": "G Muniraja",
+      "amount": 501
+    },
+    {
+      "slNo": 60,
+      "name": "M Suresh",
+      "amount": 501
+    },
+    {
+      "slNo": 61,
+      "name": "M Penchal Reddy",
+      "amount": 500
+    },
+    {
+      "slNo": 62,
+      "name": "G Ananda Reddy",
+      "amount": 500
+    },
+    {
+      "slNo": 63,
+      "name": "B Ramaiah",
+      "amount": 500
+    },
+    {
+      "slNo": 64,
+      "name": "V Venkatarami Reddy",
+      "amount": 500
+    },
+    {
+      "slNo": 65,
+      "name": "P Muralimohan Reddy",
+      "amount": 500
+    },
+    {
+      "slNo": 66,
+      "name": "T Nagur Reddy",
+      "amount": 500
+    },
+    {
+      "slNo": 67,
+      "name": "P Narendra",
+      "amount": 500
+    },
+    {
+      "slNo": 68,
+      "name": "M Gurunadham Reddy",
+      "amount": 500
+    },
+    {
+      "slNo": 69,
+      "name": "O Kumar",
+      "amount": 500
+    },
+    {
+      "slNo": 70,
+      "name": "M Venkatesh jr",
+      "amount": 500
+    },
+    {
+      "slNo": 71,
+      "name": "P Gangi Reddy",
+      "amount": 500
+    },
+    {
+      "slNo": 72,
+      "name": "Polam Eswar Reddy",
+      "amount": 500
+    },
+    {
+      "slNo": 73,
+      "name": "G Srinivasulu",
+      "amount": 305
+    },
+    {
+      "slNo": 74,
+      "name": "B Penchal Reddy",
+      "amount": 216
+    },
+    {
+      "slNo": 75,
+      "name": "A Buchayya",
+      "amount": 200
+    },
+    {
+      "slNo": 76,
+      "name": "K Jayaram Naidu",
+      "amount": 120
+    },
+    {
+      "slNo": 77,
+      "name": "M Chalama Reddy",
+      "amount": 116
+    },
+    {
+      "slNo": 78,
+      "name": "S Subbarami Reddy",
+      "amount": 116
+    },
+    {
+      "slNo": 79,
+      "name": "P Shankar Reddy",
+      "amount": 101
+    },
+    {
+      "slNo": 80,
+      "name": "M Veera Swami Reddy",
+      "amount": 100
     }
   ],
   "cheeti": [
     {
       "slNo": 1,
       "name": "M Krishna Reddy",
-      "amount": 27600,
-      "interest": 3312,
-      "total": 30912
+      "amount": 24800,
+      "interest": 2976,
+      "total": 27776
     },
     {
       "slNo": 2,
       "name": "P Sasidhar",
-      "amount": 27600,
-      "interest": 3312,
-      "total": 30912
+      "amount": 24800,
+      "interest": 2976,
+      "total": 27776
+    },
+    {
+      "slNo": 3,
+      "name": "P Hari Krishna Reddy",
+      "amount": 24800,
+      "interest": 2976,
+      "total": 27776
+    },
+    {
+      "slNo": 4,
+      "name": "V Munihara Reddy",
+      "amount": 24800,
+      "interest": 2976,
+      "total": 27776
+    },
+    {
+      "slNo": 5,
+      "name": "M Nagaraja",
+      "amount": 24800,
+      "interest": 2976,
+      "total": 27776
+    },
+    {
+      "slNo": 6,
+      "name": "Y Chandu Kumar",
+      "amount": 24800,
+      "interest": 2976,
+      "total": 27776
+    },
+    {
+      "slNo": 7,
+      "name": "C Munisubba Reddy",
+      "amount": 24800,
+      "interest": 2976,
+      "total": 27776
+    },
+    {
+      "slNo": 8,
+      "name": "M Venkatesh (Sr)",
+      "amount": 24800,
+      "interest": 2976,
+      "total": 27776
+    },
+    {
+      "slNo": 9,
+      "name": "P Eswar Reddy (Somu)",
+      "amount": 24800,
+      "interest": 2976,
+      "total": 27776
+    },
+    {
+      "slNo": 10,
+      "name": "P Siva Kumar (Chanti)",
+      "amount": 24800,
+      "interest": 2976,
+      "total": 27776
+    },
+    {
+      "slNo": 11,
+      "name": "P Tharun",
+      "amount": 24800,
+      "interest": 2976,
+      "total": 27776
+    },
+    {
+      "slNo": 12,
+      "name": "P Eswar Reddy (Polam)",
+      "amount": 24800,
+      "interest": 2976,
+      "total": 27776
+    },
+    {
+      "slNo": 13,
+      "name": "P Siva",
+      "amount": 24800,
+      "interest": 2976,
+      "total": 27776
+    },
+    {
+      "slNo": 14,
+      "name": "K Surendra",
+      "amount": 24800,
+      "interest": 2976,
+      "total": 27776
+    },
+    {
+      "slNo": 15,
+      "name": "M Balasubramanyam",
+      "amount": 24800,
+      "interest": 2976,
+      "total": 27776
+    },
+    {
+      "slNo": 16,
+      "name": "M Balaji",
+      "amount": 24800,
+      "interest": 2976,
+      "total": 27776
+    },
+    {
+      "slNo": 17,
+      "name": "V Suneel",
+      "amount": 24800,
+      "interest": 2976,
+      "total": 27776
+    },
+    {
+      "slNo": 18,
+      "name": "V Sudhakar",
+      "amount": 24800,
+      "interest": 2976,
+      "total": 27776
+    },
+    {
+      "slNo": 19,
+      "name": "M Srinivasulu Reddy",
+      "amount": 24800,
+      "interest": 2976,
+      "total": 27776
+    },
+    {
+      "slNo": 20,
+      "name": "P Gurunadham Reddy",
+      "amount": 24800,
+      "interest": 2976,
+      "total": 27776
+    },
+    {
+      "slNo": 21,
+      "name": "P Gurava Reddy",
+      "amount": 24800,
+      "interest": 2976,
+      "total": 27776
+    },
+    {
+      "slNo": 22,
+      "name": "P Tirumala Reddy",
+      "amount": 24800,
+      "interest": 2976,
+      "total": 27776
+    },
+    {
+      "slNo": 23,
+      "name": "T Samba Siva Reddy",
+      "amount": 24800,
+      "interest": 2976,
+      "total": 27776
+    },
+    {
+      "slNo": 24,
+      "name": "T Gurunadham Reddy",
+      "amount": 24800,
+      "interest": 2976,
+      "total": 27776
+    },
+    {
+      "slNo": 25,
+      "name": "T Mahadeva Reddy",
+      "amount": 24800,
+      "interest": 2976,
+      "total": 27776
+    },
+    {
+      "slNo": 26,
+      "name": "T Maheshwar Reddy",
+      "amount": 24800,
+      "interest": 2976,
+      "total": 27776
+    },
+    {
+      "slNo": 27,
+      "name": "M Somu",
+      "amount": 24800,
+      "interest": 2976,
+      "total": 27776
+    },
+    {
+      "slNo": 28,
+      "name": "B Raja Sekhar",
+      "amount": 24800,
+      "interest": 2976,
+      "total": 27776
+    },
+    {
+      "slNo": 29,
+      "name": "B Chandra",
+      "amount": 24800,
+      "interest": 2976,
+      "total": 27776
+    },
+    {
+      "slNo": 30,
+      "name": "B Uday",
+      "amount": 24800,
+      "interest": 2976,
+      "total": 27776
+    },
+    {
+      "slNo": 31,
+      "name": "B Amarnadh Reddy",
+      "amount": 24800,
+      "interest": 2976,
+      "total": 27776
+    },
+    {
+      "slNo": 32,
+      "name": "G Uday",
+      "amount": 24800,
+      "interest": 2976,
+      "total": 27776
+    },
+    {
+      "slNo": 33,
+      "name": "G Venkatesh Sr",
+      "amount": 24800,
+      "interest": 2976,
+      "total": 27776
+    },
+    {
+      "slNo": 34,
+      "name": "K Venu",
+      "amount": 24800,
+      "interest": 2976,
+      "total": 27776
+    },
+    {
+      "slNo": 35,
+      "name": "J Suresh",
+      "amount": 24800,
+      "interest": 2976,
+      "total": 27776
+    },
+    {
+      "slNo": 36,
+      "name": "P Sudarsan",
+      "amount": 24800,
+      "interest": 2976,
+      "total": 27776
+    },
+    {
+      "slNo": 37,
+      "name": "P Narendra",
+      "amount": 24800,
+      "interest": 2976,
+      "total": 27776
+    },
+    {
+      "slNo": 38,
+      "name": "Y Vasu",
+      "amount": 24800,
+      "interest": 2976,
+      "total": 27776
+    },
+    {
+      "slNo": 39,
+      "name": "P Mani Reddy",
+      "amount": 24800,
+      "interest": 2976,
+      "total": 27776
+    },
+    {
+      "slNo": 40,
+      "name": "P Venkata Subba Reddy",
+      "amount": 26600,
+      "interest": 3192,
+      "total": 29792
+    },
+    {
+      "slNo": 41,
+      "name": "G Narayana",
+      "amount": 24800,
+      "interest": 2976,
+      "total": 27776
+    },
+    {
+      "slNo": 42,
+      "name": "G Tirumala",
+      "amount": 24800,
+      "interest": 2976,
+      "total": 27776
+    },
+    {
+      "slNo": 43,
+      "name": "M Venkatasubba Reddy",
+      "amount": 24800,
+      "interest": 2976,
+      "total": 27776
+    },
+    {
+      "slNo": 44,
+      "name": "T Nagur Reddy",
+      "amount": 24800,
+      "interest": 2976,
+      "total": 27776
     }
   ],
   "expenses": [
     {
       "item": "Bandset",
-      "amount": 14500
+      "amount": 18000
     },
     {
       "item": "Vigraham",
-      "amount": 10000
+      "amount": 15000
+    },
+    {
+      "item": "Lighting",
+      "amount": 15000
+    },
+    {
+      "item": "Crackers",
+      "amount": 7000
+    },
+    {
+      "item": "Gaja Maala, Poolu",
+      "amount": 4500
+    },
+    {
+      "item": "Pooja, Utti Samagri",
+      "amount": 3950
+    },
+    {
+      "item": "Prasadam",
+      "amount": 2055
+    },
+    {
+      "item": "Diesel, Petrol",
+      "amount": 1950
+    },
+    {
+      "item": "Towel, Pancha",
+      "amount": 450
+    },
+    {
+      "item": "Peepayi",
+      "amount": 160
     }
   ],
   "report": [
     {
-      "category": "2025 Cheeti + Interest",
-      "amount": 1224160
+      "category": "Cheeti Collections",
+      "amount": 1224160,
+      "type": "income"
     },
     {
       "category": "Donations",
-      "amount": 55885
+      "amount": 88444,
+      "type": "income"
     },
     {
-      "category": "Membership",
-      "amount": 13000
-    },
-    {
-      "category": "Expenses",
-      "amount": -32000
+      "category": "Total Expenses",
+      "amount": -68065,
+      "type": "expense"
     }
   ],
   "committee": [
     {
       "role": "Organizer",
+      "name": "P Veera Raghava Reddy"
+    },
+    {
+      "role": "Member",
+      "name": "M Krishna Reddy"
+    },
+    {
+      "role": "Member",
       "name": "P Sasidhar"
     },
     {
       "role": "Member",
-      "name": "G Venkatesh (Sr)"
+      "name": "P Tharun"
+    },
+    {
+      "role": "Member",
+      "name": "B Uday"
+    },
+    {
+      "role": "Member",
+      "name": "G Tirumala"
     }
   ],
   "committee_next_year": [
     {
       "role": "Organizer",
+      "name": "P Veera Raghava Reddy"
+    },
+    {
+      "role": "Member",
+      "name": "M Krishna Reddy"
+    },
+    {
+      "role": "Member",
       "name": "P Sasidhar"
     },
     {
       "role": "Member",
-      "name": "G Venkatesh (Sr)"
+      "name": "T Samba Siva Reddy"
+    },
+    {
+      "role": "Member",
+      "name": "P Tharun"
+    },
+    {
+      "role": "Member",
+      "name": "P Narendra"
+    },
+    {
+      "role": "Member",
+      "name": "G Tirumala"
+    },
+    {
+      "role": "Member",
+      "name": "B Srinivasulu Reddy"
     }
   ]
 }
