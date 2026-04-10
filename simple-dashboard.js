@@ -3869,6 +3869,7 @@ function saveCheetiPaymentFromModal(index) {
     
     // Store original values for tracking
     const oldPayment = { 
+        name: member.name,
         lateFee: member.lateFee, 
         paid: member.paid, 
         paymentDate: member.paymentDate,
@@ -3896,7 +3897,7 @@ function saveCheetiPaymentFromModal(index) {
     // Track change for draft mode (payment status update is an edit)
     trackChange('edit', 'cheeti', {
         old: oldPayment,
-        new: { lateFee: lateFee, paid: isPaid, paymentDate: paymentDate, total: member.total },
+        new: { name: member.name, lateFee: lateFee, paid: isPaid, paymentDate: paymentDate, total: member.total },
         index: index,
         type: 'payment_update'
     });
@@ -4188,7 +4189,8 @@ function populateDonorsTable(donationsData) {
     const tbody = document.getElementById('donorsTableBody');
     if (!tbody) return;
     
-    const sortedData = donationsData.sort((a, b) => b.amount - a.amount);
+    // Create a copy before sorting to preserve original indices
+    const sortedData = [...donationsData].sort((a, b) => b.amount - a.amount);
     
     tbody.innerHTML = sortedData.map((d, i) => {
         const originalIndex = donationsData.indexOf(d);
