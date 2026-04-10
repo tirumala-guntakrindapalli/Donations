@@ -680,13 +680,32 @@ tbody tr:nth-child(even):hover {
 .footer {
     background: var(--dark-color);
     color: var(--white);
-    padding: 25px 0;
+    padding: 40px 20px 30px;
     text-align: center;
+    position: relative;
+}
+
+.footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    max-width: 1200px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.2) 50%, transparent 100%);
 }
 
 .footer p {
-    margin: 5px 0;
-    opacity: 0.9;
+    margin: 8px 0;
+    opacity: 0.95;
+    letter-spacing: 0.5px;
+}
+
+.footer p:first-child {
+    font-weight: 600;
+    font-size: 1.05rem;
 }
 
 /* Responsive Design */

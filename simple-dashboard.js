@@ -38,6 +38,12 @@ function waitForConfig(callback, maxAttempts = 20) {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
+    // Update footer year dynamically
+    const footerYear = document.getElementById('footerYear');
+    if (footerYear) {
+        footerYear.textContent = new Date().getFullYear();
+    }
+    
     waitForConfig(async function() {
         console.log('Simple Dashboard initializing...');
         console.log('🔧 Configuration:', {
@@ -1714,7 +1720,12 @@ function showDashboardDisabledMessage() {
         messageDiv = document.createElement('div');
         messageDiv.id = 'dashboardDisabledMessage';
         const mainContent = document.getElementById('mainContent');
-        if (mainContent) {
+        const welcomeHero = document.querySelector('.welcome-hero');
+        if (mainContent && welcomeHero) {
+            // Insert after welcome-hero section
+            welcomeHero.parentNode.insertBefore(messageDiv, welcomeHero.nextSibling);
+        } else if (mainContent) {
+            // Fallback if welcome-hero not found
             mainContent.insertBefore(messageDiv, mainContent.firstChild);
         }
     }
@@ -1730,27 +1741,6 @@ function showDashboardDisabledMessage() {
             text-align: center;
             border: 3px solid #2196f3;
         ">
-            <div style="
-                width: 100px;
-                height: 100px;
-                margin: 0 auto 30px;
-                background: linear-gradient(135deg, #2196f3 0%, #1976d2 100%);
-                border-radius: 50%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                animation: pulse 2s infinite;
-            ">
-                <i class="fas fa-tools" style="font-size: 50px; color: white;"></i>
-            </div>
-            
-            <h2 style="
-                color: #1565c0;
-                margin-bottom: 20px;
-                font-size: 32px;
-                font-weight: 700;
-            ">Dashboard Under Maintenance</h2>
-            
             <p style="
                 color: #546e7a;
                 font-size: 18px;
@@ -1779,6 +1769,27 @@ function showDashboardDisabledMessage() {
                     Thank you for your patience!
                 </p>
             </div>
+            
+            <div style="
+                width: 100px;
+                height: 100px;
+                margin: 30px auto;
+                background: linear-gradient(135deg, #2196f3 0%, #1976d2 100%);
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                animation: pulse 2s infinite;
+            ">
+                <i class="fas fa-tools" style="font-size: 50px; color: white;"></i>
+            </div>
+            
+            <h2 style="
+                color: #1565c0;
+                margin-bottom: 20px;
+                font-size: 32px;
+                font-weight: 700;
+            ">Dashboard Under Maintenance</h2>
             
             <a href="index.html" style="
                 display: inline-block;
