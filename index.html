@@ -667,64 +667,84 @@
         /* Responsive */
         @media (max-width: 768px) {
             .hero {
-                padding: 60px 20px 40px;
+                padding: 50px 15px 30px;
             }
 
             .hero h1 {
-                font-size: 2.2rem;
+                font-size: 1.8rem;
+                line-height: 1.2;
             }
 
             .hero .location {
-                font-size: 1.5rem;
-            }
-
-            .hero .subtitle {
-                font-size: 1.1rem;
-            }
-
-            .hero .logo {
-                font-size: 3.5rem;
-            }
-
-            .hero .year {
                 font-size: 1.3rem;
-                padding: 6px 20px;
-            }
-
-            .welcome-message {
-                padding: 25px 20px;
-                margin: 0 20px 40px;
-                border-radius: 20px;
-            }
-
-            .welcome-message h2 {
-                font-size: 1.6rem;
-                flex-direction: column;
-                gap: 10px;
-                margin-bottom: 20px;
-            }
-
-            .welcome-message h2 i {
-                font-size: 2rem;
-            }
-
-            .welcome-message p {
-                font-size: 1rem;
-                line-height: 1.7;
                 margin-bottom: 15px;
             }
 
+            .hero .subtitle {
+                font-size: 1rem;
+                padding: 0 10px;
+            }
+
+            .hero .logo {
+                font-size: 3rem;
+                margin-bottom: 20px;
+            }
+
+            .hero .year {
+                font-size: 1.1rem;
+                padding: 6px 18px;
+                margin-bottom: 30px;
+            }
+
+            .welcome-message {
+                padding: 20px 16px;
+                margin: 0 15px 35px;
+                border-radius: 18px;
+                box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+            }
+
+            .welcome-message h2 {
+                font-size: 1.4rem;
+                flex-direction: column;
+                gap: 8px;
+                margin-bottom: 16px;
+            }
+
+            .welcome-message h2 i {
+                font-size: 1.8rem;
+            }
+
+            .welcome-message p {
+                font-size: 0.92rem;
+                line-height: 1.6;
+                margin-bottom: 12px;
+                text-align: left;
+            }
+
             .welcome-message .highlight {
-                font-size: 1.05rem;
+                font-size: 0.95rem;
                 display: inline;
             }
 
             .feature-card {
-                padding: 35px 25px;
+                padding: 30px 20px;
+            }
+
+            .feature-card h3 {
+                font-size: 1.2rem;
+            }
+
+            .feature-card p {
+                font-size: 0.92rem;
+            }
+
+            .cta {
+                padding: 40px 15px;
             }
 
             .cta h2 {
-                font-size: 1.6rem;
+                font-size: 1.4rem;
+                padding: 0 10px;
             }
 
             .cta-buttons {
@@ -732,26 +752,52 @@
                 align-items: center;
             }
 
+            .images-section {
+                margin-bottom: 40px;
+                padding: 0 15px;
+            }
+
+            .images-grid {
+                gap: 15px;
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .image-placeholder {
+                font-size: 3rem;
+            }
+
+            .image-card .label {
+                font-size: 0.9rem;
+                padding: 12px;
+            }
+
             .btn {
                 width: 100%;
-                max-width: 300px;
+                max-width: 320px;
                 justify-content: center;
+                padding: 16px 40px;
+                font-size: 1.05rem;
             }
 
             .admin-login-btn {
                 top: 10px;
                 right: 10px;
-                padding: 10px 20px;
-                font-size: 0.85rem;
+                padding: 9px 18px;
+                font-size: 0.8rem;
             }
 
             .committee-section {
-                padding: 30px 15px;
-                margin-bottom: 30px;
+                padding: 25px 15px;
+                margin: 0 10px 25px;
+                border-radius: 18px;
             }
 
             .committee-section .section-header h2 {
-                font-size: 1.5rem;
+                font-size: 1.35rem;
+            }
+
+            .committee-section .section-header p {
+                font-size: 0.95rem;
             }
 
             .committee-grid {
@@ -784,6 +830,56 @@
             .footer p:last-child {
                 font-size: 0.8rem;
                 line-height: 1.5;
+            }
+        }
+
+        /* Extra Small Devices */
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 1.6rem;
+            }
+
+            .hero .location {
+                font-size: 1.2rem;
+            }
+
+            .hero .subtitle {
+                font-size: 0.95rem;
+            }
+
+            .hero .logo {
+                font-size: 2.8rem;
+            }
+
+            .hero .year {
+                font-size: 1rem;
+                padding: 5px 16px;
+            }
+
+            .welcome-message {
+                padding: 18px 14px;
+                margin: 0 12px 30px;
+            }
+
+            .welcome-message h2 {
+                font-size: 1.3rem;
+            }
+
+            .welcome-message p {
+                font-size: 0.88rem;
+            }
+
+            .feature-card {
+                padding: 25px 18px;
+            }
+
+            .cta h2 {
+                font-size: 1.3rem;
+            }
+
+            .btn {
+                padding: 14px 35px;
+                font-size: 1rem;
             }
         }
     </style>
