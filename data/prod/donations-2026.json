@@ -23,13 +23,6 @@
       "interest": 3312,
       "expectedTotal": 30912,
       "fromYear": 2025
-    },
-    {
-      "name": "P Sasidhar",
-      "amount": 27600,
-      "interest": 3312,
-      "expectedTotal": 30912,
-      "fromYear": 2025
     }
   ],
   "expenses": [],
@@ -43,7 +36,7 @@
     },
     {
       "category": "Estimated Cheeti Collections (${previousYear})",
-      "amount": 61824,
+      "amount": 30912,
       "type": "income_estimated"
     },
     {

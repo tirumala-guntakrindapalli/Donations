@@ -33,6 +33,352 @@
             animation: slideInRight 0.3s ease-out;
         }
         
+        /* Collapsible Section Styles */
+        .collapsible-section {
+            margin-bottom: 15px;
+        }
+        
+        .collapsible-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            user-select: none;
+            margin-bottom: 0;
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+        }
+        
+        .collapsible-header:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.5);
+        }
+        
+        .collapsible-header h4 {
+            margin: 0;
+            font-size: 14px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+        }
+        
+        .collapsible-toggle {
+            font-size: 16px;
+            transition: transform 0.3s ease;
+        }
+        
+        .collapsible-toggle.collapsed {
+            transform: rotate(-90deg);
+        }
+        
+        .collapsible-content {
+            max-height: 2000px;
+            overflow: hidden;
+            transition: max-height 0.4s ease, opacity 0.3s ease, padding 0.3s ease;
+            opacity: 1;
+            padding-top: 10px;
+        }
+        
+        .collapsible-content.collapsed {
+            max-height: 0;
+            opacity: 0;
+            padding-top: 0;
+        }
+        
+        /* Color variations for different section types */
+        .collapsible-header.color-green {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        }
+        
+        .collapsible-header.color-blue {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+        }
+        
+        .collapsible-header.color-orange {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+        }
+        
+        .collapsible-header.color-pink {
+            background: linear-gradient(135deg, #ec4899 0%, #db2777 100%);
+        }
+        
+        .collapsible-header.color-indigo {
+            background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+        }
+        
+        .collapsible-header.color-teal {
+            background: linear-gradient(135deg, #14b8a6 0%, #0d9488 100%);
+        }
+        
+        /* Dashboard Collapsible Sections */
+        .dashboard-section {
+            margin-bottom: 20px;
+        }
+        
+        .dashboard-section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 12px 12px 0 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            user-select: none;
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+        }
+        
+        .dashboard-section-header:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.5);
+        }
+        
+        .dashboard-section-header h2 {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .dashboard-section-header p {
+            margin: 0;
+            font-size: 13px;
+            color: white;
+            opacity: 1;
+            font-weight: 600;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+            margin-top: 4px;
+        }
+        
+        .section-subtitle {
+            font-size: 13px !important;
+            color: white !important;
+            font-weight: 600 !important;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5) !important;
+            letter-spacing: 0.3px;
+        }
+        
+        .dashboard-section-title {
+            flex: 1;
+        }
+        
+        .dashboard-toggle {
+            font-size: 20px;
+            transition: transform 0.3s ease;
+            margin-left: 15px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .dashboard-toggle.collapsed {
+            transform: rotate(-90deg);
+        }
+        
+        .dashboard-section-content {
+            max-height: 5000px;
+            overflow: hidden;
+            transition: max-height 0.4s ease, opacity 0.3s ease;
+            opacity: 1;
+            background: white;
+            border-radius: 0 0 12px 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            padding: 20px;
+        }
+        
+        .dashboard-section-content.collapsed {
+            max-height: 0;
+            opacity: 0;
+            padding: 0;
+        }
+        
+        /* Table Card Collapsible Styles */
+        .table-card {
+            position: relative;
+            margin-bottom: 20px;
+        }
+        
+        .table-card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 20px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 8px 8px 0 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            user-select: none;
+            border-bottom: 2px solid #dee2e6;
+        }
+        
+        .table-card-header:hover {
+            background: linear-gradient(135deg, #e9ecef 0%, #dee2e6 100%);
+        }
+        
+        .table-card-header h3 {
+            margin: 0;
+            font-size: 16px;
+            font-weight: 700;
+            color: #2c3e50;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .table-toggle {
+            font-size: 18px;
+            color: #667eea;
+            transition: transform 0.3s ease;
+        }
+        
+        .table-toggle.collapsed {
+            transform: rotate(-90deg);
+        }
+        
+        .table-content {
+            max-height: 2000px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            transition: max-height 0.4s ease, opacity 0.3s ease;
+            opacity: 1;
+        }
+        
+        .table-content.collapsed {
+            max-height: 0;
+            opacity: 0;
+        }
+        
+        .table-content table {
+            width: 100%;
+            min-width: 600px;
+        }
+        
+        /* Welcome Hero Section */
+        .welcome-hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            padding: 50px 40px;
+            margin-bottom: 30px;
+            color: white;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(102, 126, 234, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .welcome-hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: pulse-bg 15s ease-in-out infinite;
+        }
+        
+        @keyframes pulse-bg {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+        
+        .welcome-hero-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .welcome-hero p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin: 15px auto;
+            max-width: 800px;
+            opacity: 0.95;
+            font-weight: 400;
+        }
+        
+        .welcome-hero .highlight {
+            font-weight: 700;
+            font-size: 1.15rem;
+            background: rgba(255,255,255,0.2);
+            padding: 2px 12px;
+            border-radius: 20px;
+            display: inline-block;
+            margin: 10px 5px;
+        }
+        
+        .welcome-stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .welcome-stat {
+            text-align: center;
+        }
+        
+        .welcome-stat-icon {
+            font-size: 2rem;
+            margin-bottom: 8px;
+            opacity: 0.9;
+        }
+        
+        .welcome-stat-label {
+            font-size: 0.9rem;
+            opacity: 0.85;
+            margin-bottom: 5px;
+        }
+        
+        .welcome-stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        
+        @media (max-width: 768px) {
+            .welcome-hero {
+                padding: 35px 25px;
+                border-radius: 15px;
+            }
+            
+            .welcome-hero p {
+                font-size: 1rem;
+            }
+            
+            .welcome-stats {
+                gap: 25px;
+            }
+            
+            .welcome-stat-value {
+                font-size: 1.2rem;
+            }
+        }
+        
+        /* Color variations for dashboard sections */
+        .dashboard-section-header.color-purple {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .dashboard-section-header.color-blue-gradient {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+        
+        .dashboard-section-header.color-green-gradient {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        }
+        
+        .dashboard-section-header.color-orange-gradient {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        }
+        
         /* Mobile Responsive Admin Panel */
         @media (max-width: 768px) {
             #adminPanel {
@@ -823,6 +1169,129 @@
         .login-hint i {
             margin-right: 6px;
         }
+        
+        /* Fullscreen Table Modal */
+        .table-modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 99999;
+            padding: 20px;
+            box-sizing: border-box;
+            overflow: auto;
+        }
+        
+        .table-modal-overlay.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease-out;
+        }
+        
+        .table-modal-content {
+            background: white;
+            border-radius: 16px;
+            width: 95%;
+            max-width: 1200px;
+            max-height: 90vh;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            animation: slideInScale 0.3s ease-out;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .table-modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 25px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 16px 16px 0 0;
+        }
+        
+        .table-modal-header h2 {
+            margin: 0;
+            font-size: 1.5rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .table-modal-close {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+        
+        .table-modal-close:hover {
+            background: rgba(255,255,255,0.3);
+            transform: scale(1.1);
+        }
+        
+        .table-modal-body {
+            padding: 25px;
+            overflow: auto;
+            flex: 1;
+        }
+        
+        .table-modal-body table {
+            width: 100%;
+            font-size: 0.95rem;
+        }
+        
+        .expand-table-btn {
+            background: rgba(255,255,255,0.2);
+            border: 2px solid rgba(255,255,255,0.3);
+            color: #2c3e50;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.3s;
+            margin-left: auto;
+            margin-right: 10px;
+        }
+        
+        .expand-table-btn:hover {
+            background: rgba(102, 126, 234, 0.15);
+            border-color: rgba(102, 126, 234, 0.4);
+            transform: translateY(-1px);
+        }
+        
+        @media (max-width: 768px) {
+            .table-modal-content {
+                width: 100%;
+                max-height: 95vh;
+            }
+            
+            .table-modal-header h2 {
+                font-size: 1.2rem;
+            }
+            
+            .table-modal-body {
+                padding: 15px;
+            }
+        }
         /* Edit Modal Styles */
         #editModal {
             display: none;
@@ -1111,6 +1580,9 @@
         <div class="admin-header">
             <h3><i class="fas fa-user-shield"></i> Admin Panel</h3>
             <div class="admin-header-actions">
+                <button class="btn-close-panel" onclick="toggleAllSections()" title="Expand/Collapse All Sections" style="margin-right: 10px;">
+                    <i class="fas fa-compress-alt"></i>
+                </button>
                 <button class="btn-close-panel" onclick="closeAdminPanel()" title="Close Panel">
                     <i class="fas fa-times"></i>
                 </button>
@@ -1129,13 +1601,18 @@
         </div>
 
         <!-- Quick Actions -->
-        <div style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); padding: 15px; margin-bottom: 15px; border-radius: 10px; border: 1px solid #dee2e6;">
-            <div style="font-size: 13px; font-weight: 600; color: #495057; margin-bottom: 10px; display: flex; align-items: center; gap: 8px;">
-                <i class="fas fa-bolt"></i> Quick Actions
+        <div class="collapsible-section">
+            <div class="collapsible-header color-indigo" onclick="toggleSection(this)">
+                <h4><i class="fas fa-bolt"></i> Quick Actions</h4>
+                <i class="fas fa-chevron-down collapsible-toggle"></i>
             </div>
-            <button onclick="manualSyncCommittee()" style="background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%); color: white; border: none; padding: 10px 18px; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; transition: all 0.3s; box-shadow: 0 2px 8px rgba(139, 92, 246, 0.3);" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 12px rgba(139, 92, 246, 0.5)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 8px rgba(139, 92, 246, 0.3)'" title="Sync committee from previous year's planning">
-                <i class="fas fa-sync-alt"></i> Sync Committee from Previous Year
-            </button>
+            <div class="collapsible-content">
+                <div style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); padding: 15px; border-radius: 0 0 10px 10px; border: 1px solid #dee2e6; border-top: none;">
+                    <button onclick="manualSyncCommittee()" style="background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%); color: white; border: none; padding: 10px 18px; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; transition: all 0.3s; box-shadow: 0 2px 8px rgba(139, 92, 246, 0.3);" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 12px rgba(139, 92, 246, 0.5)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 8px rgba(139, 92, 246, 0.3)'" title="Sync committee from previous year's planning">
+                        <i class="fas fa-sync-alt"></i> Sync Committee from Previous Year
+                    </button>
+                </div>
+            </div>
         </div>
 
         <!-- Draft Mode Indicator & Publish Controls -->
@@ -1162,97 +1639,115 @@
         </div>
 
         <!-- Add Donation Form -->
-        <div class="form-section">
-            <h4><i class="fas fa-hand-holding-heart"></i> Add Donation</h4>
-            <div class="form-group">
-                <label>Donor Name</label>
-                <input type="text" id="donationName" placeholder="Enter donor name" oninput="markFormChanged()">
+        <div class="collapsible-section">
+            <div class="collapsible-header color-green" onclick="toggleSection(this)">
+                <h4><i class="fas fa-hand-holding-heart"></i> Add Donation</h4>
+                <i class="fas fa-chevron-down collapsible-toggle"></i>
             </div>
-            <div class="form-group">
-                <label>Amount (₹)</label>
-                <input type="number" id="donationAmount" placeholder="Enter amount" min="1" oninput="markFormChanged()">
+            <div class="collapsible-content">
+                <div class="form-section" style="margin-bottom: 0;">
+                    <div class="form-group">
+                        <label>Donor Name</label>
+                        <input type="text" id="donationName" placeholder="Enter donor name" oninput="markFormChanged()">
+                    </div>
+                    <div class="form-group">
+                        <label>Amount (₹)</label>
+                        <input type="number" id="donationAmount" placeholder="Enter amount" min="1" oninput="markFormChanged()">
+                    </div>
+                    <button class="btn btn-success" onclick="addDonation()">
+                        <i class="fas fa-plus"></i> Add Donation
+                    </button>
+                </div>
             </div>
-            <button class="btn btn-success" onclick="addDonation()">
-                <i class="fas fa-plus"></i> Add Donation
-            </button>
         </div>
 
         <!-- Add Cheeti Member Form - Dynamic based on year -->
-        <div class="form-section">
-            <h4 id="cheetiFormTitle"><i class="fas fa-users"></i> Add Cheeti Member</h4>
-            
-            <!-- Current Year Form: Add New Member -->
-            <div id="cheetiNewMemberForm" style="display: none;">
-                <p class="form-info"><i class="fas fa-info-circle"></i> Adding new cheeti members for current year (they will pay back next year)</p>
-                <div class="form-group">
-                    <label>Member Name</label>
-                    <input type="text" id="cheetiName" placeholder="Enter member name" oninput="markFormChanged()">
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Amount (₹)</label>
-                        <input type="number" id="cheetiAmount" placeholder="Enter amount" min="1" oninput="markFormChanged()">
-                    </div>
-                    <div class="form-group">
-                        <label>Interest Rate (%)</label>
-                        <input type="number" id="cheetiInterestRate" value="12" min="0" max="100" step="0.1" oninput="markFormChanged()">
-                    </div>
-                </div>
-                <button class="btn btn-success" onclick="addCheetiMember()">
-                    <i class="fas fa-plus"></i> Add New Member
-                </button>
+        <div class="collapsible-section">
+            <div class="collapsible-header color-blue" onclick="toggleSection(this)">
+                <h4 id="cheetiFormTitle"><i class="fas fa-users"></i> Add Cheeti Member</h4>
+                <i class="fas fa-chevron-down collapsible-toggle"></i>
             </div>
-            
-            <!-- Past Year Form: Record Payment from Existing Member -->
-            <div id="cheetiPaymentForm" style="display: none;">
-                <p class="form-info"><i class="fas fa-info-circle"></i> Recording payment collection from members who borrowed last year</p>
-                <div class="form-group">
-                    <label>Select Member</label>
-                    <select id="cheetiMemberSelect" class="form-select" onchange="loadMemberDetails(); markFormChanged();">
-                        <option value="">-- Select Member --</option>
-                    </select>
+            <div class="collapsible-content">
+                <div class="form-section" style="margin-bottom: 0;">
+                    <!-- Current Year Form: Add New Member -->
+                    <div id="cheetiNewMemberForm" style="display: none;">
+                        <p class="form-info"><i class="fas fa-info-circle"></i> Adding new cheeti members for current year (they will pay back next year)</p>
+                        <div class="form-group">
+                            <label>Member Name</label>
+                            <input type="text" id="cheetiName" placeholder="Enter member name" oninput="markFormChanged()">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Amount (₹)</label>
+                                <input type="number" id="cheetiAmount" placeholder="Enter amount" min="1" oninput="markFormChanged()">
+                            </div>
+                            <div class="form-group">
+                                <label>Interest Rate (%)</label>
+                                <input type="number" id="cheetiInterestRate" value="12" min="0" max="100" step="0.1" oninput="markFormChanged()">
+                            </div>
+                        </div>
+                        <button class="btn btn-success" onclick="addCheetiMember()">
+                            <i class="fas fa-plus"></i> Add New Member
+                        </button>
+                    </div>
+                    
+                    <!-- Past Year Form: Record Payment from Existing Member -->
+                    <div id="cheetiPaymentForm" style="display: none;">
+                        <p class="form-info"><i class="fas fa-info-circle"></i> Recording payment collection from members who borrowed last year</p>
+                        <div class="form-group">
+                            <label>Select Member</label>
+                            <select id="cheetiMemberSelect" class="form-select" onchange="loadMemberDetails(); markFormChanged();">
+                                <option value="">-- Select Member --</option>
+                            </select>
+                        </div>
+                        <div id="memberDetails" style="display: none; background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                            <div class="detail-row">
+                                <span class="detail-label">Principal Amount:</span>
+                                <span class="detail-value" id="memberPrincipal">₹0</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Interest:</span>
+                                <span class="detail-value" id="memberInterest">₹0</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Total Due:</span>
+                                <span class="detail-value" id="memberTotalDue" style="font-weight: 700; color: #e74c3c;">₹0</span>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Payment Date</label>
+                                <input type="date" id="repaymentDate" oninput="markFormChanged()" onchange="autoCalculateLateFeeForPaymentForm()">
+                            </div>
+                            <div class="form-group">
+                                <label>Late Fee (₹) <span id="adminLateFeeAutoCalc" style="color: #ff9800; font-size: 0.85rem;"></span></label>
+                                <input type="number" id="repaymentLateFee" value="0" min="0" oninput="markFormChanged()">
+                                <div id="adminLateFeeInfo" style="color: #666; font-size: 0.85rem; margin-top: 5px;"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="repaymentPaid" onchange="markFormChanged();" style="margin-right: 8px;">
+                                Mark as Paid
+                            </label>
+                        </div>
+                        <button class="btn btn-success" onclick="recordPayment()">
+                            <i class="fas fa-check"></i> Record Payment
+                        </button>
+                    </div>
                 </div>
-                <div id="memberDetails" style="display: none; background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 15px 0;">
-                    <div class="detail-row">
-                        <span class="detail-label">Principal Amount:</span>
-                        <span class="detail-value" id="memberPrincipal">₹0</span>
-                    </div>
-                    <div class="detail-row">
-                        <span class="detail-label">Interest:</span>
-                        <span class="detail-value" id="memberInterest">₹0</span>
-                    </div>
-                    <div class="detail-row">
-                        <span class="detail-label">Total Due:</span>
-                        <span class="detail-value" id="memberTotalDue" style="font-weight: 700; color: #e74c3c;">₹0</span>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Payment Date</label>
-                        <input type="date" id="repaymentDate" oninput="markFormChanged()" onchange="autoCalculateLateFeeForPaymentForm()">
-                    </div>
-                    <div class="form-group">
-                        <label>Late Fee (₹) <span id="adminLateFeeAutoCalc" style="color: #ff9800; font-size: 0.85rem;"></span></label>
-                        <input type="number" id="repaymentLateFee" value="0" min="0" oninput="markFormChanged()">
-                        <div id="adminLateFeeInfo" style="color: #666; font-size: 0.85rem; margin-top: 5px;"></div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>
-                        <input type="checkbox" id="repaymentPaid" onchange="markFormChanged();" style="margin-right: 8px;">
-                        Mark as Paid
-                    </label>
-                </div>
-                <button class="btn btn-success" onclick="recordPayment()">
-                    <i class="fas fa-check"></i> Record Payment
-                </button>
             </div>
         </div>
 
         <!-- Cheeti Payment Cutover Date Settings -->
-        <div class="form-section" style="background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%); border-left: 4px solid #ff9800;">
-            <h4><i class="fas fa-calendar-check"></i> Cheeti Payment Cutover Date</h4>
-            <p class="form-info" style="color: #e65100;"><i class="fas fa-info-circle"></i> Set payment deadline for this year's cheeti members. They must pay back by this date in the next year.</p>
+        <div class="collapsible-section">
+            <div class="collapsible-header color-orange" onclick="toggleSection(this)">
+                <h4><i class="fas fa-calendar-check"></i> Cheeti Payment Cutover Date</h4>
+                <i class="fas fa-chevron-down collapsible-toggle collapsed"></i>
+            </div>
+            <div class="collapsible-content collapsed">
+                <div class="form-section" style="background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%); border-left: 4px solid #ff9800; margin-bottom: 0;">
+                    <p class="form-info" style="color: #e65100;"><i class="fas fa-info-circle"></i> Set payment deadline for this year's cheeti members. They must pay back by this date in the next year.</p>
             
             <div class="form-row">
                 <div class="form-group">
@@ -1280,31 +1775,45 @@
             <button class="btn btn-success" onclick="setCheetiCutoverDate()">
                 <i class="fas fa-save"></i> Set Cutover Date
             </button>
+                </div>
+            </div>
         </div>
 
         <!-- Add Expense Form -->
-        <div class="form-section">
-            <h4><i class="fas fa-receipt"></i> Add Expense</h4>
-            <div class="form-group">
-                <label>Item/Description</label>
-                <input type="text" id="expenseItem" placeholder="Enter item name" oninput="markFormChanged()">
+        <div class="collapsible-section">
+            <div class="collapsible-header color-pink" onclick="toggleSection(this)">
+                <h4><i class="fas fa-receipt"></i> Add Expense</h4>
+                <i class="fas fa-chevron-down collapsible-toggle collapsed"></i>
             </div>
-            <div class="form-group">
-                <label>Amount (₹)</label>
-                <input type="number" id="expenseAmount" placeholder="Enter amount" min="1" oninput="markFormChanged()">
+            <div class="collapsible-content collapsed">
+                <div class="form-section" style="margin-bottom: 0;">
+                    <div class="form-group">
+                        <label>Item/Description</label>
+                        <input type="text" id="expenseItem" placeholder="Enter item name" oninput="markFormChanged()">
+                    </div>
+                    <div class="form-group">
+                        <label>Amount (₹)</label>
+                        <input type="number" id="expenseAmount" placeholder="Enter amount" min="1" oninput="markFormChanged()">
+                    </div>
+                    <button class="btn btn-success" onclick="addExpense()">
+                        <i class="fas fa-plus"></i> Add Expense
+                    </button>
+                </div>
             </div>
-            <button class="btn btn-success" onclick="addExpense()">
-                <i class="fas fa-plus"></i> Add Expense
-            </button>
         </div>
 
         <!-- Add Sponsor Details Form -->
-        <div class="form-section">
-            <h4><i class="fas fa-hands-helping"></i> Add Sponsor</h4>
-            <div class="form-group">
-                <label>Sponsor Name</label>
-                <input type="text" id="sponsorName" placeholder="Enter sponsor name" oninput="markFormChanged()">
+        <div class="collapsible-section">
+            <div class="collapsible-header color-indigo" onclick="toggleSection(this)">
+                <h4><i class="fas fa-hands-helping"></i> Add Sponsor</h4>
+                <i class="fas fa-chevron-down collapsible-toggle collapsed"></i>
             </div>
+            <div class="collapsible-content collapsed">
+                <div class="form-section" style="margin-bottom: 0;">
+                    <div class="form-group">
+                        <label>Sponsor Name</label>
+                        <input type="text" id="sponsorName" placeholder="Enter sponsor name" oninput="markFormChanged()">
+                    </div>
             <div class="form-group">
                 <label>Sponsorship Type</label>
                 <select id="sponsorType" class="form-select" onchange="toggleCustomSponsorType()" oninput="markFormChanged()">
@@ -1332,35 +1841,49 @@
             <div id="sponsorsManagementList" style="margin-top: 20px;">
                 <!-- Will be populated by JavaScript -->
             </div>
+                </div>
+            </div>
         </div>
 
         <!-- Add Laddu Winner Form -->
-        <div class="form-section">
-            <h4><i class="fas fa-trophy"></i> Add Laddu Winner</h4>
-            <div class="form-group">
-                <label>Winner Name</label>
-                <input type="text" id="winnerName" placeholder="Enter winner name" oninput="markFormChanged()">
+        <div class="collapsible-section">
+            <div class="collapsible-header color-orange" onclick="toggleSection(this)">
+                <h4><i class="fas fa-trophy"></i> Add Laddu Winner</h4>
+                <i class="fas fa-chevron-down collapsible-toggle collapsed"></i>
             </div>
-            <div class="form-group">
-                <label>Prize Amount (₹)</label>
-                <input type="number" id="winnerAmount" placeholder="Enter prize amount" min="0" oninput="markFormChanged()">
-            </div>
-            <button class="btn btn-success" onclick="addLadduWinner()">
-                <i class="fas fa-plus"></i> Add Winner
-            </button>
-            
-            <!-- Laddu Winners List -->
-            <div id="ladduWinnersManagementList" style="margin-top: 20px;">
-                <!-- Will be populated by JavaScript -->
+            <div class="collapsible-content collapsed">
+                <div class="form-section" style="margin-bottom: 0;">
+                    <div class="form-group">
+                        <label>Winner Name</label>
+                        <input type="text" id="winnerName" placeholder="Enter winner name" oninput="markFormChanged()">
+                    </div>
+                    <div class="form-group">
+                        <label>Prize Amount (₹)</label>
+                        <input type="number" id="winnerAmount" placeholder="Enter prize amount" min="0" oninput="markFormChanged()">
+                    </div>
+                    <button class="btn btn-success" onclick="addLadduWinner()">
+                        <i class="fas fa-plus"></i> Add Winner
+                    </button>
+                    
+                    <!-- Laddu Winners List -->
+                    <div id="ladduWinnersManagementList" style="margin-top: 20px;">
+                        <!-- Will be populated by JavaScript -->
+                    </div>
+                </div>
             </div>
         </div>
 
         <!-- Committee Management Form -->
-        <div class="form-section" style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); border-left: 4px solid #4caf50;">
-            <h4><i class="fas fa-users-cog"></i> Manage Committee Members (Next Year)</h4>
-            <p class="form-info" style="color: #1b5e20;">
-                <i class="fas fa-info-circle"></i> Add committee members for <strong>next year</strong>. Current year's committee was decided last year.
-            </p>
+        <div class="collapsible-section">
+            <div class="collapsible-header color-teal" onclick="toggleSection(this)">
+                <h4><i class="fas fa-users-cog"></i> Manage Committee Members (Next Year)</h4>
+                <i class="fas fa-chevron-down collapsible-toggle collapsed"></i>
+            </div>
+            <div class="collapsible-content collapsed">
+                <div class="form-section" style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); border-left: 4px solid #4caf50; margin-bottom: 0;">
+                    <p class="form-info" style="color: #1b5e20;">
+                        <i class="fas fa-info-circle"></i> Add committee members for <strong>next year</strong>. Current year's committee was decided last year.
+                    </p>
             
             <div class="form-group">
                 <label>Member Name</label>
@@ -1386,14 +1909,21 @@
             <div id="committeeManagementList" style="margin-top: 20px;">
                 <!-- Will be populated by JavaScript -->
             </div>
+                </div>
+            </div>
         </div>
 
         <!-- Dashboard Visibility Control -->
-        <div class="form-section" style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); border-left: 4px solid #2196f3;">
-            <h4><i class="fas fa-eye"></i> Dashboard Visibility Control (Year-Specific)</h4>
-            <p class="form-info" style="color: #0d47a1;">
-                <i class="fas fa-info-circle"></i> Control which years members can view. Dashboard is <strong>hidden by default</strong> until you enable it.
-            </p>
+        <div class="collapsible-section">
+            <div class="collapsible-header color-blue" onclick="toggleSection(this)">
+                <h4><i class="fas fa-eye"></i> Dashboard Visibility Control</h4>
+                <i class="fas fa-chevron-down collapsible-toggle collapsed"></i>
+            </div>
+            <div class="collapsible-content collapsed">
+                <div class="form-section" style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); border-left: 4px solid #2196f3; margin-bottom: 0;">
+                    <p class="form-info" style="color: #0d47a1;">
+                        <i class="fas fa-info-circle"></i> Control which years members can view. Dashboard is <strong>hidden by default</strong> until you enable it.
+                    </p>
             
             <!-- Current Year Toggle -->
             <div style="background: white; padding: 15px; border-radius: 8px; margin: 15px 0; border: 2px solid #2196f3;">
@@ -1436,6 +1966,8 @@
                 <i class="fas fa-user-shield"></i> <strong>Admin Privilege:</strong> You always have access to all years regardless of visibility settings.<br>
                 <i class="fas fa-shield-alt"></i> <strong>Default Behavior:</strong> Dashboard is hidden from members until you enable it for each year.
             </p>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -1476,13 +2008,32 @@
 
     <!-- Main Dashboard Content -->
     <div id="mainContent" class="container">
+        <!-- Welcome Hero Section -->
+        <div class="welcome-hero">
+            <div class="welcome-hero-content">
+                <p>
+                    Welcome to the Vinayaka Chavithi Community Financial Dashboard. Our celebration brings together devotion, 
+                    community spirit, and transparency in managing resources for Lord Ganesha's festivities.
+                </p>
+                <p>
+                    <span class="highlight">🙏 Unity in Devotion</span>
+                    <span class="highlight">💰 Financial Transparency</span>
+                    <span class="highlight">🎉 Community Celebration</span>
+                </p>
+            </div>
+        </div>
+        
         <!-- Metrics Overview Section -->
         <div class="dashboard-section">
-            <div class="section-header">
-                <h2><i class="fas fa-chart-bar"></i> Key Metrics Overview</h2>
-                <p class="section-subtitle">Real-time financial statistics at a glance</p>
+            <div class="dashboard-section-header color-purple" onclick="toggleDashboardSection(this)">
+                <div class="dashboard-section-title">
+                    <h2><i class="fas fa-chart-bar"></i> Key Metrics Overview</h2>
+                    <p class="section-subtitle">Real-time financial statistics at a glance</p>
+                </div>
+                <i class="fas fa-chevron-down dashboard-toggle"></i>
             </div>
-            <div class="metrics-grid">
+            <div class="dashboard-section-content">
+                <div class="metrics-grid">
             <div class="metric-card">
                 <div class="metric-icon" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
                     <i class="fas fa-rupee-sign"></i>
@@ -1573,17 +2124,21 @@
                     <div class="metric-label">Estimated Next Year Interest</div>
                     <div style="font-size: 11px; color: #95a5a6; margin-top: 2px;">From current year members</div>
                 </div>
+                </div>
+                </div>
             </div>
-        </div>
         </div>
 
-        <!-- Charts Section -->
         <div class="dashboard-section">
-            <div class="section-header">
-                <h2><i class="fas fa-chart-pie"></i> Visual Analytics</h2>
-                <p class="section-subtitle">Financial overview and spending breakdown at a glance</p>
+            <div class="dashboard-section-header color-blue-gradient" onclick="toggleDashboardSection(this)">
+                <div class="dashboard-section-title">
+                    <h2><i class="fas fa-chart-pie"></i> Visual Analytics</h2>
+                    <p class="section-subtitle">Financial overview and spending breakdown at a glance</p>
+                </div>
+                <i class="fas fa-chevron-down dashboard-toggle"></i>
             </div>
-            <div class="charts-grid">
+            <div class="dashboard-section-content">
+                <div class="charts-grid">
             <div class="chart-card">
                 <h2><i class="fas fa-balance-scale"></i> Income vs Expenses</h2>
                 <div class="chart-container">
@@ -1603,94 +2158,138 @@
                 <div class="chart-container">
                     <canvas id="cheetiChart"></canvas>
                 </div>
+                        </div>
+                </div>
             </div>
         </div>
-        </div>
 
-        <!-- Data Tables Section -->
         <div class="dashboard-section">
-            <div class="section-header">
-                <h2><i class="fas fa-table"></i> Detailed Reports</h2>
-                <p class="section-subtitle">Complete breakdown of donations, cheeti members, and expenses</p>
+            <div class="dashboard-section-header color-green-gradient">
+                <div class="dashboard-section-title" onclick="toggleDashboardSection(this.parentElement)" style="cursor: pointer; flex: 1;">
+                    <h2><i class="fas fa-table"></i> Detailed Reports</h2>
+                    <p class="section-subtitle">Complete breakdown of donations, cheeti members, and expenses</p>
+                </div>
+                <button onclick="toggleAllTableCards(); event.stopPropagation();" title="Expand/Collapse All Tables" style="background: rgba(255,255,255,0.2); border: 2px solid rgba(255,255,255,0.4); color: white; padding: 8px 16px; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 6px; transition: all 0.3s; margin-right: 12px;" onmouseover="this.style.background='rgba(255,255,255,0.3)'; this.style.transform='translateY(-2px)'" onmouseout="this.style.background='rgba(255,255,255,0.2)'; this.style.transform='translateY(0)'">
+                    <i class="fas fa-compress-alt"></i>
+                </button>
+                <i class="fas fa-chevron-down dashboard-toggle" onclick="toggleDashboardSection(this.parentElement)" style="cursor: pointer;"></i>
             </div>
-            <div class="data-section">
+            <div class="dashboard-section-content">
+                <div class="data-section">
             <div class="table-card">
-                <h3>Donors List</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Rank</th>
-                            <th>Name</th>
-                            <th>Amount</th>
-                            <th id="donorActionsHeader" style="display: none;">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="donorsTableBody"></tbody>
-                </table>
+                <div class="table-card-header" onclick="toggleTableCard(this)">
+                    <h3><i class="fas fa-hand-holding-heart"></i> Donors List</h3>
+                    <button class="expand-table-btn" onclick="showTableModal('donors'); event.stopPropagation();" title="Expand to fullscreen">
+                        <i class="fas fa-expand-alt"></i> Expand
+                    </button>
+                    <i class="fas fa-chevron-down table-toggle"></i>
+                </div>
+                <div class="table-content">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Rank</th>
+                                <th>Name</th>
+                                <th>Amount</th>
+                                <th id="donorActionsHeader" style="display: none;">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="donorsTableBody"></tbody>
+                    </table>
+                </div>
             </div>
 
             <div class="table-card">
-                <h3>Cheeti Members</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Sl No</th>
-                            <th>Name</th>
-                            <th>Amount</th>
-                            <th>Interest</th>
-                            <th style="font-size: 0.85em; white-space: nowrap;">Total (inc. late fees)</th>
-                            <th id="cheetiActionsHeader" style="display: none;">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="cheetiTableBody"></tbody>
-                </table>
+                <div class="table-card-header" onclick="toggleTableCard(this)">
+                    <h3><i class="fas fa-user-friends"></i> Cheeti Members</h3>
+                    <button class="expand-table-btn" onclick="showTableModal('cheetiMembers'); event.stopPropagation();" title="Expand to fullscreen">
+                        <i class="fas fa-expand-alt"></i> Expand
+                    </button>
+                    <i class="fas fa-chevron-down table-toggle"></i>
+                </div>
+                <div class="table-content">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Sl No</th>
+                                <th>Name</th>
+                                <th>Amount</th>
+                                <th>Interest</th>
+                                <th style="font-size: 0.85em; white-space: nowrap;">Total (inc. late fees)</th>
+                                <th id="cheetiActionsHeader" style="display: none;">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="cheetiTableBody"></tbody>
+                    </table>
+                </div>
             </div>
 
             <!-- Cheeti Paid Dashboard (Admin Only) -->
             <div class="table-card" id="cheetiPaidDashboard">
-                <h3><i class="fas fa-money-check-alt"></i> Cheeti Payment Tracking (Admin Only)</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Sl No</th>
-                            <th>Name</th>
-                            <th>Amount</th>
-                            <th>Interest</th>
-                            <th>Late Fee</th>
-                            <th>Total Due</th>
-                            <th>Status</th>
-                            <th>Payment Date</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="cheetiPaidTableBody"></tbody>
-                </table>
+                <div class="table-card-header" onclick="toggleTableCard(this)">
+                    <h3><i class="fas fa-money-check-alt"></i> Cheeti Payment Tracking (Admin Only)</h3>
+                    <button class="expand-table-btn" onclick="showTableModal('cheetiPaid'); event.stopPropagation();" title="Expand to fullscreen">
+                        <i class="fas fa-expand-alt"></i> Expand
+                    </button>
+                    <i class="fas fa-chevron-down table-toggle"></i>
+                </div>
+                <div class="table-content">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Sl No</th>
+                                <th>Name</th>
+                                <th>Amount</th>
+                                <th>Interest</th>
+                                <th>Late Fee</th>
+                                <th>Total Due</th>
+                                <th>Status</th>
+                                <th>Payment Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="cheetiPaidTableBody"></tbody>
+                    </table>
+                </div>
             </div>
 
             <div class="table-card">
-                <h3>Expenses</h3>
-                <table id="expensesTable">
-                    <thead>
-                        <tr>
-                            <th>Item</th>
-                            <th>Amount</th>
-                            <th id="expenseActionsHeader" style="display: none;">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
+                <div class="table-card-header" onclick="toggleTableCard(this)">
+                    <h3><i class="fas fa-receipt"></i> Expenses</h3>
+                    <button class="expand-table-btn" onclick="showTableModal('expenses'); event.stopPropagation();" title="Expand to fullscreen">
+                        <i class="fas fa-expand-alt"></i> Expand
+                    </button>
+                    <i class="fas fa-chevron-down table-toggle"></i>
+                </div>
+                <div class="table-content">
+                    <table id="expensesTable">
+                        <thead>
+                            <tr>
+                                <th>Item</th>
+                                <th>Amount</th>
+                                <th id="expenseActionsHeader" style="display: none;">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+                        </div>
+                </div>
             </div>
-        </div>
         </div>
 
-        <!-- Committee Members Section -->
         <div class="dashboard-section" id="committeeSection" style="display: none;">
-            <div class="section-header">
-                <h2><i class="fas fa-users-cog"></i> Committee Members</h2>
-                <p class="section-subtitle">Meet the dedicated team organizing this year's festival</p>
+            <div class="dashboard-section-header color-orange-gradient" onclick="toggleDashboardSection(this)">
+                <div class="dashboard-section-title">
+                    <h2><i class="fas fa-users-cog"></i> Committee Members</h2>
+                    <p class="section-subtitle">Meet the dedicated team organizing this year's festival</p>
+                </div>
+                <i class="fas fa-chevron-down dashboard-toggle"></i>
             </div>
-            <div class="data-section" id="committeeGrid">
-                <!-- Committee member cards will be populated here -->
+            <div class="dashboard-section-content">
+                <div class="data-section" id="committeeGrid">
+                    <!-- Committee member cards will be populated here -->
+                </div>
             </div>
         </div>
     </div>
@@ -1700,11 +2299,293 @@
         <p>&copy; 2026 Vinayaka Chavithi Committee</p>
         <p>Powered by Community • Managed with Transparency</p>
     </div>
+    
+    <!-- Table Fullscreen Modal -->
+    <div id="tableModal" class="table-modal-overlay">
+        <div class="table-modal-content">
+            <div class="table-modal-header">
+                <h2 id="tableModalTitle"><i class="fas fa-table"></i> Table View</h2>
+                <button class="table-modal-close" onclick="hideTableModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="table-modal-body" id="tableModalBody">
+                <!-- Table content will be inserted here -->
+            </div>
+        </div>
+    </div>
 
     <!-- Scripts -->
     <script src="dashboard-config.js"></script>
     <script src="simple-dashboard.js"></script>
     <script>
+        // Helper function to toggle collapsible sections
+        function toggleSection(header) {
+            const content = header.nextElementSibling;
+            const toggle = header.querySelector('.collapsible-toggle');
+            
+            if (content.classList.contains('collapsed')) {
+                // Expand
+                content.classList.remove('collapsed');
+                toggle.classList.remove('collapsed');
+                // Save state
+                saveSectionState(header, true);
+            } else {
+                // Collapse
+                content.classList.add('collapsed');
+                toggle.classList.add('collapsed');
+                // Save state
+                saveSectionState(header, false);
+            }
+        }
+        
+        // Save section state to localStorage
+        function saveSectionState(header, isExpanded) {
+            const sectionTitle = header.querySelector('h4').textContent.trim();
+            const key = `adminSection_${sectionTitle}`;
+            localStorage.setItem(key, isExpanded ? 'expanded' : 'collapsed');
+        }
+        
+        // Restore section states from localStorage
+        function restoreSectionStates() {
+            const headers = document.querySelectorAll('.collapsible-header');
+            headers.forEach(header => {
+                const sectionTitle = header.querySelector('h4').textContent.trim();
+                const key = `adminSection_${sectionTitle}`;
+                const savedState = localStorage.getItem(key);
+                
+                // Default to expanded for first load, or use saved state
+                if (savedState === 'collapsed') {
+                    const content = header.nextElementSibling;
+                    const toggle = header.querySelector('.collapsible-toggle');
+                    content.classList.add('collapsed');
+                    toggle.classList.add('collapsed');
+                }
+            });
+        }
+        
+        // Toggle all sections at once (expand all or collapse all)
+        function toggleAllSections() {
+            const headers = document.querySelectorAll('.collapsible-header');
+            const contents = document.querySelectorAll('.collapsible-content');
+            
+            // Check if any section is expanded
+            const anyExpanded = Array.from(contents).some(content => !content.classList.contains('collapsed'));
+            
+            headers.forEach(header => {
+                const content = header.nextElementSibling;
+                const toggle = header.querySelector('.collapsible-toggle');
+                
+                if (anyExpanded) {
+                    // Collapse all
+                    content.classList.add('collapsed');
+                    toggle.classList.add('collapsed');
+                    saveSectionState(header, false);
+                } else {
+                    // Expand all
+                    content.classList.remove('collapsed');
+                    toggle.classList.remove('collapsed');
+                    saveSectionState(header, true);
+                }
+            });
+        }
+        
+        // Toggle dashboard sections
+        function toggleDashboardSection(header) {
+            const content = header.nextElementSibling;
+            const toggle = header.querySelector('.dashboard-toggle');
+            
+            if (content.classList.contains('collapsed')) {
+                // Expand
+                content.classList.remove('collapsed');
+                toggle.classList.remove('collapsed');
+                // Save state
+                saveDashboardSectionState(header, true);
+            } else {
+                // Collapse
+                content.classList.add('collapsed');
+                toggle.classList.add('collapsed');
+                // Save state
+                saveDashboardSectionState(header, false);
+            }
+        }
+        
+        // Save dashboard section state to localStorage
+        function saveDashboardSectionState(header, isExpanded) {
+            const sectionTitle = header.querySelector('h2').textContent.trim();
+            const key = `dashboardSection_${sectionTitle}`;
+            localStorage.setItem(key, isExpanded ? 'expanded' : 'collapsed');
+        }
+        
+        // Restore dashboard section states from localStorage
+        function restoreDashboardSectionStates() {
+            const headers = document.querySelectorAll('.dashboard-section-header');
+            headers.forEach(header => {
+                const sectionTitle = header.querySelector('h2').textContent.trim();
+                const key = `dashboardSection_${sectionTitle}`;
+                const savedState = localStorage.getItem(key);
+                
+                // Define which sections should be expanded by default
+                const expandedByDefault = [
+                    '📊 Key Metrics Overview',
+                    '⚙️ Committee Members'
+                ];
+                
+                // Check if this section should be expanded by default
+                const shouldBeExpanded = expandedByDefault.some(title => sectionTitle.includes('Key Metrics Overview') || sectionTitle.includes('Committee Members'));
+                
+                const content = header.nextElementSibling;
+                const toggle = header.querySelector('.dashboard-toggle');
+                
+                if (savedState === null) {
+                    // No saved state - use defaults
+                    if (!shouldBeExpanded) {
+                        // Collapse sections that should be collapsed by default
+                        content.classList.add('collapsed');
+                        toggle.classList.add('collapsed');
+                    }
+                } else if (savedState === 'collapsed') {
+                    // User explicitly collapsed it
+                    content.classList.add('collapsed');
+                    toggle.classList.add('collapsed');
+                }
+            });
+        }
+        
+        // Toggle table cards
+        function toggleTableCard(header) {
+            const content = header.nextElementSibling;
+            const toggle = header.querySelector('.table-toggle');
+            
+            if (content.classList.contains('collapsed')) {
+                // Expand
+                content.classList.remove('collapsed');
+                toggle.classList.remove('collapsed');
+                saveTableCardState(header, true);
+            } else {
+                // Collapse
+                content.classList.add('collapsed');
+                toggle.classList.add('collapsed');
+                saveTableCardState(header, false);
+            }
+        }
+        
+        // Save table card state to localStorage
+        function saveTableCardState(header, isExpanded) {
+            const tableTitle = header.querySelector('h3').textContent.trim();
+            const key = `tableCard_${tableTitle}`;
+            localStorage.setItem(key, isExpanded ? 'expanded' : 'collapsed');
+        }
+        
+        // Restore table card states from localStorage
+        function restoreTableCardStates() {
+            const headers = document.querySelectorAll('.table-card-header');
+            headers.forEach(header => {
+                const tableTitle = header.querySelector('h3').textContent.trim();
+                const key = `tableCard_${tableTitle}`;
+                const savedState = localStorage.getItem(key);
+                
+                // Default to expanded for first load, or use saved state
+                if (savedState === 'collapsed') {
+                    const content = header.nextElementSibling;
+                    const toggle = header.querySelector('.table-toggle');
+                    content.classList.add('collapsed');
+                    toggle.classList.add('collapsed');
+                }
+            });
+        }
+        
+        // Toggle all table cards at once (expand all or collapse all)
+        function toggleAllTableCards() {
+            const headers = document.querySelectorAll('.table-card-header');
+            const contents = document.querySelectorAll('.table-content');
+            
+            // Check if any table is expanded
+            const anyExpanded = Array.from(contents).some(content => !content.classList.contains('collapsed'));
+            
+            headers.forEach(header => {
+                const content = header.nextElementSibling;
+                const toggle = header.querySelector('.table-toggle');
+                
+                if (anyExpanded) {
+                    // Collapse all
+                    content.classList.add('collapsed');
+                    toggle.classList.add('collapsed');
+                    saveTableCardState(header, false);
+                } else {
+                    // Expand all
+                    content.classList.remove('collapsed');
+                    toggle.classList.remove('collapsed');
+                    saveTableCardState(header, true);
+                }
+            });
+        }
+        
+        // Show table in fullscreen modal
+        function showTableModal(tableType) {
+            const modal = document.getElementById('tableModal');
+            const modalTitle = document.getElementById('tableModalTitle');
+            const modalBody = document.getElementById('tableModalBody');
+            
+            let tableHTML = '';
+            let title = '';
+            
+            if (tableType === 'donors') {
+                title = '<i class="fas fa-hand-holding-heart"></i> Donors List - Full View';
+                const originalTable = document.querySelector('#donorsTableBody').closest('table');
+                tableHTML = originalTable.outerHTML;
+            } else if (tableType === 'cheetiMembers') {
+                title = '<i class="fas fa-user-friends"></i> Cheeti Members - Full View';
+                const originalTable = document.querySelector('#cheetiTableBody').closest('table');
+                tableHTML = originalTable.outerHTML;
+            } else if (tableType === 'cheetiPaid') {
+                title = '<i class="fas fa-money-check-alt"></i> Cheeti Payment Tracking - Full View';
+                const originalTable = document.querySelector('#cheetiPaidTableBody').closest('table');
+                tableHTML = originalTable.outerHTML;
+            } else if (tableType === 'expenses') {
+                title = '<i class="fas fa-receipt"></i> Expenses - Full View';
+                const originalTable = document.querySelector('#expensesTable');
+                tableHTML = originalTable.outerHTML;
+            }
+            
+            modalTitle.innerHTML = title;
+            modalBody.innerHTML = tableHTML;
+            modal.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        // Hide table modal
+        function hideTableModal() {
+            const modal = document.getElementById('tableModal');
+            modal.classList.remove('show');
+            document.body.style.overflow = '';
+        }
+        
+        // Close modal on ESC key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                hideTableModal();
+            }
+        });
+        
+        // Close modal on background click
+        document.addEventListener('click', function(e) {
+            if (e.target.id === 'tableModal') {
+                hideTableModal();
+            }
+        });
+        
+        // Helper function to update URL with year parameter
+        function updateUrlYear(year, replace = false) {
+            const url = new URL(window.location);
+            url.searchParams.set('year', year);
+            if (replace) {
+                window.history.replaceState({year: year}, '', url);
+            } else {
+                window.history.pushState({year: year}, '', url);
+            }
+        }
+        
         // Year Selection Handler
         document.addEventListener('DOMContentLoaded', function() {
             // Check if we should auto-show login modal
@@ -1722,6 +2603,17 @@
                 }, 600); // Slightly longer delay to allow session restoration
             }
             
+            // Check for year parameter in URL
+            const yearParam = urlParams.get('year');
+            if (yearParam) {
+                const requestedYear = parseInt(yearParam);
+                // Validate that the year exists in available years
+                if (DASHBOARD_CONFIG.AVAILABLE_YEARS.includes(requestedYear)) {
+                    DASHBOARD_CONFIG.currentYear = requestedYear;
+                    console.log(`📅 Loaded year ${requestedYear} from URL parameter`);
+                }
+            }
+            
             const yearSelect = document.getElementById('yearSelect');
             
             if (yearSelect) {
@@ -1735,6 +2627,9 @@
                     }
                     yearSelect.appendChild(option);
                 });
+                
+                // Update URL with current year on initial load (replace instead of push to avoid extra history entry)
+                updateUrlYear(DASHBOARD_CONFIG.currentYear, true);
                 
                 // Handle year change
                 yearSelect.addEventListener('change', async function() {
@@ -1767,6 +2662,9 @@
                     
                     DASHBOARD_CONFIG.currentYear = selectedYear;
                     
+                    // Update URL with new year parameter
+                    updateUrlYear(selectedYear);
+                    
                     // Update cheeti form based on new year
                     if (typeof updateCheetiForm === 'function') {
                         updateCheetiForm();
@@ -1781,6 +2679,32 @@
                     }, 300);
                 });
             }
+            
+            // Handle browser back/forward buttons
+            window.addEventListener('popstate', function(event) {
+                if (event.state && event.state.year) {
+                    const year = event.state.year;
+                    DASHBOARD_CONFIG.currentYear = year;
+                    
+                    // Update year dropdown
+                    const yearSelect = document.getElementById('yearSelect');
+                    if (yearSelect) {
+                        yearSelect.value = year;
+                    }
+                    
+                    // Reload data for the year from history
+                    showLoading(`Loading ${year} data...`);
+                    setTimeout(() => {
+                        loadDataFromGitHub();
+                    }, 300);
+                }
+            });
+            
+            // Restore dashboard section collapse states
+            setTimeout(() => {
+                restoreDashboardSectionStates();
+                restoreTableCardStates();
+            }, 500);
         });
     </script>
 </body>
