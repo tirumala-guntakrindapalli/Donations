@@ -1,6 +1,6 @@
 {
   "year": "2026",
-  "lastUpdated": "2026-04-10T20:36:47.662Z",
+  "lastUpdated": "2026-04-10T20:37:05.725Z",
   "settings": {
     "dashboard_enabled": false
   },
@@ -38,6 +38,16 @@
       "amount": 1500,
       "interest": 180,
       "total": 1680,
+      "paid": false,
+      "paymentDate": null,
+      "lateFee": 0
+    },
+    {
+      "slNo": 4,
+      "name": "test 4",
+      "amount": 2500,
+      "interest": 300,
+      "total": 2800,
       "paid": false,
       "paymentDate": null,
       "lateFee": 0
