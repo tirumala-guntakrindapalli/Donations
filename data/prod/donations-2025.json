@@ -1,41 +1,11 @@
 {
   "year": "2025",
-  "lastUpdated": "2026-04-10T05:56:00.252Z",
+  "lastUpdated": "2026-04-10T18:56:27.919Z",
   "settings": {
     "dashboard_enabled": false
   },
-  "donations": [
-    {
-      "slNo": 1,
-      "name": "P Hari Krishna Reddy",
-      "amount": 10000
-    },
-    {
-      "slNo": 2,
-      "name": "M Narasimha Reddy",
-      "amount": 5016
-    }
-  ],
-  "cheeti": [
-    {
-      "slNo": 1,
-      "name": "M Krishna Reddy",
-      "amount": 27600,
-      "interest": 3312,
-      "total": 32412,
-      "lateFee": 1500,
-      "paid": true,
-      "paymentDate": "2026-04-10",
-      "days_overdue": 0
-    },
-    {
-      "slNo": 2,
-      "name": "P Sasidhar",
-      "amount": 27600,
-      "interest": 3312,
-      "total": 30912
-    }
-  ],
+  "donations": [],
+  "cheeti": [],
   "expenses": [
     {
       "item": "Bandset",
@@ -95,11 +65,35 @@
   "committee": [
     {
       "role": "Organizer",
+      "name": "P Veera Raghava Reddy"
+    },
+    {
+      "role": "Member",
+      "name": "M Krishna Reddy"
+    },
+    {
+      "role": "Member",
       "name": "P Sasidhar"
     },
     {
       "role": "Member",
-      "name": "G Venkatesh (Sr)"
+      "name": "T Samba Siva Reddy"
+    },
+    {
+      "role": "Member",
+      "name": "P Tharun"
+    },
+    {
+      "role": "Member",
+      "name": "P Narendra"
+    },
+    {
+      "role": "Member",
+      "name": "G Tirumala"
+    },
+    {
+      "role": "Member",
+      "name": "B Srinivasulu Reddy"
     }
   ],
   "committee_next_year": [
