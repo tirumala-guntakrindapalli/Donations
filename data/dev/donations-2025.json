@@ -1,6 +1,6 @@
 {
   "year": "2025",
-  "lastUpdated": "2026-04-11T07:33:33.730Z",
+  "lastUpdated": "2026-04-11T07:33:35.109Z",
   "donations": [],
   "cheeti": [],
   "cheeti_collections": [
@@ -14,11 +14,11 @@
     },
     {
       "slNo": 2,
-      "memberName": "B Raja Sekhar",
+      "memberName": "B Chandra",
       "amount": 27776,
       "fromYear": 2024,
       "collectionDate": "2025-08-20",
-      "addedOn": "2026-04-11T07:33:33.206Z"
+      "addedOn": "2026-04-11T07:33:34.497Z"
     }
   ],
   "cheeti_expected": [
@@ -205,7 +205,7 @@
       "fromYear": 2024
     },
     {
-      "name": "B Chandra",
+      "name": "B Raja Sekhar",
       "amount": 24800,
       "interest": 2976,
       "expectedTotal": 27776,
