@@ -1,6 +1,6 @@
 {
   "year": "2025",
-  "lastUpdated": "2026-04-11T07:33:06.001Z",
+  "lastUpdated": "2026-04-11T07:33:07.198Z",
   "donations": [],
   "cheeti": [],
   "cheeti_collections": [
@@ -14,11 +14,11 @@
     },
     {
       "slNo": 2,
-      "memberName": "K Venu",
-      "amount": 28476,
+      "memberName": "P Venkata Subba Reddy",
+      "amount": 30192,
       "fromYear": 2024,
-      "collectionDate": "2025-08-27",
-      "addedOn": "2026-04-11T07:33:05.404Z"
+      "collectionDate": "2025-08-28",
+      "addedOn": "2026-04-11T07:33:06.664Z"
     }
   ],
   "cheeti_expected": [
@@ -247,6 +247,13 @@
       "fromYear": 2024
     },
     {
+      "name": "K Venu",
+      "amount": 24800,
+      "interest": 2976,
+      "expectedTotal": 27776,
+      "fromYear": 2024
+    },
+    {
       "name": "J Suresh",
       "amount": 24800,
       "interest": 2976,
@@ -279,13 +286,6 @@
       "amount": 24800,
       "interest": 2976,
       "expectedTotal": 27776,
-      "fromYear": 2024
-    },
-    {
-      "name": "P Venkata Subba Reddy",
-      "amount": 26600,
-      "interest": 3192,
-      "expectedTotal": 29792,
       "fromYear": 2024
     },
     {
