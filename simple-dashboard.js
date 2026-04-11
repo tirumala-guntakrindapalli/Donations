@@ -2077,7 +2077,7 @@ async function toggleYearVisibility(year, isEnabled) {
         const action = isEnabled ? '✅ Enable' : '🔒 Disable';
         const config = (typeof DASHBOARD_CONFIG !== 'undefined') ? DASHBOARD_CONFIG : (typeof CONFIG !== 'undefined' ? CONFIG : {});
         const env = config.DATA_ENVIRONMENT || 'prod';
-        const commitMsg = `[Dashboard Bot] [${env}] ${action} ${year} visibility | Admin action`;
+        const commitMsg = `[Dashboard Bot] [${env}] ${action} ${year} visibility | Admin action [skip ci]`;
         await saveYearDataToFile(year, yearData, commitMsg);
         
         // Refresh the all years list
@@ -2916,7 +2916,7 @@ async function initializeNewYear(year) {
         // Save the new year data
         const config = (typeof DASHBOARD_CONFIG !== 'undefined') ? DASHBOARD_CONFIG : (typeof CONFIG !== 'undefined' ? CONFIG : {});
         const env = config.DATA_ENVIRONMENT || 'prod';
-        const initCommitMsg = `[Dashboard Bot] [${env}] 🎉 Initialize ${year} | ${estimatedCollections > 0 ? `₹${estimatedCollections.toLocaleString('en-IN')} estimated` : 'Fresh start'}`;
+        const initCommitMsg = `[Dashboard Bot] [${env}] 🎉 Initialize ${year} | ${estimatedCollections > 0 ? `₹${estimatedCollections.toLocaleString('en-IN')} estimated` : 'Fresh start'} [skip ci]`;
         await saveYearDataToFile(year, newYearData, initCommitMsg);
         
         let successMsg = `✅ Year ${year} initialized successfully!`;
@@ -3008,7 +3008,7 @@ async function saveYearDataToFile(year, data, commitMessage = null) {
             timeZone: 'Asia/Kolkata'
         });
         const env = config.DATA_ENVIRONMENT || 'prod';
-        const defaultMsg = `[Dashboard Bot] [${env}] 📊 Update ${year} data | ${timestamp}`;
+        const defaultMsg = `[Dashboard Bot] [${env}] 📊 Update ${year} data | ${timestamp} [skip ci]`;
         
         const body = {
             message: commitMessage || defaultMsg,
