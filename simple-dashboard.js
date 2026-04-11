@@ -1262,9 +1262,19 @@ async function publishAllChanges() {
         if (window.pendingCrossYearUpdates && window.pendingCrossYearUpdates.length > 0) {
             showLoading(`Publishing cross-year updates (${window.pendingCrossYearUpdates.length})...`);
             
-            for (const update of window.pendingCrossYearUpdates) {
+            // Group updates by target year to batch commits (avoid spam)
+            const updatesByYear = {};
+            window.pendingCrossYearUpdates.forEach(update => {
+                if (!updatesByYear[update.targetYear]) {
+                    updatesByYear[update.targetYear] = [];
+                }
+                updatesByYear[update.targetYear].push(update);
+            });
+            
+            // Process each year only once (batch all updates per year)
+            for (const [targetYear, updates] of Object.entries(updatesByYear)) {
                 try {
-                    const currentYearData = await loadYearData(update.targetYear);
+                    const currentYearData = await loadYearData(parseInt(targetYear));
                     
                     if (currentYearData) {
                         // Initialize arrays if needed
@@ -1272,34 +1282,53 @@ async function publishAllChanges() {
                             currentYearData.cheeti_collections = [];
                         }
                         
-                        // Add the collection
-                        currentYearData.cheeti_collections.push({
-                            slNo: currentYearData.cheeti_collections.length + 1,
-                            memberName: update.memberName,
-                            amount: update.amount,
-                            fromYear: update.fromYear,
-                            collectionDate: update.paymentDate,
-                            addedOn: new Date().toISOString()
+                        // Apply all updates for this year in one batch
+                        updates.forEach(update => {
+                            // Check if member already exists in collections (prevent duplicates from multiple edits)
+                            const existingIndex = currentYearData.cheeti_collections.findIndex(
+                                c => c.memberName === update.memberName && c.fromYear === update.fromYear
+                            );
+                            
+                            if (existingIndex >= 0) {
+                                // Update existing entry instead of creating duplicate
+                                console.log(`🔄 Updating existing collection for ${update.memberName} (duplicate prevented)`);
+                                currentYearData.cheeti_collections[existingIndex] = {
+                                    ...currentYearData.cheeti_collections[existingIndex],
+                                    amount: update.amount,
+                                    collectionDate: update.paymentDate,
+                                    addedOn: new Date().toISOString()
+                                };
+                            } else {
+                                // Add new collection
+                                currentYearData.cheeti_collections.push({
+                                    slNo: currentYearData.cheeti_collections.length + 1,
+                                    memberName: update.memberName,
+                                    amount: update.amount,
+                                    fromYear: update.fromYear,
+                                    collectionDate: update.paymentDate,
+                                    addedOn: new Date().toISOString()
+                                });
+                            }
+                            
+                            // Remove from cheeti_expected to avoid double counting
+                            if (currentYearData.cheeti_expected) {
+                                const expectedIndex = currentYearData.cheeti_expected.findIndex(
+                                    e => e.name === update.memberName && e.fromYear === update.fromYear
+                                );
+                                if (expectedIndex >= 0) {
+                                    console.log(`🔄 Removing ${update.memberName} from cheeti_expected (already paid)`);
+                                    currentYearData.cheeti_expected.splice(expectedIndex, 1);
+                                }
+                            }
                         });
                         
-                        // Remove from cheeti_expected to avoid double counting
-                        if (currentYearData.cheeti_expected) {
-                            const expectedIndex = currentYearData.cheeti_expected.findIndex(
-                                e => e.name === update.memberName && e.fromYear === update.fromYear
-                            );
-                            if (expectedIndex >= 0) {
-                                console.log(`🔄 Removing ${update.memberName} from cheeti_expected (already paid)`);
-                                currentYearData.cheeti_expected.splice(expectedIndex, 1);
-                            }
-                        }
+                        // Save once per year (all updates batched together)
+                        await saveYearData(parseInt(targetYear), currentYearData);
                         
-                        // Save the current year data
-                        await saveYearData(update.targetYear, currentYearData);
-                        
-                        console.log(`✅ Published cross-year update: ₹${update.amount} to ${update.targetYear}`);
+                        console.log(`✅ Published ${updates.length} cross-year update(s) to ${targetYear}`);
                     }
                 } catch (error) {
-                    console.error(`Error processing cross-year update for ${update.targetYear}:`, error);
+                    console.error(`Error processing cross-year updates for ${targetYear}:`, error);
                 }
             }
             
@@ -3561,15 +3590,31 @@ async function addCheetiCollectionToCurrentYear(memberName, amount, paymentDate)
             targetYearData.cheeti_collections = [];
         }
         
-        // Add the collection
-        targetYearData.cheeti_collections.push({
-            slNo: targetYearData.cheeti_collections.length + 1,
-            memberName: memberName,
-            amount: amount,
-            fromYear: selectedYear,
-            collectionDate: paymentDate,
-            addedOn: new Date().toISOString()
-        });
+        // Check if member already exists in collections (prevent duplicates from multiple edits)
+        const existingIndex = targetYearData.cheeti_collections.findIndex(
+            c => c.memberName === memberName && c.fromYear === selectedYear
+        );
+        
+        if (existingIndex >= 0) {
+            // Update existing entry instead of creating duplicate
+            console.log(`🔄 Updating existing collection for ${memberName} (duplicate prevented)`);
+            targetYearData.cheeti_collections[existingIndex] = {
+                ...targetYearData.cheeti_collections[existingIndex],
+                amount: amount,
+                collectionDate: paymentDate,
+                addedOn: new Date().toISOString()
+            };
+        } else {
+            // Add new collection
+            targetYearData.cheeti_collections.push({
+                slNo: targetYearData.cheeti_collections.length + 1,
+                memberName: memberName,
+                amount: amount,
+                fromYear: selectedYear,
+                collectionDate: paymentDate,
+                addedOn: new Date().toISOString()
+            });
+        }
         
         // Remove from cheeti_expected to avoid double counting
         if (targetYearData.cheeti_expected) {
@@ -3678,7 +3723,7 @@ async function saveYearData(year, data) {
         });
         const env = config.DATA_ENVIRONMENT || 'prod';
         const body = {
-            message: `[Dashboard Bot] [${env}] 🔄 Cross-year sync ${year} | ${timestamp}`,
+            message: `[Dashboard Bot] [${env}] 🔄 Cross-year sync ${year} | ${timestamp} [skip ci]`,
             content: content,
             branch: config.GITHUB_BRANCH,
             author: {
