@@ -3,7 +3,7 @@
   "settings": {
     "dashboard_enabled": false
   },
-  "lastUpdated": "2026-04-11T07:13:47.546Z",
+  "lastUpdated": "2026-04-11T07:15:29.294Z",
   "donations": [
     {
       "slNo": 1,
@@ -454,8 +454,8 @@
       "name": "V Munihara Reddy",
       "amount": 24800,
       "interest": 2976,
-      "total": 27876,
-      "lateFee": 100,
+      "total": 27776,
+      "lateFee": 0,
       "paid": false,
       "paymentDate": null
     },
@@ -474,8 +474,8 @@
       "name": "Y Chandu Kumar",
       "amount": 24800,
       "interest": 2976,
-      "total": 27876,
-      "lateFee": 100,
+      "total": 27776,
+      "lateFee": 0,
       "paid": false,
       "paymentDate": null
     },
@@ -484,8 +484,8 @@
       "name": "C Munisubba Reddy",
       "amount": 24800,
       "interest": 2976,
-      "total": 28076,
-      "lateFee": 300,
+      "total": 27776,
+      "lateFee": 0,
       "paid": false,
       "paymentDate": null
     },
@@ -494,8 +494,8 @@
       "name": "M Venkatesh (Sr)",
       "amount": 24800,
       "interest": 2976,
-      "total": 27876,
-      "lateFee": 100,
+      "total": 27776,
+      "lateFee": 0,
       "paid": false,
       "paymentDate": null
     },
@@ -504,8 +504,8 @@
       "name": "P Eswar Reddy (Somu)",
       "amount": 24800,
       "interest": 2976,
-      "total": 27876,
-      "lateFee": 100,
+      "total": 27776,
+      "lateFee": 0,
       "paid": false,
       "paymentDate": null
     },
@@ -654,8 +654,8 @@
       "name": "T Gurunadham Reddy",
       "amount": 24800,
       "interest": 2976,
-      "total": 28476,
-      "lateFee": 700,
+      "total": 27776,
+      "lateFee": 0,
       "paid": false,
       "paymentDate": null
     },
@@ -674,8 +674,8 @@
       "name": "T Maheshwar Reddy",
       "amount": 24800,
       "interest": 2976,
-      "total": 28176,
-      "lateFee": 400,
+      "total": 27776,
+      "lateFee": 0,
       "paid": false,
       "paymentDate": null
     },
@@ -754,8 +754,8 @@
       "name": "K Venu",
       "amount": 24800,
       "interest": 2976,
-      "total": 28476,
-      "lateFee": 700,
+      "total": 27776,
+      "lateFee": 0,
       "paid": false,
       "paymentDate": null
     },
@@ -814,8 +814,8 @@
       "name": "P Venkata Subba Reddy",
       "amount": 26600,
       "interest": 3192,
-      "total": 30192,
-      "lateFee": 400,
+      "total": 29792,
+      "lateFee": 0,
       "paid": false,
       "paymentDate": null
     },
@@ -824,8 +824,8 @@
       "name": "G Narayana",
       "amount": 24800,
       "interest": 2976,
-      "total": 28276,
-      "lateFee": 500,
+      "total": 27776,
+      "lateFee": 0,
       "paid": false,
       "paymentDate": null
     },
