@@ -1,0 +1,355 @@
+{
+  "year": "2025",
+  "lastUpdated": "2026-04-11T07:16:14.377Z",
+  "donations": [],
+  "cheeti": [],
+  "cheeti_collections": [],
+  "cheeti_expected": [
+    {
+      "name": "M Krishna Reddy",
+      "amount": 24800,
+      "interest": 2976,
+      "expectedTotal": 27776,
+      "fromYear": 2024
+    },
+    {
+      "name": "P Sasidhar",
+      "amount": 24800,
+      "interest": 2976,
+      "expectedTotal": 27776,
+      "fromYear": 2024
+    },
+    {
+      "name": "P Hari Krishna Reddy",
+      "amount": 24800,
+      "interest": 2976,
+      "expectedTotal": 27776,
+      "fromYear": 2024
+    },
+    {
+      "name": "V Munihara Reddy",
+      "amount": 24800,
+      "interest": 2976,
+      "expectedTotal": 27776,
+      "fromYear": 2024
+    },
+    {
+      "name": "M Nagaraja",
+      "amount": 24800,
+      "interest": 2976,
+      "expectedTotal": 27776,
+      "fromYear": 2024
+    },
+    {
+      "name": "Y Chandu Kumar",
+      "amount": 24800,
+      "interest": 2976,
+      "expectedTotal": 27776,
+      "fromYear": 2024
+    },
+    {
+      "name": "C Munisubba Reddy",
+      "amount": 24800,
+      "interest": 2976,
+      "expectedTotal": 27776,
+      "fromYear": 2024
+    },
+    {
+      "name": "M Venkatesh (Sr)",
+      "amount": 24800,
+      "interest": 2976,
+      "expectedTotal": 27776,
+      "fromYear": 2024
+    },
+    {
+      "name": "P Eswar Reddy (Somu)",
+      "amount": 24800,
+      "interest": 2976,
+      "expectedTotal": 27776,
+      "fromYear": 2024
+    },
+    {
+      "name": "P Siva Kumar (Chanti)",
+      "amount": 24800,
+      "interest": 2976,
+      "expectedTotal": 27776,
+      "fromYear": 2024
+    },
+    {
+      "name": "P Tharun",
+      "amount": 24800,
+      "interest": 2976,
+      "expectedTotal": 27776,
+      "fromYear": 2024
+    },
+    {
+      "name": "P Eswar Reddy (Polam)",
+      "amount": 24800,
+      "interest": 2976,
+      "expectedTotal": 27776,
+      "fromYear": 2024
+    },
+    {
+      "name": "P Siva",
+      "amount": 24800,
+      "interest": 2976,
+      "expectedTotal": 27776,
+      "fromYear": 2024
+    },
+    {
+      "name": "K Surendra",
+      "amount": 24800,
+      "interest": 2976,
+      "expectedTotal": 27776,
+      "fromYear": 2024
+    },
+    {
+      "name": "M Balasubramanyam",
+      "amount": 24800,
+      "interest": 2976,
+      "expectedTotal": 27776,
+      "fromYear": 2024
+    },
+    {
+      "name": "M Balaji",
+      "amount": 24800,
+      "interest": 2976,
+      "expectedTotal": 27776,
+      "fromYear": 2024
+    },
+    {
+      "name": "V Suneel",
+      "amount": 24800,
+      "interest": 2976,
+      "expectedTotal": 27776,
+      "fromYear": 2024
+    },
+    {
+      "name": "V Sudhakar",
+      "amount": 24800,
+      "interest": 2976,
+      "expectedTotal": 27776,
+      "fromYear": 2024
+    },
+    {
+      "name": "M Srinivasulu Reddy",
+      "amount": 24800,
+      "interest": 2976,
+      "expectedTotal": 27776,
+      "fromYear": 2024
+    },
+    {
+      "name": "P Gurunadham Reddy",
+      "amount": 24800,
+      "interest": 2976,
+      "expectedTotal": 27776,
+      "fromYear": 2024
+    },
+    {
+      "name": "P Gurava Reddy",
+      "amount": 24800,
+      "interest": 2976,
+      "expectedTotal": 27776,
+      "fromYear": 2024
+    },
+    {
+      "name": "P Tirumala Reddy",
+      "amount": 24800,
+      "interest": 2976,
+      "expectedTotal": 27776,
+      "fromYear": 2024
+    },
+    {
+      "name": "T Samba Siva Reddy",
+      "amount": 24800,
+      "interest": 2976,
+      "expectedTotal": 27776,
+      "fromYear": 2024
+    },
+    {
+      "name": "T Gurunadham Reddy",
+      "amount": 24800,
+      "interest": 2976,
+      "expectedTotal": 27776,
+      "fromYear": 2024
+    },
+    {
+      "name": "T Mahadeva Reddy",
+      "amount": 24800,
+      "interest": 2976,
+      "expectedTotal": 27776,
+      "fromYear": 2024
+    },
+    {
+      "name": "T Maheshwar Reddy",
+      "amount": 24800,
+      "interest": 2976,
+      "expectedTotal": 27776,
+      "fromYear": 2024
+    },
+    {
+      "name": "M Somu",
+      "amount": 24800,
+      "interest": 2976,
+      "expectedTotal": 27776,
+      "fromYear": 2024
+    },
+    {
+      "name": "B Raja Sekhar",
+      "amount": 24800,
+      "interest": 2976,
+      "expectedTotal": 27776,
+      "fromYear": 2024
+    },
+    {
+      "name": "B Chandra",
+      "amount": 24800,
+      "interest": 2976,
+      "expectedTotal": 27776,
+      "fromYear": 2024
+    },
+    {
+      "name": "B Uday",
+      "amount": 24800,
+      "interest": 2976,
+      "expectedTotal": 27776,
+      "fromYear": 2024
+    },
+    {
+      "name": "B Amarnadh Reddy",
+      "amount": 24800,
+      "interest": 2976,
+      "expectedTotal": 27776,
+      "fromYear": 2024
+    },
+    {
+      "name": "G Uday",
+      "amount": 24800,
+      "interest": 2976,
+      "expectedTotal": 27776,
+      "fromYear": 2024
+    },
+    {
+      "name": "G Venkatesh Sr",
+      "amount": 24800,
+      "interest": 2976,
+      "expectedTotal": 27776,
+      "fromYear": 2024
+    },
+    {
+      "name": "K Venu",
+      "amount": 24800,
+      "interest": 2976,
+      "expectedTotal": 27776,
+      "fromYear": 2024
+    },
+    {
+      "name": "J Suresh",
+      "amount": 24800,
+      "interest": 2976,
+      "expectedTotal": 27776,
+      "fromYear": 2024
+    },
+    {
+      "name": "P Sudarsan",
+      "amount": 24800,
+      "interest": 2976,
+      "expectedTotal": 27776,
+      "fromYear": 2024
+    },
+    {
+      "name": "P Narendra",
+      "amount": 24800,
+      "interest": 2976,
+      "expectedTotal": 27776,
+      "fromYear": 2024
+    },
+    {
+      "name": "Y Vasu",
+      "amount": 24800,
+      "interest": 2976,
+      "expectedTotal": 27776,
+      "fromYear": 2024
+    },
+    {
+      "name": "P Mani Reddy",
+      "amount": 24800,
+      "interest": 2976,
+      "expectedTotal": 27776,
+      "fromYear": 2024
+    },
+    {
+      "name": "P Venkata Subba Reddy",
+      "amount": 26600,
+      "interest": 3192,
+      "expectedTotal": 29792,
+      "fromYear": 2024
+    },
+    {
+      "name": "G Narayana",
+      "amount": 24800,
+      "interest": 2976,
+      "expectedTotal": 27776,
+      "fromYear": 2024
+    },
+    {
+      "name": "G Tirumala",
+      "amount": 24800,
+      "interest": 2976,
+      "expectedTotal": 27776,
+      "fromYear": 2024
+    },
+    {
+      "name": "M Venkatasubba Reddy",
+      "amount": 24800,
+      "interest": 2976,
+      "expectedTotal": 27776,
+      "fromYear": 2024
+    },
+    {
+      "name": "T Nagur Reddy",
+      "amount": 24800,
+      "interest": 2976,
+      "expectedTotal": 27776,
+      "fromYear": 2024
+    }
+  ],
+  "expenses": [],
+  "sponsors": [],
+  "laddu_winners": [],
+  "committee": [
+    {
+      "role": "Organizer",
+      "name": "P Veera Raghava Reddy"
+    },
+    {
+      "role": "Member",
+      "name": "M Krishna Reddy"
+    },
+    {
+      "role": "Member",
+      "name": "P Sasidhar"
+    },
+    {
+      "role": "Member",
+      "name": "T Samba Siva Reddy"
+    },
+    {
+      "role": "Member",
+      "name": "P Tharun"
+    },
+    {
+      "role": "Member",
+      "name": "P Narendra"
+    },
+    {
+      "role": "Member",
+      "name": "G Tirumala"
+    },
+    {
+      "role": "Member",
+      "name": "B Srinivasulu Reddy"
+    }
+  ],
+  "committee_next_year": []
+}
