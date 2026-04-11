@@ -1,6 +1,6 @@
 {
   "year": "2025",
-  "lastUpdated": "2026-04-11T07:33:04.743Z",
+  "lastUpdated": "2026-04-11T07:33:06.001Z",
   "donations": [],
   "cheeti": [],
   "cheeti_collections": [
@@ -14,11 +14,11 @@
     },
     {
       "slNo": 2,
-      "memberName": "T Maheshwar Reddy",
-      "amount": 28176,
+      "memberName": "K Venu",
+      "amount": 28476,
       "fromYear": 2024,
-      "collectionDate": "2025-08-24",
-      "addedOn": "2026-04-11T07:33:04.191Z"
+      "collectionDate": "2025-08-27",
+      "addedOn": "2026-04-11T07:33:05.404Z"
     }
   ],
   "cheeti_expected": [
@@ -191,6 +191,13 @@
       "fromYear": 2024
     },
     {
+      "name": "T Maheshwar Reddy",
+      "amount": 24800,
+      "interest": 2976,
+      "expectedTotal": 27776,
+      "fromYear": 2024
+    },
+    {
       "name": "M Somu",
       "amount": 24800,
       "interest": 2976,
@@ -234,13 +241,6 @@
     },
     {
       "name": "G Venkatesh Sr",
-      "amount": 24800,
-      "interest": 2976,
-      "expectedTotal": 27776,
-      "fromYear": 2024
-    },
-    {
-      "name": "K Venu",
       "amount": 24800,
       "interest": 2976,
       "expectedTotal": 27776,
