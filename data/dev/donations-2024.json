@@ -3,7 +3,7 @@
   "settings": {
     "dashboard_enabled": false
   },
-  "lastUpdated": "2026-04-11T07:18:07.065Z",
+  "lastUpdated": "2026-04-11T07:32:55.323Z",
   "donations": [
     {
       "slNo": 1,
@@ -436,8 +436,9 @@
       "interest": 2976,
       "total": 27776,
       "lateFee": 0,
-      "paid": false,
-      "paymentDate": null
+      "paid": true,
+      "paymentDate": "2025-08-20",
+      "days_overdue": 0
     },
     {
       "slNo": 3,
@@ -446,18 +447,20 @@
       "interest": 2976,
       "total": 27776,
       "lateFee": 0,
-      "paid": false,
-      "paymentDate": null
+      "paid": true,
+      "paymentDate": "2025-08-20",
+      "days_overdue": 0
     },
     {
       "slNo": 4,
       "name": "V Munihara Reddy",
       "amount": 24800,
       "interest": 2976,
-      "total": 27776,
-      "lateFee": 0,
-      "paid": false,
-      "paymentDate": null
+      "total": 27876,
+      "lateFee": 100,
+      "paid": true,
+      "paymentDate": "2025-08-21",
+      "days_overdue": 0
     },
     {
       "slNo": 5,
@@ -466,48 +469,53 @@
       "interest": 2976,
       "total": 27776,
       "lateFee": 0,
-      "paid": false,
-      "paymentDate": null
+      "paid": true,
+      "paymentDate": "2025-08-20",
+      "days_overdue": 0
     },
     {
       "slNo": 6,
       "name": "Y Chandu Kumar",
       "amount": 24800,
       "interest": 2976,
-      "total": 27776,
-      "lateFee": 0,
-      "paid": false,
-      "paymentDate": null
+      "total": 27876,
+      "lateFee": 100,
+      "paid": true,
+      "paymentDate": "2025-08-21",
+      "days_overdue": 0
     },
     {
       "slNo": 7,
       "name": "C Munisubba Reddy",
       "amount": 24800,
       "interest": 2976,
-      "total": 27776,
-      "lateFee": 0,
-      "paid": false,
-      "paymentDate": null
+      "total": 28076,
+      "lateFee": 300,
+      "paid": true,
+      "paymentDate": "2025-08-23",
+      "days_overdue": 0
     },
     {
       "slNo": 8,
       "name": "M Venkatesh (Sr)",
       "amount": 24800,
       "interest": 2976,
-      "total": 27776,
-      "lateFee": 0,
-      "paid": false,
-      "paymentDate": null
+      "total": 27876,
+      "lateFee": 100,
+      "paid": true,
+      "paymentDate": "2025-08-21",
+      "days_overdue": 0
     },
     {
       "slNo": 9,
       "name": "P Eswar Reddy (Somu)",
       "amount": 24800,
       "interest": 2976,
-      "total": 27776,
-      "lateFee": 0,
-      "paid": false,
-      "paymentDate": null
+      "total": 27876,
+      "lateFee": 100,
+      "paid": true,
+      "paymentDate": "2025-08-21",
+      "days_overdue": 0
     },
     {
       "slNo": 10,
@@ -516,8 +524,9 @@
       "interest": 2976,
       "total": 27776,
       "lateFee": 0,
-      "paid": false,
-      "paymentDate": null
+      "paid": true,
+      "paymentDate": "2025-08-20",
+      "days_overdue": 0
     },
     {
       "slNo": 11,
@@ -526,8 +535,9 @@
       "interest": 2976,
       "total": 27776,
       "lateFee": 0,
-      "paid": false,
-      "paymentDate": null
+      "paid": true,
+      "paymentDate": "2025-08-20",
+      "days_overdue": 0
     },
     {
       "slNo": 12,
@@ -536,8 +546,9 @@
       "interest": 2976,
       "total": 27776,
       "lateFee": 0,
-      "paid": false,
-      "paymentDate": null
+      "paid": true,
+      "paymentDate": "2025-08-20",
+      "days_overdue": 0
     },
     {
       "slNo": 13,
@@ -546,8 +557,9 @@
       "interest": 2976,
       "total": 27776,
       "lateFee": 0,
-      "paid": false,
-      "paymentDate": null
+      "paid": true,
+      "paymentDate": "2025-08-20",
+      "days_overdue": 0
     },
     {
       "slNo": 14,
@@ -556,8 +568,9 @@
       "interest": 2976,
       "total": 27776,
       "lateFee": 0,
-      "paid": false,
-      "paymentDate": null
+      "paid": true,
+      "paymentDate": "2025-08-20",
+      "days_overdue": 0
     },
     {
       "slNo": 15,
@@ -566,8 +579,9 @@
       "interest": 2976,
       "total": 27776,
       "lateFee": 0,
-      "paid": false,
-      "paymentDate": null
+      "paid": true,
+      "paymentDate": "2025-08-20",
+      "days_overdue": 0
     },
     {
       "slNo": 16,
@@ -576,8 +590,9 @@
       "interest": 2976,
       "total": 27776,
       "lateFee": 0,
-      "paid": false,
-      "paymentDate": null
+      "paid": true,
+      "paymentDate": "2025-08-20",
+      "days_overdue": 0
     },
     {
       "slNo": 17,
@@ -586,8 +601,9 @@
       "interest": 2976,
       "total": 27776,
       "lateFee": 0,
-      "paid": false,
-      "paymentDate": null
+      "paid": true,
+      "paymentDate": "2025-08-20",
+      "days_overdue": 0
     },
     {
       "slNo": 18,
@@ -596,8 +612,9 @@
       "interest": 2976,
       "total": 27776,
       "lateFee": 0,
-      "paid": false,
-      "paymentDate": null
+      "paid": true,
+      "paymentDate": "2025-08-20",
+      "days_overdue": 0
     },
     {
       "slNo": 19,
@@ -606,8 +623,9 @@
       "interest": 2976,
       "total": 27776,
       "lateFee": 0,
-      "paid": false,
-      "paymentDate": null
+      "paid": true,
+      "paymentDate": "2025-08-20",
+      "days_overdue": 0
     },
     {
       "slNo": 20,
@@ -616,8 +634,9 @@
       "interest": 2976,
       "total": 27776,
       "lateFee": 0,
-      "paid": false,
-      "paymentDate": null
+      "paid": true,
+      "paymentDate": "2025-08-20",
+      "days_overdue": 0
     },
     {
       "slNo": 21,
@@ -626,8 +645,9 @@
       "interest": 2976,
       "total": 27776,
       "lateFee": 0,
-      "paid": false,
-      "paymentDate": null
+      "paid": true,
+      "paymentDate": "2025-08-20",
+      "days_overdue": 0
     },
     {
       "slNo": 22,
@@ -636,8 +656,9 @@
       "interest": 2976,
       "total": 27776,
       "lateFee": 0,
-      "paid": false,
-      "paymentDate": null
+      "paid": true,
+      "paymentDate": "2025-08-20",
+      "days_overdue": 0
     },
     {
       "slNo": 23,
@@ -646,18 +667,20 @@
       "interest": 2976,
       "total": 27776,
       "lateFee": 0,
-      "paid": false,
-      "paymentDate": null
+      "paid": true,
+      "paymentDate": "2025-08-20",
+      "days_overdue": 0
     },
     {
       "slNo": 24,
       "name": "T Gurunadham Reddy",
       "amount": 24800,
       "interest": 2976,
-      "total": 27776,
-      "lateFee": 0,
-      "paid": false,
-      "paymentDate": null
+      "total": 28476,
+      "lateFee": 700,
+      "paid": true,
+      "paymentDate": "2025-08-27",
+      "days_overdue": 0
     },
     {
       "slNo": 25,
@@ -666,18 +689,20 @@
       "interest": 2976,
       "total": 27776,
       "lateFee": 0,
-      "paid": false,
-      "paymentDate": null
+      "paid": true,
+      "paymentDate": "2025-08-20",
+      "days_overdue": 0
     },
     {
       "slNo": 26,
       "name": "T Maheshwar Reddy",
       "amount": 24800,
       "interest": 2976,
-      "total": 27776,
-      "lateFee": 0,
-      "paid": false,
-      "paymentDate": null
+      "total": 28176,
+      "lateFee": 400,
+      "paid": true,
+      "paymentDate": "2025-08-24",
+      "days_overdue": 0
     },
     {
       "slNo": 27,
@@ -686,8 +711,9 @@
       "interest": 2976,
       "total": 27776,
       "lateFee": 0,
-      "paid": false,
-      "paymentDate": null
+      "paid": true,
+      "paymentDate": "2025-08-20",
+      "days_overdue": 0
     },
     {
       "slNo": 28,
@@ -696,8 +722,9 @@
       "interest": 2976,
       "total": 27776,
       "lateFee": 0,
-      "paid": false,
-      "paymentDate": null
+      "paid": true,
+      "paymentDate": "2025-08-20",
+      "days_overdue": 0
     },
     {
       "slNo": 29,
@@ -706,8 +733,9 @@
       "interest": 2976,
       "total": 27776,
       "lateFee": 0,
-      "paid": false,
-      "paymentDate": null
+      "paid": true,
+      "paymentDate": "2025-08-20",
+      "days_overdue": 0
     },
     {
       "slNo": 30,
@@ -716,8 +744,9 @@
       "interest": 2976,
       "total": 27776,
       "lateFee": 0,
-      "paid": false,
-      "paymentDate": null
+      "paid": true,
+      "paymentDate": "2025-08-20",
+      "days_overdue": 0
     },
     {
       "slNo": 31,
@@ -726,8 +755,9 @@
       "interest": 2976,
       "total": 27776,
       "lateFee": 0,
-      "paid": false,
-      "paymentDate": null
+      "paid": true,
+      "paymentDate": "2025-08-20",
+      "days_overdue": 0
     },
     {
       "slNo": 32,
@@ -736,8 +766,9 @@
       "interest": 2976,
       "total": 27776,
       "lateFee": 0,
-      "paid": false,
-      "paymentDate": null
+      "paid": true,
+      "paymentDate": "2025-08-20",
+      "days_overdue": 0
     },
     {
       "slNo": 33,
@@ -746,18 +777,20 @@
       "interest": 2976,
       "total": 27776,
       "lateFee": 0,
-      "paid": false,
-      "paymentDate": null
+      "paid": true,
+      "paymentDate": "2025-08-20",
+      "days_overdue": 0
     },
     {
       "slNo": 34,
       "name": "K Venu",
       "amount": 24800,
       "interest": 2976,
-      "total": 27776,
-      "lateFee": 0,
-      "paid": false,
-      "paymentDate": null
+      "total": 28476,
+      "lateFee": 700,
+      "paid": true,
+      "paymentDate": "2025-08-27",
+      "days_overdue": 0
     },
     {
       "slNo": 35,
@@ -766,8 +799,9 @@
       "interest": 2976,
       "total": 27776,
       "lateFee": 0,
-      "paid": false,
-      "paymentDate": null
+      "paid": true,
+      "paymentDate": "2025-08-20",
+      "days_overdue": 0
     },
     {
       "slNo": 36,
@@ -776,8 +810,9 @@
       "interest": 2976,
       "total": 27776,
       "lateFee": 0,
-      "paid": false,
-      "paymentDate": null
+      "paid": true,
+      "paymentDate": "2025-08-20",
+      "days_overdue": 0
     },
     {
       "slNo": 37,
@@ -786,8 +821,9 @@
       "interest": 2976,
       "total": 27776,
       "lateFee": 0,
-      "paid": false,
-      "paymentDate": null
+      "paid": true,
+      "paymentDate": "2025-08-20",
+      "days_overdue": 0
     },
     {
       "slNo": 38,
@@ -796,8 +832,9 @@
       "interest": 2976,
       "total": 27776,
       "lateFee": 0,
-      "paid": false,
-      "paymentDate": null
+      "paid": true,
+      "paymentDate": "2025-08-20",
+      "days_overdue": 0
     },
     {
       "slNo": 39,
@@ -806,28 +843,31 @@
       "interest": 2976,
       "total": 27776,
       "lateFee": 0,
-      "paid": false,
-      "paymentDate": null
+      "paid": true,
+      "paymentDate": "2025-08-20",
+      "days_overdue": 0
     },
     {
       "slNo": 40,
       "name": "P Venkata Subba Reddy",
       "amount": 26600,
       "interest": 3192,
-      "total": 29792,
-      "lateFee": 0,
-      "paid": false,
-      "paymentDate": null
+      "total": 30192,
+      "lateFee": 400,
+      "paid": true,
+      "paymentDate": "2025-08-28",
+      "days_overdue": 0
     },
     {
       "slNo": 41,
       "name": "G Narayana",
       "amount": 24800,
       "interest": 2976,
-      "total": 27776,
-      "lateFee": 0,
-      "paid": false,
-      "paymentDate": null
+      "total": 28276,
+      "lateFee": 500,
+      "paid": true,
+      "paymentDate": "2025-08-25",
+      "days_overdue": 0
     },
     {
       "slNo": 42,
@@ -836,8 +876,9 @@
       "interest": 2976,
       "total": 27776,
       "lateFee": 0,
-      "paid": false,
-      "paymentDate": null
+      "paid": true,
+      "paymentDate": "2025-08-20",
+      "days_overdue": 0
     },
     {
       "slNo": 43,
@@ -846,8 +887,9 @@
       "interest": 2976,
       "total": 27776,
       "lateFee": 0,
-      "paid": false,
-      "paymentDate": null
+      "paid": true,
+      "paymentDate": "2025-08-20",
+      "days_overdue": 0
     },
     {
       "slNo": 44,
@@ -856,8 +898,9 @@
       "interest": 2976,
       "total": 27776,
       "lateFee": 0,
-      "paid": false,
-      "paymentDate": null
+      "paid": true,
+      "paymentDate": "2025-08-20",
+      "days_overdue": 0
     }
   ],
   "expenses": [
