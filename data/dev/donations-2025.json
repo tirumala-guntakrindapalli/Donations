@@ -1,6 +1,6 @@
 {
   "year": "2025",
-  "lastUpdated": "2026-04-11T07:33:16.112Z",
+  "lastUpdated": "2026-04-11T07:33:17.321Z",
   "donations": [],
   "cheeti": [],
   "cheeti_collections": [
@@ -14,11 +14,11 @@
     },
     {
       "slNo": 2,
-      "memberName": "P Eswar Reddy (Polam)",
+      "memberName": "P Siva",
       "amount": 27776,
       "fromYear": 2024,
       "collectionDate": "2025-08-20",
-      "addedOn": "2026-04-11T07:33:15.553Z"
+      "addedOn": "2026-04-11T07:33:16.772Z"
     }
   ],
   "cheeti_expected": [
@@ -93,7 +93,7 @@
       "fromYear": 2024
     },
     {
-      "name": "P Siva",
+      "name": "P Eswar Reddy (Polam)",
       "amount": 24800,
       "interest": 2976,
       "expectedTotal": 27776,
