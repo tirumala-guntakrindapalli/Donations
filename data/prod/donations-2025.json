@@ -1304,5 +1304,8 @@
       "role": "Member",
       "name": "J Suresh"
     }
-  ]
+  ],
+  "settings": {
+    "dashboard_enabled": true
+  }
 }
