@@ -1,6 +1,6 @@
 {
   "year": "2025",
-  "lastUpdated": "2026-04-11T07:18:08.776Z",
+  "lastUpdated": "2026-04-11T07:32:57.046Z",
   "donations": [],
   "cheeti": [],
   "cheeti_collections": [
@@ -11,6 +11,14 @@
       "fromYear": 2024,
       "collectionDate": "2025-08-25",
       "addedOn": "2026-04-11T07:18:08.257Z"
+    },
+    {
+      "slNo": 2,
+      "memberName": "V Munihara Reddy",
+      "amount": 27876,
+      "fromYear": 2024,
+      "collectionDate": "2025-08-21",
+      "addedOn": "2026-04-11T07:32:56.522Z"
     }
   ],
   "cheeti_expected": [
@@ -23,13 +31,6 @@
     },
     {
       "name": "P Hari Krishna Reddy",
-      "amount": 24800,
-      "interest": 2976,
-      "expectedTotal": 27776,
-      "fromYear": 2024
-    },
-    {
-      "name": "V Munihara Reddy",
       "amount": 24800,
       "interest": 2976,
       "expectedTotal": 27776,
