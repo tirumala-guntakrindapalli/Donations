@@ -5,67 +5,35 @@
   "cheeti": [],
   "cheeti_collections": [
     {
-      "slNo": 1,
-      "memberName": "M Krishna Reddy",
-      "amount": 28276,
-      "fromYear": 2024,
-      "collectionDate": "2025-08-25",
-      "addedOn": "2026-04-11T07:18:08.257Z"
-    },
-    {
-      "slNo": 2,
-      "memberName": "T Nagur Reddy",
-      "amount": 27776,
-      "fromYear": 2024,
-      "collectionDate": "2025-08-20",
-      "addedOn": "2026-04-11T07:33:49.578Z"
-    },
-    {
-      "slNo": 3,
-      "memberName": "M Krishna Reddy",
-      "amount": 28276,
-      "fromYear": 2024,
-      "collectionDate": "2025-08-25",
-      "addedOn": "2026-04-11T07:47:38.230Z"
-    },
-    {
-      "slNo": 4,
-      "memberName": "P Sasidhar",
-      "amount": 27776,
-      "fromYear": 2024,
-      "collectionDate": "2025-08-20",
-      "addedOn": "2026-04-11T07:47:38.230Z"
-    },
-    {
-      "slNo": 5,
-      "memberName": "P Hari Krishna Reddy",
+      "slNo": 32,
+      "memberName": "B Amarnadh Reddy",
       "amount": 27776,
       "fromYear": 2024,
       "collectionDate": "2025-08-20",
       "addedOn": "2026-04-11T07:52:01.285Z"
     },
     {
-      "slNo": 6,
-      "memberName": "V Munihara Reddy",
-      "amount": 27876,
-      "fromYear": 2024,
-      "collectionDate": "2025-08-21",
-      "addedOn": "2026-04-11T07:52:01.285Z"
-    },
-    {
-      "slNo": 7,
-      "memberName": "M Nagaraja",
+      "slNo": 30,
+      "memberName": "B Chandra",
       "amount": 27776,
       "fromYear": 2024,
       "collectionDate": "2025-08-20",
       "addedOn": "2026-04-11T07:52:01.285Z"
     },
     {
-      "slNo": 8,
-      "memberName": "Y Chandu Kumar",
-      "amount": 27876,
+      "slNo": 29,
+      "memberName": "B Raja Sekhar",
+      "amount": 27776,
       "fromYear": 2024,
-      "collectionDate": "2025-08-21",
+      "collectionDate": "2025-08-20",
+      "addedOn": "2026-04-11T07:52:01.285Z"
+    },
+    {
+      "slNo": 31,
+      "memberName": "B Uday",
+      "amount": 27776,
+      "fromYear": 2024,
+      "collectionDate": "2025-08-20",
       "addedOn": "2026-04-11T07:52:01.285Z"
     },
     {
@@ -77,32 +45,40 @@
       "addedOn": "2026-04-11T07:52:01.285Z"
     },
     {
-      "slNo": 10,
-      "memberName": "P Eswar Reddy (Somu)",
-      "amount": 27876,
+      "slNo": 42,
+      "memberName": "G Narayana",
+      "amount": 28276,
       "fromYear": 2024,
-      "collectionDate": "2025-08-21",
+      "collectionDate": "2025-08-25",
       "addedOn": "2026-04-11T07:52:01.285Z"
     },
     {
-      "slNo": 11,
-      "memberName": "P Siva Kumar (Chanti)",
+      "slNo": 43,
+      "memberName": "G Tirumala",
       "amount": 27776,
       "fromYear": 2024,
       "collectionDate": "2025-08-20",
       "addedOn": "2026-04-11T07:52:01.285Z"
     },
     {
-      "slNo": 12,
-      "memberName": "P Tharun",
+      "slNo": 33,
+      "memberName": "G Uday",
       "amount": 27776,
       "fromYear": 2024,
       "collectionDate": "2025-08-20",
       "addedOn": "2026-04-11T07:52:01.285Z"
     },
     {
-      "slNo": 13,
-      "memberName": "P Eswar Reddy (Polam)",
+      "slNo": 34,
+      "memberName": "G Venkatesh Sr",
+      "amount": 27776,
+      "fromYear": 2024,
+      "collectionDate": "2025-08-20",
+      "addedOn": "2026-04-11T07:52:01.285Z"
+    },
+    {
+      "slNo": 36,
+      "memberName": "J Suresh",
       "amount": 27776,
       "fromYear": 2024,
       "collectionDate": "2025-08-20",
@@ -117,19 +93,11 @@
       "addedOn": "2026-04-11T07:52:01.285Z"
     },
     {
-      "slNo": 15,
-      "memberName": "M Balasubramanyam",
-      "amount": 27776,
+      "slNo": 35,
+      "memberName": "K Venu",
+      "amount": 28476,
       "fromYear": 2024,
-      "collectionDate": "2025-08-20",
-      "addedOn": "2026-04-11T07:52:01.285Z"
-    },
-    {
-      "slNo": 16,
-      "memberName": "K Surendra",
-      "amount": 27776,
-      "fromYear": 2024,
-      "collectionDate": "2025-08-20",
+      "collectionDate": "2025-08-27",
       "addedOn": "2026-04-11T07:52:01.285Z"
     },
     {
@@ -141,16 +109,32 @@
       "addedOn": "2026-04-11T07:52:01.285Z"
     },
     {
-      "slNo": 18,
-      "memberName": "V Suneel",
+      "slNo": 15,
+      "memberName": "M Balasubramanyam",
       "amount": 27776,
       "fromYear": 2024,
       "collectionDate": "2025-08-20",
       "addedOn": "2026-04-11T07:52:01.285Z"
     },
     {
-      "slNo": 19,
-      "memberName": "V Sudhakar",
+      "slNo": 1,
+      "memberName": "M Krishna Reddy",
+      "amount": 28276,
+      "fromYear": 2024,
+      "collectionDate": "2025-08-25",
+      "addedOn": "2026-04-11T07:18:08.257Z"
+    },
+    {
+      "slNo": 7,
+      "memberName": "M Nagaraja",
+      "amount": 27776,
+      "fromYear": 2024,
+      "collectionDate": "2025-08-20",
+      "addedOn": "2026-04-11T07:52:01.285Z"
+    },
+    {
+      "slNo": 28,
+      "memberName": "M Somu",
       "amount": 27776,
       "fromYear": 2024,
       "collectionDate": "2025-08-20",
@@ -165,6 +149,46 @@
       "addedOn": "2026-04-11T07:52:01.285Z"
     },
     {
+      "slNo": 44,
+      "memberName": "M Venkatasubba Reddy",
+      "amount": 27776,
+      "fromYear": 2024,
+      "collectionDate": "2025-08-20",
+      "addedOn": "2026-04-11T07:52:01.285Z"
+    },
+    {
+      "slNo": 47,
+      "memberName": "M Venkatesh (Sr)",
+      "amount": 27876,
+      "fromYear": 2024,
+      "collectionDate": "2025-08-21",
+      "addedOn": "2026-04-11T07:54:09.001Z"
+    },
+    {
+      "slNo": 13,
+      "memberName": "P Eswar Reddy (Polam)",
+      "amount": 27776,
+      "fromYear": 2024,
+      "collectionDate": "2025-08-20",
+      "addedOn": "2026-04-11T07:52:01.285Z"
+    },
+    {
+      "slNo": 10,
+      "memberName": "P Eswar Reddy (Somu)",
+      "amount": 27876,
+      "fromYear": 2024,
+      "collectionDate": "2025-08-21",
+      "addedOn": "2026-04-11T07:52:01.285Z"
+    },
+    {
+      "slNo": 22,
+      "memberName": "P Gurava Reddy",
+      "amount": 27776,
+      "fromYear": 2024,
+      "collectionDate": "2025-08-20",
+      "addedOn": "2026-04-11T07:52:01.285Z"
+    },
+    {
       "slNo": 21,
       "memberName": "P Gurunadham Reddy",
       "amount": 27776,
@@ -173,8 +197,64 @@
       "addedOn": "2026-04-11T07:52:01.285Z"
     },
     {
-      "slNo": 22,
-      "memberName": "P Gurava Reddy",
+      "slNo": 5,
+      "memberName": "P Hari Krishna Reddy",
+      "amount": 27776,
+      "fromYear": 2024,
+      "collectionDate": "2025-08-20",
+      "addedOn": "2026-04-11T07:52:01.285Z"
+    },
+    {
+      "slNo": 40,
+      "memberName": "P Mani Reddy",
+      "amount": 27776,
+      "fromYear": 2024,
+      "collectionDate": "2025-08-20",
+      "addedOn": "2026-04-11T07:52:01.285Z"
+    },
+    {
+      "slNo": 38,
+      "memberName": "P Narendra",
+      "amount": 27776,
+      "fromYear": 2024,
+      "collectionDate": "2025-08-20",
+      "addedOn": "2026-04-11T07:52:01.285Z"
+    },
+    {
+      "slNo": 4,
+      "memberName": "P Sasidhar",
+      "amount": 27776,
+      "fromYear": 2024,
+      "collectionDate": "2025-08-20",
+      "addedOn": "2026-04-11T07:47:38.230Z"
+    },
+    {
+      "slNo": 11,
+      "memberName": "P Siva Kumar (Chanti)",
+      "amount": 27776,
+      "fromYear": 2024,
+      "collectionDate": "2025-08-20",
+      "addedOn": "2026-04-11T07:52:01.285Z"
+    },
+    {
+      "slNo": 46,
+      "memberName": "P Siva",
+      "amount": 27776,
+      "fromYear": 2024,
+      "collectionDate": "2025-08-20",
+      "addedOn": "2026-04-11T07:54:09.001Z"
+    },
+    {
+      "slNo": 37,
+      "memberName": "P Sudarsan",
+      "amount": 27776,
+      "fromYear": 2024,
+      "collectionDate": "2025-08-20",
+      "addedOn": "2026-04-11T07:52:01.285Z"
+    },
+    {
+      "slNo": 12,
+      "memberName": "P Tharun",
       "amount": 27776,
       "fromYear": 2024,
       "collectionDate": "2025-08-20",
@@ -189,11 +269,11 @@
       "addedOn": "2026-04-11T07:52:01.285Z"
     },
     {
-      "slNo": 24,
-      "memberName": "T Samba Siva Reddy",
-      "amount": 27776,
+      "slNo": 41,
+      "memberName": "P Venkata Subba Reddy",
+      "amount": 30192,
       "fromYear": 2024,
-      "collectionDate": "2025-08-20",
+      "collectionDate": "2025-08-28",
       "addedOn": "2026-04-11T07:52:01.285Z"
     },
     {
@@ -221,91 +301,51 @@
       "addedOn": "2026-04-11T07:52:01.285Z"
     },
     {
-      "slNo": 28,
-      "memberName": "M Somu",
+      "slNo": 2,
+      "memberName": "T Nagur Reddy",
+      "amount": 27776,
+      "fromYear": 2024,
+      "collectionDate": "2025-08-20",
+      "addedOn": "2026-04-11T07:33:49.578Z"
+    },
+    {
+      "slNo": 24,
+      "memberName": "T Samba Siva Reddy",
       "amount": 27776,
       "fromYear": 2024,
       "collectionDate": "2025-08-20",
       "addedOn": "2026-04-11T07:52:01.285Z"
     },
     {
-      "slNo": 29,
-      "memberName": "B Raja Sekhar",
+      "slNo": 6,
+      "memberName": "V Munihara Reddy",
+      "amount": 27876,
+      "fromYear": 2024,
+      "collectionDate": "2025-08-21",
+      "addedOn": "2026-04-11T07:52:01.285Z"
+    },
+    {
+      "slNo": 19,
+      "memberName": "V Sudhakar",
       "amount": 27776,
       "fromYear": 2024,
       "collectionDate": "2025-08-20",
       "addedOn": "2026-04-11T07:52:01.285Z"
     },
     {
-      "slNo": 30,
-      "memberName": "B Chandra",
+      "slNo": 18,
+      "memberName": "V Suneel",
       "amount": 27776,
       "fromYear": 2024,
       "collectionDate": "2025-08-20",
       "addedOn": "2026-04-11T07:52:01.285Z"
     },
     {
-      "slNo": 31,
-      "memberName": "B Uday",
-      "amount": 27776,
+      "slNo": 8,
+      "memberName": "Y Chandu Kumar",
+      "amount": 27876,
       "fromYear": 2024,
-      "collectionDate": "2025-08-20",
-      "addedOn": "2026-04-11T07:52:01.285Z"
-    },
-    {
-      "slNo": 32,
-      "memberName": "B Amarnadh Reddy",
-      "amount": 27776,
-      "fromYear": 2024,
-      "collectionDate": "2025-08-20",
-      "addedOn": "2026-04-11T07:52:01.285Z"
-    },
-    {
-      "slNo": 33,
-      "memberName": "G Uday",
-      "amount": 27776,
-      "fromYear": 2024,
-      "collectionDate": "2025-08-20",
-      "addedOn": "2026-04-11T07:52:01.285Z"
-    },
-    {
-      "slNo": 34,
-      "memberName": "G Venkatesh Sr",
-      "amount": 27776,
-      "fromYear": 2024,
-      "collectionDate": "2025-08-20",
-      "addedOn": "2026-04-11T07:52:01.285Z"
-    },
-    {
-      "slNo": 35,
-      "memberName": "K Venu",
-      "amount": 28476,
-      "fromYear": 2024,
-      "collectionDate": "2025-08-27",
-      "addedOn": "2026-04-11T07:52:01.285Z"
-    },
-    {
-      "slNo": 36,
-      "memberName": "J Suresh",
-      "amount": 27776,
-      "fromYear": 2024,
-      "collectionDate": "2025-08-20",
-      "addedOn": "2026-04-11T07:52:01.285Z"
-    },
-    {
-      "slNo": 37,
-      "memberName": "P Sudarsan",
-      "amount": 27776,
-      "fromYear": 2024,
-      "collectionDate": "2025-08-20",
-      "addedOn": "2026-04-11T07:52:01.285Z"
-    },
-    {
-      "slNo": 38,
-      "memberName": "P Narendra",
-      "amount": 27776,
-      "fromYear": 2024,
-      "collectionDate": "2025-08-20",
+      "collectionDate": "2025-08-21",
       "addedOn": "2026-04-11T07:52:01.285Z"
     },
     {
@@ -315,86 +355,6 @@
       "fromYear": 2024,
       "collectionDate": "2025-08-20",
       "addedOn": "2026-04-11T07:52:01.285Z"
-    },
-    {
-      "slNo": 40,
-      "memberName": "P Mani Reddy",
-      "amount": 27776,
-      "fromYear": 2024,
-      "collectionDate": "2025-08-20",
-      "addedOn": "2026-04-11T07:52:01.285Z"
-    },
-    {
-      "slNo": 41,
-      "memberName": "P Venkata Subba Reddy",
-      "amount": 30192,
-      "fromYear": 2024,
-      "collectionDate": "2025-08-28",
-      "addedOn": "2026-04-11T07:52:01.285Z"
-    },
-    {
-      "slNo": 42,
-      "memberName": "G Narayana",
-      "amount": 28276,
-      "fromYear": 2024,
-      "collectionDate": "2025-08-25",
-      "addedOn": "2026-04-11T07:52:01.285Z"
-    },
-    {
-      "slNo": 43,
-      "memberName": "G Tirumala",
-      "amount": 27776,
-      "fromYear": 2024,
-      "collectionDate": "2025-08-20",
-      "addedOn": "2026-04-11T07:52:01.285Z"
-    },
-    {
-      "slNo": 44,
-      "memberName": "M Venkatasubba Reddy",
-      "amount": 27776,
-      "fromYear": 2024,
-      "collectionDate": "2025-08-20",
-      "addedOn": "2026-04-11T07:52:01.285Z"
-    },
-    {
-      "slNo": 45,
-      "memberName": "T Nagur Reddy",
-      "amount": 27776,
-      "fromYear": 2024,
-      "collectionDate": "2025-08-20",
-      "addedOn": "2026-04-11T07:52:01.285Z"
-    },
-    {
-      "slNo": 46,
-      "memberName": "P Siva",
-      "amount": 27776,
-      "fromYear": 2024,
-      "collectionDate": "2025-08-20",
-      "addedOn": "2026-04-11T07:54:09.001Z"
-    },
-    {
-      "slNo": 47,
-      "memberName": "M Venkatesh (Sr)",
-      "amount": 27876,
-      "fromYear": 2024,
-      "collectionDate": "2025-08-21",
-      "addedOn": "2026-04-11T07:54:09.001Z"
-    },
-    {
-      "slNo": 48,
-      "memberName": "P Sasidhar",
-      "amount": 27776,
-      "fromYear": 2024,
-      "collectionDate": "2025-08-20",
-      "addedOn": "2026-04-11T07:56:42.043Z"
-    },
-    {
-      "slNo": 49,
-      "memberName": "P Sasidhar",
-      "amount": 27776,
-      "fromYear": 2024,
-      "collectionDate": "2025-08-20",
-      "addedOn": "2026-04-11T07:56:42.043Z"
     }
   ],
   "cheeti_expected": [],
