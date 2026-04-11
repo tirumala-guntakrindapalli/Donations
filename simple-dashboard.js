@@ -326,8 +326,12 @@ async function handleLogin(e) {
             
             hideLoading();
             hideLoginDialog();
-            showSuccess('✅ Login successful! Admin panel unlocked.');
-            showAdminPanel();
+            
+            // Show loading animation before refresh
+            showLoading('Loading admin panel...');
+            setTimeout(() => {
+                window.location.reload();
+            }, 300); // Brief animation before refresh
         } else {
             showError('❌ Incorrect password! Check the hint below.');
             passwordInput.select();
@@ -766,8 +770,11 @@ async function handleRefreshClick() {
         updateDraftModeUI();
     }
     
-    // Proceed with refresh
-    await loadDataFromGitHub();
+    // Show loading animation before refresh
+    showLoading('Refreshing data...');
+    setTimeout(() => {
+        window.location.reload();
+    }, 300); // Brief animation before refresh
 }
 
 // Logout Admin
@@ -1001,12 +1008,11 @@ async function performLogout() {
         loginBtn.title = 'Login as admin';
     }
     
-    showSuccess('✅ Logged out successfully!');
-    
-    // Refresh tables to hide action buttons
-    if (currentData) {
-        processData();
-    }
+    // Show loading animation before refresh
+    showLoading('Logging out...');
+    setTimeout(() => {
+        window.location.reload();
+    }, 300); // Brief animation before refresh
 }
 
 // Close Admin Panel (without logout)
@@ -2553,6 +2559,16 @@ async function loadDataFromGitHub() {
             
             if (!response.ok) {
                 console.warn(`⚠️ Data file not found for year ${currentYear}`);
+                // Clear current data to prevent showing stale data
+                currentData = { 
+                    year: currentYear.toString(),
+                    sponsors: [], 
+                    laddu_winners: [],
+                    settings: { dashboard_enabled: true } // Enable dashboard to show welcome message instead of maintenance
+                };
+                // Hide announcement banner
+                const banner = document.getElementById('announcementBanner');
+                if (banner) banner.style.display = 'none';
                 showYearNotInitializedWarning(currentYear);
                 hideLoading();
                 return;
@@ -2575,6 +2591,16 @@ async function loadDataFromGitHub() {
             
             if (!response.ok) {
                 console.warn(`⚠️ Data file not found for year ${currentYear}`);
+                // Clear current data to prevent showing stale data
+                currentData = { 
+                    year: currentYear.toString(),
+                    sponsors: [], 
+                    laddu_winners: [],
+                    settings: { dashboard_enabled: true } // Enable dashboard to show welcome message instead of maintenance
+                };
+                // Hide announcement banner
+                const banner = document.getElementById('announcementBanner');
+                if (banner) banner.style.display = 'none';
                 showYearNotInitializedWarning(currentYear);
                 hideLoading();
                 return;
@@ -3959,15 +3985,20 @@ async function updateAnnouncements() {
     
     let dataToUse = currentData;
     
-    // If no current year data, try to load previous year
+    // If no current year data, try to load previous year (with error handling)
     if (!hasCurrentYearData) {
-        const currentYear = (typeof DASHBOARD_CONFIG !== 'undefined') ? DASHBOARD_CONFIG.currentYear : new Date().getFullYear();
-        const previousYear = currentYear - 1;
-        const previousYearData = await loadYearData(previousYear);
-        
-        if (previousYearData) {
-            dataToUse = previousYearData;
-            usingPreviousYear = true;
+        try {
+            const currentYear = (typeof DASHBOARD_CONFIG !== 'undefined') ? DASHBOARD_CONFIG.currentYear : new Date().getFullYear();
+            const previousYear = currentYear - 1;
+            const previousYearData = await loadYearData(previousYear);
+            
+            if (previousYearData) {
+                dataToUse = previousYearData;
+                usingPreviousYear = true;
+            }
+        } catch (error) {
+            // Previous year data not available, use current (empty) data
+            console.log('Previous year data not available for announcements');
         }
     }
     

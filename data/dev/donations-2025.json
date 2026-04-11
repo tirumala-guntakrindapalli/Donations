@@ -1,6 +1,9 @@
 {
   "year": "2025",
   "lastUpdated": "2026-04-11T08:26:00.000Z",
+  "settings": {
+    "dashboard_enabled": true
+  },
   "donations": [
     {
       "slNo": 1,
