@@ -1,6 +1,6 @@
 {
   "year": "2025",
-  "lastUpdated": "2026-04-11T07:33:03.438Z",
+  "lastUpdated": "2026-04-11T07:33:04.743Z",
   "donations": [],
   "cheeti": [],
   "cheeti_collections": [
@@ -14,11 +14,11 @@
     },
     {
       "slNo": 2,
-      "memberName": "T Gurunadham Reddy",
-      "amount": 28476,
+      "memberName": "T Maheshwar Reddy",
+      "amount": 28176,
       "fromYear": 2024,
-      "collectionDate": "2025-08-27",
-      "addedOn": "2026-04-11T07:33:02.910Z"
+      "collectionDate": "2025-08-24",
+      "addedOn": "2026-04-11T07:33:04.191Z"
     }
   ],
   "cheeti_expected": [
@@ -177,14 +177,14 @@
       "fromYear": 2024
     },
     {
-      "name": "T Mahadeva Reddy",
+      "name": "T Gurunadham Reddy",
       "amount": 24800,
       "interest": 2976,
       "expectedTotal": 27776,
       "fromYear": 2024
     },
     {
-      "name": "T Maheshwar Reddy",
+      "name": "T Mahadeva Reddy",
       "amount": 24800,
       "interest": 2976,
       "expectedTotal": 27776,
