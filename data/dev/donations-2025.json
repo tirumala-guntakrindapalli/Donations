@@ -1,6 +1,6 @@
 {
   "year": "2025",
-  "lastUpdated": "2026-04-11T07:52:01.918Z",
+  "lastUpdated": "2026-04-11T07:54:09.839Z",
   "donations": [],
   "cheeti": [],
   "cheeti_collections": [
@@ -363,24 +363,25 @@
       "fromYear": 2024,
       "collectionDate": "2025-08-20",
       "addedOn": "2026-04-11T07:52:01.285Z"
-    }
-  ],
-  "cheeti_expected": [
-    {
-      "name": "M Venkatesh (Sr)",
-      "amount": 24800,
-      "interest": 2976,
-      "expectedTotal": 27776,
-      "fromYear": 2024
     },
     {
-      "name": "P Siva",
-      "amount": 24800,
-      "interest": 2976,
-      "expectedTotal": 27776,
-      "fromYear": 2024
+      "slNo": 46,
+      "memberName": "P Siva",
+      "amount": 27776,
+      "fromYear": 2024,
+      "collectionDate": "2025-08-20",
+      "addedOn": "2026-04-11T07:54:09.001Z"
+    },
+    {
+      "slNo": 47,
+      "memberName": "M Venkatesh (Sr)",
+      "amount": 27876,
+      "fromYear": 2024,
+      "collectionDate": "2025-08-21",
+      "addedOn": "2026-04-11T07:54:09.001Z"
     }
   ],
+  "cheeti_expected": [],
   "expenses": [],
   "sponsors": [],
   "laddu_winners": [],
