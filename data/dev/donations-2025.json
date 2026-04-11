@@ -1,6 +1,6 @@
 {
   "year": "2025",
-  "lastUpdated": "2026-04-11T07:33:02.219Z",
+  "lastUpdated": "2026-04-11T07:33:03.438Z",
   "donations": [],
   "cheeti": [],
   "cheeti_collections": [
@@ -14,11 +14,11 @@
     },
     {
       "slNo": 2,
-      "memberName": "P Eswar Reddy (Somu)",
-      "amount": 27876,
+      "memberName": "T Gurunadham Reddy",
+      "amount": 28476,
       "fromYear": 2024,
-      "collectionDate": "2025-08-21",
-      "addedOn": "2026-04-11T07:33:01.631Z"
+      "collectionDate": "2025-08-27",
+      "addedOn": "2026-04-11T07:33:02.910Z"
     }
   ],
   "cheeti_expected": [
@@ -66,6 +66,13 @@
     },
     {
       "name": "M Venkatesh (Sr)",
+      "amount": 24800,
+      "interest": 2976,
+      "expectedTotal": 27776,
+      "fromYear": 2024
+    },
+    {
+      "name": "P Eswar Reddy (Somu)",
       "amount": 24800,
       "interest": 2976,
       "expectedTotal": 27776,
@@ -164,13 +171,6 @@
     },
     {
       "name": "T Samba Siva Reddy",
-      "amount": 24800,
-      "interest": 2976,
-      "expectedTotal": 27776,
-      "fromYear": 2024
-    },
-    {
-      "name": "T Gurunadham Reddy",
       "amount": 24800,
       "interest": 2976,
       "expectedTotal": 27776,
