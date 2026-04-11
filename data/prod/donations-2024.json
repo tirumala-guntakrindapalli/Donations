@@ -3,7 +3,7 @@
   "settings": {
     "dashboard_enabled": false
   },
-  "lastUpdated": "2026-04-10T19:47:35.462Z",
+  "lastUpdated": "2026-04-11T08:15:29.866Z",
   "donations": [
     {
       "slNo": 1,
@@ -406,6 +406,17 @@
       "amount": 100
     }
   ],
+  "cheeti_collections": [
+    {
+      "slNo": 1,
+      "memberName": "2023 Members (Total Collections)",
+      "amount": 1046632,
+      "fromYear": 2023,
+      "collectionDate": "2024-09-10",
+      "note": "Total collections from 2023 cheeti members (₹1,040,032 principal + ₹6,600 late fees)",
+      "addedOn": "2024-09-10T10:00:00.000Z"
+    }
+  ],
   "cheeti": [
     {
       "slNo": 1,
@@ -426,7 +437,8 @@
       "total": 27776,
       "lateFee": 0,
       "paid": true,
-      "paymentDate": ""
+      "paymentDate": "2025-08-20",
+      "days_overdue": 0
     },
     {
       "slNo": 3,
@@ -436,7 +448,8 @@
       "total": 27776,
       "lateFee": 0,
       "paid": true,
-      "paymentDate": ""
+      "paymentDate": "2025-08-20",
+      "days_overdue": 0
     },
     {
       "slNo": 4,
@@ -446,7 +459,8 @@
       "total": 27876,
       "lateFee": 100,
       "paid": true,
-      "paymentDate": ""
+      "paymentDate": "2025-08-21",
+      "days_overdue": 0
     },
     {
       "slNo": 5,
@@ -456,7 +470,8 @@
       "total": 27776,
       "lateFee": 0,
       "paid": true,
-      "paymentDate": ""
+      "paymentDate": "2025-08-20",
+      "days_overdue": 0
     },
     {
       "slNo": 6,
@@ -466,7 +481,8 @@
       "total": 27876,
       "lateFee": 100,
       "paid": true,
-      "paymentDate": ""
+      "paymentDate": "2025-08-21",
+      "days_overdue": 0
     },
     {
       "slNo": 7,
@@ -476,7 +492,8 @@
       "total": 28076,
       "lateFee": 300,
       "paid": true,
-      "paymentDate": ""
+      "paymentDate": "2025-08-23",
+      "days_overdue": 0
     },
     {
       "slNo": 8,
@@ -486,7 +503,8 @@
       "total": 27876,
       "lateFee": 100,
       "paid": true,
-      "paymentDate": ""
+      "paymentDate": "2025-08-21",
+      "days_overdue": 0
     },
     {
       "slNo": 9,
@@ -496,7 +514,8 @@
       "total": 27876,
       "lateFee": 100,
       "paid": true,
-      "paymentDate": ""
+      "paymentDate": "2025-08-21",
+      "days_overdue": 0
     },
     {
       "slNo": 10,
@@ -506,7 +525,8 @@
       "total": 27776,
       "lateFee": 0,
       "paid": true,
-      "paymentDate": ""
+      "paymentDate": "2025-08-20",
+      "days_overdue": 0
     },
     {
       "slNo": 11,
@@ -516,7 +536,8 @@
       "total": 27776,
       "lateFee": 0,
       "paid": true,
-      "paymentDate": ""
+      "paymentDate": "2025-08-20",
+      "days_overdue": 0
     },
     {
       "slNo": 12,
@@ -526,7 +547,8 @@
       "total": 27776,
       "lateFee": 0,
       "paid": true,
-      "paymentDate": ""
+      "paymentDate": "2025-08-20",
+      "days_overdue": 0
     },
     {
       "slNo": 13,
@@ -536,7 +558,8 @@
       "total": 27776,
       "lateFee": 0,
       "paid": true,
-      "paymentDate": ""
+      "paymentDate": "2025-08-20",
+      "days_overdue": 0
     },
     {
       "slNo": 14,
@@ -546,7 +569,8 @@
       "total": 27776,
       "lateFee": 0,
       "paid": true,
-      "paymentDate": ""
+      "paymentDate": "2025-08-20",
+      "days_overdue": 0
     },
     {
       "slNo": 15,
@@ -556,7 +580,8 @@
       "total": 27776,
       "lateFee": 0,
       "paid": true,
-      "paymentDate": ""
+      "paymentDate": "2025-08-20",
+      "days_overdue": 0
     },
     {
       "slNo": 16,
@@ -566,7 +591,8 @@
       "total": 27776,
       "lateFee": 0,
       "paid": true,
-      "paymentDate": ""
+      "paymentDate": "2025-08-20",
+      "days_overdue": 0
     },
     {
       "slNo": 17,
@@ -576,7 +602,8 @@
       "total": 27776,
       "lateFee": 0,
       "paid": true,
-      "paymentDate": ""
+      "paymentDate": "2025-08-20",
+      "days_overdue": 0
     },
     {
       "slNo": 18,
@@ -586,7 +613,8 @@
       "total": 27776,
       "lateFee": 0,
       "paid": true,
-      "paymentDate": ""
+      "paymentDate": "2025-08-20",
+      "days_overdue": 0
     },
     {
       "slNo": 19,
@@ -596,7 +624,8 @@
       "total": 27776,
       "lateFee": 0,
       "paid": true,
-      "paymentDate": ""
+      "paymentDate": "2025-08-20",
+      "days_overdue": 0
     },
     {
       "slNo": 20,
@@ -606,7 +635,8 @@
       "total": 27776,
       "lateFee": 0,
       "paid": true,
-      "paymentDate": ""
+      "paymentDate": "2025-08-20",
+      "days_overdue": 0
     },
     {
       "slNo": 21,
@@ -616,7 +646,8 @@
       "total": 27776,
       "lateFee": 0,
       "paid": true,
-      "paymentDate": ""
+      "paymentDate": "2025-08-20",
+      "days_overdue": 0
     },
     {
       "slNo": 22,
@@ -626,7 +657,8 @@
       "total": 27776,
       "lateFee": 0,
       "paid": true,
-      "paymentDate": ""
+      "paymentDate": "2025-08-20",
+      "days_overdue": 0
     },
     {
       "slNo": 23,
@@ -636,7 +668,8 @@
       "total": 27776,
       "lateFee": 0,
       "paid": true,
-      "paymentDate": ""
+      "paymentDate": "2025-08-20",
+      "days_overdue": 0
     },
     {
       "slNo": 24,
@@ -646,7 +679,8 @@
       "total": 28476,
       "lateFee": 700,
       "paid": true,
-      "paymentDate": ""
+      "paymentDate": "2025-08-27",
+      "days_overdue": 0
     },
     {
       "slNo": 25,
@@ -656,7 +690,8 @@
       "total": 27776,
       "lateFee": 0,
       "paid": true,
-      "paymentDate": ""
+      "paymentDate": "2025-08-20",
+      "days_overdue": 0
     },
     {
       "slNo": 26,
@@ -666,7 +701,8 @@
       "total": 28176,
       "lateFee": 400,
       "paid": true,
-      "paymentDate": ""
+      "paymentDate": "2025-08-24",
+      "days_overdue": 0
     },
     {
       "slNo": 27,
@@ -676,7 +712,8 @@
       "total": 27776,
       "lateFee": 0,
       "paid": true,
-      "paymentDate": ""
+      "paymentDate": "2025-08-20",
+      "days_overdue": 0
     },
     {
       "slNo": 28,
@@ -686,7 +723,8 @@
       "total": 27776,
       "lateFee": 0,
       "paid": true,
-      "paymentDate": ""
+      "paymentDate": "2025-08-20",
+      "days_overdue": 0
     },
     {
       "slNo": 29,
@@ -696,7 +734,8 @@
       "total": 27776,
       "lateFee": 0,
       "paid": true,
-      "paymentDate": ""
+      "paymentDate": "2025-08-20",
+      "days_overdue": 0
     },
     {
       "slNo": 30,
@@ -706,7 +745,8 @@
       "total": 27776,
       "lateFee": 0,
       "paid": true,
-      "paymentDate": ""
+      "paymentDate": "2025-08-20",
+      "days_overdue": 0
     },
     {
       "slNo": 31,
@@ -716,7 +756,8 @@
       "total": 27776,
       "lateFee": 0,
       "paid": true,
-      "paymentDate": ""
+      "paymentDate": "2025-08-20",
+      "days_overdue": 0
     },
     {
       "slNo": 32,
@@ -726,7 +767,8 @@
       "total": 27776,
       "lateFee": 0,
       "paid": true,
-      "paymentDate": ""
+      "paymentDate": "2025-08-20",
+      "days_overdue": 0
     },
     {
       "slNo": 33,
@@ -736,7 +778,8 @@
       "total": 27776,
       "lateFee": 0,
       "paid": true,
-      "paymentDate": ""
+      "paymentDate": "2025-08-20",
+      "days_overdue": 0
     },
     {
       "slNo": 34,
@@ -746,7 +789,8 @@
       "total": 28476,
       "lateFee": 700,
       "paid": true,
-      "paymentDate": ""
+      "paymentDate": "2025-08-27",
+      "days_overdue": 0
     },
     {
       "slNo": 35,
@@ -756,7 +800,8 @@
       "total": 27776,
       "lateFee": 0,
       "paid": true,
-      "paymentDate": ""
+      "paymentDate": "2025-08-20",
+      "days_overdue": 0
     },
     {
       "slNo": 36,
@@ -766,7 +811,8 @@
       "total": 27776,
       "lateFee": 0,
       "paid": true,
-      "paymentDate": ""
+      "paymentDate": "2025-08-20",
+      "days_overdue": 0
     },
     {
       "slNo": 37,
@@ -776,7 +822,8 @@
       "total": 27776,
       "lateFee": 0,
       "paid": true,
-      "paymentDate": ""
+      "paymentDate": "2025-08-20",
+      "days_overdue": 0
     },
     {
       "slNo": 38,
@@ -786,7 +833,8 @@
       "total": 27776,
       "lateFee": 0,
       "paid": true,
-      "paymentDate": ""
+      "paymentDate": "2025-08-20",
+      "days_overdue": 0
     },
     {
       "slNo": 39,
@@ -796,7 +844,8 @@
       "total": 27776,
       "lateFee": 0,
       "paid": true,
-      "paymentDate": ""
+      "paymentDate": "2025-08-20",
+      "days_overdue": 0
     },
     {
       "slNo": 40,
@@ -806,7 +855,8 @@
       "total": 30192,
       "lateFee": 400,
       "paid": true,
-      "paymentDate": ""
+      "paymentDate": "2025-08-28",
+      "days_overdue": 0
     },
     {
       "slNo": 41,
@@ -816,7 +866,8 @@
       "total": 28276,
       "lateFee": 500,
       "paid": true,
-      "paymentDate": ""
+      "paymentDate": "2025-08-25",
+      "days_overdue": 0
     },
     {
       "slNo": 42,
@@ -826,7 +877,8 @@
       "total": 27776,
       "lateFee": 0,
       "paid": true,
-      "paymentDate": ""
+      "paymentDate": "2025-08-20",
+      "days_overdue": 0
     },
     {
       "slNo": 43,
@@ -836,7 +888,8 @@
       "total": 27776,
       "lateFee": 0,
       "paid": true,
-      "paymentDate": ""
+      "paymentDate": "2025-08-20",
+      "days_overdue": 0
     },
     {
       "slNo": 44,
@@ -846,7 +899,8 @@
       "total": 27776,
       "lateFee": 0,
       "paid": true,
-      "paymentDate": ""
+      "paymentDate": "2025-08-20",
+      "days_overdue": 0
     }
   ],
   "expenses": [
@@ -889,23 +943,10 @@
     {
       "item": "Peepayi",
       "amount": 160
-    }
-  ],
-  "report": [
-    {
-      "category": "Cheeti Collections",
-      "amount": 1224160,
-      "type": "income"
     },
     {
-      "category": "Donations",
-      "amount": 88444,
-      "type": "income"
-    },
-    {
-      "category": "Total Expenses",
-      "amount": -68065,
-      "type": "expense"
+      "item": "Snacks & Cool drinks",
+      "amount": 1011
     }
   ],
   "committee": [

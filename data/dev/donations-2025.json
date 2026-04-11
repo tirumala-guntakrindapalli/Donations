@@ -1,14 +1,831 @@
 {
   "year": "2025",
-  "lastUpdated": "2026-04-11T08:19:33.366Z",
+  "lastUpdated": "2026-04-11T08:26:00.000Z",
   "donations": [
     {
       "slNo": 1,
       "name": "P Hari Krishna Reddy",
       "amount": 10000
+    },
+    {
+      "slNo": 2,
+      "name": "M Narasimha Reddy",
+      "amount": 5016
+    },
+    {
+      "slNo": 3,
+      "name": "P Murali Krishna Reddy",
+      "amount": 1116
+    },
+    {
+      "slNo": 4,
+      "name": "C Munisubba Reddy",
+      "amount": 1116
+    },
+    {
+      "slNo": 5,
+      "name": "G Dharma Reddy",
+      "amount": 1116
+    },
+    {
+      "slNo": 6,
+      "name": "Y Vasu",
+      "amount": 1116
+    },
+    {
+      "slNo": 7,
+      "name": "J Somu",
+      "amount": 1116
+    },
+    {
+      "slNo": 8,
+      "name": "P Ganga Subbarami Reddy",
+      "amount": 1016
+    },
+    {
+      "slNo": 9,
+      "name": "V Suneel",
+      "amount": 1016
+    },
+    {
+      "slNo": 10,
+      "name": "B Chandra Reddy",
+      "amount": 1016
+    },
+    {
+      "slNo": 11,
+      "name": "P Sekhar Reddy (Post)",
+      "amount": 1002
+    },
+    {
+      "slNo": 12,
+      "name": "M Somu",
+      "amount": 1001
+    },
+    {
+      "slNo": 13,
+      "name": "G Venkatesh (Jr)",
+      "amount": 1001
+    },
+    {
+      "slNo": 14,
+      "name": "P Sudharsan",
+      "amount": 1001
+    },
+    {
+      "slNo": 15,
+      "name": "P Sasi",
+      "amount": 1001
+    },
+    {
+      "slNo": 16,
+      "name": "P Tharun",
+      "amount": 1001
+    },
+    {
+      "slNo": 17,
+      "name": "B Sudhakar Reddy",
+      "amount": 1001
+    },
+    {
+      "slNo": 18,
+      "name": "P Vikram",
+      "amount": 1001
+    },
+    {
+      "slNo": 19,
+      "name": "B Uma",
+      "amount": 1001
+    },
+    {
+      "slNo": 20,
+      "name": "B Amarnadh Reddy",
+      "amount": 1001
+    },
+    {
+      "slNo": 21,
+      "name": "V Muni Kumar",
+      "amount": 1001
+    },
+    {
+      "slNo": 22,
+      "name": "M Bala Subramanyam Reddy",
+      "amount": 1001
+    },
+    {
+      "slNo": 23,
+      "name": "T Maheswar Reddy",
+      "amount": 1001
+    },
+    {
+      "slNo": 24,
+      "name": "T Nagur Reddy",
+      "amount": 1001
+    },
+    {
+      "slNo": 25,
+      "name": "P Siva (Jr)",
+      "amount": 1001
+    },
+    {
+      "slNo": 26,
+      "name": "P Somu",
+      "amount": 1001
+    },
+    {
+      "slNo": 27,
+      "name": "V Sankaramma",
+      "amount": 1001
+    },
+    {
+      "slNo": 28,
+      "name": "B Raja Reddy",
+      "amount": 1000
+    },
+    {
+      "slNo": 29,
+      "name": "P Rosi Reddy",
+      "amount": 1000
+    },
+    {
+      "slNo": 30,
+      "name": "M Venkatesh (Sr)",
+      "amount": 1000
+    },
+    {
+      "slNo": 31,
+      "name": "M Krishna Reddy",
+      "amount": 1000
+    },
+    {
+      "slNo": 32,
+      "name": "M Balaji Reddy",
+      "amount": 1000
+    },
+    {
+      "slNo": 33,
+      "name": "J Suresh",
+      "amount": 1000
+    },
+    {
+      "slNo": 34,
+      "name": "P Narendra",
+      "amount": 1000
+    },
+    {
+      "slNo": 35,
+      "name": "V Munihara Reddy",
+      "amount": 1000
+    },
+    {
+      "slNo": 36,
+      "name": "P Gurunadham Reddy",
+      "amount": 1000
+    },
+    {
+      "slNo": 37,
+      "name": "P Gurava Reddy",
+      "amount": 1000
+    },
+    {
+      "slNo": 38,
+      "name": "P Ganga (Jr)",
+      "amount": 516
+    },
+    {
+      "slNo": 39,
+      "name": "P Pandu Ranga Reddy",
+      "amount": 505
+    },
+    {
+      "slNo": 40,
+      "name": "M Suresh Reddy",
+      "amount": 501
+    },
+    {
+      "slNo": 41,
+      "name": "P Veera Raghava Reddy",
+      "amount": 501
+    },
+    {
+      "slNo": 42,
+      "name": "M Penchala Reddy",
+      "amount": 500
+    },
+    {
+      "slNo": 43,
+      "name": "K Srinivasulu Redyy",
+      "amount": 500
+    },
+    {
+      "slNo": 44,
+      "name": "M Gurunadham Reddy",
+      "amount": 500
+    },
+    {
+      "slNo": 45,
+      "name": "P Gangi Reddy",
+      "amount": 500
+    },
+    {
+      "slNo": 46,
+      "name": "B Ramaiah",
+      "amount": 500
+    },
+    {
+      "slNo": 47,
+      "name": "V Sugunamma",
+      "amount": 200
+    },
+    {
+      "slNo": 48,
+      "name": "B Penchal Reddy",
+      "amount": 200
+    },
+    {
+      "slNo": 49,
+      "name": "V Venkatarami Reddy",
+      "amount": 200
+    },
+    {
+      "slNo": 50,
+      "name": "A Musalaiah",
+      "amount": 100
+    },
+    {
+      "slNo": 51,
+      "name": "K Surendra",
+      "amount": 1000
+    },
+    {
+      "slNo": 52,
+      "name": "P Tirumala Reddy",
+      "amount": 1000
+    },
+    {
+      "slNo": 53,
+      "name": "P Eshwar Reddy (Poloam)",
+      "amount": 1000
+    },
+    {
+      "slNo": 54,
+      "name": "P Venkata Subba Reddy",
+      "amount": 1000
+    },
+    {
+      "slNo": 55,
+      "name": "T Mahadeva Reddy",
+      "amount": 1000
+    },
+    {
+      "slNo": 56,
+      "name": "T Gurunadham Reddy",
+      "amount": 1000
+    },
+    {
+      "slNo": 57,
+      "name": "V Sudhakar",
+      "amount": 1000
+    },
+    {
+      "slNo": 58,
+      "name": "G Uday",
+      "amount": 1000
+    },
+    {
+      "slNo": 59,
+      "name": "Y Chandu Kumar",
+      "amount": 1000
+    },
+    {
+      "slNo": 60,
+      "name": "K Venu",
+      "amount": 1000
+    },
+    {
+      "slNo": 61,
+      "name": "M Nagaraju",
+      "amount": 1000
+    },
+    {
+      "slNo": 62,
+      "name": "M Venkata Subba Reddy (Naveen)",
+      "amount": 1000
+    },
+    {
+      "slNo": 63,
+      "name": "G Venkatesh (Sr)",
+      "amount": 1000
     }
   ],
-  "cheeti": [],
+  "cheeti": [
+    {
+      "slNo": 1,
+      "name": "M Krishna Reddy",
+      "amount": 27600,
+      "interest": 3312,
+      "total": 30912,
+      "lateFee": 0,
+      "paid": false,
+      "paymentDate": "",
+      "days_overdue": 0
+    },
+    {
+      "slNo": 2,
+      "name": "P Sasidhar",
+      "amount": 27600,
+      "interest": 3312,
+      "total": 30912,
+      "lateFee": 0,
+      "paid": false,
+      "paymentDate": "",
+      "days_overdue": 0
+    },
+    {
+      "slNo": 3,
+      "name": "P Hari",
+      "amount": 27600,
+      "interest": 3312,
+      "total": 30912,
+      "lateFee": 0,
+      "paid": false,
+      "paymentDate": "",
+      "days_overdue": 0
+    },
+    {
+      "slNo": 4,
+      "name": "P Gurunadham Reddy",
+      "amount": 27600,
+      "interest": 3312,
+      "total": 30912,
+      "lateFee": 0,
+      "paid": false,
+      "paymentDate": "",
+      "days_overdue": 0
+    },
+    {
+      "slNo": 5,
+      "name": "V Munihara Reddy",
+      "amount": 27600,
+      "interest": 3312,
+      "total": 30912,
+      "lateFee": 0,
+      "paid": false,
+      "paymentDate": "",
+      "days_overdue": 0
+    },
+    {
+      "slNo": 6,
+      "name": "P Gurava Reddy",
+      "amount": 27600,
+      "interest": 3312,
+      "total": 30912,
+      "lateFee": 0,
+      "paid": false,
+      "paymentDate": "",
+      "days_overdue": 0
+    },
+    {
+      "slNo": 7,
+      "name": "M Venkata Subba Reddy (Naveen)",
+      "amount": 27600,
+      "interest": 3312,
+      "total": 30912,
+      "lateFee": 0,
+      "paid": false,
+      "paymentDate": "",
+      "days_overdue": 0
+    },
+    {
+      "slNo": 8,
+      "name": "M Nagaraju",
+      "amount": 27600,
+      "interest": 3312,
+      "total": 30912,
+      "lateFee": 0,
+      "paid": false,
+      "paymentDate": "",
+      "days_overdue": 0
+    },
+    {
+      "slNo": 9,
+      "name": "Y Vasu",
+      "amount": 27600,
+      "interest": 3312,
+      "total": 30912,
+      "lateFee": 0,
+      "paid": false,
+      "paymentDate": "",
+      "days_overdue": 0
+    },
+    {
+      "slNo": 10,
+      "name": "P Siva (Jr)",
+      "amount": 27600,
+      "interest": 3312,
+      "total": 30912,
+      "lateFee": 0,
+      "paid": false,
+      "paymentDate": "",
+      "days_overdue": 0
+    },
+    {
+      "slNo": 11,
+      "name": "P Tharun",
+      "amount": 27600,
+      "interest": 3312,
+      "total": 30912,
+      "lateFee": 0,
+      "paid": false,
+      "paymentDate": "",
+      "days_overdue": 0
+    },
+    {
+      "slNo": 12,
+      "name": "P Vikram",
+      "amount": 27600,
+      "interest": 3312,
+      "total": 30912,
+      "lateFee": 0,
+      "paid": false,
+      "paymentDate": "",
+      "days_overdue": 0
+    },
+    {
+      "slNo": 13,
+      "name": "K Venu",
+      "amount": 27600,
+      "interest": 3312,
+      "total": 30912,
+      "lateFee": 0,
+      "paid": false,
+      "paymentDate": "",
+      "days_overdue": 0
+    },
+    {
+      "slNo": 14,
+      "name": "P Narendra",
+      "amount": 27600,
+      "interest": 3312,
+      "total": 30912,
+      "lateFee": 0,
+      "paid": false,
+      "paymentDate": "",
+      "days_overdue": 0
+    },
+    {
+      "slNo": 15,
+      "name": "P Rosi Reddy",
+      "amount": 27600,
+      "interest": 3312,
+      "total": 30912,
+      "lateFee": 0,
+      "paid": false,
+      "paymentDate": "",
+      "days_overdue": 0
+    },
+    {
+      "slNo": 16,
+      "name": "M Bala Subramanyam Reddy",
+      "amount": 27600,
+      "interest": 3312,
+      "total": 30912,
+      "lateFee": 0,
+      "paid": false,
+      "paymentDate": "",
+      "days_overdue": 0
+    },
+    {
+      "slNo": 17,
+      "name": "G Venkatesh (Sr)",
+      "amount": 27600,
+      "interest": 3312,
+      "total": 30912,
+      "lateFee": 0,
+      "paid": false,
+      "paymentDate": "",
+      "days_overdue": 0
+    },
+    {
+      "slNo": 18,
+      "name": "J Suresh",
+      "amount": 27600,
+      "interest": 3312,
+      "total": 30912,
+      "lateFee": 0,
+      "paid": false,
+      "paymentDate": "",
+      "days_overdue": 0
+    },
+    {
+      "slNo": 19,
+      "name": "P Sudharsan",
+      "amount": 27600,
+      "interest": 3312,
+      "total": 30912,
+      "lateFee": 0,
+      "paid": false,
+      "paymentDate": "",
+      "days_overdue": 0
+    },
+    {
+      "slNo": 20,
+      "name": "V Munikumar",
+      "amount": 27600,
+      "interest": 3312,
+      "total": 30912,
+      "lateFee": 0,
+      "paid": false,
+      "paymentDate": "",
+      "days_overdue": 0
+    },
+    {
+      "slNo": 21,
+      "name": "V Sankaramma",
+      "amount": 27600,
+      "interest": 3312,
+      "total": 30912,
+      "lateFee": 0,
+      "paid": false,
+      "paymentDate": "",
+      "days_overdue": 0
+    },
+    {
+      "slNo": 22,
+      "name": "Y Chandu Kumar",
+      "amount": 27600,
+      "interest": 3312,
+      "total": 30912,
+      "lateFee": 0,
+      "paid": false,
+      "paymentDate": "",
+      "days_overdue": 0
+    },
+    {
+      "slNo": 23,
+      "name": "C Munisubba Reddy",
+      "amount": 27600,
+      "interest": 3312,
+      "total": 30912,
+      "lateFee": 0,
+      "paid": false,
+      "paymentDate": "",
+      "days_overdue": 0
+    },
+    {
+      "slNo": 24,
+      "name": "T Nagur Reddy",
+      "amount": 27600,
+      "interest": 3312,
+      "total": 30912,
+      "lateFee": 0,
+      "paid": false,
+      "paymentDate": "",
+      "days_overdue": 0
+    },
+    {
+      "slNo": 25,
+      "name": "B Chandra Redy",
+      "amount": 27600,
+      "interest": 3312,
+      "total": 30912,
+      "lateFee": 0,
+      "paid": false,
+      "paymentDate": "",
+      "days_overdue": 0
+    },
+    {
+      "slNo": 26,
+      "name": "B Raja Reddy",
+      "amount": 27600,
+      "interest": 3312,
+      "total": 30912,
+      "lateFee": 0,
+      "paid": false,
+      "paymentDate": "",
+      "days_overdue": 0
+    },
+    {
+      "slNo": 27,
+      "name": "G Uday",
+      "amount": 27600,
+      "interest": 3312,
+      "total": 30912,
+      "lateFee": 0,
+      "paid": false,
+      "paymentDate": "",
+      "days_overdue": 0
+    },
+    {
+      "slNo": 28,
+      "name": "B Amarnadh Reddy",
+      "amount": 27600,
+      "interest": 3312,
+      "total": 30912,
+      "lateFee": 0,
+      "paid": false,
+      "paymentDate": "",
+      "days_overdue": 0
+    },
+    {
+      "slNo": 29,
+      "name": "B Uday Kumar",
+      "amount": 27600,
+      "interest": 3312,
+      "total": 30912,
+      "lateFee": 0,
+      "paid": false,
+      "paymentDate": "",
+      "days_overdue": 0
+    },
+    {
+      "slNo": 30,
+      "name": "K Surendra",
+      "amount": 27600,
+      "interest": 3312,
+      "total": 30912,
+      "lateFee": 0,
+      "paid": false,
+      "paymentDate": "",
+      "days_overdue": 0
+    },
+    {
+      "slNo": 31,
+      "name": "M Somu",
+      "amount": 27600,
+      "interest": 3312,
+      "total": 30912,
+      "lateFee": 0,
+      "paid": false,
+      "paymentDate": "",
+      "days_overdue": 0
+    },
+    {
+      "slNo": 32,
+      "name": "T Maheshwar Reddy",
+      "amount": 27600,
+      "interest": 3312,
+      "total": 30912,
+      "lateFee": 0,
+      "paid": false,
+      "paymentDate": "",
+      "days_overdue": 0
+    },
+    {
+      "slNo": 33,
+      "name": "V Suneel",
+      "amount": 27600,
+      "interest": 3312,
+      "total": 30912,
+      "lateFee": 0,
+      "paid": false,
+      "paymentDate": "",
+      "days_overdue": 0
+    },
+    {
+      "slNo": 34,
+      "name": "V Sudhakar",
+      "amount": 27600,
+      "interest": 3312,
+      "total": 30912,
+      "lateFee": 0,
+      "paid": false,
+      "paymentDate": "",
+      "days_overdue": 0
+    },
+    {
+      "slNo": 35,
+      "name": "M Balaji Reddy",
+      "amount": 27600,
+      "interest": 3312,
+      "total": 30912,
+      "lateFee": 0,
+      "paid": false,
+      "paymentDate": "",
+      "days_overdue": 0
+    },
+    {
+      "slNo": 36,
+      "name": "T Gurunadham Reddy",
+      "amount": 27600,
+      "interest": 3312,
+      "total": 30912,
+      "lateFee": 0,
+      "paid": false,
+      "paymentDate": "",
+      "days_overdue": 0
+    },
+    {
+      "slNo": 37,
+      "name": "T Mahadeva Reddy",
+      "amount": 27600,
+      "interest": 3312,
+      "total": 30912,
+      "lateFee": 0,
+      "paid": false,
+      "paymentDate": "",
+      "days_overdue": 0
+    },
+    {
+      "slNo": 38,
+      "name": "P Somu",
+      "amount": 27600,
+      "interest": 3312,
+      "total": 30912,
+      "lateFee": 0,
+      "paid": false,
+      "paymentDate": "",
+      "days_overdue": 0
+    },
+    {
+      "slNo": 39,
+      "name": "M Venkatesh (Sr)",
+      "amount": 27600,
+      "interest": 3312,
+      "total": 30912,
+      "lateFee": 0,
+      "paid": false,
+      "paymentDate": "",
+      "days_overdue": 0
+    },
+    {
+      "slNo": 40,
+      "name": "P Venkata Subba Reddy",
+      "amount": 29100,
+      "interest": 3492,
+      "total": 32592,
+      "lateFee": 0,
+      "paid": false,
+      "paymentDate": "",
+      "days_overdue": 0
+    },
+    {
+      "slNo": 41,
+      "name": "P Eshwar Reddy (Poloam)",
+      "amount": 27600,
+      "interest": 3312,
+      "total": 30912,
+      "lateFee": 0,
+      "paid": false,
+      "paymentDate": "",
+      "days_overdue": 0
+    },
+    {
+      "slNo": 42,
+      "name": "P Ganga Subbarami Reddy (Sr)",
+      "amount": 27600,
+      "interest": 3312,
+      "total": 30912,
+      "lateFee": 0,
+      "paid": false,
+      "paymentDate": "",
+      "days_overdue": 0
+    },
+    {
+      "slNo": 43,
+      "name": "G Narayana",
+      "amount": 27600,
+      "interest": 3312,
+      "total": 30912,
+      "lateFee": 0,
+      "paid": false,
+      "paymentDate": "",
+      "days_overdue": 0
+    },
+    {
+      "slNo": 44,
+      "name": "P Sekhar Reddy (Post)",
+      "amount": 27600,
+      "interest": 3312,
+      "total": 30912,
+      "lateFee": 0,
+      "paid": false,
+      "paymentDate": "",
+      "days_overdue": 0
+    },
+    {
+      "slNo": 45,
+      "name": "G Tirumala",
+      "amount": 27600,
+      "interest": 3312,
+      "total": 30912,
+      "lateFee": 0,
+      "paid": false,
+      "paymentDate": "",
+      "days_overdue": 0
+    },
+    {
+      "slNo": 46,
+      "name": "P Tirumala Reddy",
+      "amount": 27600,
+      "interest": 3312,
+      "total": 30912,
+      "lateFee": 0,
+      "paid": false,
+      "paymentDate": "",
+      "days_overdue": 0
+    }
+  ],
   "cheeti_collections": [
     {
       "slNo": 32,
@@ -367,7 +1184,35 @@
   "expenses": [
     {
       "item": "Bandset",
-      "amount": 14481
+      "amount": 14500
+    },
+    {
+      "item": "Vigraham",
+      "amount": 10000
+    },
+    {
+      "item": "Pooja Samagri",
+      "amount": 4000
+    },
+    {
+      "item": "Chairs",
+      "amount": 1450
+    },
+    {
+      "item": "Laddu, Prasadam, Cool Drinks",
+      "amount": 1100
+    },
+    {
+      "item": "Diesel",
+      "amount": 500
+    },
+    {
+      "item": "Pancha, Tenkayalu",
+      "amount": 450
+    },
+    {
+      "item": "Cool Drinks",
+      "amount": 500
     }
   ],
   "sponsors": [
@@ -426,5 +1271,38 @@
       "name": "B Srinivasulu Reddy"
     }
   ],
-  "committee_next_year": []
+  "committee_next_year": [
+    {
+      "role": "Organizer",
+      "name": "P Sasidhar"
+    },
+    {
+      "role": "Member",
+      "name": "G Venkatesh (Sr)"
+    },
+    {
+      "role": "Member",
+      "name": "B Amarnadh Reddy"
+    },
+    {
+      "role": "Member",
+      "name": "P Rosi Reddy"
+    },
+    {
+      "role": "Member",
+      "name": "P Tharun"
+    },
+    {
+      "role": "Member",
+      "name": "M Bala Subramanyam Reddy"
+    },
+    {
+      "role": "Member",
+      "name": "M Nagaraju"
+    },
+    {
+      "role": "Member",
+      "name": "J Suresh"
+    }
+  ]
 }
