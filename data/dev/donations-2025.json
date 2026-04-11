@@ -1,17 +1,19 @@
 {
   "year": "2025",
-  "lastUpdated": "2026-04-11T07:16:14.377Z",
+  "lastUpdated": "2026-04-11T07:18:08.776Z",
   "donations": [],
   "cheeti": [],
-  "cheeti_collections": [],
-  "cheeti_expected": [
+  "cheeti_collections": [
     {
-      "name": "M Krishna Reddy",
-      "amount": 24800,
-      "interest": 2976,
-      "expectedTotal": 27776,
-      "fromYear": 2024
-    },
+      "slNo": 1,
+      "memberName": "M Krishna Reddy",
+      "amount": 28276,
+      "fromYear": 2024,
+      "collectionDate": "2025-08-25",
+      "addedOn": "2026-04-11T07:18:08.257Z"
+    }
+  ],
+  "cheeti_expected": [
     {
       "name": "P Sasidhar",
       "amount": 24800,
