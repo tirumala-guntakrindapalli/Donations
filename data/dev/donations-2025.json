@@ -1,6 +1,6 @@
 {
   "year": "2025",
-  "lastUpdated": "2026-04-11T07:33:32.563Z",
+  "lastUpdated": "2026-04-11T07:33:33.730Z",
   "donations": [],
   "cheeti": [],
   "cheeti_collections": [
@@ -14,11 +14,11 @@
     },
     {
       "slNo": 2,
-      "memberName": "M Somu",
+      "memberName": "B Raja Sekhar",
       "amount": 27776,
       "fromYear": 2024,
       "collectionDate": "2025-08-20",
-      "addedOn": "2026-04-11T07:33:31.948Z"
+      "addedOn": "2026-04-11T07:33:33.206Z"
     }
   ],
   "cheeti_expected": [
@@ -198,7 +198,7 @@
       "fromYear": 2024
     },
     {
-      "name": "B Raja Sekhar",
+      "name": "M Somu",
       "amount": 24800,
       "interest": 2976,
       "expectedTotal": 27776,
