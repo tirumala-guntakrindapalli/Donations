@@ -1,6 +1,6 @@
 {
   "year": "2025",
-  "lastUpdated": "2026-04-11T07:33:46.353Z",
+  "lastUpdated": "2026-04-11T07:33:47.603Z",
   "donations": [],
   "cheeti": [],
   "cheeti_collections": [
@@ -14,11 +14,11 @@
     },
     {
       "slNo": 2,
-      "memberName": "P Mani Reddy",
+      "memberName": "G Tirumala",
       "amount": 27776,
       "fromYear": 2024,
       "collectionDate": "2025-08-20",
-      "addedOn": "2026-04-11T07:33:45.813Z"
+      "addedOn": "2026-04-11T07:33:46.990Z"
     }
   ],
   "cheeti_expected": [
@@ -282,6 +282,13 @@
       "fromYear": 2024
     },
     {
+      "name": "P Mani Reddy",
+      "amount": 24800,
+      "interest": 2976,
+      "expectedTotal": 27776,
+      "fromYear": 2024
+    },
+    {
       "name": "P Venkata Subba Reddy",
       "amount": 26600,
       "interest": 3192,
@@ -290,13 +297,6 @@
     },
     {
       "name": "G Narayana",
-      "amount": 24800,
-      "interest": 2976,
-      "expectedTotal": 27776,
-      "fromYear": 2024
-    },
-    {
-      "name": "G Tirumala",
       "amount": 24800,
       "interest": 2976,
       "expectedTotal": 27776,
