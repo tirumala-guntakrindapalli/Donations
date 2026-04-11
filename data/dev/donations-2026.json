@@ -1,20 +1,32 @@
 {
   "year": "2026",
-  "lastUpdated": "2026-04-10T20:37:23.098Z",
-  "settings": {
-    "dashboard_enabled": false
-  },
+  "lastUpdated": "2026-04-11T06:05:01.064Z",
   "donations": [
     {
       "slNo": 1,
-      "name": "Test1",
-      "amount": 3000
+      "name": "test",
+      "amount": 1200
+    },
+    {
+      "slNo": 2,
+      "name": "test 2",
+      "amount": 1000
+    },
+    {
+      "slNo": 3,
+      "name": "test 5",
+      "amount": 1000
+    },
+    {
+      "slNo": 4,
+      "name": "test 6",
+      "amount": 2500
     }
   ],
   "cheeti": [
     {
       "slNo": 1,
-      "name": "test1",
+      "name": "test",
       "amount": 1000,
       "interest": 120,
       "total": 1120,
@@ -25,84 +37,55 @@
     {
       "slNo": 2,
       "name": "test 2",
-      "amount": 1200,
-      "interest": 144,
-      "total": 1344,
-      "paid": false,
-      "paymentDate": null,
-      "lateFee": 0
-    },
-    {
-      "slNo": 3,
-      "name": "test 3",
-      "amount": 1500,
-      "interest": 180,
-      "total": 1680,
-      "paid": false,
-      "paymentDate": null,
-      "lateFee": 0
-    },
-    {
-      "slNo": 4,
-      "name": "test 4",
-      "amount": 2500,
+      "amount": 2498,
       "interest": 300,
-      "total": 2800,
-      "paid": false,
-      "paymentDate": null,
-      "lateFee": 0
-    },
-    {
-      "slNo": 5,
-      "name": "test 7",
-      "amount": 1200,
-      "interest": 144,
-      "total": 1344,
-      "paid": false,
-      "paymentDate": null,
-      "lateFee": 0
-    },
-    {
-      "slNo": 6,
-      "name": "t1",
-      "amount": 1200,
-      "interest": 144,
-      "total": 1344,
+      "total": 2798,
       "paid": false,
       "paymentDate": null,
       "lateFee": 0
     }
   ],
-  "cheeti_collections": [
+  "cheeti_collections": [],
+  "cheeti_expected": [],
+  "expenses": [
+    {
+      "item": "test",
+      "amount": 500
+    },
+    {
+      "item": "test 2",
+      "amount": 1000
+    }
+  ],
+  "sponsors": [
     {
       "slNo": 1,
-      "memberName": "M Krishna Reddy",
-      "amount": 35912,
-      "fromYear": 2025,
-      "collectionDate": "2026-04-10",
-      "addedOn": "2026-04-10T06:18:22.283Z"
+      "name": "Testing 1",
+      "type": "Laddu",
+      "amount": 0
     },
     {
       "slNo": 2,
-      "memberName": "M Krishna Reddy",
-      "amount": 36912,
-      "fromYear": 2025,
-      "collectionDate": "2026-04-10",
-      "addedOn": "2026-04-10T07:24:14.898Z"
+      "name": "testing 2",
+      "type": "Prasadam",
+      "amount": 0
     }
   ],
-  "cheeti_expected": [
+  "laddu_winners": [
+    {
+      "slNo": 1,
+      "name": "TBC1",
+      "amount": 14997,
+      "date": "2026-04-11T06:04:33.701Z"
+    }
+  ],
+  "committee": [],
+  "committee_next_year": [
     {
       "name": "P Sasidhar",
-      "amount": 27600,
-      "interest": 3312,
-      "expectedTotal": 30912,
-      "fromYear": 2025
+      "role": "Organizer"
     }
   ],
-  "expenses": [],
-  "sponsors": [],
-  "laddu_winners": [],
   "report": [
     {
       "category": "Donations",
@@ -110,8 +93,8 @@
       "type": "income"
     },
     {
-      "category": "Estimated Cheeti Collections (${previousYear})",
-      "amount": 30912,
+      "category": "Estimated Cheeti Collections (2025)",
+      "amount": 0,
       "type": "income_estimated"
     },
     {
@@ -123,22 +106,6 @@
       "category": "Total Expenses",
       "amount": 0,
       "type": "expense"
-    },
-    {
-      "category": "Cheeti Collections",
-      "amount": 72824,
-      "type": "income"
     }
-  ],
-  "committee": [
-    {
-      "role": "Organizer",
-      "name": "P Sasidhar"
-    },
-    {
-      "role": "Member",
-      "name": "G Venkatesh (Sr)"
-    }
-  ],
-  "committee_next_year": []
+  ]
 }

@@ -3126,14 +3126,12 @@ function updateMetrics(donations, cheeti, expenses, report) {
     // Calculate laddu winnings total
     const ladduWinnings = (currentData.laddu_winners || []).reduce((sum, w) => sum + (w.amount || 0), 0);
     
-    // Total income includes all report amounts (including estimated collections) plus laddu winnings
-    const reportIncome = report.reduce((sum, r) => {
-        if (r.amount > 0) {
-            return sum + r.amount;
-        }
-        return sum;
-    }, 0);
-    const totalIncome = reportIncome + ladduWinnings;
+    // Calculate actual cheeti collections
+    const actualCheetiCollections = (currentData.cheeti_collections || []).reduce((sum, c) => sum + (c.amount || 0), 0);
+    
+    // Total income = donations + actual cheeti collections + laddu winnings
+    // Note: We calculate directly from data arrays, not from the report array which may be stale
+    const totalIncome = totalDonations + actualCheetiCollections + ladduWinnings;
     const balance = totalIncome - totalExpenses;
     const cheetiMembers = cheeti.length;
     const cheetiInterest = cheeti.reduce((sum, c) => sum + (c.interest || 0), 0);

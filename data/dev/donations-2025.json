@@ -1,80 +1,384 @@
 {
   "year": "2025",
-  "lastUpdated": "2026-04-10T20:25:38.175Z",
-  "settings": {
-    "dashboard_enabled": true
-  },
+  "lastUpdated": "2026-04-10T19:47:38.906Z",
   "donations": [],
   "cheeti": [],
+  "cheeti_collections": [
+    {
+      "slNo": 1,
+      "memberName": "M Krishna Reddy",
+      "amount": 28276,
+      "fromYear": 2024,
+      "collectionDate": "2025-08-25",
+      "addedOn": "2026-04-10T19:47:38.382Z"
+    }
+  ],
+  "cheeti_expected": [
+    {
+      "name": "P Sasidhar",
+      "amount": 24800,
+      "interest": 2976,
+      "expectedTotal": 27776,
+      "fromYear": 2024
+    },
+    {
+      "name": "P Hari Krishna Reddy",
+      "amount": 24800,
+      "interest": 2976,
+      "expectedTotal": 27776,
+      "fromYear": 2024
+    },
+    {
+      "name": "V Munihara Reddy",
+      "amount": 24800,
+      "interest": 2976,
+      "expectedTotal": 27776,
+      "fromYear": 2024
+    },
+    {
+      "name": "M Nagaraja",
+      "amount": 24800,
+      "interest": 2976,
+      "expectedTotal": 27776,
+      "fromYear": 2024
+    },
+    {
+      "name": "Y Chandu Kumar",
+      "amount": 24800,
+      "interest": 2976,
+      "expectedTotal": 27776,
+      "fromYear": 2024
+    },
+    {
+      "name": "C Munisubba Reddy",
+      "amount": 24800,
+      "interest": 2976,
+      "expectedTotal": 27776,
+      "fromYear": 2024
+    },
+    {
+      "name": "M Venkatesh (Sr)",
+      "amount": 24800,
+      "interest": 2976,
+      "expectedTotal": 27776,
+      "fromYear": 2024
+    },
+    {
+      "name": "P Eswar Reddy (Somu)",
+      "amount": 24800,
+      "interest": 2976,
+      "expectedTotal": 27776,
+      "fromYear": 2024
+    },
+    {
+      "name": "P Siva Kumar (Chanti)",
+      "amount": 24800,
+      "interest": 2976,
+      "expectedTotal": 27776,
+      "fromYear": 2024
+    },
+    {
+      "name": "P Tharun",
+      "amount": 24800,
+      "interest": 2976,
+      "expectedTotal": 27776,
+      "fromYear": 2024
+    },
+    {
+      "name": "P Eswar Reddy (Polam)",
+      "amount": 24800,
+      "interest": 2976,
+      "expectedTotal": 27776,
+      "fromYear": 2024
+    },
+    {
+      "name": "P Siva",
+      "amount": 24800,
+      "interest": 2976,
+      "expectedTotal": 27776,
+      "fromYear": 2024
+    },
+    {
+      "name": "K Surendra",
+      "amount": 24800,
+      "interest": 2976,
+      "expectedTotal": 27776,
+      "fromYear": 2024
+    },
+    {
+      "name": "M Balasubramanyam",
+      "amount": 24800,
+      "interest": 2976,
+      "expectedTotal": 27776,
+      "fromYear": 2024
+    },
+    {
+      "name": "M Balaji",
+      "amount": 24800,
+      "interest": 2976,
+      "expectedTotal": 27776,
+      "fromYear": 2024
+    },
+    {
+      "name": "V Suneel",
+      "amount": 24800,
+      "interest": 2976,
+      "expectedTotal": 27776,
+      "fromYear": 2024
+    },
+    {
+      "name": "V Sudhakar",
+      "amount": 24800,
+      "interest": 2976,
+      "expectedTotal": 27776,
+      "fromYear": 2024
+    },
+    {
+      "name": "M Srinivasulu Reddy",
+      "amount": 24800,
+      "interest": 2976,
+      "expectedTotal": 27776,
+      "fromYear": 2024
+    },
+    {
+      "name": "P Gurunadham Reddy",
+      "amount": 24800,
+      "interest": 2976,
+      "expectedTotal": 27776,
+      "fromYear": 2024
+    },
+    {
+      "name": "P Gurava Reddy",
+      "amount": 24800,
+      "interest": 2976,
+      "expectedTotal": 27776,
+      "fromYear": 2024
+    },
+    {
+      "name": "P Tirumala Reddy",
+      "amount": 24800,
+      "interest": 2976,
+      "expectedTotal": 27776,
+      "fromYear": 2024
+    },
+    {
+      "name": "T Samba Siva Reddy",
+      "amount": 24800,
+      "interest": 2976,
+      "expectedTotal": 27776,
+      "fromYear": 2024
+    },
+    {
+      "name": "T Gurunadham Reddy",
+      "amount": 24800,
+      "interest": 2976,
+      "expectedTotal": 27776,
+      "fromYear": 2024
+    },
+    {
+      "name": "T Mahadeva Reddy",
+      "amount": 24800,
+      "interest": 2976,
+      "expectedTotal": 27776,
+      "fromYear": 2024
+    },
+    {
+      "name": "T Maheshwar Reddy",
+      "amount": 24800,
+      "interest": 2976,
+      "expectedTotal": 27776,
+      "fromYear": 2024
+    },
+    {
+      "name": "M Somu",
+      "amount": 24800,
+      "interest": 2976,
+      "expectedTotal": 27776,
+      "fromYear": 2024
+    },
+    {
+      "name": "B Raja Sekhar",
+      "amount": 24800,
+      "interest": 2976,
+      "expectedTotal": 27776,
+      "fromYear": 2024
+    },
+    {
+      "name": "B Chandra",
+      "amount": 24800,
+      "interest": 2976,
+      "expectedTotal": 27776,
+      "fromYear": 2024
+    },
+    {
+      "name": "B Uday",
+      "amount": 24800,
+      "interest": 2976,
+      "expectedTotal": 27776,
+      "fromYear": 2024
+    },
+    {
+      "name": "B Amarnadh Reddy",
+      "amount": 24800,
+      "interest": 2976,
+      "expectedTotal": 27776,
+      "fromYear": 2024
+    },
+    {
+      "name": "G Uday",
+      "amount": 24800,
+      "interest": 2976,
+      "expectedTotal": 27776,
+      "fromYear": 2024
+    },
+    {
+      "name": "G Venkatesh Sr",
+      "amount": 24800,
+      "interest": 2976,
+      "expectedTotal": 27776,
+      "fromYear": 2024
+    },
+    {
+      "name": "K Venu",
+      "amount": 24800,
+      "interest": 2976,
+      "expectedTotal": 27776,
+      "fromYear": 2024
+    },
+    {
+      "name": "J Suresh",
+      "amount": 24800,
+      "interest": 2976,
+      "expectedTotal": 27776,
+      "fromYear": 2024
+    },
+    {
+      "name": "P Sudarsan",
+      "amount": 24800,
+      "interest": 2976,
+      "expectedTotal": 27776,
+      "fromYear": 2024
+    },
+    {
+      "name": "P Narendra",
+      "amount": 24800,
+      "interest": 2976,
+      "expectedTotal": 27776,
+      "fromYear": 2024
+    },
+    {
+      "name": "Y Vasu",
+      "amount": 24800,
+      "interest": 2976,
+      "expectedTotal": 27776,
+      "fromYear": 2024
+    },
+    {
+      "name": "P Mani Reddy",
+      "amount": 24800,
+      "interest": 2976,
+      "expectedTotal": 27776,
+      "fromYear": 2024
+    },
+    {
+      "name": "P Venkata Subba Reddy",
+      "amount": 26600,
+      "interest": 3192,
+      "expectedTotal": 29792,
+      "fromYear": 2024
+    },
+    {
+      "name": "G Narayana",
+      "amount": 24800,
+      "interest": 2976,
+      "expectedTotal": 27776,
+      "fromYear": 2024
+    },
+    {
+      "name": "G Tirumala",
+      "amount": 24800,
+      "interest": 2976,
+      "expectedTotal": 27776,
+      "fromYear": 2024
+    },
+    {
+      "name": "M Venkatasubba Reddy",
+      "amount": 24800,
+      "interest": 2976,
+      "expectedTotal": 27776,
+      "fromYear": 2024
+    },
+    {
+      "name": "T Nagur Reddy",
+      "amount": 24800,
+      "interest": 2976,
+      "expectedTotal": 27776,
+      "fromYear": 2024
+    }
+  ],
   "expenses": [],
-  "sponsors": [
-    {
-      "slNo": 1,
-      "name": "Sri. Ramesh Babu",
-      "type": "Laddu",
-      "amount": 12000
-    },
-    {
-      "slNo": 2,
-      "name": "Smt. Padmavathi",
-      "type": "Prasadam",
-      "amount": 8000
-    },
-    {
-      "slNo": 3,
-      "name": "Sri. Venkatesh Garu",
-      "type": "Vigraham (Idol)",
-      "amount": 15000
-    }
-  ],
-  "laddu_winners": [
-    {
-      "slNo": 1,
-      "name": "Sri. Suresh Kumar",
-      "amount": 30000,
-      "date": "2025-09-15T15:30:00.000Z"
-    }
-  ],
-  "report": [
-    {
-      "category": "2025 Cheeti + Interest",
-      "amount": 1224160
-    },
-    {
-      "category": "Donations",
-      "amount": 55885
-    },
-    {
-      "category": "Membership",
-      "amount": 13000
-    },
-    {
-      "category": "Expenses",
-      "amount": -32000
-    }
-  ],
+  "sponsors": [],
+  "laddu_winners": [],
   "committee": [
     {
       "role": "Organizer",
+      "name": "P Veera Raghava Reddy"
+    },
+    {
+      "role": "Member",
+      "name": "M Krishna Reddy"
+    },
+    {
+      "role": "Member",
       "name": "P Sasidhar"
     },
     {
       "role": "Member",
-      "name": "G Venkatesh (Sr)"
+      "name": "T Samba Siva Reddy"
+    },
+    {
+      "role": "Member",
+      "name": "P Tharun"
+    },
+    {
+      "role": "Member",
+      "name": "P Narendra"
+    },
+    {
+      "role": "Member",
+      "name": "G Tirumala"
+    },
+    {
+      "role": "Member",
+      "name": "B Srinivasulu Reddy"
     }
   ],
-  "committee_next_year": [
+  "committee_next_year": [],
+  "report": [
     {
-      "role": "Organizer",
-      "name": "P Sasidhar"
+      "category": "Donations",
+      "amount": 0,
+      "type": "income"
     },
     {
-      "role": "Member",
-      "name": "G Venkatesh (Sr)"
+      "category": "Estimated Cheeti Collections (2024)",
+      "amount": 1196384,
+      "type": "income_estimated"
     },
     {
-      "role": "Member",
-      "name": "Tharun"
+      "category": "Actual Cheeti Collections",
+      "amount": 0,
+      "type": "income"
+    },
+    {
+      "category": "Total Expenses",
+      "amount": 0,
+      "type": "expense"
+    },
+    {
+      "category": "Cheeti Collections",
+      "amount": 28276,
+      "type": "income"
     }
   ]
 }
