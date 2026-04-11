@@ -1056,7 +1056,7 @@
     <div class="cta">
         <h2>✨ Experience Complete Transparency ✨</h2>
         <div class="cta-buttons">
-            <a href="dashboard.html" class="btn btn-primary">
+            <a href="dashboard.html" class="btn btn-primary" onclick="showDashboardLoading(event)">
                 <i class="fas fa-chart-pie"></i>
                 <span>Explore Dashboard</span>
             </a>
@@ -1268,6 +1268,45 @@
                 }
             }, 600);
         });
+        
+        // Show loading animation when navigating to dashboard
+        function showDashboardLoading(event) {
+            event.preventDefault();
+            const href = event.currentTarget.href;
+            
+            // Create and show loading overlay
+            const loadingOverlay = document.createElement('div');
+            loadingOverlay.id = 'dashboardLoadingOverlay';
+            loadingOverlay.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(102, 126, 234, 0.95);
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                z-index: 10000;
+                backdrop-filter: blur(10px);
+            `;
+            
+            loadingOverlay.innerHTML = `
+                <div style="text-align: center; color: white;">
+                    <i class="fas fa-spinner fa-spin" style="font-size: 60px; margin-bottom: 20px;"></i>
+                    <h2 style="font-size: 24px; font-weight: 600; margin: 0;">Loading Dashboard...</h2>
+                    <p style="font-size: 16px; margin-top: 10px; opacity: 0.9;">Please wait</p>
+                </div>
+            `;
+            
+            document.body.appendChild(loadingOverlay);
+            
+            // Navigate after brief animation
+            setTimeout(() => {
+                window.location.href = href;
+            }, 300);
+        }
     </script>
 </body>
 </html>
