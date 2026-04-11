@@ -1,6 +1,6 @@
 {
   "year": "2026",
-  "lastUpdated": "2026-04-11T06:05:01.064Z",
+  "lastUpdated": "2026-04-11T06:15:48.606Z",
   "donations": [
     {
       "slNo": 1,
@@ -79,7 +79,40 @@
       "date": "2026-04-11T06:04:33.701Z"
     }
   ],
-  "committee": [],
+  "committee": [
+    {
+      "name": "P Sasidhar",
+      "role": "Organizer"
+    },
+    {
+      "name": "G Venkatest Sr",
+      "role": "Member"
+    },
+    {
+      "name": "B Amarnadh Reddy",
+      "role": "Member"
+    },
+    {
+      "name": "P Rosi Reddy",
+      "role": "Member"
+    },
+    {
+      "name": "P Tharun",
+      "role": "Member"
+    },
+    {
+      "name": "M Balasubramanyam Reddy",
+      "role": "Member"
+    },
+    {
+      "name": "M Nagaraju",
+      "role": "Member"
+    },
+    {
+      "name": "J Suresh",
+      "role": "Member"
+    }
+  ],
   "committee_next_year": [
     {
       "name": "P Sasidhar",
