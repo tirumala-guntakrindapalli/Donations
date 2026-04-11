@@ -3,11 +3,22 @@
 // DO NOT COMMIT dashboard-config.js TO GITHUB - IT'S IN .gitignore
 
 const DASHBOARD_CONFIG = {
-    // Available Years (dynamically generated: current year and 2 previous years)
-    AVAILABLE_YEARS: (() => {
+    // Starting year for dashboard data (all years from this to current will be available)
+    // Examples:
+    //   START_YEAR: 2021  → Shows 2021, 2022, 2023, 2024, 2025, 2026
+    //   START_YEAR: 2023  → Shows 2023, 2024, 2025, 2026
+    //   START_YEAR: 2024  → Shows 2024, 2025, 2026
+    START_YEAR: 2021,
+    
+    // Available Years (dynamically generated: from START_YEAR to current year)
+    get AVAILABLE_YEARS() {
         const currentYear = new Date().getFullYear();
-        return [currentYear - 2, currentYear - 1, currentYear];
-    })(),
+        const years = [];
+        for (let year = this.START_YEAR; year <= currentYear; year++) {
+            years.push(year);
+        }
+        return years;
+    },
     
     // Default Year (current year)
     DEFAULT_YEAR: new Date().getFullYear(),

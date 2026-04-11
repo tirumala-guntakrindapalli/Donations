@@ -454,16 +454,19 @@ data/
 
 #### Test 10.1: Missing Year Warning
 **Steps:**
-1. Edit dashboard-config.js, add 2027 to AVAILABLE_YEARS:
+1. Edit dashboard-config.js, modify START_YEAR or wait for next year:
    ```javascript
-   return [currentYear - 2, currentYear - 1, currentYear, currentYear + 1];
+   START_YEAR: 2021,  // Years 2021-2026 will be available (if current year is 2026)
    ```
-2. Refresh, select 2027
+2. To test future year (2027), the year must naturally arrive since AVAILABLE_YEARS only shows START_YEAR to current year
 
 **Expected Result:**
-- ⚠️ "Year 2027 Not Initialized" warning shows
+- ⚠️ New years automatically appear when the calendar year changes
+- ⚠️ If a new year's data file doesn't exist: "Year 2027 Not Initialized" warning shows
 - ⚠️ If admin: Initialize button visible
 - ⚠️ If not admin: Contact admin message
+
+**Note:** To manually test initialization for 2027, you would need to modify the AVAILABLE_YEARS getter to artificially include currentYear + 1.
 
 #### Test 10.2: Initialize New Year
 **Steps:**

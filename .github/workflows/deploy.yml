@@ -34,11 +34,18 @@ jobs:
               // Production deployment always uses prod data folder
               DATA_ENVIRONMENT: 'prod',
               
-              // Available Years (dynamically generated: current year and 2 previous years)
-              AVAILABLE_YEARS: (() => {
+              // Starting year for dashboard data (all years from this to current will be available)
+              START_YEAR: 2024,
+              
+              // Available Years (dynamically generated: from START_YEAR to current year)
+              get AVAILABLE_YEARS() {
                   const currentYear = new Date().getFullYear();
-                  return [currentYear - 2, currentYear - 1, currentYear];
-              })(),
+                  const years = [];
+                  for (let year = this.START_YEAR; year <= currentYear; year++) {
+                      years.push(year);
+                  }
+                  return years;
+              },
               
               // Default Year (current year)
               DEFAULT_YEAR: new Date().getFullYear(),

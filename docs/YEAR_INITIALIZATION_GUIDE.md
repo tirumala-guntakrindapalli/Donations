@@ -173,13 +173,25 @@ In TEST MODE, the system cannot automatically create files. Instead:
 
 ### Year Calculation
 ```javascript
-const currentYear = new Date().getFullYear(); // 2027
-const availableYears = [
-    currentYear - 2, // 2025
-    currentYear - 1, // 2026  
-    currentYear      // 2027
-];
+// Configuration (dashboard-config.js)
+START_YEAR: 2021,
+
+// Available Years (dynamically generated: from START_YEAR to current year)
+get AVAILABLE_YEARS() {
+    const currentYear = new Date().getFullYear(); // 2026
+    const years = [];
+    for (let year = this.START_YEAR; year <= currentYear; year++) {
+        years.push(year);
+    }
+    return years;
+    // Returns: [2021, 2022, 2023, 2024, 2025, 2026]
+}
 ```
+
+**Examples:**
+- If current year is 2026 and START_YEAR is 2021: Shows years 2021-2026
+- If current year is 2027 and START_YEAR is 2021: Shows years 2021-2027
+- Change START_YEAR to 2023: Shows years 2023-current year
 
 ### Estimated Collections Formula
 ```javascript
