@@ -1,6 +1,6 @@
 {
   "year": "2025",
-  "lastUpdated": "2026-04-11T07:33:00.804Z",
+  "lastUpdated": "2026-04-11T07:33:02.219Z",
   "donations": [],
   "cheeti": [],
   "cheeti_collections": [
@@ -14,11 +14,11 @@
     },
     {
       "slNo": 2,
-      "memberName": "M Venkatesh (Sr)",
+      "memberName": "P Eswar Reddy (Somu)",
       "amount": 27876,
       "fromYear": 2024,
       "collectionDate": "2025-08-21",
-      "addedOn": "2026-04-11T07:33:00.149Z"
+      "addedOn": "2026-04-11T07:33:01.631Z"
     }
   ],
   "cheeti_expected": [
@@ -65,7 +65,7 @@
       "fromYear": 2024
     },
     {
-      "name": "P Eswar Reddy (Somu)",
+      "name": "M Venkatesh (Sr)",
       "amount": 24800,
       "interest": 2976,
       "expectedTotal": 27776,
