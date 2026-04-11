@@ -1,6 +1,6 @@
 {
   "year": "2025",
-  "lastUpdated": "2026-04-11T07:32:59.498Z",
+  "lastUpdated": "2026-04-11T07:33:00.804Z",
   "donations": [],
   "cheeti": [],
   "cheeti_collections": [
@@ -14,11 +14,11 @@
     },
     {
       "slNo": 2,
-      "memberName": "C Munisubba Reddy",
-      "amount": 28076,
+      "memberName": "M Venkatesh (Sr)",
+      "amount": 27876,
       "fromYear": 2024,
-      "collectionDate": "2025-08-23",
-      "addedOn": "2026-04-11T07:32:58.954Z"
+      "collectionDate": "2025-08-21",
+      "addedOn": "2026-04-11T07:33:00.149Z"
     }
   ],
   "cheeti_expected": [
@@ -58,7 +58,7 @@
       "fromYear": 2024
     },
     {
-      "name": "M Venkatesh (Sr)",
+      "name": "C Munisubba Reddy",
       "amount": 24800,
       "interest": 2976,
       "expectedTotal": 27776,
