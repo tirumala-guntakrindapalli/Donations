@@ -406,6 +406,17 @@
       "amount": 100
     }
   ],
+  "cheeti_collections": [
+    {
+      "slNo": 1,
+      "memberName": "2023 Members (Total Collections)",
+      "amount": 1046632,
+      "fromYear": 2023,
+      "collectionDate": "2024-09-10",
+      "note": "Total collections from 2023 cheeti members (₹1,040,032 principal + ₹6,600 late fees)",
+      "addedOn": "2024-09-10T10:00:00.000Z"
+    }
+  ],
   "cheeti": [
     {
       "slNo": 1,
@@ -425,8 +436,8 @@
       "interest": 2976,
       "total": 27776,
       "lateFee": 0,
-      "paid": true,
-      "paymentDate": ""
+      "paid": false,
+      "paymentDate": null
     },
     {
       "slNo": 3,
@@ -435,8 +446,8 @@
       "interest": 2976,
       "total": 27776,
       "lateFee": 0,
-      "paid": true,
-      "paymentDate": ""
+      "paid": false,
+      "paymentDate": null
     },
     {
       "slNo": 4,
@@ -445,8 +456,8 @@
       "interest": 2976,
       "total": 27876,
       "lateFee": 100,
-      "paid": true,
-      "paymentDate": ""
+      "paid": false,
+      "paymentDate": null
     },
     {
       "slNo": 5,
@@ -455,8 +466,8 @@
       "interest": 2976,
       "total": 27776,
       "lateFee": 0,
-      "paid": true,
-      "paymentDate": ""
+      "paid": false,
+      "paymentDate": null
     },
     {
       "slNo": 6,
@@ -465,8 +476,8 @@
       "interest": 2976,
       "total": 27876,
       "lateFee": 100,
-      "paid": true,
-      "paymentDate": ""
+      "paid": false,
+      "paymentDate": null
     },
     {
       "slNo": 7,
@@ -475,8 +486,8 @@
       "interest": 2976,
       "total": 28076,
       "lateFee": 300,
-      "paid": true,
-      "paymentDate": ""
+      "paid": false,
+      "paymentDate": null
     },
     {
       "slNo": 8,
@@ -485,8 +496,8 @@
       "interest": 2976,
       "total": 27876,
       "lateFee": 100,
-      "paid": true,
-      "paymentDate": ""
+      "paid": false,
+      "paymentDate": null
     },
     {
       "slNo": 9,
@@ -495,8 +506,8 @@
       "interest": 2976,
       "total": 27876,
       "lateFee": 100,
-      "paid": true,
-      "paymentDate": ""
+      "paid": false,
+      "paymentDate": null
     },
     {
       "slNo": 10,
@@ -505,8 +516,8 @@
       "interest": 2976,
       "total": 27776,
       "lateFee": 0,
-      "paid": true,
-      "paymentDate": ""
+      "paid": false,
+      "paymentDate": null
     },
     {
       "slNo": 11,
@@ -515,8 +526,8 @@
       "interest": 2976,
       "total": 27776,
       "lateFee": 0,
-      "paid": true,
-      "paymentDate": ""
+      "paid": false,
+      "paymentDate": null
     },
     {
       "slNo": 12,
@@ -525,8 +536,8 @@
       "interest": 2976,
       "total": 27776,
       "lateFee": 0,
-      "paid": true,
-      "paymentDate": ""
+      "paid": false,
+      "paymentDate": null
     },
     {
       "slNo": 13,
@@ -535,8 +546,8 @@
       "interest": 2976,
       "total": 27776,
       "lateFee": 0,
-      "paid": true,
-      "paymentDate": ""
+      "paid": false,
+      "paymentDate": null
     },
     {
       "slNo": 14,
@@ -545,8 +556,8 @@
       "interest": 2976,
       "total": 27776,
       "lateFee": 0,
-      "paid": true,
-      "paymentDate": ""
+      "paid": false,
+      "paymentDate": null
     },
     {
       "slNo": 15,
@@ -555,8 +566,8 @@
       "interest": 2976,
       "total": 27776,
       "lateFee": 0,
-      "paid": true,
-      "paymentDate": ""
+      "paid": false,
+      "paymentDate": null
     },
     {
       "slNo": 16,
@@ -565,8 +576,8 @@
       "interest": 2976,
       "total": 27776,
       "lateFee": 0,
-      "paid": true,
-      "paymentDate": ""
+      "paid": false,
+      "paymentDate": null
     },
     {
       "slNo": 17,
@@ -575,8 +586,8 @@
       "interest": 2976,
       "total": 27776,
       "lateFee": 0,
-      "paid": true,
-      "paymentDate": ""
+      "paid": false,
+      "paymentDate": null
     },
     {
       "slNo": 18,
@@ -585,8 +596,8 @@
       "interest": 2976,
       "total": 27776,
       "lateFee": 0,
-      "paid": true,
-      "paymentDate": ""
+      "paid": false,
+      "paymentDate": null
     },
     {
       "slNo": 19,
@@ -595,8 +606,8 @@
       "interest": 2976,
       "total": 27776,
       "lateFee": 0,
-      "paid": true,
-      "paymentDate": ""
+      "paid": false,
+      "paymentDate": null
     },
     {
       "slNo": 20,
@@ -605,8 +616,8 @@
       "interest": 2976,
       "total": 27776,
       "lateFee": 0,
-      "paid": true,
-      "paymentDate": ""
+      "paid": false,
+      "paymentDate": null
     },
     {
       "slNo": 21,
@@ -615,8 +626,8 @@
       "interest": 2976,
       "total": 27776,
       "lateFee": 0,
-      "paid": true,
-      "paymentDate": ""
+      "paid": false,
+      "paymentDate": null
     },
     {
       "slNo": 22,
@@ -625,8 +636,8 @@
       "interest": 2976,
       "total": 27776,
       "lateFee": 0,
-      "paid": true,
-      "paymentDate": ""
+      "paid": false,
+      "paymentDate": null
     },
     {
       "slNo": 23,
@@ -635,8 +646,8 @@
       "interest": 2976,
       "total": 27776,
       "lateFee": 0,
-      "paid": true,
-      "paymentDate": ""
+      "paid": false,
+      "paymentDate": null
     },
     {
       "slNo": 24,
@@ -645,8 +656,8 @@
       "interest": 2976,
       "total": 28476,
       "lateFee": 700,
-      "paid": true,
-      "paymentDate": ""
+      "paid": false,
+      "paymentDate": null
     },
     {
       "slNo": 25,
@@ -655,8 +666,8 @@
       "interest": 2976,
       "total": 27776,
       "lateFee": 0,
-      "paid": true,
-      "paymentDate": ""
+      "paid": false,
+      "paymentDate": null
     },
     {
       "slNo": 26,
@@ -665,8 +676,8 @@
       "interest": 2976,
       "total": 28176,
       "lateFee": 400,
-      "paid": true,
-      "paymentDate": ""
+      "paid": false,
+      "paymentDate": null
     },
     {
       "slNo": 27,
@@ -675,8 +686,8 @@
       "interest": 2976,
       "total": 27776,
       "lateFee": 0,
-      "paid": true,
-      "paymentDate": ""
+      "paid": false,
+      "paymentDate": null
     },
     {
       "slNo": 28,
@@ -685,8 +696,8 @@
       "interest": 2976,
       "total": 27776,
       "lateFee": 0,
-      "paid": true,
-      "paymentDate": ""
+      "paid": false,
+      "paymentDate": null
     },
     {
       "slNo": 29,
@@ -695,8 +706,8 @@
       "interest": 2976,
       "total": 27776,
       "lateFee": 0,
-      "paid": true,
-      "paymentDate": ""
+      "paid": false,
+      "paymentDate": null
     },
     {
       "slNo": 30,
@@ -705,8 +716,8 @@
       "interest": 2976,
       "total": 27776,
       "lateFee": 0,
-      "paid": true,
-      "paymentDate": ""
+      "paid": false,
+      "paymentDate": null
     },
     {
       "slNo": 31,
@@ -715,8 +726,8 @@
       "interest": 2976,
       "total": 27776,
       "lateFee": 0,
-      "paid": true,
-      "paymentDate": ""
+      "paid": false,
+      "paymentDate": null
     },
     {
       "slNo": 32,
@@ -725,8 +736,8 @@
       "interest": 2976,
       "total": 27776,
       "lateFee": 0,
-      "paid": true,
-      "paymentDate": ""
+      "paid": false,
+      "paymentDate": null
     },
     {
       "slNo": 33,
@@ -735,8 +746,8 @@
       "interest": 2976,
       "total": 27776,
       "lateFee": 0,
-      "paid": true,
-      "paymentDate": ""
+      "paid": false,
+      "paymentDate": null
     },
     {
       "slNo": 34,
@@ -745,8 +756,8 @@
       "interest": 2976,
       "total": 28476,
       "lateFee": 700,
-      "paid": true,
-      "paymentDate": ""
+      "paid": false,
+      "paymentDate": null
     },
     {
       "slNo": 35,
@@ -755,8 +766,8 @@
       "interest": 2976,
       "total": 27776,
       "lateFee": 0,
-      "paid": true,
-      "paymentDate": ""
+      "paid": false,
+      "paymentDate": null
     },
     {
       "slNo": 36,
@@ -765,8 +776,8 @@
       "interest": 2976,
       "total": 27776,
       "lateFee": 0,
-      "paid": true,
-      "paymentDate": ""
+      "paid": false,
+      "paymentDate": null
     },
     {
       "slNo": 37,
@@ -775,8 +786,8 @@
       "interest": 2976,
       "total": 27776,
       "lateFee": 0,
-      "paid": true,
-      "paymentDate": ""
+      "paid": false,
+      "paymentDate": null
     },
     {
       "slNo": 38,
@@ -785,8 +796,8 @@
       "interest": 2976,
       "total": 27776,
       "lateFee": 0,
-      "paid": true,
-      "paymentDate": ""
+      "paid": false,
+      "paymentDate": null
     },
     {
       "slNo": 39,
@@ -795,8 +806,8 @@
       "interest": 2976,
       "total": 27776,
       "lateFee": 0,
-      "paid": true,
-      "paymentDate": ""
+      "paid": false,
+      "paymentDate": null
     },
     {
       "slNo": 40,
@@ -805,8 +816,8 @@
       "interest": 3192,
       "total": 30192,
       "lateFee": 400,
-      "paid": true,
-      "paymentDate": ""
+      "paid": false,
+      "paymentDate": null
     },
     {
       "slNo": 41,
@@ -815,8 +826,8 @@
       "interest": 2976,
       "total": 28276,
       "lateFee": 500,
-      "paid": true,
-      "paymentDate": ""
+      "paid": false,
+      "paymentDate": null
     },
     {
       "slNo": 42,
@@ -825,8 +836,8 @@
       "interest": 2976,
       "total": 27776,
       "lateFee": 0,
-      "paid": true,
-      "paymentDate": ""
+      "paid": false,
+      "paymentDate": null
     },
     {
       "slNo": 43,
@@ -835,8 +846,8 @@
       "interest": 2976,
       "total": 27776,
       "lateFee": 0,
-      "paid": true,
-      "paymentDate": ""
+      "paid": false,
+      "paymentDate": null
     },
     {
       "slNo": 44,
@@ -845,8 +856,8 @@
       "interest": 2976,
       "total": 27776,
       "lateFee": 0,
-      "paid": true,
-      "paymentDate": ""
+      "paid": false,
+      "paymentDate": null
     }
   ],
   "expenses": [
@@ -889,23 +900,10 @@
     {
       "item": "Peepayi",
       "amount": 160
-    }
-  ],
-  "report": [
-    {
-      "category": "Cheeti Collections",
-      "amount": 1224160,
-      "type": "income"
     },
     {
-      "category": "Donations",
-      "amount": 88444,
-      "type": "income"
-    },
-    {
-      "category": "Total Expenses",
-      "amount": -68065,
-      "type": "expense"
+      "item": "Snacks & Cool drinks",
+      "amount": 1011
     }
   ],
   "committee": [

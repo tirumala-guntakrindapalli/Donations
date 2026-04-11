@@ -1271,9 +1271,6 @@ async function publishAllChanges() {
                         if (!currentYearData.cheeti_collections) {
                             currentYearData.cheeti_collections = [];
                         }
-                        if (!currentYearData.report) {
-                            currentYearData.report = [];
-                        }
                         
                         // Add the collection
                         currentYearData.cheeti_collections.push({
@@ -1293,27 +1290,7 @@ async function publishAllChanges() {
                             if (expectedIndex >= 0) {
                                 console.log(`🔄 Removing ${update.memberName} from cheeti_expected (already paid)`);
                                 currentYearData.cheeti_expected.splice(expectedIndex, 1);
-                                
-                                // Recalculate estimated collections based on remaining expected members
-                                const estimatedTotal = currentYearData.cheeti_expected.reduce((sum, e) => sum + (e.expectedTotal || 0), 0);
-                                const estimatedIndex = currentYearData.report.findIndex(r => r.type === 'income_estimated');
-                                if (estimatedIndex >= 0) {
-                                    currentYearData.report[estimatedIndex].amount = estimatedTotal;
-                                    console.log(`📊 Updated estimated collections to ₹${estimatedTotal}`);
-                                }
                             }
-                        }
-                        
-                        // Update report
-                        const cheetiCollectionIndex = currentYearData.report.findIndex(r => r.category === 'Cheeti Collections');
-                        if (cheetiCollectionIndex >= 0) {
-                            currentYearData.report[cheetiCollectionIndex].amount += update.amount;
-                        } else {
-                            currentYearData.report.push({
-                                category: 'Cheeti Collections',
-                                amount: update.amount,
-                                type: 'income'
-                            });
                         }
                         
                         // Save the current year data
@@ -2899,18 +2876,12 @@ async function initializeNewYear(year) {
             donations: [],
             cheeti: [],
             cheeti_collections: [],
-            cheeti_expected: estimatedDetails, // Store expected collections details
+            cheeti_expected: estimatedDetails, // Store expected collections details for reference
             expenses: [],
             sponsors: [],
             laddu_winners: [],
             committee: committeeMembers, // Committee for this year (from previous year's next_year)
-            committee_next_year: [], // Empty - to be populated for next year
-            report: [
-                { category: "Donations", amount: 0, type: "income" },
-                { category: `Estimated Cheeti Collections (${previousYear})`, amount: estimatedCollections, type: "income_estimated" },
-                { category: "Actual Cheeti Collections", amount: 0, type: "income" },
-                { category: "Total Expenses", amount: 0, type: "expense" }
-            ]
+            committee_next_year: [] // Empty - to be populated for next year
         };
         
         // Save the new year data
@@ -3608,32 +3579,7 @@ async function addCheetiCollectionToCurrentYear(memberName, amount, paymentDate)
             if (expectedIndex >= 0) {
                 console.log(`🔄 Removing ${memberName} from cheeti_expected (already paid)`);
                 targetYearData.cheeti_expected.splice(expectedIndex, 1);
-                
-                // Recalculate estimated collections based on remaining expected members
-                const estimatedTotal = targetYearData.cheeti_expected.reduce((sum, e) => sum + (e.expectedTotal || 0), 0);
-                const estimatedIndex = targetYearData.report.findIndex(r => r.type === 'income_estimated');
-                if (estimatedIndex >= 0) {
-                    targetYearData.report[estimatedIndex].amount = estimatedTotal;
-                    console.log(`📊 Updated estimated collections to ₹${estimatedTotal}`);
-                }
             }
-        }
-        
-        // Update report - add to income
-        if (!targetYearData.report) {
-            targetYearData.report = [];
-        }
-        
-        // Add or update Cheeti Collections in report
-        const cheetiCollectionIndex = targetYearData.report.findIndex(r => r.category === 'Cheeti Collections');
-        if (cheetiCollectionIndex >= 0) {
-            targetYearData.report[cheetiCollectionIndex].amount += amount;
-        } else {
-            targetYearData.report.push({
-                category: 'Cheeti Collections',
-                amount: amount,
-                type: 'income'
-            });
         }
         
         // Save target year data (only in production mode or when not in draft)
@@ -4517,36 +4463,67 @@ function getToastIcon(type) {
 // Chart Functions
 function createFinancialChart(reportData) {
     const ctx = document.getElementById('financialChart');
-    if (!ctx || !reportData || reportData.length === 0) return;
+    if (!ctx) return;
     
-    // Filter out estimated amounts - only show actual income and expenses
-    const actualData = reportData.filter(r => r.type !== 'income_estimated');
+    // Build chart data from actual sources, not from the stale report array
+    const chartData = [];
     
-    // Add laddu winnings to the chart if present
+    // Donations
+    const totalDonations = (currentData.donations || []).reduce((sum, d) => sum + d.amount, 0);
+    if (totalDonations > 0) {
+        chartData.push({
+            category: 'Donations',
+            amount: totalDonations,
+            type: 'income'
+        });
+    }
+    
+    // Actual Cheeti Collections
+    const cheetiCollections = (currentData.cheeti_collections || []).reduce((sum, c) => sum + (c.amount || 0), 0);
+    if (cheetiCollections > 0) {
+        chartData.push({
+            category: 'Cheeti Collections',
+            amount: cheetiCollections,
+            type: 'income'
+        });
+    }
+    
+    // Laddu Winnings
     const ladduWinnings = (currentData.laddu_winners || []).reduce((sum, w) => sum + (w.amount || 0), 0);
     if (ladduWinnings > 0) {
-        actualData.push({
+        chartData.push({
             category: 'Laddu Winnings',
             amount: ladduWinnings,
             type: 'income'
         });
     }
     
-    if (!actualData || actualData.length === 0) return;
+    // Total Expenses
+    const totalExpenses = (currentData.expenses || []).reduce((sum, e) => sum + e.amount, 0);
+    if (totalExpenses > 0) {
+        chartData.push({
+            category: 'Total Expenses',
+            amount: totalExpenses,
+            type: 'expense'
+        });
+    }
+    
+    if (chartData.length === 0) return;
     
     if (window.financialChartInstance) window.financialChartInstance.destroy();
     
     window.financialChartInstance = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: actualData.map(r => r.category),
+            labels: chartData.map(r => r.category),
             datasets: [{
                 label: 'Amount',
-                data: actualData.map(r => r.amount),
-                backgroundColor: actualData.map(r => {
-                    if (r.category === 'Total Amount') return '#2ecc71';
-                    if (r.category === 'Total Expenses') return '#e74c3c';
+                data: chartData.map(r => r.amount),
+                backgroundColor: chartData.map(r => {
+                    if (r.type === 'expense') return '#e74c3c';
                     if (r.category === 'Laddu Winnings') return '#f39c12';
+                    if (r.category === 'Donations') return '#3498db';
+                    if (r.category === 'Cheeti Collections') return '#2ecc71';
                     return '#3498db';
                 }),
                 borderRadius: 8
