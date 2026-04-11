@@ -1,6 +1,6 @@
 {
   "year": "2026",
-  "lastUpdated": "2026-04-11T06:03:08.972Z",
+  "lastUpdated": "2026-04-11T06:05:01.064Z",
   "donations": [
     {
       "slNo": 1,
@@ -11,6 +11,16 @@
       "slNo": 2,
       "name": "test 2",
       "amount": 1000
+    },
+    {
+      "slNo": 3,
+      "name": "test 5",
+      "amount": 1000
+    },
+    {
+      "slNo": 4,
+      "name": "test 6",
+      "amount": 2500
     }
   ],
   "cheeti": [
@@ -23,6 +33,16 @@
       "paid": false,
       "paymentDate": null,
       "lateFee": 0
+    },
+    {
+      "slNo": 2,
+      "name": "test 2",
+      "amount": 2498,
+      "interest": 300,
+      "total": 2798,
+      "paid": false,
+      "paymentDate": null,
+      "lateFee": 0
     }
   ],
   "cheeti_collections": [],
@@ -31,12 +51,41 @@
     {
       "item": "test",
       "amount": 500
+    },
+    {
+      "item": "test 2",
+      "amount": 1000
     }
   ],
-  "sponsors": [],
-  "laddu_winners": [],
+  "sponsors": [
+    {
+      "slNo": 1,
+      "name": "Testing 1",
+      "type": "Laddu",
+      "amount": 0
+    },
+    {
+      "slNo": 2,
+      "name": "testing 2",
+      "type": "Prasadam",
+      "amount": 0
+    }
+  ],
+  "laddu_winners": [
+    {
+      "slNo": 1,
+      "name": "TBC1",
+      "amount": 14997,
+      "date": "2026-04-11T06:04:33.701Z"
+    }
+  ],
   "committee": [],
-  "committee_next_year": [],
+  "committee_next_year": [
+    {
+      "name": "P Sasidhar",
+      "role": "Organizer"
+    }
+  ],
   "report": [
     {
       "category": "Donations",
