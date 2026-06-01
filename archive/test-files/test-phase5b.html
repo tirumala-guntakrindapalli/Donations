@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phase 5B - Supporting Features Test</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .test-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+
+        .test-section h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .test-case {
+            margin-bottom: 15px;
+            padding: 15px;
+            background: white;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        .test-case h3 {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-right: 10px;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #5568d3;
+        }
+
+        .result {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 13px;
+            display: none;
+        }
+
+        .result.show {
+            display: block;
+        }
+
+        .result.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .result.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .result.info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+
+        pre {
+            background: #f4f4f4;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        .summary {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .summary h2 {
+            color: #856404;
+            margin-bottom: 10px;
+        }
+
+        .summary-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .stat {
+            padding: 15px;
+            background: white;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .clear-btn {
+            background: #dc3545;
+        }
+
+        .clear-btn:hover {
+            background: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 Phase 5B - Supporting Features Test</h1>
+        <p class="subtitle">Testing Committee, Sponsors, and Laddu Winners modules</p>
+
+        <div class="summary">
+            <h2>📊 Test Summary</h2>
+            <div class="summary-stats">
+                <div class="stat">
+                    <div class="stat-value" id="totalTests">0</div>
+                    <div class="stat-label">Total Tests</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value" style="color: #28a745;" id="passedTests">0</div>
+                    <div class="stat-label">Passed</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value" style="color: #dc3545;" id="failedTests">0</div>
+                    <div class="stat-label">Failed</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Committee Tests -->
+        <div class="test-section">
+            <h2>👥 Committee Module Tests</h2>
+            
+            <div class="test-case">
+                <h3>Test 1: Add Committee Member (Valid)</h3>
+                <button onclick="testAddCommitteeMember()">Run Test</button>
+                <div class="result" id="result-add-committee"></div>
+            </div>
+            
+            <div class="test-case">
+                <h3>Test 2: Validate Duplicate Committee Member</h3>
+                <button onclick="testDuplicateCommitteeMember()">Run Test</button>
+                <div class="result" id="result-duplicate-committee"></div>
+            </div>
+            
+            <div class="test-case">
+                <h3>Test 3: Validate Committee Member Data</h3>
+                <button onclick="testValidateCommitteeMember()">Run Test</button>
+                <div class="result" id="result-validate-committee"></div>
+            </div>
+        </div>
+
+        <!-- Sponsors Tests -->
+        <div class="test-section">
+            <h2>🤝 Sponsors Module Tests</h2>
+            
+            <div class="test-case">
+                <h3>Test 4: Add Sponsor (Valid)</h3>
+                <button onclick="testAddSponsor()">Run Test</button>
+                <div class="result" id="result-add-sponsor"></div>
+            </div>
+            
+            <div class="test-case">
+                <h3>Test 5: Validate Duplicate Sponsor (Name+Type)</h3>
+                <button onclick="testDuplicateSponsor()">Run Test</button>
+                <div class="result" id="result-duplicate-sponsor"></div>
+            </div>
+            
+            <div class="test-case">
+                <h3>Test 6: Custom Sponsor Type Toggle</h3>
+                <button onclick="testCustomSponsorType()">Run Test</button>
+                <div class="result" id="result-custom-sponsor"></div>
+            </div>
+            
+            <div class="test-case">
+                <h3>Test 7: Validate Sponsor Data</h3>
+                <button onclick="testValidateSponsor()">Run Test</button>
+                <div class="result" id="result-validate-sponsor"></div>
+            </div>
+        </div>
+
+        <!-- Laddu Winners Tests -->
+        <div class="test-section">
+            <h2>🏆 Laddu Winners Module Tests</h2>
+            
+            <div class="test-case">
+                <h3>Test 8: Add Laddu Winner (Valid)</h3>
+                <button onclick="testAddLadduWinner()">Run Test</button>
+                <div class="result" id="result-add-laddu"></div>
+            </div>
+            
+            <div class="test-case">
+                <h3>Test 9: Validate One Winner Limit</h3>
+                <button onclick="testLadduWinnerLimit()">Run Test</button>
+                <div class="result" id="result-laddu-limit"></div>
+            </div>
+            
+            <div class="test-case">
+                <h3>Test 10: Validate Laddu Winner Data</h3>
+                <button onclick="testValidateLadduWinner()">Run Test</button>
+                <div class="result" id="result-validate-laddu"></div>
+            </div>
+        </div>
+
+        <div style="margin-top: 30px; text-align: center;">
+            <button onclick="runAllTests()" style="background: #28a745; padding: 12px 24px; font-size: 16px;">
+                ▶️ Run All Tests
+            </button>
+            <button onclick="clearResults()" class="clear-btn" style="padding: 12px 24px; font-size: 16px;">
+                🗑️ Clear Results
+            </button>
+        </div>
+    </div>
+
+    <!-- Mock Dependencies and Configuration -->
+    <script>
+        // Mock Configuration
+        window.DASHBOARD_CONFIG = {
+            testMode: true,
+            dataPath: 'data/dev/donations-2025.json',
+            githubConfig: {
+                owner: 'test-owner',
+                repo: 'test-repo',
+                branch: 'main'
+            }
+        };
+
+        // Mock DashboardState (before loading modules)
+        window.DashboardState = {
+            currentData: {
+                committee: [],
+                committee_next_year: [],
+                sponsors: [],
+                laddu_winners: [],
+                year: '2025'
+            },
+            isAdmin: () => true,
+            getCurrentData: function() {
+                return this.currentData;
+            },
+            setCurrentData: function(data) {
+                this.currentData = data;
+            },
+            setUnsavedData: function(value) {
+                console.log('Unsaved data flag set to:', value);
+            }
+        };
+
+        // Mock helper functions
+        window.showError = function(msg) {
+            console.log('Error:', msg);
+        };
+
+        window.showSuccess = function(msg) {
+            console.log('Success:', msg);
+        };
+
+        window.trackChange = function(type, category, details) {
+            console.log('Change tracked:', type, category, details);
+        };
+
+        window.processData = function() {
+            console.log('UI refreshed via processData()');
+        };
+
+        window.formatCurrency = function(amount) {
+            return '₹' + amount.toLocaleString('en-IN');
+        };
+
+        window.updateAnnouncements = function() {
+            console.log('Announcements updated');
+        };
+
+        window.showCustomConfirm = function(options) {
+            console.log('Confirm dialog:', options.title);
+            return Promise.resolve(true); // Auto-confirm for tests
+        };
+
+        // Test statistics
+        let testStats = {
+            total: 0,
+            passed: 0,
+            failed: 0
+        };
+
+        function updateStats() {
+            document.getElementById('totalTests').textContent = testStats.total;
+            document.getElementById('passedTests').textContent = testStats.passed;
+            document.getElementById('failedTests').textContent = testStats.failed;
+        }
+
+        function showResult(resultId, success, message, details = null) {
+            const resultDiv = document.getElementById(resultId);
+            resultDiv.className = 'result show ' + (success ? 'success' : 'error');
+            resultDiv.innerHTML = `<strong>${success ? '✅ PASS' : '❌ FAIL'}:</strong> ${message}`;
+            
+            if (details) {
+                resultDiv.innerHTML += `<pre>${JSON.stringify(details, null, 2)}</pre>`;
+            }
+
+            testStats.total++;
+            if (success) testStats.passed++;
+            else testStats.failed++;
+            updateStats();
+        }
+
+        function clearResults() {
+            const results = document.querySelectorAll('.result');
+            results.forEach(r => r.classList.remove('show'));
+            testStats = { total: 0, passed: 0, failed: 0 };
+            updateStats();
+            
+            // Reset test data
+            window.DashboardState.currentData = {
+                committee: [],
+                committee_next_year: [],
+                sponsors: [],
+                laddu_winners: [],
+                year: '2025'
+            };
+        }
+
+        // Helper to create mock DOM elements
+        function createMockInput(id, value) {
+            const input = document.createElement('input');
+            input.id = id;
+            input.value = value;
+            input.style.display = 'none';
+            document.body.appendChild(input);
+            return input;
+        }
+
+        function createMockSelect(id, value) {
+            const select = document.createElement('select');
+            select.id = id;
+            const option = document.createElement('option');
+            option.value = value;
+            option.selected = true;
+            select.appendChild(option);
+            select.style.display = 'none';
+            document.body.appendChild(select);
+            return select;
+        }
+
+        // ============ COMMITTEE TESTS ============
+        function testAddCommitteeMember() {
+            const nameInput = createMockInput('committeeMemberName', 'Test President');
+            const roleSelect = createMockSelect('committeeMemberRole', 'President');
+            
+            try {
+                window.addCommitteeMember();
+                const data = window.DashboardState.getCurrentData();
+                
+                if (data.committee_next_year.length === 1 && data.committee_next_year[0].name === 'Test President') {
+                    showResult('result-add-committee', true, 'Committee member added successfully', data.committee_next_year[0]);
+                } else {
+                    showResult('result-add-committee', false, 'Failed to add committee member');
+                }
+            } catch (e) {
+                showResult('result-add-committee', false, 'Exception: ' + e.message);
+            } finally {
+                nameInput.remove();
+                roleSelect.remove();
+            }
+        }
+
+        function testDuplicateCommitteeMember() {
+            const nameInput = createMockInput('committeeMemberName', 'Test Secretary');
+            const roleSelect = createMockSelect('committeeMemberRole', 'Secretary');
+            
+            try {
+                window.addCommitteeMember();
+                
+                // Reset inputs after they were cleared by first add
+                nameInput.value = 'Test Secretary';
+                roleSelect.value = 'Secretary';
+                
+                // Try to add duplicate
+                let errorCaught = false;
+                const originalError = window.showError;
+                window.showError = function(msg) {
+                    if (msg.includes('already exists')) errorCaught = true;
+                };
+                
+                window.addCommitteeMember();
+                window.showError = originalError;
+                
+                if (errorCaught) {
+                    showResult('result-duplicate-committee', true, 'Duplicate validation works correctly');
+                } else {
+                    showResult('result-duplicate-committee', false, 'Duplicate not detected');
+                }
+            } catch (e) {
+                showResult('result-duplicate-committee', false, 'Exception: ' + e.message);
+            } finally {
+                nameInput.remove();
+                roleSelect.remove();
+            }
+        }
+
+        function testValidateCommitteeMember() {
+            try {
+                const tests = [
+                    { name: '', role: 'Member', expected: false, desc: 'Empty name' },
+                    { name: 'Valid Name', role: '', expected: false, desc: 'Empty role' },
+                    { name: 'Valid Name', role: 'Treasurer', expected: true, desc: 'Valid data' }
+                ];
+                
+                let allPassed = true;
+                const results = [];
+                
+                tests.forEach(test => {
+                    const result = window.validateCommitteeMember(test.name, test.role);
+                    const passed = result.valid === test.expected;
+                    results.push({ test: test.desc, passed, result });
+                    if (!passed) allPassed = false;
+                });
+                
+                if (allPassed) {
+                    showResult('result-validate-committee', true, 'All validation tests passed', results);
+                } else {
+                    showResult('result-validate-committee', false, 'Some validations failed', results);
+                }
+            } catch (e) {
+                showResult('result-validate-committee', false, 'Exception: ' + e.message);
+            }
+        }
+
+        // ============ SPONSOR TESTS ============
+        function testAddSponsor() {
+            const nameInput = createMockInput('sponsorName', 'Test Sponsor');
+            const typeSelect = createMockSelect('sponsorType', 'Food');
+            const amountInput = createMockInput('sponsorAmount', '5000');
+            const customTypeGroup = document.createElement('div');
+            customTypeGroup.id = 'customSponsorTypeGroup';
+            customTypeGroup.style.display = 'none';
+            document.body.appendChild(customTypeGroup);
+            const customTypeInput = createMockInput('customSponsorType', '');
+            
+            try {
+                window.addSponsor();
+                const data = window.DashboardState.getCurrentData();
+                
+                if (data.sponsors.length > 0 && data.sponsors[data.sponsors.length-1].name === 'Test Sponsor') {
+                    showResult('result-add-sponsor', true, 'Sponsor added successfully', data.sponsors[data.sponsors.length-1]);
+                } else {
+                    showResult('result-add-sponsor', false, 'Failed to add sponsor');
+                }
+            } catch (e) {
+                showResult('result-add-sponsor', false, 'Exception: ' + e.message);
+            } finally {
+                nameInput.remove();
+                typeSelect.remove();
+                amountInput.remove();
+                customTypeGroup.remove();
+                customTypeInput.remove();
+            }
+        }
+
+        function testDuplicateSponsor() {
+            const nameInput = createMockInput('sponsorName', 'Duplicate Sponsor');
+            const typeSelect = createMockSelect('sponsorType', 'Stage');
+            const amountInput = createMockInput('sponsorAmount', '10000');
+            const customTypeGroup = document.createElement('div');
+            customTypeGroup.id = 'customSponsorTypeGroup';
+            customTypeGroup.style.display = 'none';
+            document.body.appendChild(customTypeGroup);
+            const customTypeInput = createMockInput('customSponsorType', '');
+            
+            try {
+                window.addSponsor();
+                
+                // Reset inputs after they were cleared by first add
+                nameInput.value = 'Duplicate Sponsor';
+                typeSelect.value = 'Stage';
+                amountInput.value = '10000';
+                
+                // Try to add duplicate (same name + type)
+                let errorCaught = false;
+                const originalError = window.showError;
+                window.showError = function(msg) {
+                    if (msg.includes('already exists')) errorCaught = true;
+                };
+                
+                window.addSponsor();
+                window.showError = originalError;
+                
+                if (errorCaught) {
+                    showResult('result-duplicate-sponsor', true, 'Duplicate sponsor validation works');
+                } else {
+                    showResult('result-duplicate-sponsor', false, 'Duplicate not detected');
+                }
+            } catch (e) {
+                showResult('result-duplicate-sponsor', false, 'Exception: ' + e.message);
+            } finally {
+                nameInput.remove();
+                typeSelect.remove();
+                amountInput.remove();
+                customTypeGroup.remove();
+                customTypeInput.remove();
+            }
+        }
+
+        function testCustomSponsorType() {
+            const typeSelect = createMockSelect('sponsorType', 'Other');
+            const customTypeGroup = document.createElement('div');
+            customTypeGroup.id = 'customSponsorTypeGroup';
+            customTypeGroup.style.display = 'none';
+            document.body.appendChild(customTypeGroup);
+            const customTypeInput = createMockInput('customSponsorType', '');
+            
+            try {
+                window.toggleCustomSponsorType();
+                
+                if (customTypeGroup.style.display === 'block') {
+                    showResult('result-custom-sponsor', true, 'Custom type field shown correctly');
+                } else {
+                    showResult('result-custom-sponsor', false, 'Custom type field not shown');
+                }
+            } catch (e) {
+                showResult('result-custom-sponsor', false, 'Exception: ' + e.message);
+            } finally {
+                typeSelect.remove();
+                customTypeGroup.remove();
+                customTypeInput.remove();
+            }
+        }
+
+        function testValidateSponsor() {
+            try {
+                const tests = [
+                    { name: '', type: 'Food', expected: false, desc: 'Empty name' },
+                    { name: 'Valid', type: '', expected: false, desc: 'Empty type' },
+                    { name: 'Valid Sponsor', type: 'Decoration', expected: true, desc: 'Valid data' }
+                ];
+                
+                let allPassed = true;
+                const results = [];
+                
+                tests.forEach(test => {
+                    const result = window.validateSponsor(test.name, test.type);
+                    const passed = result.valid === test.expected;
+                    results.push({ test: test.desc, passed, result });
+                    if (!passed) allPassed = false;
+                });
+                
+                if (allPassed) {
+                    showResult('result-validate-sponsor', true, 'All validation tests passed', results);
+                } else {
+                    showResult('result-validate-sponsor', false, 'Some validations failed', results);
+                }
+            } catch (e) {
+                showResult('result-validate-sponsor', false, 'Exception: ' + e.message);
+            }
+        }
+
+        // ============ LADDU WINNER TESTS ============
+        function testAddLadduWinner() {
+            const nameInput = createMockInput('winnerName', 'Test Winner');
+            const amountInput = createMockInput('winnerAmount', '2500');
+            
+            try {
+                window.addLadduWinner();
+                const data = window.DashboardState.getCurrentData();
+                
+                if (data.laddu_winners.length === 1 && data.laddu_winners[0].name === 'Test Winner') {
+                    showResult('result-add-laddu', true, 'Laddu winner added successfully', data.laddu_winners[0]);
+                } else {
+                    showResult('result-add-laddu', false, 'Failed to add laddu winner');
+                }
+            } catch (e) {
+                showResult('result-add-laddu', false, 'Exception: ' + e.message);
+            } finally {
+                nameInput.remove();
+                amountInput.remove();
+            }
+        }
+
+        function testLadduWinnerLimit() {
+            const nameInput = createMockInput('winnerName', 'Second Winner');
+            const amountInput = createMockInput('winnerAmount', '3000');
+            
+            // Ensure we start fresh
+            window.DashboardState.currentData.laddu_winners = [];
+            
+            // Add first winner
+            nameInput.value = 'First Winner';
+            amountInput.value = '2000';
+            window.addLadduWinner();
+            
+            // Reset inputs for second attempt
+            nameInput.value = 'Second Winner';
+            amountInput.value = '3000';
+            
+            try {
+                // Try to add second winner
+                let errorCaught = false;
+                const originalError = window.showError;
+                window.showError = function(msg) {
+                    if (msg.includes('already exists') || msg.includes('Only one winner')) errorCaught = true;
+                };
+                
+                window.addLadduWinner();
+                window.showError = originalError;
+                
+                if (errorCaught) {
+                    showResult('result-laddu-limit', true, 'One winner limit enforced correctly');
+                } else {
+                    showResult('result-laddu-limit', false, 'Limit not enforced');
+                }
+            } catch (e) {
+                showResult('result-laddu-limit', false, 'Exception: ' + e.message);
+            } finally {
+                nameInput.remove();
+                amountInput.remove();
+            }
+        }
+
+        function testValidateLadduWinner() {
+            try {
+                const tests = [
+                    { name: '', checkLimit: false, expected: false, desc: 'Empty name' },
+                    { name: 'Valid Winner', checkLimit: false, expected: true, desc: 'Valid data (no limit check)' }
+                ];
+                
+                let allPassed = true;
+                const results = [];
+                
+                tests.forEach(test => {
+                    const result = window.validateLadduWinner(test.name, test.checkLimit);
+                    const passed = result.valid === test.expected;
+                    results.push({ test: test.desc, passed, result });
+                    if (!passed) allPassed = false;
+                });
+                
+                if (allPassed) {
+                    showResult('result-validate-laddu', true, 'All validation tests passed', results);
+                } else {
+                    showResult('result-validate-laddu', false, 'Some validations failed', results);
+                }
+            } catch (e) {
+                showResult('result-validate-laddu', false, 'Exception: ' + e.message);
+            }
+        }
+
+        // ============ RUN ALL TESTS ============
+        function runAllTests() {
+            clearResults();
+            
+            // Clear data before tests
+            window.DashboardState.currentData = {
+                committee: [],
+                committee_next_year: [],
+                sponsors: [],
+                laddu_winners: [],
+                year: '2025'
+            };
+            
+            // Run tests with delays
+            setTimeout(() => testAddCommitteeMember(), 100);
+            setTimeout(() => testDuplicateCommitteeMember(), 200);
+            setTimeout(() => testValidateCommitteeMember(), 300);
+            
+            setTimeout(() => testAddSponsor(), 400);
+            setTimeout(() => testDuplicateSponsor(), 500);
+            setTimeout(() => testCustomSponsorType(), 600);
+            setTimeout(() => testValidateSponsor(), 700);
+            
+            setTimeout(() => testAddLadduWinner(), 800);
+            setTimeout(() => testLadduWinnerLimit(), 900);
+            setTimeout(() => testValidateLadduWinner(), 1000);
+        }
+    </script>
+
+    <!-- Load Phase 5B Modules -->
+    <script src="js/features/committee/committee.js"></script>
+    <script src="js/features/sponsors/sponsors.js"></script>
+    <script src="js/features/laddu/laddu.js"></script>
+
+    <script>
+        console.log('✅ Phase 5B modules loaded');
+        console.log('Available functions:', {
+            committee: typeof window.addCommitteeMember === 'function',
+            sponsors: typeof window.addSponsor === 'function',
+            laddu: typeof window.addLadduWinner === 'function'
+        });
+    </script>
+</body>
+</html>

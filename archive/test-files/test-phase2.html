@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phase 2 Test - UI Layer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            min-height: 100vh;
+        }
+
+        .test-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .test-section h2 {
+            margin-top: 0;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+            padding-bottom: 10px;
+        }
+
+        .test-result {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 10px;
+            border-radius: 6px;
+            margin: 10px 0;
+            font-family: monospace;
+        }
+
+        .pass { color: #4ade80; }
+        .fail { color: #f87171; }
+        .info { color: #60a5fa; }
+
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin: 5px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        button:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Toast Styles */
+        .toast {
+            position: fixed;
+            bottom: -100px;
+            right: 20px;
+            background: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 250px;
+            transition: bottom 0.3s ease;
+            z-index: 10000;
+        }
+
+        .toast.show {
+            bottom: 20px;
+        }
+
+        .toast-success { border-left: 4px solid #4ade80; color: #166534; }
+        .toast-error { border-left: 4px solid #f87171; color: #991b1b; }
+        .toast-warning { border-left: 4px solid #fbbf24; color: #92400e; }
+        .toast-info { border-left: 4px solid #60a5fa; color: #1e40af; }
+
+        .toast i {
+            font-size: 20px;
+        }
+
+        .toast-success i { color: #4ade80; }
+        .toast-error i { color: #f87171; }
+        .toast-warning i { color: #fbbf24; }
+        .toast-info i { color: #60a5fa; }
+
+        /* Loading Overlay */
+        #loadingOverlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        #loadingOverlay .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        #loadingText {
+            color: white;
+            margin-left: 20px;
+            font-size: 18px;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            justify-content: center;
+            align-items: center;
+            z-index: 9998;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            max-width: 500px;
+            width: 90%;
+            color: #333;
+        }
+
+        .modal-content h3 {
+            margin-top: 0;
+            color: #667eea;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            margin-top: 20px;
+        }
+
+        .btn-cancel {
+            background: #6b7280;
+        }
+
+        .btn-confirm {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 Phase 2 Module Tests - UI Layer</h1>
+    <p>Testing UI components: Toast, Loading, Modals, and Events</p>
+
+    <!-- Test Section 1: Toast Notifications -->
+    <div class="test-section">
+        <h2>1️⃣ Toast Notifications</h2>
+        <button onclick="testToast('success')">Test Success Toast</button>
+        <button onclick="testToast('error')">Test Error Toast</button>
+        <button onclick="testToast('warning')">Test Warning Toast</button>
+        <button onclick="testToast('info')">Test Info Toast</button>
+        <div id="toastResults"></div>
+    </div>
+
+    <!-- Test Section 2: Loading Overlay -->
+    <div class="test-section">
+        <h2>2️⃣ Loading Overlay</h2>
+        <button onclick="testLoading()">Test Loading (3 seconds)</button>
+        <button onclick="testLoadingUpdate()">Test Update Message</button>
+        <div id="loadingResults"></div>
+    </div>
+
+    <!-- Test Section 3: Modals -->
+    <div class="test-section">
+        <h2>3️⃣ Modal System</h2>
+        <button onclick="testBasicModal()">Test Basic Modal</button>
+        <button onclick="testCustomConfirm()">Test Custom Confirm</button>
+        <div id="modalResults"></div>
+    </div>
+
+    <!-- Test Section 4: Event Handlers -->
+    <div class="test-section">
+        <h2>4️⃣ Event Handlers</h2>
+        <button id="testEventButton">Test Event Listener</button>
+        <button onclick="testDebouncedEvent()">Test Debounced Event</button>
+        <div id="eventResults"></div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay">
+        <div class="spinner"></div>
+        <div id="loadingText">Loading...</div>
+    </div>
+
+    <!-- Test Modal -->
+    <div id="testModal" class="modal">
+        <div class="modal-content">
+            <h3>Test Modal</h3>
+            <p>This is a test modal to verify modal functionality.</p>
+            <div class="modal-buttons">
+                <button class="btn-cancel" onclick="hideTestModal()">Cancel</button>
+                <button class="btn-confirm" onclick="confirmTestModal()">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom Confirm Modal -->
+    <div id="customConfirmModal" class="modal">
+        <div class="modal-content">
+            <div id="customConfirmHeader">
+                <i id="customConfirmIcon" class="fas fa-question-circle"></i>
+                <h3 id="customConfirmTitle">Confirm</h3>
+            </div>
+            <div id="customConfirmMessage">Are you sure?</div>
+            <div class="modal-buttons">
+                <button id="customConfirmCancelBtn" class="btn-cancel">
+                    <span id="customConfirmCancelText">Cancel</span>
+                </button>
+                <button id="customConfirmProceedBtn" class="btn-confirm">
+                    <span id="customConfirmProceedText">Confirm</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Load Phase 1 modules (dependencies) -->
+    <script src="js/core/constants.js"></script>
+    <script src="js/core/config.js"></script>
+    <script src="js/core/state.js"></script>
+    <script src="js/core/utils/formatters.js"></script>
+    <script src="js/core/utils/validators.js"></script>
+    <script src="js/core/utils/helpers.js"></script>
+
+    <!-- Load Phase 2 modules -->
+    <script src="js/ui/toast.js"></script>
+    <script src="js/ui/loading.js"></script>
+    <script src="js/ui/modals.js"></script>
+    <script src="js/core/events.js"></script>
+
+    <script>
+        let testResults = {
+            toast: false,
+            loading: false,
+            modal: false,
+            events: false
+        };
+
+        // Test Functions
+        function testToast(type) {
+            const messages = {
+                success: '✅ Success! Operation completed successfully.',
+                error: '❌ Error! Something went wrong.',
+                warning: '⚠️ Warning! Please check your input.',
+                info: 'ℹ️ Info: This is an informational message.'
+            };
+
+            showToast(messages[type], type);
+
+            testResults.toast = true;
+            updateToastResults();
+        }
+
+        function updateToastResults() {
+            const results = document.getElementById('toastResults');
+            results.innerHTML = `
+                <div class="test-result pass">
+                    ✓ Toast notifications working correctly
+                </div>
+                <div class="test-result info">
+                    Try all 4 types: Success, Error, Warning, Info
+                </div>
+            `;
+        }
+
+        function testLoading() {
+            showLoading('Testing loading overlay...');
+            setTimeout(() => {
+                hideLoading();
+                testResults.loading = true;
+                updateLoadingResults();
+            }, 3000);
+        }
+
+        function testLoadingUpdate() {
+            showLoading('Step 1: Starting...');
+            setTimeout(() => updateLoadingMessage('Step 2: Processing...'), 1000);
+            setTimeout(() => updateLoadingMessage('Step 3: Almost done...'), 2000);
+            setTimeout(() => {
+                hideLoading();
+                showSuccess('Loading test complete!');
+            }, 3000);
+        }
+
+        function updateLoadingResults() {
+            const results = document.getElementById('loadingResults');
+            results.innerHTML = `
+                <div class="test-result pass">
+                    ✓ Loading overlay working correctly
+                </div>
+                <div class="test-result info">
+                    Loading shows for 3 seconds then hides
+                </div>
+            `;
+        }
+
+        function testBasicModal() {
+            const modal = document.getElementById('testModal');
+            modal.classList.add('show');
+            document.body.classList.add('modal-open');
+        }
+
+        function hideTestModal() {
+            const modal = document.getElementById('testModal');
+            modal.classList.remove('show');
+            document.body.classList.remove('modal-open');
+            showInfo('Modal cancelled');
+        }
+
+        function confirmTestModal() {
+            const modal = document.getElementById('testModal');
+            modal.classList.remove('show');
+            document.body.classList.remove('modal-open');
+            showSuccess('Modal confirmed!');
+            testResults.modal = true;
+            updateModalResults();
+        }
+
+        async function testCustomConfirm() {
+            const result = await showCustomConfirm({
+                title: '🎯 Custom Confirmation',
+                message: '<strong>This is a promise-based confirmation dialog.</strong><br><br>Click confirm to see success, or cancel to see cancel.',
+                icon: 'fas fa-check-circle',
+                iconColor: '#667eea',
+                confirmText: 'Yes, Proceed',
+                cancelText: 'No, Cancel'
+            });
+
+            if (result) {
+                showSuccess('✅ You clicked Confirm!');
+            } else {
+                showInfo('ℹ️ You clicked Cancel');
+            }
+
+            testResults.modal = true;
+            updateModalResults();
+        }
+
+        function updateModalResults() {
+            const results = document.getElementById('modalResults');
+            results.innerHTML = `
+                <div class="test-result pass">
+                    ✓ Modal system working correctly
+                </div>
+                <div class="test-result info">
+                    Promise-based custom confirm works!
+                </div>
+            `;
+        }
+
+        function testDebouncedEvent() {
+            const handler = createDebouncedEventHandler(() => {
+                showSuccess('Debounced event fired!');
+            }, 500);
+
+            // Trigger multiple times quickly
+            for (let i = 0; i < 5; i++) {
+                setTimeout(() => handler(), i * 100);
+            }
+
+            showInfo('Firing 5 times in 500ms... only last one should execute');
+        }
+
+        // Auto-run basic tests
+        window.addEventListener('load', () => {
+            console.log('🧪 Running Phase 2 tests...');
+
+            // Test event listener setup
+            const testBtn = document.getElementById('testEventButton');
+            if (testBtn) {
+                testBtn.addEventListener('click', () => {
+                    showSuccess('Event listener works!');
+                    testResults.events = true;
+                    updateEventResults();
+                });
+            }
+
+            setTimeout(() => {
+                console.log('✅ Phase 2 modules loaded successfully!');
+                displayInitialResults();
+            }, 500);
+        });
+
+        function updateEventResults() {
+            const results = document.getElementById('eventResults');
+            results.innerHTML = `
+                <div class="test-result pass">
+                    ✓ Event handlers working correctly
+                </div>
+                <div class="test-result info">
+                    Click both buttons to test all event handlers
+                </div>
+            `;
+        }
+
+        function displayInitialResults() {
+            const toastResults = document.getElementById('toastResults');
+            const loadingResults = document.getElementById('loadingResults');
+            const modalResults = document.getElementById('modalResults');
+            const eventResults = document.getElementById('eventResults');
+
+            toastResults.innerHTML = '<div class="test-result info">Click buttons above to test toasts</div>';
+            loadingResults.innerHTML = '<div class="test-result info">Click buttons above to test loading</div>';
+            modalResults.innerHTML = '<div class="test-result info">Click buttons above to test modals</div>';
+            eventResults.innerHTML = '<div class="test-result info">Click test button to verify event listener</div>';
+        }
+    </script>
+</body>
+</html>

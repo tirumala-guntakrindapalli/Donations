@@ -53,27 +53,87 @@ Login with your configured admin password
 
 ## 📂 **Project Structure**
 
+### Modular Architecture (31 JavaScript Modules)
+
+The application has been restructured from a 5,602-line monolithic file into 31 organized, testable modules:
+
 ```
 Donations/
-├── index.html                    # Public home page
-├── dashboard.html                # Admin dashboard
-├── simple-dashboard.js           # Dashboard functionality
-├── styles.css                    # Styling
-├── dashboard-config.js           # Local config (gitignored)
+├── index.html                    # Main dashboard page
+├── dashboard-config.js           # Configuration (gitignored)
 ├── dashboard-config.template.js  # Template for setup
-├── data/
-│   ├── donations-2024.json       # 2024 data
-│   ├── donations-2025.json       # 2025 data
-│   └── donations-2026.json       # 2026 data
-├── .github/
-│   └── workflows/
-│       └── deploy.yml            # Auto-deployment workflow
-├── docs/                         # Additional documentation
-├── QUICK_SETUP.md                # Fast deployment guide
-├── DEPLOYMENT_GUIDE.md           # Complete hosting guide
-├── SECURITY_SETUP.md             # Password configuration
-└── STRUCTURE.md                  # Detailed file layout
+├── styles.css                    # Styling
+│
+├── js/                          # 31 Modular JavaScript Files
+│   ├── app-loader.js           # Module orchestration (31 modules)
+│   │
+│   ├── core/                    # Core Foundation (11 modules)
+│   │   ├── constants.js         # Global constants
+│   │   ├── config.js            # Config loading
+│   │   ├── state.js             # Centralized state management
+│   │   ├── event-handlers.js   # Event listeners
+│   │   ├── app.js               # Application bootstrap
+│   │   ├── utils/               # Utilities (helpers, validators, auth)
+│   │   ├── auth/                # Authentication (login, session, password)
+│   │   └── services/            # Services (GitHub API, data loader/saver)
+│   │
+│   ├── ui/                      # UI Components (5 modules)
+│   │   ├── toast.js             # Notifications
+│   │   ├── modal.js             # Modal dialogs
+│   │   ├── admin-panel.js       # Admin panel UI
+│   │   └── components/          # Shared components (actions, forms)
+│   │
+│   └── features/                # Feature Modules (15 modules)
+│       ├── donations/           # Donation CRUD
+│       ├── expenses/            # Expense CRUD
+│       ├── cheeti/              # Cheeti member CRUD & payments
+│       ├── committee/           # Committee management
+│       ├── sponsors/            # Sponsors & laddu
+│       ├── charts/              # Chart.js visualizations
+│       ├── reports/             # Data processing & metrics
+│       └── settings/            # Dashboard/year visibility, announcements
+│
+├── data/                        # Data Storage
+│   ├── prod/                    # Production data
+│   │   ├── donations-2024.json
+│   │   └── donations-2025.json
+│   ├── dev/                     # Development data
+│   └── archive/                 # Backups
+│
+├── tests/                       # Test Files (10 test suites)
+│   ├── test-phase1.html         # Foundation tests
+│   ├── test-integration.html    # Integration tests (8 tests)
+│   └── ...                      # Phase 2-8 tests
+│
+├── docs/                        # Documentation
+│   ├── MODULES.md               # Complete module reference (31 modules)
+│   ├── ARCHITECTURE.md          # System architecture
+│   ├── TESTING_GUIDE.md         # Testing documentation
+│   └── ...                      # Additional guides
+│
+└── .github/
+    └── workflows/
+        └── deploy.yml            # Auto-deployment workflow
 ```
+
+### Architecture Highlights
+
+**✅ Modular Design:**
+- 31 independent, testable modules
+- Clear separation of concerns
+- Dependency-ordered loading
+
+**✅ Comprehensive Testing:**
+- 10 test suites
+- 58+ individual tests
+- 100% integration test coverage
+
+**✅ Documentation:**
+- Complete module reference in [docs/MODULES.md](docs/MODULES.md)
+- Architecture guide in [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)
+- Testing guide in [docs/TESTING_GUIDE.md](docs/TESTING_GUIDE.md)
+
+**See:** [docs/MODULES.md](docs/MODULES.md) for complete module reference and API documentation.
 
 ---
 
@@ -198,6 +258,7 @@ For questions or issues:
 
 ---
 
-**Version**: 2.0 (Year-Based, Fixed Cycle)  
-**Last Updated**: April 2026  
+**Version**: 3.0 (Modular Architecture - 31 Modules)  
+**Last Updated**: April 11, 2026  
+**Architecture**: ES6+ Modular JavaScript with Backward Compatibility  
 **Maintained by**: Vinayaka Chavithi Committee

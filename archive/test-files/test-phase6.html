@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phase 6 - Visualization & Reports Test</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .test-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+
+        .test-section h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .test-case {
+            margin-bottom: 15px;
+            padding: 15px;
+            background: white;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        .test-case h3 {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-right: 10px;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #5568d3;
+        }
+
+        .result {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 13px;
+            display: none;
+        }
+
+        .result.show {
+            display: block;
+        }
+
+        .result.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .result.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        pre {
+            background: #f4f4f4;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        .summary {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .summary h2 {
+            color: #856404;
+            margin-bottom: 10px;
+        }
+
+        .summary-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .stat {
+            padding: 15px;
+            background: white;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .clear-btn {
+            background: #dc3545;
+        }
+
+        .clear-btn:hover {
+            background: #c82333;
+        }
+
+        .chart-container {
+            width: 100%;
+            height: 300px;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 Phase 6 - Visualization & Reports Test</h1>
+        <p class="subtitle">Testing Charts and Data Processing modules</p>
+
+        <div class="summary">
+            <h2>📊 Test Summary</h2>
+            <div class="summary-stats">
+                <div class="stat">
+                    <div class="stat-value" id="totalTests">0</div>
+                    <div class="stat-label">Total Tests</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value" style="color: #28a745;" id="passedTests">0</div>
+                    <div class="stat-label">Passed</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value" style="color: #dc3545;" id="failedTests">0</div>
+                    <div class="stat-label">Failed</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Charts Tests -->
+        <div class="test-section">
+            <h2>📊 Charts Module Tests</h2>
+            
+            <div class="test-case">
+                <h3>Test 1: Create Financial Chart</h3>
+                <div class="chart-container">
+                    <canvas id="financialChart"></canvas>
+                </div>
+                <button onclick="testFinancialChart()">Run Test</button>
+                <div class="result" id="result-financial-chart"></div>
+            </div>
+            
+            <div class="test-case">
+                <h3>Test 2: Create Expenses Chart</h3>
+                <div class="chart-container">
+                    <canvas id="expensesChart"></canvas>
+                </div>
+                <button onclick="testExpensesChart()">Run Test</button>
+                <div class="result" id="result-expenses-chart"></div>
+            </div>
+            
+            <div class="test-case">
+                <h3>Test 3: Create Cheeti Chart</h3>
+                <div class="chart-container">
+                    <canvas id="cheetiChart"></canvas>
+                </div>
+                <button onclick="testCheetiChart()">Run Test</button>
+                <div class="result" id="result-cheeti-chart"></div>
+            </div>
+            
+            <div class="test-case">
+                <h3>Test 4: Destroy All Charts</h3>
+                <button onclick="testDestroyCharts()">Run Test</button>
+                <div class="result" id="result-destroy-charts"></div>
+            </div>
+        </div>
+
+        <!-- Data Processing Tests -->
+        <div class="test-section">
+            <h2>📈 Data Processing Module Tests</h2>
+            
+            <div class="test-case">
+                <h3>Test 5: Update Metrics</h3>
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 10px;">
+                    <div style="padding: 10px; background: #f0f0f0; border-radius: 5px;">
+                        <div style="font-size: 12px; color: #666;">Total Donations</div>
+                        <div id="totalDonations" style="font-weight: bold; color: #3498db;">-</div>
+                    </div>
+                    <div style="padding: 10px; background: #f0f0f0; border-radius: 5px;">
+                        <div style="font-size: 12px; color: #666;">Total Expenses</div>
+                        <div id="totalExpenses" style="font-weight: bold; color: #e74c3c;">-</div>
+                    </div>
+                    <div style="padding: 10px; background: #f0f0f0; border-radius: 5px;">
+                        <div style="font-size: 12px; color: #666;">Balance</div>
+                        <div id="balance" style="font-weight: bold; color: #2ecc71;">-</div>
+                    </div>
+                </div>
+                <button onclick="testUpdateMetrics()">Run Test</button>
+                <div class="result" id="result-update-metrics"></div>
+            </div>
+            
+            <div class="test-case">
+                <h3>Test 6: Calculate Financial Summary</h3>
+                <button onclick="testFinancialSummary()">Run Test</button>
+                <div class="result" id="result-financial-summary"></div>
+            </div>
+            
+            <div class="test-case">
+                <h3>Test 7: Process Data (Full Integration)</h3>
+                <button onclick="testProcessData()">Run Test</button>
+                <div class="result" id="result-process-data"></div>
+            </div>
+        </div>
+
+        <div style="margin-top: 30px; text-align: center;">
+            <button onclick="runAllTests()" style="background: #28a745; padding: 12px 24px; font-size: 16px;">
+                ▶️ Run All Tests
+            </button>
+            <button onclick="clearResults()" class="clear-btn" style="padding: 12px 24px; font-size: 16px;">
+                🗑️ Clear Results
+            </button>
+        </div>
+    </div>
+
+    <!-- Chart.js Library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+    <!-- Mock Dependencies and Configuration -->
+    <script>
+        // Mock Configuration
+        window.DASHBOARD_CONFIG = {
+            testMode: true,
+            dataPath: 'data/dev/donations-2025.json'
+        };
+
+        // Sample test data
+        const testData = {
+            donations: [
+                { name: 'Donor A', amount: 5000 },
+                { name: 'Donor B', amount: 3000 },
+                { name: 'Donor C', amount: 2000 }
+            ],
+            expenses: [
+                { item: 'Flowers', amount: 1500 },
+                { item: 'Food', amount: 3000 },
+                { item: 'Decorations', amount: 2500 }
+            ],
+            cheeti: [
+                { name: 'Member A', amount: 10000, interest: 1200, total: 11200 },
+                { name: 'Member B', amount: 15000, interest: 1800, total: 16800 }
+            ],
+            laddu_winners: [
+                { name: 'Winner A', amount: 500 }
+            ],
+            cheeti_collections: [
+                { name: 'Member C', amount: 5000 }
+            ],
+            committee: [],
+            sponsors: []
+        };
+
+        // Mock DashboardState
+        window.DashboardState = {
+            currentData: testData,
+            isAdmin: () => true,
+            getCurrentData: function() {
+                return this.currentData;
+            },
+            setCurrentData: function(data) {
+                this.currentData = data;
+            }
+        };
+
+        // Also set as global for compatibility
+        window.currentData = testData;
+        window.isAdmin = true;
+
+        // Mock helper functions
+        window.safeSetText = function(id, text) {
+            const el = document.getElementById(id);
+            if (el) el.textContent = text;
+        };
+
+        window.formatCurrency = function(amount) {
+            return '₹' + amount.toLocaleString('en-IN');
+        };
+
+        // Mock optional functions
+        window.checkDashboardVisibility = function() { return true; };
+        window.hideDashboardDisabledMessage = function() {};
+        window.populateDonorsTable = function() { console.log('populateDonorsTable called'); };
+        window.populateCheetiTable = function() { console.log('populateCheetiTable called'); };
+        window.populateExpensesTable = function() { console.log('populateExpensesTable called'); };
+        window.populateCommitteeTable = function() { console.log('populateCommitteeTable called'); };
+        window.updateAnnouncements = function() { console.log('updateAnnouncements called'); };
+        window.populateCheetiPaidTable = function() { console.log('populateCheetiPaidTable called'); };
+        window.updateCheetiForm = function() { console.log('updateCheetiForm called'); };
+        window.updateCommitteeManagementList = function() { console.log('updateCommitteeManagementList called'); };
+        window.updateSponsorsManagementList = function() { console.log('updateSponsorsManagementList called'); };
+        window.updateLadduWinnersManagementList = function() { console.log('updateLadduWinnersManagementList called'); };
+        window.refreshTableModal = function() { console.log('refreshTableModal called'); };
+
+        // Test statistics
+        let testStats = {
+            total: 0,
+            passed: 0,
+            failed: 0
+        };
+
+        function updateStats() {
+            document.getElementById('totalTests').textContent = testStats.total;
+            document.getElementById('passedTests').textContent = testStats.passed;
+            document.getElementById('failedTests').textContent = testStats.failed;
+        }
+
+        function showResult(resultId, success, message, details = null) {
+            const resultDiv = document.getElementById(resultId);
+            resultDiv.className = 'result show ' + (success ? 'success' : 'error');
+            resultDiv.innerHTML = `<strong>${success ? '✅ PASS' : '❌ FAIL'}:</strong> ${message}`;
+            
+            if (details) {
+                resultDiv.innerHTML += `<pre>${JSON.stringify(details, null, 2)}</pre>`;
+            }
+
+            testStats.total++;
+            if (success) testStats.passed++;
+            else testStats.failed++;
+            updateStats();
+        }
+
+        function clearResults() {
+            const results = document.querySelectorAll('.result');
+            results.forEach(r => r.classList.remove('show'));
+            testStats = { total: 0, passed: 0, failed: 0 };
+            updateStats();
+            
+            // Destroy charts
+            if (typeof destroyAllCharts === 'function') {
+                destroyAllCharts();
+            }
+        }
+
+        // ============ CHART TESTS ============
+        function testFinancialChart() {
+            try {
+                window.createFinancialChart([]);
+                
+                if (window.financialChartInstance) {
+                    showResult('result-financial-chart', true, 'Financial chart created successfully');
+                } else {
+                    showResult('result-financial-chart', false, 'Chart instance not created');
+                }
+            } catch (e) {
+                showResult('result-financial-chart', false, 'Exception: ' + e.message);
+            }
+        }
+
+        function testExpensesChart() {
+            try {
+                window.createExpensesChart(testData.expenses);
+                
+                if (window.expensesChartInstance) {
+                    showResult('result-expenses-chart', true, 'Expenses chart created successfully');
+                } else {
+                    showResult('result-expenses-chart', false, 'Chart instance not created');
+                }
+            } catch (e) {
+                showResult('result-expenses-chart', false, 'Exception: ' + e.message);
+            }
+        }
+
+        function testCheetiChart() {
+            try {
+                window.createCheetiChart(testData.cheeti);
+                
+                if (window.cheetiChartInstance) {
+                    showResult('result-cheeti-chart', true, 'Cheeti chart created successfully');
+                } else {
+                    showResult('result-cheeti-chart', false, 'Chart instance not created');
+                }
+            } catch (e) {
+                showResult('result-cheeti-chart', false, 'Exception: ' + e.message);
+            }
+        }
+
+        function testDestroyCharts() {
+            try {
+                // Create charts first
+                window.createFinancialChart([]);
+                window.createExpensesChart(testData.expenses);
+                window.createCheetiChart(testData.cheeti);
+                
+                // Destroy all
+                window.destroyAllCharts();
+                
+                if (!window.financialChartInstance && !window.expensesChartInstance && !window.cheetiChartInstance) {
+                    showResult('result-destroy-charts', true, 'All charts destroyed successfully');
+                } else {
+                    showResult('result-destroy-charts', false, 'Some chart instances still exist');
+                }
+            } catch (e) {
+                showResult('result-destroy-charts', false, 'Exception: ' + e.message);
+            }
+        }
+
+        // ============ DATA PROCESSING TESTS ============
+        function testUpdateMetrics() {
+            try {
+                window.updateMetrics(testData.donations, testData.cheeti, testData.expenses, []);
+                
+                const totalDonEl = document.getElementById('totalDonations');
+                if (totalDonEl && totalDonEl.textContent.includes('10,000')) {
+                    showResult('result-update-metrics', true, 'Metrics updated correctly');
+                } else {
+                    showResult('result-update-metrics', false, 'Metrics not updated correctly');
+                }
+            } catch (e) {
+                showResult('result-update-metrics', false, 'Exception: ' + e.message);
+            }
+        }
+
+        function testFinancialSummary() {
+            try {
+                const summary = window.calculateFinancialSummary();
+                
+                if (summary && summary.totalDonations === 10000 && summary.totalExpenses === 7000) {
+                    showResult('result-financial-summary', true, 'Financial summary calculated correctly', summary);
+                } else {
+                    showResult('result-financial-summary', false, 'Incorrect calculations', summary);
+                }
+            } catch (e) {
+                showResult('result-financial-summary', false, 'Exception: ' + e.message);
+            }
+        }
+
+        function testProcessData() {
+            try {
+                window.processData();
+                
+                // Check if metrics were updated
+                const totalDonEl = document.getElementById('totalDonations');
+                const hasMetrics = totalDonEl && totalDonEl.textContent !== '-';
+                
+                // Check if at least one chart was created
+                const hasCharts = window.financialChartInstance || window.expensesChartInstance || window.cheetiChartInstance;
+                
+                if (hasMetrics && hasCharts) {
+                    showResult('result-process-data', true, 'Process data executed successfully (metrics + charts)');
+                } else {
+                    showResult('result-process-data', false, 'Process data incomplete - metrics: ' + hasMetrics + ', charts: ' + hasCharts);
+                }
+            } catch (e) {
+                showResult('result-process-data', false, 'Exception: ' + e.message);
+            }
+        }
+
+        // ============ RUN ALL TESTS ============
+        function runAllTests() {
+            clearResults();
+            
+            setTimeout(() => testFinancialChart(), 100);
+            setTimeout(() => testExpensesChart(), 200);
+            setTimeout(() => testCheetiChart(), 300);
+            setTimeout(() => testDestroyCharts(), 400);
+            setTimeout(() => testUpdateMetrics(), 500);
+            setTimeout(() => testFinancialSummary(), 600);
+            setTimeout(() => testProcessData(), 700);
+        }
+    </script>
+
+    <!-- Load Phase 6 Modules -->
+    <script src="js/features/charts/charts.js"></script>
+    <script src="js/features/reports/data-processor.js"></script>
+
+    <script>
+        console.log('✅ Phase 6 modules loaded');
+        console.log('Available functions:', {
+            charts: typeof window.createFinancialChart === 'function',
+            dataProcessing: typeof window.processData === 'function'
+        });
+    </script>
+</body>
+</html>
