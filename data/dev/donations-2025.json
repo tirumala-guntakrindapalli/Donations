@@ -1,6 +1,6 @@
 {
   "year": "2025",
-  "lastUpdated": "2026-04-11T08:26:00.000Z",
+  "lastUpdated": "2026-08-28T16:31:37.945Z",
   "settings": {
     "dashboard_enabled": true
   },
@@ -1307,5 +1307,9 @@
       "role": "Member",
       "name": "J Suresh"
     }
-  ]
+  ],
+  "cheeti_settings": {
+    "cutover_date": "2026-09-07",
+    "late_fee_per_day": 100
+  }
 }
