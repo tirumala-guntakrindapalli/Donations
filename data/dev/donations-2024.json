@@ -3,7 +3,7 @@
   "settings": {
     "dashboard_enabled": true
   },
-  "lastUpdated": "2026-08-28T17:44:24.813Z",
+  "lastUpdated": "2026-08-28T17:47:50.904Z",
   "donations": [
     {
       "slNo": 1,
@@ -1003,6 +1003,10 @@
     {
       "role": "Member",
       "name": "B Srinivasulu Reddy"
+    },
+    {
+      "name": "G Tirumala",
+      "role": "Member"
     }
   ],
   "laddu_winners": [
