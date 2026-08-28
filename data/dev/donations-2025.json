@@ -1,6 +1,6 @@
 {
   "year": "2025",
-  "lastUpdated": "2026-08-28T16:31:37.945Z",
+  "lastUpdated": "2026-08-28T16:35:38.823Z",
   "settings": {
     "dashboard_enabled": true
   },
@@ -1310,6 +1310,6 @@
   ],
   "cheeti_settings": {
     "cutover_date": "2026-09-07",
-    "late_fee_per_day": 100
+    "late_fee_per_day": 65
   }
 }
