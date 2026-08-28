@@ -1,6 +1,6 @@
 {
   "year": "2023",
-  "lastUpdated": "2026-08-28T17:24:52.797Z",
+  "lastUpdated": "2026-08-28T17:26:28.874Z",
   "donations": [
     {
       "slNo": 1,
@@ -27,7 +27,14 @@
       "amount": 500
     }
   ],
-  "sponsors": [],
+  "sponsors": [
+    {
+      "slNo": 1,
+      "name": "tirumala",
+      "type": "Laddu",
+      "amount": 100
+    }
+  ],
   "laddu_winners": [],
   "committee": [],
   "committee_next_year": [],
