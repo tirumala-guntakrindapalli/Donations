@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phase 4 Test - Data Layer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            color: #667eea;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .test-section {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.15);
+            margin-bottom: 20px;
+        }
+
+        .test-section h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .test-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            border-left: 4px solid #667eea;
+        }
+
+        .test-item h3 {
+            color: #333;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+        }
+
+        .test-item p {
+            color: #666;
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+
+        .test-result {
+            padding: 12px;
+            border-radius: 6px;
+            margin-top: 10px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .test-result.pending {
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+
+        .test-result.pass {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .test-result.fail {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+            margin-right: 10px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
+        }
+
+        .warning {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+        }
+
+        .warning h3 {
+            color: #856404;
+            margin-bottom: 8px;
+        }
+
+        .warning p {
+            color: #856404;
+            line-height: 1.6;
+        }
+
+        .code-block {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 10px 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .info-display {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 10px;
+            font-family: monospace;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1><i class="fas fa-database"></i> Phase 4 Test Suite</h1>
+            <p>Data Layer Module Testing</p>
+            <p style="margin-top: 10px; font-size: 0.9rem; color: #999;">
+                <strong>⚠️ CRITICAL:</strong> This phase contains data-critical code
+            </p>
+        </div>
+
+        <div class="warning">
+            <h3><i class="fas fa-exclamation-triangle"></i> Data Layer Testing Notice</h3>
+            <p>This test suite verifies GitHub API integration, data loading/saving, and draft mode management. 
+            These are <strong>critical data features</strong>. All tests must pass before integration.</p>
+            <p style="margin-top: 8px;">
+                <strong>Note:</strong> GitHub API tests require valid configuration and will run in test mode only.
+            </p>
+        </div>
+
+        <!-- Test 1: Module Loading -->
+        <div class="test-section">
+            <h2><i class="fas fa-code"></i> Test 1: Module Loading</h2>
+            <div class="test-item">
+                <h3>Load Data Layer Modules</h3>
+                <p>Verify all four data layer modules load successfully</p>
+                <div id="test1-result" class="test-result pending">
+                    <i class="fas fa-spinner fa-spin"></i> Waiting for test...
+                </div>
+                <button class="btn" onclick="runTest1()">
+                    <i class="fas fa-play"></i> Run Test
+                </button>
+            </div>
+        </div>
+
+        <!-- Test 2: GitHub API Functions -->
+        <div class="test-section">
+            <h2><i class="fas fa-brands fa-github"></i> Test 2: GitHub API Helpers</h2>
+            <div class="test-item">
+                <h3>Test Helper Functions</h3>
+                <p>Verify timestamp generation and commit message formatting</p>
+                <div id="test2-result" class="test-result pending">
+                    <i class="fas fa-spinner fa-spin"></i> Waiting for test...
+                </div>
+                <button class="btn" onclick="runTest2()">
+                    <i class="fas fa-clock"></i> Test Helpers
+                </button>
+            </div>
+        </div>
+
+        <!-- Test 3: Draft Mode Tracking -->
+        <div class="test-section">
+            <h2><i class="fas fa-edit"></i> Test 3: Draft Mode Change Tracking</h2>
+            <div class="test-item">
+                <h3>Smart Change Tracking</h3>
+                <p>Test smart tracking: add/edit/delete, opposite action cancellation</p>
+                <div id="test3-result" class="test-result pending">
+                    <i class="fas fa-spinner fa-spin"></i> Waiting for test...
+                </div>
+                <button class="btn" onclick="runTest3()">
+                    <i class="fas fa-pencil-alt"></i> Test Tracking
+                </button>
+            </div>
+        </div>
+
+        <!-- Test 4: Change Preview Generation -->
+        <div class="test-section">
+            <h2><i class="fas fa-eye"></i> Test 4: Change Preview</h2>
+            <div class="test-item">
+                <h3>Generate Changes Preview</h3>
+                <p>Test HTML preview generation for unpublished changes</p>
+                <div id="test4-result" class="test-result pending">
+                    <i class="fas fa-spinner fa-spin"></i> Waiting for test...
+                </div>
+                <button class="btn" onclick="runTest4()">
+                    <i class="fas fa-clipboard-list"></i> Generate Preview
+                </button>
+                <div id="preview-display" class="info-display" style="display: none;"></div>
+            </div>
+        </div>
+
+        <!-- Test 5: Commit Message Generation -->
+        <div class="test-section">
+            <h2><i class="fas fa-comment"></i> Test 5: Commit Summary</h2>
+            <div class="test-item">
+                <h3>Generate Commit Message</h3>
+                <p>Test commit message generation from change summary</p>
+                <div id="test5-result" class="test-result pending">
+                    <i class="fas fa-spinner fa-spin"></i> Waiting for test...
+                </div>
+                <button class="btn" onclick="runTest5()">
+                    <i class="fas fa-message"></i> Generate Summary
+                </button>
+            </div>
+        </div>
+
+        <!-- Test 6: Export Verification -->
+        <div class="test-section">
+            <h2><i class="fas fa-globe"></i> Test 6: Global Exports</h2>
+            <div class="test-item">
+                <h3>Verify All Functions Exported to Window</h3>
+                <p>Check that all data layer functions are globally accessible</p>
+                <div id="test6-result" class="test-result pending">
+                    <i class="fas fa-spinner fa-spin"></i> Waiting for test...
+                </div>
+                <button class="btn" onclick="runTest6()">
+                    <i class="fas fa-check-double"></i> Verify Exports
+                </button>
+            </div>
+        </div>
+
+        <!-- Function List Display -->
+        <div class="test-section">
+            <h2><i class="fas fa-list"></i> Exported Functions</h2>
+            <div class="code-block" id="functionsList">
+                Click "Show All Functions" to view exported functions...
+            </div>
+            <button class="btn btn-secondary" onclick="showAllFunctions()">
+                <i class="fas fa-list-ul"></i> Show All Functions
+            </button>
+        </div>
+    </div>
+
+    <!-- Mock Constants and Config for Testing -->
+    <script>
+        // Mock constants needed for tests
+        const GITHUB_API_BASE = 'https://api.github.com';
+        
+        // Mock DASHBOARD_CONFIG for testing
+        const DASHBOARD_CONFIG = {
+            currentYear: 2026,
+            TEST_MODE: true,
+            REPO_OWNER: 'test-owner',
+            REPO_NAME: 'test-repo',
+            GITHUB_TOKEN: 'test-token',
+            GITHUB_BRANCH: 'main',
+            DATA_ENVIRONMENT: 'test',
+            getDataFilePath: function(year) {
+                return `data/${year}/donations-${year}.json`;
+            }
+        };
+        
+        // Mock DashboardState BEFORE loading modules
+        window.DashboardState = {
+            _draftMode: true,
+            _unpublishedChanges: [],
+            _originalData: {},
+            _currentData: {},
+            getDraftMode: function() { return this._draftMode; },
+            setDraftMode: function(val) { this._draftMode = val; },
+            getUnpublishedChanges: function() { return this._unpublishedChanges; },
+            setUnpublishedChanges: function(changes) { this._unpublishedChanges = changes; },
+            clearUnpublishedChanges: function() { this._unpublishedChanges = []; },
+            getOriginalData: function() { return this._originalData; },
+            setOriginalData: function(data) { this._originalData = data; },
+            getCurrentData: function() { return this._currentData; },
+            setCurrentData: function(data) { this._currentData = data; },
+            isAdmin: function() { return true; }
+        };
+        
+        // Make DashboardState available globally
+        window.DashboardState = window.DashboardState;
+    </script>
+
+    <!-- Load Dependencies FIRST -->
+    <script src="js/ui/toast.js"></script>
+    <script src="js/ui/loading.js"></script>
+    <script src="js/ui/modals.js"></script>
+
+    <!-- Load Phase 4 Modules -->
+    <script src="js/core/services/github-api.js"></script>
+    <script src="js/core/services/data-loader.js"></script>
+    <script src="js/core/services/data-saver.js"></script>
+    <script src="js/core/services/draft-manager.js"></script>
+
+    <!-- Test Scripts -->
+    <script>
+
+        // Test 1: Module Loading
+        function runTest1() {
+            const result = document.getElementById('test1-result');
+            const requiredFunctions = [
+                // GitHub API
+                'getFileSHA', 'getYearFileSHA', 'fetchGitHubFile', 'updateGitHubFile',
+                'fileExistsOnGitHub', 'fetchLocalFile', 'generateCommitTimestamp', 'generateCommitMessage',
+                // Data Loader
+                'loadDataFromGitHub', 'loadYearData', 'syncCommitteeFromPreviousYear', 
+                'reloadCurrentData', 'yearDataExists',
+                // Data Saver
+                'saveDataToGitHub', 'saveYearData', 'saveYearDataToFile', 'downloadDataAsJSON',
+                // Draft Manager
+                'updateDraftModeUI', 'trackChange', 'publishAllChanges', 'generateChangesPreview',
+                'generateChangeSummary', 'formatChangeDetails'
+            ];
+
+            const missing = requiredFunctions.filter(fn => typeof window[fn] !== 'function');
+
+            if (missing.length === 0) {
+                result.className = 'test-result pass';
+                result.innerHTML = `
+                    <i class="fas fa-check-circle"></i>
+                    ✅ All ${requiredFunctions.length} data layer functions loaded successfully!
+                `;
+            } else {
+                result.className = 'test-result fail';
+                result.innerHTML = `
+                    <i class="fas fa-times-circle"></i>
+                    ❌ Missing functions: ${missing.join(', ')}
+                `;
+            }
+        }
+
+        // Test 2: GitHub API Helpers
+        function runTest2() {
+            const result = document.getElementById('test2-result');
+
+            try {
+                // Test timestamp generation
+                const timestamp = generateCommitTimestamp();
+                if (!timestamp || timestamp.length === 0) {
+                    throw new Error('Timestamp generation failed');
+                }
+
+                // Test commit message generation
+                const message1 = generateCommitMessage('💰 Update donations');
+                const message2 = generateCommitMessage('📊 Update data', { skipCI: false });
+
+                if (!message1.includes('Update donations') || !message1.includes('[skip ci]')) {
+                    throw new Error('Commit message format incorrect');
+                }
+
+                if (!message2.includes('Update data') || message2.includes('[skip ci]')) {
+                    throw new Error('SkipCI option not working');
+                }
+
+                result.className = 'test-result pass';
+                result.innerHTML = `
+                    <div>
+                        <i class="fas fa-check-circle"></i>
+                        ✅ Helper functions working correctly!
+                    </div>
+                    <div class="code-block" style="margin-top: 10px;">
+                        Timestamp: ${timestamp}<br>
+                        Message 1: ${message1}<br>
+                        Message 2: ${message2}
+                    </div>
+                `;
+            } catch (error) {
+                result.className = 'test-result fail';
+                result.innerHTML = `
+                    <i class="fas fa-times-circle"></i>
+                    ❌ Test failed: ${error.message}
+                `;
+            }
+        }
+
+        // Test 3: Draft Mode Tracking
+        function runTest3() {
+            const result = document.getElementById('test3-result');
+
+            try {
+                // Ensure draft mode is on
+                DashboardState.setDraftMode(true);
+                DashboardState.clearUnpublishedChanges();
+
+                // Test 1: Add a change
+                trackChange('add', 'donation', { name: 'Test User', amount: 1000 });
+                let changes = DashboardState.getUnpublishedChanges();
+                if (changes.length !== 1) throw new Error('Add tracking failed');
+
+                // Test 2: Delete the same item (should cancel out)
+                trackChange('delete', 'donation', { index: 0, item: { name: 'Test User', amount: 1000 } });
+                changes = DashboardState.getUnpublishedChanges();
+                if (changes.length !== 0) throw new Error('Add-Delete cancellation failed');
+
+                // Test 3: Add and edit (should combine)
+                trackChange('add', 'donation', { name: 'Test User 2', amount: 2000 });
+                trackChange('edit', 'donation', { 
+                    old: { name: 'Test User 2', amount: 2000 },
+                    new: { name: 'Test User 2 Updated', amount: 2500 },
+                    index: 0
+                });
+                changes = DashboardState.getUnpublishedChanges();
+                if (changes.length !== 1 || changes[0].action !== 'add') {
+                    throw new Error('Add-Edit combination failed');
+                }
+                if (changes[0].details.name !== 'Test User 2 Updated') {
+                    throw new Error('Add-Edit values not updated');
+                }
+
+                // Clean up
+                DashboardState.clearUnpublishedChanges();
+
+                result.className = 'test-result pass';
+                result.innerHTML = `
+                    <i class="fas fa-check-circle"></i>
+                    ✅ Smart change tracking working! Tested: Add, Delete, Edit, Cancellation, Combination
+                `;
+            } catch (error) {
+                result.className = 'test-result fail';
+                result.innerHTML = `
+                    <i class="fas fa-times-circle"></i>
+                    ❌ Tracking test failed: ${error.message}
+                `;
+            }
+        }
+
+        // Test 4: Change Preview Generation
+        function runTest4() {
+            const result = document.getElementById('test4-result');
+            const previewDiv = document.getElementById('preview-display');
+
+            try {
+                // Setup test changes
+                DashboardState.setDraftMode(true);
+                DashboardState.clearUnpublishedChanges();
+
+                trackChange('add', 'donation', { name: 'New Donor', amount: 5000 });
+                trackChange('edit', 'expense', { 
+                    old: { item: 'Old Item', amount: 1000 },
+                    new: { item: 'New Item', amount: 1500 },
+                    index: 0
+                });
+                trackChange('delete', 'cheeti', { index: 0, item: { name: 'Removed Member', amount: 500 } });
+
+                // Generate preview
+                const preview = generateChangesPreview();
+
+                if (!preview || preview.length === 0) {
+                    throw new Error('Preview generation failed');
+                }
+
+                if (!preview.includes('ADDITIONS') || !preview.includes('EDITS') || !preview.includes('DELETIONS')) {
+                    throw new Error('Preview missing required sections');
+                }
+
+                // Clean up
+                DashboardState.clearUnpublishedChanges();
+
+                result.className = 'test-result pass';
+                result.innerHTML = `
+                    <i class="fas fa-check-circle"></i>
+                    ✅ Preview generation working! Check preview below.
+                `;
+
+                previewDiv.innerHTML = preview;
+                previewDiv.style.display = 'block';
+
+            } catch (error) {
+                result.className = 'test-result fail';
+                result.innerHTML = `
+                    <i class="fas fa-times-circle"></i>
+                    ❌ Preview test failed: ${error.message}
+                `;
+                previewDiv.style.display = 'none';
+            }
+        }
+
+        // Test 5: Commit Summary Generation
+        function runTest5() {
+            const result = document.getElementById('test5-result');
+
+            try {
+                // Setup test changes
+                DashboardState.setDraftMode(true);
+                DashboardState.clearUnpublishedChanges();
+
+                trackChange('add', 'donation', { name: 'Donor 1', amount: 1000 });
+                trackChange('add', 'donation', { name: 'Donor 2', amount: 2000 });
+                trackChange('edit', 'expense', { 
+                    old: { item: 'Item 1', amount: 500 },
+                    new: { item: 'Item 1 Updated', amount: 600 },
+                    index: 0
+                });
+                trackChange('delete', 'cheeti', { index: 0, item: { name: 'Member 1', amount: 300 } });
+
+                // Generate summary
+                const summary = generateChangeSummary();
+
+                if (!summary || !summary.message) {
+                    throw new Error('Summary generation failed');
+                }
+
+                if (summary.additions !== 2 || summary.edits !== 1 || summary.deletions !== 1) {
+                    throw new Error('Summary counts incorrect');
+                }
+
+                if (!summary.message.includes('2 added') || !summary.message.includes('1 edited') || 
+                    !summary.message.includes('1 deleted')) {
+                    throw new Error('Summary message incorrect');
+                }
+
+                // Clean up
+                DashboardState.clearUnpublishedChanges();
+
+                result.className = 'test-result pass';
+                result.innerHTML = `
+                    <div>
+                        <i class="fas fa-check-circle"></i>
+                        ✅ Summary generation working!
+                    </div>
+                    <div class="code-block" style="margin-top: 10px;">
+                        Total Changes: ${summary.totalChanges}<br>
+                        Additions: ${summary.additions}<br>
+                        Edits: ${summary.edits}<br>
+                        Deletions: ${summary.deletions}<br>
+                        <br>
+                        Message: ${summary.message}
+                    </div>
+                `;
+            } catch (error) {
+                result.className = 'test-result fail';
+                result.innerHTML = `
+                    <i class="fas fa-times-circle"></i>
+                    ❌ Summary test failed: ${error.message}
+                `;
+            }
+        }
+
+        // Test 6: Export Verification
+        function runTest6() {
+            const result = document.getElementById('test6-result');
+            
+            const expectedExports = {
+                'github-api.js': ['getFileSHA', 'getYearFileSHA', 'fetchGitHubFile', 'updateGitHubFile', 
+                                  'fileExistsOnGitHub', 'fetchLocalFile', 'generateCommitTimestamp', 'generateCommitMessage'],
+                'data-loader.js': ['loadDataFromGitHub', 'loadYearData', 'syncCommitteeFromPreviousYear', 
+                                   'reloadCurrentData', 'yearDataExists'],
+                'data-saver.js': ['saveDataToGitHub', 'saveYearData', 'saveYearDataToFile', 'downloadDataAsJSON'],
+                'draft-manager.js': ['updateDraftModeUI', 'trackChange', 'publishAllChanges', 'generateChangesPreview',
+                                     'generateChangeSummary', 'formatChangeDetails', 'getCategoryIconForChange', 'capitalizeFirstLetter']
+            };
+
+            let allExports = [];
+            Object.values(expectedExports).forEach(exports => {
+                allExports = allExports.concat(exports);
+            });
+
+            const missing = allExports.filter(fn => typeof window[fn] !== 'function');
+            const found = allExports.filter(fn => typeof window[fn] === 'function');
+
+            if (missing.length === 0) {
+                result.className = 'test-result pass';
+                result.innerHTML = `
+                    <div>
+                        <i class="fas fa-check-circle"></i>
+                        ✅ All ${allExports.length} functions exported to window!
+                    </div>
+                    <div class="code-block" style="margin-top: 10px;">
+                        ${Object.entries(expectedExports).map(([file, fns]) => 
+                            `${file}: ${fns.length} functions`
+                        ).join('<br>')}
+                    </div>
+                `;
+            } else {
+                result.className = 'test-result fail';
+                result.innerHTML = `
+                    <i class="fas fa-times-circle"></i>
+                    ❌ Missing ${missing.length} exports: ${missing.join(', ')}
+                    <br>Found: ${found.length}/${allExports.length}
+                `;
+            }
+        }
+
+        // Show all exported functions
+        function showAllFunctions() {
+            const display = document.getElementById('functionsList');
+            
+            const functions = {
+                'GitHub API (8)': ['getFileSHA', 'getYearFileSHA', 'fetchGitHubFile', 'updateGitHubFile', 
+                                   'fileExistsOnGitHub', 'fetchLocalFile', 'generateCommitTimestamp', 'generateCommitMessage'],
+                'Data Loader (5)': ['loadDataFromGitHub', 'loadYearData', 'syncCommitteeFromPreviousYear', 
+                                    'reloadCurrentData', 'yearDataExists'],
+                'Data Saver (4)': ['saveDataToGitHub', 'saveYearData', 'saveYearDataToFile', 'downloadDataAsJSON'],
+                'Draft Manager (8)': ['updateDraftModeUI', 'trackChange', 'publishAllChanges', 'generateChangesPreview',
+                                      'generateChangeSummary', 'formatChangeDetails', 'getCategoryIconForChange', 'capitalizeFirstLetter']
+            };
+
+            let output = '';
+            for (const [category, fns] of Object.entries(functions)) {
+                output += `<strong>${category}:</strong><br>`;
+                fns.forEach(fn => {
+                    const exists = typeof window[fn] === 'function';
+                    const status = exists ? '✅' : '❌';
+                    output += `${status} ${fn}()<br>`;
+                });
+                output += '<br>';
+            }
+
+            display.innerHTML = output;
+        }
+
+        // Auto-run Test 1 on load
+        window.addEventListener('load', () => {
+            setTimeout(runTest1, 500);
+        });
+    </script>
+</body>
+</html>

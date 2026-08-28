@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phase 5A - Core Financial Features Test</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .test-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+
+        .test-section h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .test-case {
+            margin-bottom: 15px;
+            padding: 15px;
+            background: white;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        .test-case h3 {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-right: 10px;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #5568d3;
+        }
+
+        .result {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 13px;
+            display: none;
+        }
+
+        .result.show {
+            display: block;
+        }
+
+        .result.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .result.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .result.info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+
+        pre {
+            background: #f4f4f4;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        .summary {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .summary h2 {
+            color: #856404;
+            margin-bottom: 10px;
+        }
+
+        .summary-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .stat {
+            padding: 15px;
+            background: white;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .clear-btn {
+            background: #dc3545;
+        }
+
+        .clear-btn:hover {
+            background: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 Phase 5A - Core Financial Features Test</h1>
+        <p class="subtitle">Testing Donations, Expenses, and Cheeti modules (CRUD operations)</p>
+
+        <div class="summary">
+            <h2>📊 Test Summary</h2>
+            <div class="summary-stats">
+                <div class="stat">
+                    <div class="stat-value" id="totalTests">0</div>
+                    <div class="stat-label">Total Tests</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value" style="color: #28a745;" id="passedTests">0</div>
+                    <div class="stat-label">Passed</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value" style="color: #dc3545;" id="failedTests">0</div>
+                    <div class="stat-label">Failed</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Donations Tests -->
+        <div class="test-section">
+            <h2>💰 Donations Module Tests</h2>
+            
+            <div class="test-case">
+                <h3>Test 1: Add Donation (Valid)</h3>
+                <button onclick="testAddDonation()">Run Test</button>
+                <div class="result" id="result-add-donation"></div>
+            </div>
+            
+            <div class="test-case">
+                <h3>Test 2: Validate Duplicate Donation</h3>
+                <button onclick="testDuplicateDonation()">Run Test</button>
+                <div class="result" id="result-duplicate-donation"></div>
+            </div>
+            
+            <div class="test-case">
+                <h3>Test 3: Edit Donation (Inline)</h3>
+                <button onclick="testEditDonationInline()">Run Test</button>
+                <div class="result" id="result-edit-donation-inline"></div>
+            </div>
+            
+            <div class="test-case">
+                <h3>Test 4: Validate Donation Data</h3>
+                <button onclick="testValidateDonation()">Run Test</button>
+                <div class="result" id="result-validate-donation"></div>
+            </div>
+        </div>
+
+        <!-- Expenses Tests -->
+        <div class="test-section">
+            <h2>💸 Expenses Module Tests</h2>
+            
+            <div class="test-case">
+                <h3>Test 5: Add Expense (Valid)</h3>
+                <button onclick="testAddExpense()">Run Test</button>
+                <div class="result" id="result-add-expense"></div>
+            </div>
+            
+            <div class="test-case">
+                <h3>Test 6: Validate Duplicate Expense</h3>
+                <button onclick="testDuplicateExpense()">Run Test</button>
+                <div class="result" id="result-duplicate-expense"></div>
+            </div>
+            
+            <div class="test-case">
+                <h3>Test 7: Edit Expense (Inline)</h3>
+                <button onclick="testEditExpenseInline()">Run Test</button>
+                <div class="result" id="result-edit-expense-inline"></div>
+            </div>
+
+            <div class="test-case">
+                <h3>Test 8: Validate Expense Data</h3>
+                <button onclick="testValidateExpense()">Run Test</button>
+                <div class="result" id="result-validate-expense"></div>
+            </div>
+        </div>
+
+        <!-- Cheeti Tests -->
+        <div class="test-section">
+            <h2>🏦 Cheeti Module Tests</h2>
+            
+            <div class="test-case">
+                <h3>Test 9: Add Cheeti Member (Valid)</h3>
+                <button onclick="testAddCheetiMember()">Run Test</button>
+                <div class="result" id="result-add-cheeti"></div>
+            </div>
+            
+            <div class="test-case">
+                <h3>Test 10: Calculate Cheeti Interest</h3>
+                <button onclick="testCheetiInterest()">Run Test</button>
+                <div class="result" id="result-cheeti-interest"></div>
+            </div>
+            
+            <div class="test-case">
+                <h3>Test 11: Validate Duplicate Cheeti Member</h3>
+                <button onclick="testDuplicateCheetiMember()">Run Test</button>
+                <div class="result" id="result-duplicate-cheeti"></div>
+            </div>
+            
+            <div class="test-case">
+                <h3>Test 12: Edit Cheeti Member (Inline)</h3>
+                <button onclick="testEditCheetiInline()">Run Test</button>
+                <div class="result" id="result-edit-cheeti-inline"></div>
+            </div>
+        </div>
+
+        <div style="margin-top: 30px; text-align: center;">
+            <button onclick="runAllTests()" style="background: #28a745; padding: 12px 24px; font-size: 16px;">
+                ▶️ Run All Tests
+            </button>
+            <button onclick="clearResults()" class="clear-btn" style="padding: 12px 24px; font-size: 16px;">
+                🗑️ Clear Results
+            </button>
+        </div>
+    </div>
+
+    <!-- Mock Dependencies and Configuration -->
+    <script>
+        // Mock Configuration
+        window.DASHBOARD_CONFIG = {
+            testMode: true,
+            dataPath: 'data/dev/donations-2025.json',
+            githubConfig: {
+                owner: 'test-owner',
+                repo: 'test-repo',
+                branch: 'main'
+            }
+        };
+
+        // Mock DashboardState (before loading modules)
+        window.DashboardState = {
+            currentData: {
+                donations: [],
+                expenses: [],
+                cheeti: []
+            },
+            isAdmin: () => true,
+            getCurrentData: function() {
+                return this.currentData;
+            },
+            setCurrentData: function(data) {
+                this.currentData = data;
+            },
+            setUnsavedData: function(value) {
+                console.log('Unsaved data flag set to:', value);
+            }
+        };
+
+        // Mock helper functions
+        window.showError = function(msg) {
+            console.log('Error:', msg);
+        };
+
+        window.showSuccess = function(msg) {
+            console.log('Success:', msg);
+        };
+
+        window.trackChange = function(type, category, details) {
+            console.log('Change tracked:', type, category, details);
+        };
+
+        window.processData = function() {
+            console.log('UI refreshed via processData()');
+        };
+
+        window.hideEditModal = function() {
+            console.log('Modal hidden');
+        };
+
+        // Mock table population functions
+        window.populateDonorsTable = function(data) {
+            console.log('Donors table populated:', data.length, 'donors');
+        };
+
+        window.populateExpensesTable = function(data) {
+            console.log('Expenses table populated:', data.length, 'expenses');
+        };
+
+        window.populateCheetiTable = function(data) {
+            console.log('Cheeti table populated:', data.length, 'members');
+        };
+
+        // Test statistics
+        let testStats = {
+            total: 0,
+            passed: 0,
+            failed: 0
+        };
+
+        function updateStats() {
+            document.getElementById('totalTests').textContent = testStats.total;
+            document.getElementById('passedTests').textContent = testStats.passed;
+            document.getElementById('failedTests').textContent = testStats.failed;
+        }
+
+        function showResult(resultId, success, message, details = null) {
+            const resultDiv = document.getElementById(resultId);
+            resultDiv.className = 'result show ' + (success ? 'success' : 'error');
+            resultDiv.innerHTML = `<strong>${success ? '✅ PASS' : '❌ FAIL'}:</strong> ${message}`;
+            
+            if (details) {
+                resultDiv.innerHTML += `<pre>${JSON.stringify(details, null, 2)}</pre>`;
+            }
+
+            testStats.total++;
+            if (success) testStats.passed++;
+            else testStats.failed++;
+            updateStats();
+        }
+
+        function clearResults() {
+            const results = document.querySelectorAll('.result');
+            results.forEach(r => r.classList.remove('show'));
+            testStats = { total: 0, passed: 0, failed: 0 };
+            updateStats();
+            
+            // Reset test data
+            window.DashboardState.currentData = {
+                donations: [],
+                expenses: [],
+                cheeti: []
+            };
+        }
+
+        // Helper to create mock DOM elements
+        function createMockInputs(type) {
+            const container = document.createElement('div');
+            container.style.display = 'none';
+            
+            if (type === 'donation') {
+                container.innerHTML = `
+                    <input id="donationName" value="Test Donor">
+                    <input id="donationAmount" value="1000">
+                `;
+            } else if (type === 'expense') {
+                container.innerHTML = `
+                    <input id="expenseItem" value="Test Expense">
+                    <input id="expenseAmount" value="500">
+                `;
+            } else if (type === 'cheeti') {
+                container.innerHTML = `
+                    <input id="cheetiName" value="Test Member">
+                    <input id="cheetiAmount" value="2000">
+                    <input id="cheetiInterest" value="12">
+                    <input id="cheetiInterestRate" value="12">
+                `;
+            }
+            
+            document.body.appendChild(container);
+            return container;
+        }
+
+        // ============ DONATION TESTS ============
+        function testAddDonation() {
+            const container = createMockInputs('donation');
+            
+            try {
+                window.addDonation();
+                const data = window.DashboardState.getCurrentData();
+                
+                if (data.donations.length === 1 && data.donations[0].name === 'Test Donor') {
+                    showResult('result-add-donation', true, 'Donation added successfully', data.donations[0]);
+                } else {
+                    showResult('result-add-donation', false, 'Failed to add donation');
+                }
+            } catch (e) {
+                showResult('result-add-donation', false, 'Exception: ' + e.message);
+            } finally {
+                container.remove();
+            }
+        }
+
+        function testDuplicateDonation() {
+            const container = createMockInputs('donation');
+            
+            try {
+                window.addDonation();
+                
+                // Try to add duplicate
+                let errorCaught = false;
+                const originalError = window.showError;
+                window.showError = function(msg) {
+                    if (msg.includes('already exists')) errorCaught = true;
+                };
+                
+                window.addDonation();
+                window.showError = originalError;
+                
+                if (errorCaught) {
+                    showResult('result-duplicate-donation', true, 'Duplicate validation works correctly');
+                } else {
+                    showResult('result-duplicate-donation', false, 'Duplicate not detected');
+                }
+            } catch (e) {
+                showResult('result-duplicate-donation', false, 'Exception: ' + e.message);
+            } finally {
+                container.remove();
+            }
+        }
+
+        function testEditDonationInline() {
+            // Add a donation first
+            const container = createMockInputs('donation');
+            window.addDonation();
+            container.remove();
+            
+            try {
+                const result = window.validateDonation('Updated Donor', 1500, 0);
+                
+                if (result.valid) {
+                    showResult('result-edit-donation-inline', true, 'Validation for edit passed', result);
+                } else {
+                    showResult('result-edit-donation-inline', false, 'Validation failed: ' + result.error);
+                }
+            } catch (e) {
+                showResult('result-edit-donation-inline', false, 'Exception: ' + e.message);
+            }
+        }
+
+        function testValidateDonation() {
+            try {
+                const tests = [
+                    { name: '', amount: 100, expected: false, desc: 'Empty name' },
+                    { name: 'Valid', amount: 0, expected: false, desc: 'Zero amount' },
+                    { name: 'Valid', amount: 100, expected: true, desc: 'Valid data' }
+                ];
+                
+                let allPassed = true;
+                const results = [];
+                
+                tests.forEach(test => {
+                    const result = window.validateDonation(test.name, test.amount);
+                    const passed = result.valid === test.expected;
+                    results.push({ test: test.desc, passed, result });
+                    if (!passed) allPassed = false;
+                });
+                
+                if (allPassed) {
+                    showResult('result-validate-donation', true, 'All validation tests passed', results);
+                } else {
+                    showResult('result-validate-donation', false, 'Some validations failed', results);
+                }
+            } catch (e) {
+                showResult('result-validate-donation', false, 'Exception: ' + e.message);
+            }
+        }
+
+        // ============ EXPENSE TESTS ============
+        function testAddExpense() {
+            const container = createMockInputs('expense');
+            
+            try {
+                window.addExpense();
+                const data = window.DashboardState.getCurrentData();
+                
+                if (data.expenses.length > 0 && data.expenses[data.expenses.length - 1].item === 'Test Expense') {
+                    showResult('result-add-expense', true, 'Expense added successfully', data.expenses[data.expenses.length - 1]);
+                } else {
+                    showResult('result-add-expense', false, 'Failed to add expense');
+                }
+            } catch (e) {
+                showResult('result-add-expense', false, 'Exception: ' + e.message);
+            } finally {
+                container.remove();
+            }
+        }
+
+        function testDuplicateExpense() {
+            const container = createMockInputs('expense');
+            
+            try {
+                window.addExpense();
+                
+                // Try to add duplicate
+                let errorCaught = false;
+                const originalError = window.showError;
+                window.showError = function(msg) {
+                    if (msg.includes('already exists')) errorCaught = true;
+                };
+                
+                window.addExpense();
+                window.showError = originalError;
+                
+                if (errorCaught) {
+                    showResult('result-duplicate-expense', true, 'Duplicate expense validation works');
+                } else {
+                    showResult('result-duplicate-expense', false, 'Duplicate not detected');
+                }
+            } catch (e) {
+                showResult('result-duplicate-expense', false, 'Exception: ' + e.message);
+            } finally {
+                container.remove();
+            }
+        }
+
+        function testEditExpenseInline() {
+            // Add an expense first
+            const container = createMockInputs('expense');
+            window.addExpense();
+            container.remove();
+            
+            try {
+                const result = window.validateExpense('Updated Expense', 750, 0);
+                
+                if (result.valid) {
+                    showResult('result-edit-expense-inline', true, 'Validation for edit passed', result);
+                } else {
+                    showResult('result-edit-expense-inline', false, 'Validation failed: ' + result.error);
+                }
+            } catch (e) {
+                showResult('result-edit-expense-inline', false, 'Exception: ' + e.message);
+            }
+        }
+
+        function testValidateExpense() {
+            try {
+                const tests = [
+                    { item: '', amount: 100, expected: false, desc: 'Empty item' },
+                    { item: 'Valid', amount: -10, expected: false, desc: 'Negative amount' },
+                    { item: 'Valid Item', amount: 100, expected: true, desc: 'Valid data' }
+                ];
+                
+                let allPassed = true;
+                const results = [];
+                
+                tests.forEach(test => {
+                    const result = window.validateExpense(test.item, test.amount);
+                    const passed = result.valid === test.expected;
+                    results.push({ test: test.desc, passed, result });
+                    if (!passed) allPassed = false;
+                });
+                
+                if (allPassed) {
+                    showResult('result-validate-expense', true, 'All validation tests passed', results);
+                } else {
+                    showResult('result-validate-expense', false, 'Some validations failed', results);
+                }
+            } catch (e) {
+                showResult('result-validate-expense', false, 'Exception: ' + e.message);
+            }
+        }
+
+        // ============ CHEETI TESTS ============
+        function testAddCheetiMember() {
+            const container = createMockInputs('cheeti');
+            
+            try {
+                window.addCheetiMember();
+                const data = window.DashboardState.getCurrentData();
+                
+                if (data.cheeti.length > 0 && data.cheeti[data.cheeti.length - 1].name === 'Test Member') {
+                    const member = data.cheeti[data.cheeti.length - 1];
+                    showResult('result-add-cheeti', true, 'Cheeti member added with interest calculated', member);
+                } else {
+                    showResult('result-add-cheeti', false, 'Failed to add cheeti member');
+                }
+            } catch (e) {
+                showResult('result-add-cheeti', false, 'Exception: ' + e.message);
+            } finally {
+                container.remove();
+            }
+        }
+
+        function testCheetiInterest() {
+            try {
+                const tests = [
+                    { amount: 1000, rate: 12, expected: 120 },
+                    { amount: 5000, rate: 10, expected: 500 },
+                    { amount: 2500, rate: 15, expected: 375 }
+                ];
+                
+                let allPassed = true;
+                const results = [];
+                
+                tests.forEach(test => {
+                    const interest = window.calculateCheetiInterest(test.amount, test.rate);
+                    const passed = interest === test.expected;
+                    results.push({ 
+                        test: `${test.amount} @ ${test.rate}%`,
+                        expected: test.expected,
+                        got: interest,
+                        passed 
+                    });
+                    if (!passed) allPassed = false;
+                });
+                
+                if (allPassed) {
+                    showResult('result-cheeti-interest', true, 'Interest calculation correct', results);
+                } else {
+                    showResult('result-cheeti-interest', false, 'Interest calculation failed', results);
+                }
+            } catch (e) {
+                showResult('result-cheeti-interest', false, 'Exception: ' + e.message);
+            }
+        }
+
+        function testDuplicateCheetiMember() {
+            const container = createMockInputs('cheeti');
+            
+            try {
+                window.addCheetiMember();
+                
+                // Try to add duplicate
+                let errorCaught = false;
+                const originalError = window.showError;
+                window.showError = function(msg) {
+                    if (msg.includes('already exists')) errorCaught = true;
+                };
+                
+                window.addCheetiMember();
+                window.showError = originalError;
+                
+                if (errorCaught) {
+                    showResult('result-duplicate-cheeti', true, 'Duplicate cheeti member validation works');
+                } else {
+                    showResult('result-duplicate-cheeti', false, 'Duplicate not detected');
+                }
+            } catch (e) {
+                showResult('result-duplicate-cheeti', false, 'Exception: ' + e.message);
+            } finally {
+                container.remove();
+            }
+        }
+
+        function testEditCheetiInline() {
+            // Add a member first
+            const container = createMockInputs('cheeti');
+            window.addCheetiMember();
+            container.remove();
+            
+            try {
+                const result = window.validateCheetiMember('Updated Member', 3000, 0);
+                
+                if (result.valid) {
+                    showResult('result-edit-cheeti-inline', true, 'Validation for edit passed', result);
+                } else {
+                    showResult('result-edit-cheeti-inline', false, 'Validation failed: ' + result.error);
+                }
+            } catch (e) {
+                showResult('result-edit-cheeti-inline', false, 'Exception: ' + e.message);
+            }
+        }
+
+        // ============ RUN ALL TESTS ============
+        function runAllTests() {
+            clearResults();
+            
+            // Clear data before tests
+            window.DashboardState.currentData = {
+                donations: [],
+                expenses: [],
+                cheeti: []
+            };
+            
+            // Run tests with delays
+            setTimeout(() => testAddDonation(), 100);
+            setTimeout(() => testDuplicateDonation(), 200);
+            setTimeout(() => testEditDonationInline(), 300);
+            setTimeout(() => testValidateDonation(), 400);
+            
+            setTimeout(() => testAddExpense(), 500);
+            setTimeout(() => testDuplicateExpense(), 600);
+            setTimeout(() => testEditExpenseInline(), 700);
+            setTimeout(() => testValidateExpense(), 800);
+            
+            setTimeout(() => testAddCheetiMember(), 900);
+            setTimeout(() => testCheetiInterest(), 1000);
+            setTimeout(() => testDuplicateCheetiMember(), 1100);
+            setTimeout(() => testEditCheetiInline(), 1200);
+        }
+    </script>
+
+    <!-- Load Phase 5A Modules -->
+    <script src="js/features/donations/donations.js"></script>
+    <script src="js/features/expenses/expenses.js"></script>
+    <script src="js/features/cheeti/cheeti.js"></script>
+
+    <script>
+        console.log('✅ Phase 5A modules loaded');
+        console.log('Available functions:', {
+            donations: typeof window.addDonation === 'function',
+            expenses: typeof window.addExpense === 'function',
+            cheeti: typeof window.addCheetiMember === 'function'
+        });
+    </script>
+</body>
+</html>

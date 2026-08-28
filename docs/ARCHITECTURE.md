@@ -167,21 +167,277 @@ User                    Dashboard              GitHub API           Repository
 
 ## File Structure
 
+### Current Modular Architecture (Post-Restructuring)
+
 ```
-vinayaka-chavithi-dashboard/
+Donations/
 │
-├── simple-index.html          # Main dashboard page
-├── simple-dashboard.js        # Dashboard logic & GitHub API
-├── simple-config.js           # Configuration (credentials)
-├── styles.css                 # Shared styling
+├── index.html                    # Main dashboard page
+├── dashboard-config.js           # Configuration (credentials)
+├── styles.css                   # Shared styling
 │
-├── data/
-│   └── donations-2026.json   # Data storage (JSON)
+├── js/                          # 31 Modular JavaScript Files
+│   ├── app-loader.js           # Module orchestration & loading
+│   │
+│   ├── core/                    # Core Foundation (11 modules)
+│   │   ├── constants.js         # Global constants
+│   │   ├── config.js            # Config loading
+│   │   ├── state.js             # Centralized state management
+│   │   ├── event-handlers.js   # Event listeners
+│   │   ├── app.js               # Application bootstrap
+│   │   │
+│   │   ├── utils/               # Utilities (3 modules)
+│   │   │   ├── helpers.js       # Currency formatting
+│   │   │   ├── validators.js   # Input validation
+│   │   │   └── auth-helpers.js # SHA-256, UUID generation
+│   │   │
+│   │   ├── auth/                # Authentication (3 modules)
+│   │   │   ├── authentication.js # Login/logout
+│   │   │   ├── session.js       # Session management
+│   │   │   └── password-reset.js # Password reset
+│   │   │
+│   │   └── services/            # Backend Services (4 modules)
+│   │       ├── github-api.js    # GitHub API integration
+│   │       ├── data-loader.js   # Data loading
+│   │       ├── data-saver.js    # Data saving
+│   │       └── draft-manager.js # Draft mode management
+│   │
+│   ├── ui/                      # UI Components (5 modules)
+│   │   ├── toast.js             # Toast notifications
+│   │   ├── modal.js             # Modal dialogs
+│   │   ├── admin-panel.js       # Admin panel UI
+│   │   │
+│   │   └── components/          # Shared Components (2 modules)
+│   │       ├── actions-column.js # Table action columns
+│   │       └── form-handler.js   # Form state tracking
+│   │
+│   └── features/                # Feature Modules (15 modules)
+│       ├── donations/           # Donations (1 module)
+│       │   └── donations.js     # Donation CRUD
+│       │
+│       ├── expenses/            # Expenses (1 module)
+│       │   └── expenses.js      # Expense CRUD
+│       │
+│       ├── cheeti/              # Cheeti (2 modules)
+│       │   ├── cheeti.js        # Cheeti member CRUD
+│       │   └── cheeti-payments.js # Payment tracking
+│       │
+│       ├── committee/           # Committee (1 module)
+│       │   └── committee.js     # Committee management
+│       │
+│       ├── sponsors/            # Sponsors (1 module)
+│       │   └── sponsors-laddu.js # Sponsors & laddu
+│       │
+│       ├── charts/              # Visualization (1 module)
+│       │   └── charts.js        # Chart.js integration
+│       │
+│       ├── reports/             # Reports (1 module)
+│       │   └── data-processor.js # Data processing & metrics
+│       │
+│       └── settings/            # Settings (3 modules)
+│           ├── dashboard-visibility.js # Dashboard toggle
+│           ├── year-visibility.js      # Year visibility
+│           └── announcements.js        # Announcement banner
 │
-├── SIMPLE_SETUP.md           # Setup instructions
-├── VERSION_COMPARISON.md     # Compare all versions
-└── README.md                 # Project overview
+├── data/                        # Data Storage
+│   ├── prod/                    # Production data
+│   │   ├── donations-2024.json
+│   │   └── donations-2025.json
+│   ├── dev/                     # Development data
+│   │   ├── donations-2024.json
+│   │   └── donations-2025.json
+│   └── archive/                 # Backups
+│       └── simple-dashboard.js.backup-2026-04-11
+│
+├── tests/                       # Test Files
+│   ├── test-phase1.html         # Foundation tests
+│   ├── test-phase2.html         # UI tests
+│   ├── ...                      # Phase 3-8 tests
+│   └── test-integration.html    # Integration tests (8 tests)
+│
+└── docs/                        # Documentation
+    ├── ARCHITECTURE.md          # This file
+    ├── MODULES.md               # Module reference (31 modules)
+    ├── STRUCTURE.md             # File structure
+    ├── TESTING_GUIDE.md         # Testing documentation
+    ├── DEPLOYMENT_GUIDE.md      # Deployment instructions
+    └── ...                      # Additional docs
 ```
+
+### Legacy File (Archived)
+
+```
+simple-dashboard.js (5,602 lines) → Archived in data/archive/
+```
+
+---
+
+## Modular Architecture Overview
+
+### Module Organization (31 Modules)
+
+The application is organized into 11 categories with clear separation of concerns:
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                   MODULE ARCHITECTURE                        │
+├─────────────────────────────────────────────────────────────┤
+│                                                              │
+│  1. CORE FOUNDATION (3 modules)                             │
+│     └─> Constants, Config, State Management                 │
+│                                                              │
+│  2. UTILITIES (3 modules)                                   │
+│     └─> Helpers, Validators, Auth Utils                     │
+│                                                              │
+│  3. UI LAYER (3 modules)                                    │
+│     └─> Toast, Modal, Admin Panel                           │
+│                                                              │
+│  4. AUTHENTICATION (3 modules)                              │
+│     └─> Login/Logout, Session, Password Reset               │
+│                                                              │
+│  5. SERVICES (4 modules)                                    │
+│     └─> GitHub API, Data Loader, Data Saver, Draft Manager  │
+│                                                              │
+│  6. CORE FEATURES (3 modules)                               │
+│     └─> Donations, Expenses, Cheeti                         │
+│                                                              │
+│  7. SUPPORTING FEATURES (3 modules)                         │
+│     └─> Cheeti Payments, Committee, Sponsors/Laddu          │
+│                                                              │
+│  8. VISUALIZATION (2 modules)                               │
+│     └─> Charts, Data Processor                              │
+│                                                              │
+│  9. SETTINGS (3 modules)                                    │
+│     └─> Dashboard Visibility, Year Visibility, Announcements│
+│                                                              │
+│  10. SHARED COMPONENTS (2 modules)                          │
+│      └─> Actions Column, Form Handler                       │
+│                                                              │
+│  11. EVENTS & APPLICATION (2 modules)                       │
+│      └─> Event Handlers, App Bootstrap                      │
+│                                                              │
+└─────────────────────────────────────────────────────────────┘
+```
+
+### Module Load Order (Critical)
+
+Modules must load in dependency order to prevent undefined references:
+
+```
+Load Sequence:
+1. Core Foundation (constants → config → state)
+2. Utilities (helpers → validators → auth-helpers)
+3. UI Layer (toast → modal → admin-panel)
+4. Authentication (authentication → session → password-reset)
+5. Services (github-api → data-loader → data-saver → draft-manager)
+6. Core Features (donations, expenses, cheeti)
+7. Supporting Features (cheeti-payments, committee, sponsors-laddu)
+8. Visualization (charts, data-processor)
+9. Settings (dashboard-visibility, year-visibility, announcements)
+10. Shared Components (actions-column, form-handler)
+11. Events & Application (event-handlers → app)
+```
+
+**See:** [MODULES.md](MODULES.md) for complete dependency graph and load order details.
+
+### Module Loading System
+
+**app-loader.js** orchestrates module loading:
+
+```javascript
+// Automatic module loading
+const MODULE_LOAD_ORDER = [/* 31 modules in sequence */];
+
+async function loadModulesDynamically() {
+  for (const modulePath of MODULE_LOAD_ORDER) {
+    await loadModule(modulePath);
+  }
+  verifyModulesLoaded(); // 27 module checks
+}
+```
+
+**Benefits:**
+- Dependency resolution
+- Load time tracking (~200-400ms)
+- Module verification
+- Error handling
+- Performance monitoring
+
+---
+
+## Modular Data Flow - Adding a Donation
+
+The new modular architecture separates concerns across modules:
+
+```
+User                 UI Layer            Feature Module        Services              GitHub
+  |                     |                     |                    |                    |
+  | 1. Fill form        |                     |                    |                    |
+  |-------------------->|                     |                    |                    |
+  |                     |                     |                    |                    |
+  | 2. Click submit     | 3. showToast()      |                    |                    |
+  |-------------------->|<------------------->|                    |                    |
+  |                     |                     |                    |                    |
+  |                     |                     | 4. validateDonation()|                  |
+  |                     |                     |    (validators.js) |                    |
+  |                     |                     |------------------->|                    |
+  |                     |                     |                    |                    |
+  |                     |                     | 5. getCurrentData()|                    |
+  |                     |                     |    (state.js)      |                    |
+  |                     |                     |------------------->|                    |
+  |                     |                     |                    |                    |
+  |                     |                     | 6. Add to data      |                    |
+  |                     |                     |    array           |                    |
+  |                     |                     |                    |                    |
+  |                     |                     | 7. setCurrentData()|                    |
+  |                     |                     |    (state.js)      |                    |
+  |                     |                     |------------------->|                    |
+  |                     |                     |                    |                    |
+  |                     |                     |                    | 8. saveDataToGitHub()|
+  |                     |                     |                    |    (data-saver.js) |
+  |                     |                     |                    |------------------->|
+  |                     |                     |                    |                    |
+  |                     |                     |                    |                    | 9. Commit
+  |                     |                     |                    |<-------------------|
+  |                     |                     |                    |                    |
+  |                     |                     | 10. processData()  |                    |
+  |                     |                     |     (data-processor)|                   |
+  |                     |                     |------------------->|                    |
+  |                     |                     |                    |                    |
+  |                     |                     |     11. updateMetrics(),                |
+  |                     |                     |         createFinancialChart(),         |
+  |                     |                     |         updateAnnouncements()           |
+  |                     |                     |                    |                    |
+  | 12. Success toast   |                     |                    |                    |
+  |<--------------------|<--------------------|                    |                    |
+  |                     |                     |                    |                    |
+  | 13. Updated UI      |                     |                    |                    |
+  |<--------------------|                     |                    |                    |
+```
+
+### Module Responsibilities
+
+**donations.js** (Feature Module):
+- Form handling
+- Input validation
+- Business logic
+- Calls: validators.js, state.js, data-saver.js
+
+**state.js** (Core):
+- Single source of truth
+- Getter/setter methods
+- No duplicate variables
+
+**data-saver.js** (Service):
+- GitHub API calls
+- Error handling
+- Commit message generation
+
+**data-processor.js** (Visualization):
+- Metrics calculation
+- Chart updates
+- Table population
+- UI orchestration
 
 ## API Calls
 

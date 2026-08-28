@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phase 1 Test - Foundation Modules</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+        }
+        .test-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .test-section h2 {
+            margin-top: 0;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+            padding-bottom: 10px;
+        }
+        .test-result {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 10px;
+            border-radius: 6px;
+            margin: 10px 0;
+            font-family: monospace;
+        }
+        .pass { color: #4ade80; }
+        .fail { color: #f87171; }
+        .info { color: #60a5fa; }
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin: 5px;
+            font-size: 14px;
+        }
+        button:hover {
+            opacity: 0.9;
+        }
+        #generatedDate {
+            font-weight: bold;
+            color: #fbbf24;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 Phase 1 Module Tests</h1>
+    <p>Testing foundation modules: Constants, Config, State, App, and Utilities</p>
+
+    <!-- Test Section 1: Constants -->
+    <div class="test-section">
+        <h2>1️⃣ Constants Module</h2>
+        <button onclick="testConstants()">Run Constants Tests</button>
+        <div id="constantsResults"></div>
+    </div>
+
+    <!-- Test Section 2: Config -->
+    <div class="test-section">
+        <h2>2️⃣ Config Module</h2>
+        <button onclick="testConfig()">Run Config Tests</button>
+        <div id="configResults"></div>
+    </div>
+
+    <!-- Test Section 3: State -->
+    <div class="test-section">
+        <h2>3️⃣ State Module</h2>
+        <button onclick="testState()">Run State Tests</button>
+        <div id="stateResults"></div>
+    </div>
+
+    <!-- Test Section 4: Formatters -->
+    <div class="test-section">
+        <h2>4️⃣ Formatters Module</h2>
+        <button onclick="testFormatters()">Run Formatter Tests</button>
+        <div id="formattersResults"></div>
+        <p>Generated Date: <span id="generatedDate">Not set</span></p>
+    </div>
+
+    <!-- Test Section 5: Validators -->
+    <div class="test-section">
+        <h2>5️⃣ Validators Module</h2>
+        <button onclick="testValidators()">Run Validator Tests</button>
+        <div id="validatorsResults"></div>
+    </div>
+
+    <!-- Test Section 6: Helpers -->
+    <div class="test-section">
+        <h2>6️⃣ Helpers Module</h2>
+        <button onclick="testHelpers()">Run Helper Tests</button>
+        <div id="helpersResults"></div>
+    </div>
+
+    <!-- Test Section 7: App Initialization -->
+    <div class="test-section">
+        <h2>7️⃣ App Module</h2>
+        <div class="test-result info">Status: DOM Loaded ✓</div>
+        <div class="test-result info">Initial DOM Setup: Complete ✓</div>
+    </div>
+
+    <!-- Load Phase 1 modules -->
+    <script src="dashboard-config.template.js"></script>
+    <script>
+        // Create DASHBOARD_CONFIG from template
+        if (typeof DASHBOARD_CONFIG === 'undefined') {
+            var DASHBOARD_CONFIG = {
+                TEST_MODE: true,
+                DATA_ENVIRONMENT: 'dev',
+                getDataFilePath: function(year) {
+                    return `data/dev/donations-${year}.json`;
+                }
+            };
+        }
+    </script>
+    <script src="js/core/constants.js"></script>
+    <script src="js/core/config.js"></script>
+    <script src="js/core/state.js"></script>
+    <script src="js/core/utils/formatters.js"></script>
+    <script src="js/core/utils/validators.js"></script>
+    <script src="js/core/utils/helpers.js"></script>
+
+    <script>
+        // Test Functions
+        
+        function testConstants() {
+            const results = document.getElementById('constantsResults');
+            let output = '';
+            
+            output += `<div class="test-result ${DashboardConstants ? 'pass' : 'fail'}">
+                ✓ DashboardConstants object exists: ${!!DashboardConstants}
+            </div>`;
+            
+            output += `<div class="test-result ${DashboardConstants.GITHUB_API_BASE ? 'pass' : 'fail'}">
+                ✓ GITHUB_API_BASE defined: ${DashboardConstants.GITHUB_API_BASE}
+            </div>`;
+            
+            output += `<div class="test-result ${DashboardConstants.MODALS ? 'pass' : 'fail'}">
+                ✓ Modal IDs defined: ${Object.keys(DashboardConstants.MODALS).length} modals
+            </div>`;
+            
+            output += `<div class="test-result ${DashboardConstants.CATEGORY_ICONS ? 'pass' : 'fail'}">
+                ✓ Category icons defined: ${Object.keys(DashboardConstants.CATEGORY_ICONS).length} icons
+            </div>`;
+            
+            results.innerHTML = output;
+        }
+        
+        function testConfig() {
+            const results = document.getElementById('configResults');
+            let output = '';
+            
+            output += `<div class="test-result ${typeof waitForConfig === 'function' ? 'pass' : 'fail'}">
+                ✓ waitForConfig function exists: ${typeof waitForConfig === 'function'}
+            </div>`;
+            
+            output += `<div class="test-result ${typeof getConfig === 'function' ? 'pass' : 'fail'}">
+                ✓ getConfig function exists: ${typeof getConfig === 'function'}
+            </div>`;
+            
+            output += `<div class="test-result ${isConfigLoaded() ? 'pass' : 'fail'}">
+                ✓ Config loaded: ${isConfigLoaded()}
+            </div>`;
+            
+            const testMode = getConfig('TEST_MODE', false);
+            output += `<div class="test-result ${testMode ? 'pass' : 'fail'}">
+                ✓ getConfig works: TEST_MODE = ${testMode}
+            </div>`;
+            
+            results.innerHTML = output;
+        }
+        
+        function testState() {
+            const results = document.getElementById('stateResults');
+            let output = '';
+            
+            output += `<div class="test-result ${DashboardState ? 'pass' : 'fail'}">
+                ✓ DashboardState object exists: ${!!DashboardState}
+            </div>`;
+            
+            // Test getter/setter
+            DashboardState.setIsAdmin(true);
+            const isAdminValue = DashboardState.getIsAdmin();
+            output += `<div class="test-result ${isAdminValue === true ? 'pass' : 'fail'}">
+                ✓ State getter/setter works: setIsAdmin(true) → getIsAdmin() = ${isAdminValue}
+            </div>`;
+            DashboardState.setIsAdmin(false); // Reset
+            
+            // Test draft mode
+            DashboardState.setDraftMode(true);
+            const draftModeValue = DashboardState.isDraftMode();
+            output += `<div class="test-result ${draftModeValue === true ? 'pass' : 'fail'}">
+                ✓ Draft mode works: setDraftMode(true) → isDraftMode() = ${draftModeValue}
+            </div>`;
+            DashboardState.setDraftMode(false); // Reset
+            
+            // Test changes tracking
+            DashboardState.addUnpublishedChange({ test: 'change' });
+            const changes = DashboardState.getUnpublishedChanges();
+            output += `<div class="test-result ${changes.length === 1 ? 'pass' : 'fail'}">
+                ✓ Change tracking works: Added 1 change, count = ${changes.length}
+            </div>`;
+            DashboardState.clearUnpublishedChanges();
+            
+            results.innerHTML = output;
+        }
+        
+        function testFormatters() {
+            const results = document.getElementById('formattersResults');
+            let output = '';
+            
+            // Test formatCurrency
+            const formatted = formatCurrency(5000);
+            output += `<div class="test-result ${formatted === '₹5,000' ? 'pass' : 'fail'}">
+                ✓ formatCurrency(5000) = "${formatted}" (expected "₹5,000")
+            </div>`;
+            
+            // Test formatCurrency large number
+            const formattedLarge = formatCurrency(1234567);
+            output += `<div class="test-result ${formattedLarge.includes('₹') ? 'pass' : 'fail'}">
+                ✓ formatCurrency(1234567) = "${formattedLarge}"
+            </div>`;
+            
+            // Test setGeneratedDate
+            setGeneratedDate();
+            const dateElement = document.getElementById('generatedDate');
+            output += `<div class="test-result ${dateElement && dateElement.textContent !== 'Not set' ? 'pass' : 'fail'}">
+                ✓ setGeneratedDate() updated element: ${dateElement ? 'Yes' : 'No'}
+            </div>`;
+            
+            // Test formatDate
+            const testDate = new Date('2026-04-11');
+            const formattedDate = formatDate(testDate);
+            output += `<div class="test-result ${formattedDate.length > 0 ? 'pass' : 'fail'}">
+                ✓ formatDate(2026-04-11) = "${formattedDate}"
+            </div>`;
+            
+            results.innerHTML = output;
+        }
+        
+        function testValidators() {
+            const results = document.getElementById('validatorsResults');
+            let output = '';
+            
+            // Test validateRequired
+            output += `<div class="test-result ${validateRequired('test') ? 'pass' : 'fail'}">
+                ✓ validateRequired('test') = true
+            </div>`;
+            
+            output += `<div class="test-result ${!validateRequired('') ? 'pass' : 'fail'}">
+                ✓ validateRequired('') = false
+            </div>`;
+            
+            // Test validateEmail
+            output += `<div class="test-result ${validateEmail('test@example.com') ? 'pass' : 'fail'}">
+                ✓ validateEmail('test@example.com') = true
+            </div>`;
+            
+            output += `<div class="test-result ${!validateEmail('invalid-email') ? 'pass' : 'fail'}">
+                ✓ validateEmail('invalid-email') = false
+            </div>`;
+            
+            // Test validatePositiveNumber
+            output += `<div class="test-result ${validatePositiveNumber(100) ? 'pass' : 'fail'}">
+                ✓ validatePositiveNumber(100) = true
+            </div>`;
+            
+            output += `<div class="test-result ${!validatePositiveNumber(-10) ? 'pass' : 'fail'}">
+                ✓ validatePositiveNumber(-10) = false
+            </div>`;
+            
+            // Test validateRange
+            output += `<div class="test-result ${validateRange(50, 0, 100) ? 'pass' : 'fail'}">
+                ✓ validateRange(50, 0, 100) = true
+            </div>`;
+            
+            results.innerHTML = output;
+        }
+        
+        function testHelpers() {
+            const results = document.getElementById('helpersResults');
+            let output = '';
+            
+            // Test getCategoryIcon
+            const icon = getCategoryIcon('donation');
+            output += `<div class="test-result ${icon === '💰' ? 'pass' : 'fail'}">
+                ✓ getCategoryIcon('donation') = "${icon}" (expected "💰")
+            </div>`;
+            
+            // Test capitalizeFirst
+            const capitalized = capitalizeFirst('hello world');
+            output += `<div class="test-result ${capitalized === 'Hello world' ? 'pass' : 'fail'}">
+                ✓ capitalizeFirst('hello world') = "${capitalized}"
+            </div>`;
+            
+            // Test deepClone
+            const original = { a: 1, b: { c: 2 } };
+            const cloned = deepClone(original);
+            cloned.b.c = 99;
+            output += `<div class="test-result ${original.b.c === 2 ? 'pass' : 'fail'}">
+                ✓ deepClone preserves original: original.b.c = ${original.b.c} (cloned was changed to 99)
+            </div>`;
+            
+            // Test isEmpty
+            output += `<div class="test-result ${isEmpty([]) ? 'pass' : 'fail'}">
+                ✓ isEmpty([]) = true
+            </div>`;
+            
+            output += `<div class="test-result ${!isEmpty([1, 2, 3]) ? 'pass' : 'fail'}">
+                ✓ isEmpty([1,2,3]) = false
+            </div>`;
+            
+            // Test generateId
+            const id1 = generateId();
+            const id2 = generateId();
+            output += `<div class="test-result ${id1 !== id2 ? 'pass' : 'fail'}">
+                ✓ generateId creates unique IDs: "${id1.substr(0, 10)}..." ≠ "${id2.substr(0, 10)}..."
+            </div>`;
+            
+            results.innerHTML = output;
+        }
+        
+        // Auto-run tests on load
+        window.addEventListener('load', () => {
+            console.log('🧪 Running all Phase 1 tests...');
+            setTimeout(() => {
+                testConstants();
+                testConfig();
+                testState();
+                testFormatters();
+                testValidators();
+                testHelpers();
+                console.log('✅ All Phase 1 tests complete!');
+            }, 500);
+        });
+    </script>
+</body>
+</html>

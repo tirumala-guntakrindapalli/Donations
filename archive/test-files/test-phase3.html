@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phase 3 Test - Authentication & Security</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            color: #667eea;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .test-section {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.15);
+            margin-bottom: 20px;
+        }
+
+        .test-section h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .test-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            border-left: 4px solid #667eea;
+        }
+
+        .test-item h3 {
+            color: #333;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+        }
+
+        .test-item p {
+            color: #666;
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+
+        .test-result {
+            padding: 12px;
+            border-radius: 6px;
+            margin-top: 10px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .test-result.pending {
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+
+        .test-result.pass {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .test-result.fail {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+        }
+
+        input[type="password"], input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 1rem;
+            margin-top: 8px;
+            transition: border-color 0.3s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .warning {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+        }
+
+        .warning h3 {
+            color: #856404;
+            margin-bottom: 8px;
+        }
+
+        .warning p {
+            color: #856404;
+            line-height: 1.6;
+        }
+
+        .code-block {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 10px 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+
+        #adminPanel {
+            margin-top: 20px;
+            padding: 15px;
+            background: #e8f5e9;
+            border: 2px solid #4caf50;
+            border-radius: 8px;
+            display: none;
+        }
+
+        #adminPanel.show {
+            display: block;
+        }
+
+        .session-info {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 10px;
+            font-family: monospace;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1><i class="fas fa-shield-alt"></i> Phase 3 Test Suite</h1>
+            <p>Authentication & Security Module Testing</p>
+            <p style="margin-top: 10px; font-size: 0.9rem; color: #999;">
+                <strong>⚠️ CRITICAL:</strong> This phase contains security-sensitive code
+            </p>
+        </div>
+
+        <div class="warning">
+            <h3><i class="fas fa-exclamation-triangle"></i> Security Testing Notice</h3>
+            <p>This test suite verifies authentication logic, password hashing, and session management. 
+            These are <strong>critical security features</strong>. All tests must pass before integration.</p>
+            <p style="margin-top: 8px;">
+                <strong>Note:</strong> Session locking (GitHub API) tests require valid configuration and will run in production mode only.
+            </p>
+        </div>
+
+        <!-- Test 1: Module Loading -->
+        <div class="test-section">
+            <h2><i class="fas fa-code"></i> Test 1: Module Loading</h2>
+            <div class="test-item">
+                <h3>Load Authentication Modules</h3>
+                <p>Verify all three authentication modules load successfully</p>
+                <div id="test1-result" class="test-result pending">
+                    <i class="fas fa-spinner fa-spin"></i> Waiting for test...
+                </div>
+                <button class="btn" onclick="runTest1()">
+                    <i class="fas fa-play"></i> Run Test
+                </button>
+            </div>
+        </div>
+
+        <!-- Test 2: Password Hashing -->
+        <div class="test-section">
+            <h2><i class="fas fa-key"></i> Test 2: Password Hashing (SHA-256)</h2>
+            <div class="test-item">
+                <h3>Test SHA-256 Hash Function</h3>
+                <p>Verify password hashing produces correct SHA-256 output</p>
+                <div>
+                    <label>Enter test password:</label>
+                    <input type="password" id="testPassword" placeholder="Enter any password" value="test123">
+                </div>
+                <div id="test2-result" class="test-result pending">
+                    <i class="fas fa-spinner fa-spin"></i> Waiting for test...
+                </div>
+                <button class="btn" onclick="runTest2()">
+                    <i class="fas fa-fingerprint"></i> Hash Password
+                </button>
+            </div>
+        </div>
+
+        <!-- Test 3: Session Storage -->
+        <div class="test-section">
+            <h2><i class="fas fa-database"></i> Test 3: Session Storage</h2>
+            <div class="test-item">
+                <h3>Save and Restore Admin Session</h3>
+                <p>Test sessionStorage save/restore functionality</p>
+                <div id="test3-result" class="test-result pending">
+                    <i class="fas fa-spinner fa-spin"></i> Waiting for test...
+                </div>
+                <button class="btn" onclick="runTest3()">
+                    <i class="fas fa-save"></i> Test Session Storage
+                </button>
+            </div>
+        </div>
+
+        <!-- Test 4: Admin Panel Toggle -->
+        <div class="test-section">
+            <h2><i class="fas fa-toggle-on"></i> Test 4: Admin Panel Controls</h2>
+            <div class="test-item">
+                <h3>Show/Hide Admin Panel</h3>
+                <p>Test admin panel visibility toggle</p>
+                
+                <!-- Mock Admin Panel -->
+                <div id="adminPanel" style="display: none;">
+                    <h4><i class="fas fa-tools"></i> Admin Panel (Test)</h4>
+                    <p>This is a mock admin panel for testing visibility controls.</p>
+                </div>
+                
+                <div id="test4-result" class="test-result pending">
+                    <i class="fas fa-spinner fa-spin"></i> Waiting for test...
+                </div>
+                <button class="btn" onclick="runTest4()">
+                    <i class="fas fa-eye"></i> Toggle Panel
+                </button>
+            </div>
+        </div>
+
+        <!-- Test 5: URL Parameter Clearing -->
+        <div class="test-section">
+            <h2><i class="fas fa-link"></i> Test 5: URL Parameter Handling</h2>
+            <div class="test-item">
+                <h3>Clear Login Parameter</h3>
+                <p>Verify login parameter is removed from URL after authentication</p>
+                <div id="test5-result" class="test-result pending">
+                    <i class="fas fa-spinner fa-spin"></i> Waiting for test...
+                </div>
+                <button class="btn" onclick="runTest5()">
+                    <i class="fas fa-eraser"></i> Test URL Cleaning
+                </button>
+            </div>
+        </div>
+
+        <!-- Test 6: Export Verification -->
+        <div class="test-section">
+            <h2><i class="fas fa-globe"></i> Test 6: Global Exports</h2>
+            <div class="test-item">
+                <h3>Verify All Functions Exported to Window</h3>
+                <p>Check that all authentication functions are globally accessible</p>
+                <div id="test6-result" class="test-result pending">
+                    <i class="fas fa-spinner fa-spin"></i> Waiting for test...
+                </div>
+                <button class="btn" onclick="runTest6()">
+                    <i class="fas fa-check-double"></i> Verify Exports
+                </button>
+            </div>
+        </div>
+
+        <!-- Session Info Display -->
+        <div class="test-section">
+            <h2><i class="fas fa-info-circle"></i> Session Information</h2>
+            <div class="session-info" id="sessionInfo">
+                Click "Refresh Session Info" to view current session state
+            </div>
+            <button class="btn btn-secondary" onclick="refreshSessionInfo()">
+                <i class="fas fa-sync"></i> Refresh Session Info
+            </button>
+        </div>
+    </div>
+
+    <!-- Load Phase 3 Modules -->
+    <script src="js/core/auth/authentication.js"></script>
+    <script src="js/core/auth/session.js"></script>
+    <script src="js/core/auth/admin-panel.js"></script>
+
+    <!-- Load Dependencies (from previous phases) -->
+    <script src="js/ui/toast.js"></script>
+    <script src="js/ui/loading.js"></script>
+
+    <!-- Test Scripts -->
+    <script>
+        // Test 1: Module Loading
+        function runTest1() {
+            const result = document.getElementById('test1-result');
+            const requiredFunctions = [
+                'sha256', 'handleLogin', 'logoutAdmin', 'performLogout',
+                'checkAdminSession', 'createAdminSession', 'releaseAdminSession',
+                'validateAdminSession', 'startSessionValidation', 'stopSessionValidation',
+                'saveAdminSession', 'clearAdminSession', 'restoreAdminSession',
+                'showAdminPanel', 'toggleAdminPanel', 'closeAdminPanel', 'updateAdminButton'
+            ];
+
+            const missing = requiredFunctions.filter(fn => typeof window[fn] !== 'function');
+
+            if (missing.length === 0) {
+                result.className = 'test-result pass';
+                result.innerHTML = `
+                    <i class="fas fa-check-circle"></i>
+                    ✅ All ${requiredFunctions.length} authentication functions loaded successfully!
+                `;
+            } else {
+                result.className = 'test-result fail';
+                result.innerHTML = `
+                    <i class="fas fa-times-circle"></i>
+                    ❌ Missing functions: ${missing.join(', ')}
+                `;
+            }
+        }
+
+        // Test 2: Password Hashing
+        async function runTest2() {
+            const result = document.getElementById('test2-result');
+            const password = document.getElementById('testPassword').value;
+
+            if (!password) {
+                result.className = 'test-result fail';
+                result.innerHTML = '<i class="fas fa-times-circle"></i> Please enter a password';
+                return;
+            }
+
+            try {
+                const hash = await sha256(password);
+                
+                // Verify hash is 64 characters (SHA-256 produces 256 bits = 32 bytes = 64 hex chars)
+                if (hash && hash.length === 64 && /^[a-f0-9]+$/.test(hash)) {
+                    result.className = 'test-result pass';
+                    result.innerHTML = `
+                        <div>
+                            <i class="fas fa-check-circle"></i>
+                            ✅ SHA-256 hash generated successfully!
+                        </div>
+                        <div class="code-block" style="margin-top: 10px;">
+                            Password: "${password}"<br>
+                            Hash: ${hash}
+                        </div>
+                    `;
+                } else {
+                    throw new Error('Invalid hash format');
+                }
+            } catch (error) {
+                result.className = 'test-result fail';
+                result.innerHTML = `
+                    <i class="fas fa-times-circle"></i>
+                    ❌ Hashing failed: ${error.message}
+                `;
+            }
+        }
+
+        // Test 3: Session Storage
+        function runTest3() {
+            const result = document.getElementById('test3-result');
+
+            try {
+                // Clear any existing session
+                clearAdminSession();
+                
+                // Verify cleared
+                let session1 = sessionStorage.getItem('adminSession');
+                if (session1) throw new Error('Session not cleared properly');
+
+                // Save session
+                saveAdminSession();
+                
+                // Verify saved
+                let session2 = sessionStorage.getItem('adminSession');
+                if (!session2) throw new Error('Session not saved');
+
+                const sessionData = JSON.parse(session2);
+                if (!sessionData.isAdmin || !sessionData.timestamp) {
+                    throw new Error('Invalid session data structure');
+                }
+
+                // Test restore (should fail if too old)
+                const restored = restoreAdminSession();
+                
+                // Clear session
+                clearAdminSession();
+                
+                // Verify cleared again
+                let session3 = sessionStorage.getItem('adminSession');
+                if (session3) throw new Error('Session not cleared after test');
+
+                result.className = 'test-result pass';
+                result.innerHTML = `
+                    <i class="fas fa-check-circle"></i>
+                    ✅ Session storage working! Saved → Restored → Cleared
+                `;
+            } catch (error) {
+                result.className = 'test-result fail';
+                result.innerHTML = `
+                    <i class="fas fa-times-circle"></i>
+                    ❌ Session storage test failed: ${error.message}
+                `;
+            }
+        }
+
+        // Test 4: Admin Panel Toggle
+        function runTest4() {
+            const result = document.getElementById('test4-result');
+            const panel = document.getElementById('adminPanel');
+
+            if (!panel) {
+                result.className = 'test-result fail';
+                result.innerHTML = '<i class="fas fa-times-circle"></i> Admin panel element not found';
+                return;
+            }
+
+            try {
+                // Test show
+                showAdminPanel();
+                if (panel.style.display !== 'block') {
+                    throw new Error('Panel not shown');
+                }
+
+                // Wait a moment
+                setTimeout(() => {
+                    // Test hide
+                    closeAdminPanel();
+                    if (panel.style.display !== 'none') {
+                        throw new Error('Panel not hidden');
+                    }
+
+                    result.className = 'test-result pass';
+                    result.innerHTML = `
+                        <i class="fas fa-check-circle"></i>
+                        ✅ Admin panel toggle working! Show → Hide
+                    `;
+                }, 500);
+            } catch (error) {
+                result.className = 'test-result fail';
+                result.innerHTML = `
+                    <i class="fas fa-times-circle"></i>
+                    ❌ Panel toggle failed: ${error.message}
+                `;
+            }
+        }
+
+        // Test 5: URL Parameter Clearing
+        function runTest5() {
+            const result = document.getElementById('test5-result');
+
+            try {
+                // Add login parameter
+                const newUrl = window.location.pathname + '?login=true&other=param';
+                window.history.replaceState({}, document.title, newUrl);
+
+                // Verify it's there
+                if (!window.location.search.includes('login=true')) {
+                    throw new Error('Failed to add login parameter');
+                }
+
+                // Clear it
+                clearLoginUrlParameter();
+
+                // Verify it's gone but other param remains
+                if (window.location.search.includes('login=true')) {
+                    throw new Error('Login parameter not cleared');
+                }
+
+                if (!window.location.search.includes('other=param')) {
+                    throw new Error('Other parameter was incorrectly removed');
+                }
+
+                result.className = 'test-result pass';
+                result.innerHTML = `
+                    <i class="fas fa-check-circle"></i>
+                    ✅ URL parameter clearing working! login=true removed, other params preserved
+                `;
+
+                // Clean up
+                window.history.replaceState({}, document.title, window.location.pathname);
+            } catch (error) {
+                result.className = 'test-result fail';
+                result.innerHTML = `
+                    <i class="fas fa-times-circle"></i>
+                    ❌ URL parameter test failed: ${error.message}
+                `;
+            }
+        }
+
+        // Test 6: Export Verification
+        function runTest6() {
+            const result = document.getElementById('test6-result');
+            
+            const expectedExports = {
+                'authentication.js': ['sha256', 'handleLogin', 'logoutAdmin', 'confirmLogout', 'performLogout', 'updateLogoutModalMessage'],
+                'session.js': ['checkAdminSession', 'createAdminSession', 'releaseAdminSession', 'validateAdminSession', 
+                              'startSessionValidation', 'stopSessionValidation', 'forceLogoutDueToSessionLoss',
+                              'saveAdminSession', 'clearAdminSession', 'restoreAdminSession', 'clearLoginUrlParameter'],
+                'admin-panel.js': ['showAdminPanel', 'toggleAdminPanel', 'closeAdminPanel', 'updateAdminButton']
+            };
+
+            let allExports = [];
+            Object.values(expectedExports).forEach(exports => {
+                allExports = allExports.concat(exports);
+            });
+
+            const missing = allExports.filter(fn => typeof window[fn] !== 'function');
+            const found = allExports.filter(fn => typeof window[fn] === 'function');
+
+            if (missing.length === 0) {
+                result.className = 'test-result pass';
+                result.innerHTML = `
+                    <div>
+                        <i class="fas fa-check-circle"></i>
+                        ✅ All ${allExports.length} functions exported to window!
+                    </div>
+                    <div class="code-block" style="margin-top: 10px;">
+                        ${Object.entries(expectedExports).map(([file, fns]) => 
+                            `${file}: ${fns.length} functions`
+                        ).join('<br>')}
+                    </div>
+                `;
+            } else {
+                result.className = 'test-result fail';
+                result.innerHTML = `
+                    <i class="fas fa-times-circle"></i>
+                    ❌ Missing ${missing.length} exports: ${missing.join(', ')}
+                    <br>Found: ${found.length}/${allExports.length}
+                `;
+            }
+        }
+
+        // Refresh Session Info
+        function refreshSessionInfo() {
+            const info = document.getElementById('sessionInfo');
+            const sessionData = sessionStorage.getItem('adminSession');
+            const sessionId = sessionStorage.getItem('adminSessionId');
+
+            let output = '<strong>SessionStorage Contents:</strong><br><br>';
+
+            if (sessionData) {
+                const data = JSON.parse(sessionData);
+                const age = Date.now() - data.timestamp;
+                const ageMinutes = Math.floor(age / 60000);
+                
+                output += `adminSession: {<br>`;
+                output += `&nbsp;&nbsp;isAdmin: ${data.isAdmin},<br>`;
+                output += `&nbsp;&nbsp;timestamp: ${new Date(data.timestamp).toLocaleString()},<br>`;
+                output += `&nbsp;&nbsp;age: ${ageMinutes} minutes<br>`;
+                output += `}<br><br>`;
+            } else {
+                output += 'adminSession: null<br><br>';
+            }
+
+            if (sessionId) {
+                output += `adminSessionId: "${sessionId}"<br>`;
+            } else {
+                output += 'adminSessionId: null<br>';
+            }
+
+            info.innerHTML = output;
+        }
+
+        // Auto-run Test 1 on load
+        window.addEventListener('load', () => {
+            setTimeout(runTest1, 500);
+        });
+    </script>
+</body>
+</html>
