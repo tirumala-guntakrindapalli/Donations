@@ -465,6 +465,12 @@ body {
     gap: 25px;
 }
 
+/* Financial tables need full width for readable columns and horizontal scrolling. */
+.detailed-reports-list {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+}
+
 .table-card {
     background: white;
     border-radius: 15px;

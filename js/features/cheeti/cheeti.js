@@ -406,10 +406,17 @@ function loadMemberDetails() {
     const principalEl = document.getElementById('memberPrincipal');
     const interestEl = document.getElementById('memberInterest');
     const totalDueEl = document.getElementById('memberTotalDue');
+    const paidAmountEl = document.getElementById('memberPaidAmount');
+    const remainingAmountEl = document.getElementById('memberRemainingAmount');
+    const totalDue = (member.amount || 0) + (member.interest || 0) + (member.lateFee || 0);
+    const paidAmount = member.paidAmount || 0;
+    const remainingAmount = Math.max(0, totalDue - paidAmount);
     
     if (principalEl) principalEl.textContent = `₹${member.amount.toLocaleString('en-IN')}`;
     if (interestEl) interestEl.textContent = `₹${member.interest.toLocaleString('en-IN')}`;
-    if (totalDueEl) totalDueEl.textContent = `₹${(member.amount + member.interest).toLocaleString('en-IN')}`;
+    if (totalDueEl) totalDueEl.textContent = `₹${totalDue.toLocaleString('en-IN')}`;
+    if (paidAmountEl) paidAmountEl.textContent = `₹${paidAmount.toLocaleString('en-IN')}`;
+    if (remainingAmountEl) remainingAmountEl.textContent = `₹${remainingAmount.toLocaleString('en-IN')}`;
     
     memberDetails.style.display = 'block';
     
@@ -450,9 +457,19 @@ function populateCheetiTable(cheetiData) {
     const formatCurrency = window.formatCurrency || function(amount) {
         return '₹' + amount.toLocaleString('en-IN');
     };
+
+    updateMemberCutoverNotice();
+
+    const cutoverDateValue = currentData?.cheeti_settings?.cutover_date;
+    const cutoverDate = cutoverDateValue ? new Date(`${cutoverDateValue}T00:00:00`) : null;
     
     tbody.innerHTML = cheetiData.map((c, index) => {
         const totalWithLateFee = (c.amount || 0) + (c.interest || 0) + (c.lateFee || 0);
+        const paymentDate = c.paymentDate ? new Date(`${c.paymentDate}T00:00:00`) : null;
+        const paidOnOrAfterCutover = paymentDate && cutoverDate && !Number.isNaN(cutoverDate.getTime()) && paymentDate >= cutoverDate;
+        const formattedPaymentDate = paymentDate && !Number.isNaN(paymentDate.getTime())
+            ? paymentDate.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })
+            : '-';
         return `
         <tr id="cheeti-member-row-${index}" data-index="${index}">
             <td>${c.slNo}</td>
@@ -460,6 +477,7 @@ function populateCheetiTable(cheetiData) {
             <td>${formatCurrency(c.amount)}</td>
             <td>${formatCurrency(c.interest || 0)}</td>
             <td><strong>${formatCurrency(totalWithLateFee)}</strong></td>
+            <td style="${paidOnOrAfterCutover ? 'color: #dc2626; font-weight: 700;' : ''}">${formattedPaymentDate}</td>
             <td style="${isAdmin ? '' : 'display: none;'}">
                 ${isAdmin ? `<div style="display: flex; gap: 6px; justify-content: center;"><button class="action-btn edit" onclick="showEditModal('cheeti', ${index})">
                     <i class="fas fa-edit"></i> Edit
@@ -472,6 +490,42 @@ function populateCheetiTable(cheetiData) {
     }).join('');
     
     console.log(`✅ Cheeti table populated with ${cheetiData.length} entries`);
+}
+
+/**
+ * Show the payment deadline warning to members when a cutover date is configured.
+ */
+function updateMemberCutoverNotice() {
+    const notice = document.getElementById('cheetiCutoverMemberNotice');
+    const message = document.getElementById('cheetiCutoverMemberMessage');
+    const currentData = window.DashboardState ? window.DashboardState.getCurrentData() : window.currentData;
+    const cutoverDate = currentData?.cheeti_settings?.cutover_date;
+
+    if (!notice || !message) return;
+
+    if (!cutoverDate) {
+        notice.style.display = 'none';
+        message.textContent = '';
+        return;
+    }
+
+    const deadline = new Date(`${cutoverDate}T00:00:00`);
+    if (Number.isNaN(deadline.getTime())) {
+        notice.style.display = 'none';
+        message.textContent = '';
+        return;
+    }
+
+    const selectedYear = currentData.year;
+    const lateFeePerDay = currentData.cheeti_settings.late_fee_per_day || 50;
+    const formattedDeadline = deadline.toLocaleDateString('en-IN', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric'
+    });
+
+    message.textContent = ` Please pay your ${selectedYear} cheeti amount by ${formattedDeadline}. After this date, ₹${lateFeePerDay.toLocaleString('en-IN')} will be added for each late day.`;
+    notice.style.display = 'block';
 }
 
 /**
@@ -595,10 +649,10 @@ async function saveCheetiPaymentFromModal(index) {
         index: index,
         type: 'payment_update'
     });
-    
-    // If payment is marked as paid, add to next year's income
     if (isPaid && paymentDate) {
-        await addCheetiCollectionToCurrentYear(member.name, member.total, paymentDate);
+        await addCheetiCollectionToCurrentYear(member.name, member.total, paymentDate, { replaceExisting: true, isFinalPayment: true });
+    } else if (oldPayment.paid) {
+        await removeCheetiCollectionFromNextYear(member);
     }
     
     // Refresh UI
@@ -749,8 +803,9 @@ function autoCalculateLateFee() {
  * @param {number} amount - Total amount collected (principal + interest + late fee)
  * @param {string} paymentDate - Payment date in ISO format
  */
-async function addCheetiCollectionToCurrentYear(memberName, amount, paymentDate) {
+async function addCheetiCollectionToCurrentYear(memberName, amount, paymentDate, options = {}) {
     try {
+        const { replaceExisting = false, isFinalPayment = false } = options;
         const currentData = window.DashboardState ? window.DashboardState.getCurrentData() : window.currentData;
         const selectedYear = currentData ? parseInt(currentData.year) : new Date().getFullYear();
         const targetYear = selectedYear + 1; // Add to the next year after selected year
@@ -776,7 +831,9 @@ async function addCheetiCollectionToCurrentYear(memberName, amount, paymentDate)
                 memberName: memberName,
                 amount: amount,
                 paymentDate: paymentDate,
-                fromYear: selectedYear
+                fromYear: selectedYear,
+                replaceExisting,
+                isFinalPayment
             });
             return;
         }
@@ -804,7 +861,7 @@ async function addCheetiCollectionToCurrentYear(memberName, amount, paymentDate)
             console.log(`🔄 Updating existing collection for ${memberName} (duplicate prevented)`);
             targetYearData.cheeti_collections[existingIndex] = {
                 ...targetYearData.cheeti_collections[existingIndex],
-                amount: amount,
+                amount: replaceExisting ? amount : (targetYearData.cheeti_collections[existingIndex].amount || 0) + amount,
                 collectionDate: paymentDate,
                 addedOn: new Date().toISOString()
             };
@@ -821,7 +878,7 @@ async function addCheetiCollectionToCurrentYear(memberName, amount, paymentDate)
         }
         
         // Remove from cheeti_expected to avoid double counting
-        if (targetYearData.cheeti_expected) {
+        if (isFinalPayment && targetYearData.cheeti_expected) {
             const expectedIndex = targetYearData.cheeti_expected.findIndex(
                 e => e.name === memberName && e.fromYear === selectedYear
             );
@@ -846,6 +903,71 @@ async function addCheetiCollectionToCurrentYear(memberName, amount, paymentDate)
 }
 
 /**
+ * Remove a reverted full payment from the following year's income.
+ * @param {Object} member - The borrowing-year cheeti member
+ */
+async function removeCheetiCollectionFromNextYear(member) {
+    try {
+        const currentData = window.DashboardState ? window.DashboardState.getCurrentData() : window.currentData;
+        const selectedYear = currentData ? parseInt(currentData.year, 10) : new Date().getFullYear();
+        const targetYear = selectedYear + 1;
+        const draftMode = window.DashboardState ? window.DashboardState.getDraftMode() : window.draftMode;
+        const expectedCollection = {
+            name: member.name,
+            amount: member.amount || 0,
+            interest: member.interest || 0,
+            expectedTotal: (member.amount || 0) + (member.interest || 0),
+            fromYear: selectedYear
+        };
+
+        if (draftMode) {
+            if (!window.pendingCrossYearUpdates) {
+                window.pendingCrossYearUpdates = [];
+            }
+            window.pendingCrossYearUpdates.push({
+                operation: 'remove',
+                targetYear,
+                memberName: member.name,
+                fromYear: selectedYear,
+                expectedCollection
+            });
+            return;
+        }
+
+        const targetYearData = await loadYearData(targetYear);
+        if (!targetYearData || !targetYearData.cheeti_collections) return;
+
+        const collectionIndex = targetYearData.cheeti_collections.findIndex(
+            collection => collection.memberName === member.name && collection.fromYear === selectedYear
+        );
+        if (collectionIndex === -1) return;
+
+        targetYearData.cheeti_collections.splice(collectionIndex, 1);
+        targetYearData.cheeti_collections.forEach((collection, index) => {
+            collection.slNo = index + 1;
+        });
+
+        if (!targetYearData.cheeti_expected) {
+            targetYearData.cheeti_expected = [];
+        }
+        const expectedExists = targetYearData.cheeti_expected.some(
+            expected => expected.name === member.name && expected.fromYear === selectedYear
+        );
+        if (!expectedExists) {
+            targetYearData.cheeti_expected.push(expectedCollection);
+        }
+
+        if (typeof saveYearData === 'function') {
+            await saveYearData(targetYear, targetYearData);
+        }
+        console.log(`✅ Removed reverted ${selectedYear} payment from ${targetYear} income`);
+    } catch (error) {
+        console.error('Error removing reverted cheeti collection:', error);
+        showError('⚠️ Payment was reverted but could not be removed from next year income');
+    }
+}
+
+/**
  * Record payment for a cheeti member (from admin panel payment form)
  * Used for past years to record when members paid back their loans
  */
@@ -859,8 +981,9 @@ async function recordPayment() {
     
     const memberIndex = document.getElementById('cheetiMemberSelect').value;
     const paymentDate = document.getElementById('repaymentDate').value;
+    const paymentAmount = parseFloat(document.getElementById('repaymentAmount').value);
     const lateFee = parseFloat(document.getElementById('repaymentLateFee').value) || 0;
-    const isPaid = document.getElementById('repaymentPaid').checked;
+    const markFullyPaid = document.getElementById('repaymentPaid').checked;
     
     if (!memberIndex || memberIndex === '') {
         showError('Please select a member');
@@ -869,6 +992,11 @@ async function recordPayment() {
     
     if (!paymentDate) {
         showError('Please enter payment date');
+        return;
+    }
+
+    if (!paymentAmount || paymentAmount <= 0) {
+        showError('Please enter the amount received');
         return;
     }
     
@@ -887,21 +1015,41 @@ async function recordPayment() {
         paid: member.paid || false,
         paymentDate: member.paymentDate || null,
         lateFee: member.lateFee || 0,
-        total: member.total || (member.amount + member.interest)
+        total: member.total || (member.amount + member.interest),
+        paidAmount: member.paidAmount || 0
     };
     
-    // Auto-calculate late fee if cutover date is set (in case user didn't trigger auto-calc)
+    // Partial payments do not clear the deadline: calculate the fee using this payment date.
+    // Only an installment that clears the entire outstanding amount marks the member as paid.
     const autoCalculatedLateFee = calculateLateFee(paymentDate);
     const finalLateFee = autoCalculatedLateFee > 0 ? autoCalculatedLateFee : lateFee;
     const daysOverdue = getDaysOverdue(paymentDate);
     
-    const paymentAmount = member.amount + member.interest + finalLateFee;
+    const totalDue = member.amount + member.interest + finalLateFee;
+    const previousPaidAmount = member.paidAmount || 0;
+    const remainingBeforePayment = totalDue - previousPaidAmount;
+
+    if (paymentAmount > remainingBeforePayment) {
+        showError(`Amount received cannot exceed the remaining ₹${remainingBeforePayment.toLocaleString('en-IN')}`);
+        return;
+    }
+
+    const paidAmount = previousPaidAmount + paymentAmount;
+    const isFullyPaid = paidAmount >= totalDue;
+
+    if (markFullyPaid && !isFullyPaid) {
+        showError(`₹${Math.max(0, totalDue - paidAmount).toLocaleString('en-IN')} is still remaining. Do not mark this payment as fully paid.`);
+        return;
+    }
     
     // Update member payment details in past year data
-    currentData.cheeti[memberIndex].paid = isPaid;
-    currentData.cheeti[memberIndex].paymentDate = isPaid ? paymentDate : null;
+    currentData.cheeti[memberIndex].paid = isFullyPaid;
+    currentData.cheeti[memberIndex].paymentDate = paymentDate;
     currentData.cheeti[memberIndex].lateFee = finalLateFee;
-    currentData.cheeti[memberIndex].total = paymentAmount;
+    currentData.cheeti[memberIndex].total = totalDue;
+    currentData.cheeti[memberIndex].paidAmount = paidAmount;
+    currentData.cheeti[memberIndex].paymentHistory = member.paymentHistory || [];
+    currentData.cheeti[memberIndex].paymentHistory.push({ amount: paymentAmount, date: paymentDate });
     
     // Store days overdue if applicable
     if (daysOverdue > 0) {
@@ -923,18 +1071,17 @@ async function recordPayment() {
         old: oldMember,
         new: {
             name: member.name,
-            paid: isPaid,
-            paymentDate: isPaid ? paymentDate : null,
+            paid: isFullyPaid,
+            paymentDate,
             lateFee: finalLateFee,
-            total: paymentAmount
+            total: totalDue,
+            paidAmount
         },
         index: memberIndex
     });
     
-    // If payment is marked as paid, add to current year's income (AWAIT to ensure it completes)
-    if (isPaid) {
-        await addCheetiCollectionToCurrentYear(member.name, paymentAmount, paymentDate);
-    }
+    // Every installment is income in the following year; expected collections clear only after full payment.
+    await addCheetiCollectionToCurrentYear(member.name, paymentAmount, paymentDate, { isFinalPayment: isFullyPaid });
     
     // Update draft mode UI to show unpublished changes
     if (typeof updateDraftModeUI === 'function') {
@@ -949,6 +1096,7 @@ async function recordPayment() {
     // Clear form
     document.getElementById('cheetiMemberSelect').value = '';
     document.getElementById('repaymentDate').value = '';
+    document.getElementById('repaymentAmount').value = '';
     document.getElementById('repaymentLateFee').value = '0';
     document.getElementById('repaymentPaid').checked = false;
     const memberDetails = document.getElementById('memberDetails');
@@ -960,7 +1108,7 @@ async function recordPayment() {
     if (adminLateFeeInfo) adminLateFeeInfo.textContent = '';
     if (adminLateFeeAutoCalc) adminLateFeeAutoCalc.textContent = '';
     
-    showSuccess('✅ Payment recorded successfully!');
+    showSuccess(isFullyPaid ? '✅ Full payment recorded successfully!' : `✅ Partial payment recorded. ₹${(totalDue - paidAmount).toLocaleString('en-IN')} remains.`);
     
     // Save to GitHub (only if not in draft mode)
     const draftMode = window.DashboardState ? window.DashboardState.getDraftMode() : window.draftMode;
@@ -1157,6 +1305,7 @@ if (typeof window !== 'undefined') {
     window.populateMemberDropdown = populateMemberDropdown;
     window.loadMemberDetails = loadMemberDetails;
     window.populateCheetiTable = populateCheetiTable;
+    window.updateMemberCutoverNotice = updateMemberCutoverNotice;
     window.populateCheetiPaidTable = populateCheetiPaidTable;
     window.editCheetiEntry = editCheetiEntry;
     window.saveCheetiPaymentFromModal = saveCheetiPaymentFromModal;

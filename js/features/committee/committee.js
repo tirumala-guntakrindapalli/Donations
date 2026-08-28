@@ -553,35 +553,20 @@ async function syncCommitteeFromPreviousYear(currentYear, isManual = false) {
                 window.currentData = currentData;
             }
             
-            // Mark as unpublished change
-            const changeDescription = `Synced from ${previousYear} planning - updated from ${currentCommittee.length} to ${nextYearCommittee.length} members`;
-            
-            const unpublishedChanges = window.DashboardState ? window.DashboardState.getUnpublishedChanges() : (window.unpublishedChanges || []);
-            
-            unpublishedChanges.push({
-                action: 'edit',
-                category: 'committee',
+            // Record a standard edit so the draft preview and publisher can render it.
+            trackChange('edit', 'committee', {
                 type: 'committee_sync',
-                description: changeDescription,
-                timestamp: new Date().toISOString(),
+                old: {
+                    name: `Committee (${currentCommittee.length} members)`,
+                    role: `${previousYear} committee`
+                },
+                new: {
+                    name: `Committee (${nextYearCommittee.length} members)`,
+                    role: `${currentYear} committee`
+                },
                 from: `${previousYear} committee_next_year`,
-                to: `${currentYear} committee`,
-                name: 'Committee Members',
-                oldValue: `${currentCommittee.length} members`,
-                newValue: `${nextYearCommittee.length} members`
+                to: `${currentYear} committee`
             });
-            
-            // Update state with new unpublished changes
-            if (window.DashboardState) {
-                window.DashboardState.setUnpublishedChanges(unpublishedChanges);
-            } else {
-                window.unpublishedChanges = unpublishedChanges;
-            }
-            
-            // Update draft mode UI
-            if (typeof updateDraftModeUI === 'function') {
-                updateDraftModeUI();
-            }
             
             // Reprocess data to update committee table
             if (typeof processData === 'function') {

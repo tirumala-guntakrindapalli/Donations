@@ -314,6 +314,27 @@ async function publishAllChanges() {
                         
                         // Apply all updates for this year in one batch
                         updates.forEach(update => {
+                            if (update.operation === 'remove') {
+                                const collectionIndex = currentYearData.cheeti_collections.findIndex(
+                                    collection => collection.memberName === update.memberName && collection.fromYear === update.fromYear
+                                );
+                                if (collectionIndex >= 0) {
+                                    currentYearData.cheeti_collections.splice(collectionIndex, 1);
+                                }
+                                if (update.expectedCollection) {
+                                    if (!currentYearData.cheeti_expected) {
+                                        currentYearData.cheeti_expected = [];
+                                    }
+                                    const expectedExists = currentYearData.cheeti_expected.some(
+                                        expected => expected.name === update.memberName && expected.fromYear === update.fromYear
+                                    );
+                                    if (!expectedExists) {
+                                        currentYearData.cheeti_expected.push(update.expectedCollection);
+                                    }
+                                }
+                                return;
+                            }
+
                             // Check if member already exists in collections
                             const existingIndex = currentYearData.cheeti_collections.findIndex(
                                 c => c.memberName === update.memberName && c.fromYear === update.fromYear
@@ -323,7 +344,7 @@ async function publishAllChanges() {
                                 // Update existing entry
                                 currentYearData.cheeti_collections[existingIndex] = {
                                     ...currentYearData.cheeti_collections[existingIndex],
-                                    amount: update.amount,
+                                        amount: update.replaceExisting ? update.amount : (currentYearData.cheeti_collections[existingIndex].amount || 0) + update.amount,
                                     collectionDate: update.paymentDate,
                                     addedOn: new Date().toISOString()
                                 };
@@ -338,6 +359,19 @@ async function publishAllChanges() {
                                     addedOn: new Date().toISOString()
                                 });
                             }
+
+                            if (update.isFinalPayment && currentYearData.cheeti_expected) {
+                                const expectedIndex = currentYearData.cheeti_expected.findIndex(
+                                    expected => expected.name === update.memberName && expected.fromYear === update.fromYear
+                                );
+                                if (expectedIndex >= 0) {
+                                    currentYearData.cheeti_expected.splice(expectedIndex, 1);
+                                }
+                            }
+                        });
+
+                        currentYearData.cheeti_collections.forEach((collection, index) => {
+                            collection.slNo = index + 1;
                         });
                         
                         // Save once per year (all updates batched)

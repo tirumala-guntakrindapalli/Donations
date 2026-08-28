@@ -29,8 +29,11 @@ function updateMetrics(donations, cheeti, expenses, report) {
     // Note: We calculate directly from data arrays, not from the report array which may be stale
     const totalIncome = totalDonations + actualCheetiCollections + ladduWinnings;
     const balance = totalIncome - totalExpenses;
+    const totalCheetiAmount = cheeti.reduce((sum, member) => sum + (member.amount || 0), 0);
+    const remainingBalanceAfterCheeti = balance - totalCheetiAmount;
     const cheetiMembers = cheeti.length;
     const cheetiInterest = cheeti.reduce((sum, c) => sum + (c.interest || 0), 0);
+    const estimatedNextYearTotal = balance + cheetiInterest;
     
     // Update DOM elements
     const safeSetText = window.safeSetText || function(id, text) {
@@ -48,9 +51,11 @@ function updateMetrics(donations, cheeti, expenses, report) {
     safeSetText('totalIncome', formatCurrency(totalIncome));
     safeSetText('totalExpenses', formatCurrency(totalExpenses));
     safeSetText('balance', formatCurrency(balance));
+    safeSetText('remainingBalanceAfterCheeti', formatCurrency(remainingBalanceAfterCheeti));
     safeSetText('ladduWinnings', formatCurrency(ladduWinnings));
     safeSetText('cheetiMembers', cheetiMembers);
     safeSetText('cheetiInterest', formatCurrency(cheetiInterest));
+    safeSetText('estimatedNextYearTotal', formatCurrency(estimatedNextYearTotal));
 }
 
 /**

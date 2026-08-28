@@ -75,19 +75,22 @@ async function saveDataToGitHub(customSummary = null) {
     showLoading('Saving data...');
     
     try {
+        // Save the loaded record's year, even if the year selector is changing.
+        const config = (typeof DASHBOARD_CONFIG !== 'undefined') ? DASHBOARD_CONFIG : CONFIG;
+        const targetYear = parseInt(currentData.year, 10) || config.currentYear;
+        const dataPath = config.getDataFilePath(targetYear);
+
         // Get current file SHA (required for update)
-        const sha = await getFileSHA();
+        const sha = await getYearFileSHA(targetYear);
         
         if (!sha) {
-            throw new Error('Could not get file SHA');
+            throw new Error(`Could not get file SHA for ${dataPath}`);
         }
         
         // Prepare data
         currentData.lastUpdated = new Date().toISOString();
         const content = btoa(unescape(encodeURIComponent(JSON.stringify(currentData, null, 2))));
         
-        // Get config (DASHBOARD_CONFIG or CONFIG)
-        const config = (typeof DASHBOARD_CONFIG !== 'undefined') ? DASHBOARD_CONFIG : CONFIG;
         const env = config.DATA_ENVIRONMENT || 'prod';
         
         // Generate commit message
@@ -96,7 +99,7 @@ async function saveDataToGitHub(customSummary = null) {
             : `[Dashboard Bot] [${env}] 💰 Update donations & expenses | ${generateCommitTimestamp()} [skip ci]`;
         
         // Update file via GitHub API
-        const url = `${GITHUB_API_BASE}/repos/${config.GITHUB_OWNER || config.GITHUB_USERNAME}/${config.GITHUB_REPO}/contents/${config.DATA_FILE_PATH || config.getDataFilePath(config.currentYear)}`;
+        const url = `${GITHUB_API_BASE}/repos/${config.GITHUB_OWNER || config.GITHUB_USERNAME}/${config.GITHUB_REPO}/contents/${dataPath}`;
         
         const response = await fetch(url, {
             method: 'PUT',
@@ -123,6 +126,8 @@ async function saveDataToGitHub(customSummary = null) {
         if (!response.ok) {
             throw new Error(`GitHub API error: ${response.statusText}`);
         }
+
+        console.log(`✅ Saved ${targetYear} data to GitHub: ${dataPath}`);
         
         // Only show success message if not called from publish flow
         if (!customSummary) {
@@ -135,8 +140,6 @@ async function saveDataToGitHub(customSummary = null) {
         const savedTimestamp = currentData.lastUpdated;
         setTimeout(async () => {
             try {
-                const config = (typeof DASHBOARD_CONFIG !== 'undefined') ? DASHBOARD_CONFIG : CONFIG;
-                const dataPath = config.getDataFilePath(config.currentYear);
                 const apiUrl = `${GITHUB_API_BASE}/repos/${config.GITHUB_OWNER}/${config.GITHUB_REPO}/contents/${dataPath}?ref=${config.GITHUB_BRANCH}&_=${Date.now()}`;
                 
                 const response = await fetch(apiUrl, {

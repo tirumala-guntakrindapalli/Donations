@@ -45,6 +45,11 @@ async function loadDataFromGitHub() {
                 // Hide announcement banner
                 const banner = document.getElementById('announcementBanner');
                 if (banner) banner.style.display = 'none';
+
+                // Render the empty year so dependent views can show their fallback state.
+                if (typeof processData === 'function') {
+                    processData();
+                }
                 
                 if (typeof showYearNotInitializedWarning === 'function') {
                     showYearNotInitializedWarning(currentYear);
@@ -87,6 +92,11 @@ async function loadDataFromGitHub() {
                 // Hide announcement banner
                 const banner = document.getElementById('announcementBanner');
                 if (banner) banner.style.display = 'none';
+
+                // Render the empty year so dependent views can show their fallback state.
+                if (typeof processData === 'function') {
+                    processData();
+                }
                 
                 if (typeof showYearNotInitializedWarning === 'function') {
                     showYearNotInitializedWarning(currentYear);
@@ -325,22 +335,24 @@ function showYearNotInitializedWarning(year) {
     // Get admin status
     const isAdmin = window.DashboardState ? DashboardState.getIsAdmin() : (window.isAdmin || false);
     
-    // Check if warning already exists
+    // Keep the warning after Highlights, so previous-year information appears first.
     let warningDiv = document.getElementById('yearWarning');
     if (!warningDiv) {
         // Create warning container
         warningDiv = document.createElement('div');
         warningDiv.id = 'yearWarning';
-        const mainContent = document.getElementById('mainContent');
-        const welcomeHero = document.querySelector('.welcome-hero');
-        
-        if (mainContent && welcomeHero) {
-            // Insert after welcome hero
-            welcomeHero.insertAdjacentElement('afterend', warningDiv);
-        } else if (mainContent) {
-            // Fallback to first child if welcome hero not found
-            mainContent.insertBefore(warningDiv, mainContent.firstChild);
-        }
+    }
+
+    const mainContent = document.getElementById('mainContent');
+    const announcementsSection = document.getElementById('announcementsSection');
+    const welcomeHero = document.querySelector('.welcome-hero');
+
+    if (announcementsSection) {
+        announcementsSection.insertAdjacentElement('afterend', warningDiv);
+    } else if (welcomeHero) {
+        welcomeHero.insertAdjacentElement('afterend', warningDiv);
+    } else if (mainContent) {
+        mainContent.insertBefore(warningDiv, mainContent.firstChild);
     }
     
     warningDiv.innerHTML = `
@@ -499,34 +511,27 @@ async function initializeNewYear(year) {
             }
         };
         
-        // Save the new year data
+        // Save the new year data to the configured local-download or GitHub path.
         const config = window.DASHBOARD_CONFIG || window.CONFIG || {};
         const dataPath = config.getDataFilePath ? config.getDataFilePath(year) : `data/dev/donations-${year}.json`;
-        const fileName = dataPath.split('/').pop();
-        
-        // In TEST MODE: Download file for manual placement
-        console.log(`📝 Year ${year} Data Structure:`);
-        console.log(JSON.stringify(newYearData, null, 2));
-        
-        // Create a downloadable file
-        const blob = new Blob([JSON.stringify(newYearData, null, 2)], { type: 'application/json' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = fileName;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-        
-        let successMsg = `✅ Year ${year} initialized! File downloaded: ${fileName}`;
+
+        if (typeof saveYearDataToFile !== 'function') {
+            throw new Error('Year data save service is unavailable');
+        }
+
+        await saveYearDataToFile(year, newYearData, `[Dashboard Bot] [${config.DATA_ENVIRONMENT || 'dev'}] Initialize ${year} [skip ci]`);
+
+        const testMode = config.TEST_MODE === true;
+        let successMsg = testMode
+            ? `✅ Year ${year} initialized! File downloaded for manual placement.`
+            : `✅ Year ${year} initialized and saved to GitHub: ${dataPath}`;
         if (estimatedCollections > 0) {
             successMsg += `\n📊 Expected collections: ₹${estimatedCollections.toLocaleString('en-IN')}`;
         }
         if (committeeMembers.length > 0) {
             successMsg += `\n👥 Committee: ${committeeMembers.length} member(s)`;
         }
-        successMsg += `\n\n💡 Next: Save the file to ${dataPath} and reload this page`;
+        successMsg += testMode ? `\n\n💡 Save the downloaded file to ${dataPath} and reload this page` : '\n\n💡 Reload this page to view the new year data.';
         
         showToast(successMsg, 'success', 8000); // Show for 8 seconds with instructions
         hideLoading();
