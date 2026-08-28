@@ -1,0 +1,51 @@
+{
+  "year": "2023",
+  "lastUpdated": "2026-08-28T17:27:02.324Z",
+  "donations": [
+    {
+      "slNo": 1,
+      "name": "tirumala",
+      "amount": 500
+    },
+    {
+      "slNo": 2,
+      "name": "tirumala1",
+      "amount": 200
+    },
+    {
+      "slNo": 3,
+      "name": "tirumala2",
+      "amount": 1000
+    }
+  ],
+  "cheeti": [],
+  "cheeti_collections": [],
+  "cheeti_expected": [],
+  "expenses": [
+    {
+      "item": "test1",
+      "amount": 500
+    }
+  ],
+  "sponsors": [
+    {
+      "slNo": 1,
+      "name": "tirumala",
+      "type": "Laddu",
+      "amount": 100
+    }
+  ],
+  "laddu_winners": [
+    {
+      "slNo": 1,
+      "name": "tirumala1",
+      "amount": 5000,
+      "date": "2026-08-28T17:26:57.204Z"
+    }
+  ],
+  "committee": [],
+  "committee_next_year": [],
+  "settings": {
+    "dashboard_enabled": true
+  }
+}
