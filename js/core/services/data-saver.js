@@ -296,8 +296,6 @@ async function saveYearDataToFile(year, data, commitMessage = null) {
         // Use the updateGitHubFile function
         await updateGitHubFile(filePath, data, existingSha, commitMessage || defaultMsg);
         
-        showSuccess(`✅ Year ${year} initialized and saved successfully!`);
-        
         return true;
         
     } catch (error) {

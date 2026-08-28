@@ -524,14 +524,18 @@ async function initializeNewYear(year) {
         const testMode = config.TEST_MODE === true;
         let successMsg = testMode
             ? `✅ Year ${year} initialized! File downloaded for manual placement.`
-            : `✅ Year ${year} initialized and saved to GitHub: ${dataPath}`;
+            : `✅ ${year} is ready\n\nYour new year data has been saved successfully.`;
         if (estimatedCollections > 0) {
             successMsg += `\n📊 Expected collections: ₹${estimatedCollections.toLocaleString('en-IN')}`;
         }
         if (committeeMembers.length > 0) {
             successMsg += `\n👥 Committee: ${committeeMembers.length} member(s)`;
         }
-        successMsg += testMode ? `\n\n💡 Save the downloaded file to ${dataPath} and reload this page` : '\n\n💡 Reload this page to view the new year data.';
+        successMsg += testMode ? `\n\n💡 Save the downloaded file to ${dataPath} and reload this page` : '\n\n💡 Refresh the page to start managing the new year.';
+
+        if (!testMode) {
+            console.log(`✅ Year ${year} initialized and synced to GitHub: ${dataPath}`);
+        }
         
         showToast(successMsg, 'success', 8000); // Show for 8 seconds with instructions
         hideLoading();
