@@ -1,6 +1,6 @@
 {
   "year": "2025",
-  "lastUpdated": "2026-08-28T17:18:22.725Z",
+  "lastUpdated": "2026-08-28T17:19:06.795Z",
   "settings": {
     "dashboard_enabled": true
   },
@@ -329,8 +329,8 @@
       "interest": 3312,
       "total": 30912,
       "lateFee": 0,
-      "paid": true,
-      "paymentDate": "2026-08-28",
+      "paid": false,
+      "paymentDate": null,
       "days_overdue": 0
     },
     {
