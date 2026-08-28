@@ -72,7 +72,11 @@ jobs:
                   return `data/${env}/donations-${year}.json`;
               }
           };
-          EOF
+
+              // Session management and legacy modules read configuration from window.
+              window.DASHBOARD_CONFIG = DASHBOARD_CONFIG;
+              window.CONFIG = DASHBOARD_CONFIG;
+              EOF
 
       - name: Setup Pages
         uses: actions/configure-pages@v4

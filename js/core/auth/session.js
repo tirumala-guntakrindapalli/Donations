@@ -16,8 +16,8 @@ async function checkAdminSession() {
         const config = window.DASHBOARD_CONFIG || window.CONFIG;
         if (!config) throw new Error('Configuration not found');
         
-        const REPO_OWNER = config.REPO_OWNER;
-        const REPO_NAME = config.REPO_NAME;
+        const REPO_OWNER = config.REPO_OWNER || config.GITHUB_OWNER;
+        const REPO_NAME = config.REPO_NAME || config.GITHUB_REPO;
         const GITHUB_TOKEN = config.GITHUB_TOKEN;
         
         const url = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/data/admin-session.lock`;
@@ -65,8 +65,8 @@ async function createAdminSession() {
         const config = window.DASHBOARD_CONFIG || window.CONFIG;
         if (!config) throw new Error('Configuration not found');
         
-        const REPO_OWNER = config.REPO_OWNER;
-        const REPO_NAME = config.REPO_NAME;
+        const REPO_OWNER = config.REPO_OWNER || config.GITHUB_OWNER;
+        const REPO_NAME = config.REPO_NAME || config.GITHUB_REPO;
         const GITHUB_TOKEN = config.GITHUB_TOKEN;
         
         const url = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/data/admin-session.lock`;
@@ -125,8 +125,8 @@ async function releaseAdminSession() {
         const config = window.DASHBOARD_CONFIG || window.CONFIG;
         if (!config) return; // Silently fail if no config
         
-        const REPO_OWNER = config.REPO_OWNER;
-        const REPO_NAME = config.REPO_NAME;
+        const REPO_OWNER = config.REPO_OWNER || config.GITHUB_OWNER;
+        const REPO_NAME = config.REPO_NAME || config.GITHUB_REPO;
         const GITHUB_TOKEN = config.GITHUB_TOKEN;
         
         const url = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/data/admin-session.lock`;
