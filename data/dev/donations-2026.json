@@ -1,9 +1,18 @@
 {
   "year": "2026",
-  "lastUpdated": "2026-08-28T18:09:11.171Z",
+  "lastUpdated": "2026-08-28T18:10:09.107Z",
   "donations": [],
   "cheeti": [],
-  "cheeti_collections": [],
+  "cheeti_collections": [
+    {
+      "slNo": 1,
+      "memberName": "M Krishna Reddy",
+      "amount": 30912,
+      "fromYear": 2025,
+      "collectionDate": "2026-08-28",
+      "addedOn": "2026-08-28T18:10:08.553Z"
+    }
+  ],
   "cheeti_expected": [
     {
       "name": "M Krishna Reddy",
