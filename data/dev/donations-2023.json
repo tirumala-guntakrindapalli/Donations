@@ -1,11 +1,21 @@
 {
   "year": "2023",
-  "lastUpdated": "2026-08-28T17:23:41.133Z",
+  "lastUpdated": "2026-08-28T17:24:07.888Z",
   "donations": [
     {
       "slNo": 1,
       "name": "tirumala",
       "amount": 500
+    },
+    {
+      "slNo": 2,
+      "name": "tirumala1",
+      "amount": 200
+    },
+    {
+      "slNo": 3,
+      "name": "tirumala2",
+      "amount": 1000
     }
   ],
   "cheeti": [],
