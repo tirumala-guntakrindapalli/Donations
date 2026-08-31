@@ -1,6 +1,6 @@
 {
   "year": "2025",
-  "lastUpdated": "2026-08-31T10:06:20.541Z",
+  "lastUpdated": "2026-08-31T10:17:44.418Z",
   "settings": {
     "dashboard_enabled": true
   },
@@ -359,7 +359,7 @@
       "paid": false,
       "paymentDate": null,
       "days_overdue": 0,
-      "paidAmount": 30912,
+      "paidAmount": 0,
       "receiver": "",
       "paymentHistory": [
         {
