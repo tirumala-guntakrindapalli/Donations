@@ -1,6 +1,6 @@
 {
   "year": "2026",
-  "lastUpdated": "2026-08-31T17:11:50.311Z",
+  "lastUpdated": "2026-08-31T17:26:51.707Z",
   "donations": [],
   "cheeti": [],
   "cheeti_collections": [
@@ -19,6 +19,14 @@
       "fromYear": 2025,
       "collectionDate": "2026-08-31",
       "addedOn": "2026-08-31T17:11:49.757Z"
+    },
+    {
+      "slNo": 3,
+      "memberName": "P Hari",
+      "amount": 25000,
+      "fromYear": 2025,
+      "collectionDate": "2026-08-31",
+      "addedOn": "2026-08-31T17:26:51.180Z"
     }
   ],
   "cheeti_expected": [
