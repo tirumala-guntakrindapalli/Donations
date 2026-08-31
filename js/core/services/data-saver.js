@@ -363,8 +363,23 @@ function downloadYearDataAsExcel() {
                 'Paid Amount (Rs)': paidAmount(member),
                 'Remaining (Rs)': Math.max(0, totalDue(member) - paidAmount(member)),
                 'Status': member.paid ? 'Fully Paid' : 'Pending',
-                'Latest Payment Date': member.paymentDate || ''
+                'Latest Payment Date': member.paymentDate || '',
+                'Received By': member.receiver || '',
+                'Payment Mode': member.paymentMode || ''
             }))
+        },
+        {
+            name: 'Payment History',
+            rows: (currentData.cheeti || []).flatMap(member =>
+                (member.paymentHistory || []).map((installment, i) => ({
+                    'Member Name': member.name || '',
+                    'Installment #': i + 1,
+                    'Amount (Rs)': installment.amount || 0,
+                    'Date': installment.date || '',
+                    'Received By': installment.receiver || '',
+                    'Payment Mode': installment.paymentMode || ''
+                }))
+            )
         },
         {
             name: 'Cheeti Collections',
