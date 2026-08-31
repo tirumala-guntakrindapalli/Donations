@@ -128,7 +128,8 @@
         
         .collapsible-content {
             max-height: 2000px;
-            overflow: hidden;
+            /* overflow stays visible while expanded - see .dashboard-section-content note above */
+            overflow: visible;
             transition: max-height 0.4s ease, opacity 0.3s ease, padding 0.3s ease;
             opacity: 1;
             padding-top: 10px;
@@ -138,6 +139,7 @@
             max-height: 0;
             opacity: 0;
             padding-top: 0;
+            overflow: hidden;
         }
         
         /* Color variations for different section types */
@@ -234,7 +236,10 @@
         
         .dashboard-section-content {
             max-height: 5000px;
-            overflow: hidden;
+            /* overflow stays visible while expanded - "hidden" here breaks native <select>
+               dropdown positioning on mobile Chrome/Safari, making it render near the container's
+               top instead of anchored to the actual field. Only clip while collapsing/collapsed. */
+            overflow: visible;
             transition: max-height 0.4s ease, opacity 0.3s ease;
             opacity: 1;
             background: white;
@@ -247,6 +252,7 @@
             max-height: 0;
             opacity: 0;
             padding: 0;
+            overflow: hidden;
         }
         
         /* Table Card Collapsible Styles */
@@ -311,16 +317,65 @@
             min-width: 600px;
         }
         
-        /* Mobile: Reduce table height to fit screen better */
+        /* Quick filter bar above tables */
+        .table-filter-bar {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+        
+        /* Selects must not be direct flex children - some mobile browsers mis-anchor a <select>'s
+           native dropdown when its immediate parent is display:flex. Wrapping each in a plain
+           block-level .filter-item (itself the flex item) keeps the select's parent non-flex. */
+        .filter-item {
+            display: block;
+        }
+        
+        .table-filter-bar .form-select {
+            width: auto;
+            min-width: 150px;
+            max-width: 100%;
+            padding: 8px 12px;
+            font-size: 13px;
+        }
+        
+        .table-filter-bar .expand-table-btn {
+            background: #f8f9fa;
+            border-color: #dee2e6;
+        }
+        
+        @media (max-width: 768px) {
+            .table-filter-bar {
+                width: 100%;
+            }
+            
+            .filter-item {
+                flex: 1 1 auto;
+            }
+            
+            .table-filter-bar .form-select {
+                width: 100%;
+                min-width: 120px;
+                max-width: 100%;
+                /* Keep at 16px on mobile - anything smaller triggers iOS Safari's auto-zoom on focus,
+                   which makes the field appear to jump/relocate on the page. */
+                font-size: 16px;
+                padding: 6px 10px;
+            }
+        }
+        
+        /* Mobile: Increase table height so ~10 rows are visible before scrolling kicks in */
         @media (max-width: 768px) {
             .table-content {
-                max-height: 450px;
+                max-height: 70vh;
             }
         }
         
         @media (max-width: 480px) {
             .table-content {
-                max-height: 350px;
+                max-height: 65vh;
             }
         }
         
@@ -1801,6 +1856,13 @@
             z-index: 100000;
             justify-content: center;
             align-items: center;
+            /* Scroll happens at this outer level (like the other modals), not inside
+               .edit-modal-content - a select nested in an inner scroll container mis-anchors
+               its native dropdown on mobile when the field sits near the container's edge. */
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            padding: 20px;
+            box-sizing: border-box;
         }
 
         #editModal.show {
@@ -1813,9 +1875,7 @@
             padding: 30px;
             max-width: 500px;
             width: 90%;
-            max-height: 90vh;
-            overflow-y: auto;
-            -webkit-overflow-scrolling: touch;
+            margin: auto;
             box-shadow: 0 10px 40px rgba(0,0,0,0.3);
         }
 
@@ -2257,9 +2317,15 @@
                             <div id="adminLateFeeInfo" style="color: #666; font-size: 0.85rem; margin-top: 5px;"></div>
                         </div>
                         <div class="form-group">
-                            <label>Received By</label>
-                            <select id="repaymentReceiver" class="form-select" onchange="markFormChanged()">
+                            <label>Received By <span style="color: #e74c3c;">*</span></label>
+                            <select id="repaymentReceiver" class="form-select" onchange="markFormChanged()" required>
                                 <option value="">-- Select Receiver --</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Payment Mode <span style="color: #e74c3c;">*</span></label>
+                            <select id="repaymentMode" class="form-select" onchange="markFormChanged()" required>
+                                <option value="">-- Select Payment Mode --</option>
                             </select>
                         </div>
                         <div class="form-group">
@@ -2777,6 +2843,35 @@
                     <strong><i class="fas fa-exclamation-triangle"></i> <span data-i18n="importantPayment">Important: Cheeti Payment</span></strong>
                     <span id="cheetiCutoverMemberMessage"></span>
                 </div>
+                <div class="table-filter-bar">
+                    <div class="filter-item">
+                        <select id="cheetiMembersStatusFilter" class="form-select" onchange="filterCheetiTable('cheetiTableBody', 'cheetiMembers')">
+                            <option value="" data-i18n="allStatus">All Status</option>
+                            <option value="paid" data-i18n="statusPaid">Paid</option>
+                            <option value="pending" data-i18n="statusPending">Pending</option>
+                        </select>
+                    </div>
+                    <div class="filter-item">
+                        <select id="cheetiMembersReceiverFilter" class="form-select" onchange="filterCheetiTable('cheetiTableBody', 'cheetiMembers')">
+                            <option value="" data-i18n="allReceivers">All Receivers</option>
+                        </select>
+                    </div>
+                    <div class="filter-item">
+                        <select id="cheetiMembersModeFilter" class="form-select" onchange="filterCheetiTable('cheetiTableBody', 'cheetiMembers')">
+                            <option value="" data-i18n="allPaymentModes">All Payment Modes</option>
+                            <option value="Cash">Cash</option>
+                            <option value="UPI">UPI</option>
+                            <option value="Bank Transfer">Bank Transfer</option>
+                            <option value="Cheque">Cheque</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="filter-item">
+                        <button class="expand-table-btn" onclick="clearCheetiFilters('cheetiMembers')" title="Clear filters">
+                            <i class="fas fa-times"></i> <span data-i18n="clearFilters">Clear</span>
+                        </button>
+                    </div>
+                </div>
                 <div class="table-content">
                     <table>
                         <thead>
@@ -2790,6 +2885,7 @@
                                 <th data-i18n="remainingBalanceDue">Remaining Balance</th>
                                 <th data-i18n="paidDate">Paid Date</th>
                                 <th data-i18n="receivedBy">Received By</th>
+                                <th data-i18n="paymentMode">Payment Mode</th>
                                 <th id="cheetiActionsHeader" style="display: none;">Actions</th>
                             </tr>
                         </thead>
@@ -2817,6 +2913,35 @@
                 <i class="fas fa-chevron-down dashboard-toggle"></i>
             </div>
             <div class="dashboard-section-content">
+                <div class="table-filter-bar">
+                    <div class="filter-item">
+                        <select id="cheetiPaidStatusFilter" class="form-select" onchange="filterCheetiTable('cheetiPaidTableBody', 'cheetiPaid')">
+                            <option value="">All Status</option>
+                            <option value="paid">Paid</option>
+                            <option value="pending">Pending</option>
+                        </select>
+                    </div>
+                    <div class="filter-item">
+                        <select id="cheetiPaidReceiverFilter" class="form-select" onchange="filterCheetiTable('cheetiPaidTableBody', 'cheetiPaid')">
+                            <option value="">All Receivers</option>
+                        </select>
+                    </div>
+                    <div class="filter-item">
+                        <select id="cheetiPaidModeFilter" class="form-select" onchange="filterCheetiTable('cheetiPaidTableBody', 'cheetiPaid')">
+                            <option value="">All Payment Modes</option>
+                            <option value="Cash">Cash</option>
+                            <option value="UPI">UPI</option>
+                            <option value="Bank Transfer">Bank Transfer</option>
+                            <option value="Cheque">Cheque</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="filter-item">
+                        <button class="expand-table-btn" onclick="clearCheetiFilters('cheetiPaid')" title="Clear filters">
+                            <i class="fas fa-times"></i> <span>Clear</span>
+                        </button>
+                    </div>
+                </div>
                 <div class="table-content">
                     <table>
                         <thead>
@@ -2832,6 +2957,7 @@
                                 <th>Status</th>
                                 <th>Payment Date</th>
                                 <th>Received By</th>
+                                <th>Payment Mode</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
