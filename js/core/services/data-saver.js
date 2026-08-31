@@ -323,6 +323,120 @@ function downloadDataAsJSON(data, filename = 'donations-data.json') {
     showSuccess(`✅ Downloaded ${filename}`);
 }
 
+/**
+ * Download all sections for the selected year as an Excel workbook.
+ */
+function downloadYearDataAsExcel() {
+    const currentData = window.DashboardState ? window.DashboardState.getCurrentData() : window.currentData;
+
+    if (!currentData || !currentData.year) {
+        showError('No year data is loaded to export');
+        return;
+    }
+
+    if (typeof XLSX === 'undefined') {
+        showError('Excel export is unavailable. Refresh the page and try again.');
+        return;
+    }
+
+    const totalDue = member => (member.amount || 0) + (member.interest || 0) + (member.lateFee || 0);
+    const paidAmount = member => member.paidAmount || (member.paid ? totalDue(member) : 0);
+    const workbook = XLSX.utils.book_new();
+    const sheets = [
+        {
+            name: 'Donations',
+            rows: (currentData.donations || []).map(donation => ({
+                'Sl No': donation.slNo || '',
+                'Donor Name': donation.name || '',
+                'Amount (Rs)': donation.amount || 0
+            }))
+        },
+        {
+            name: 'Cheeti Members',
+            rows: (currentData.cheeti || []).map(member => ({
+                'Sl No': member.slNo || '',
+                'Member Name': member.name || '',
+                'Principal (Rs)': member.amount || 0,
+                'Interest (Rs)': member.interest || 0,
+                'Late Fee (Rs)': member.lateFee || 0,
+                'Total Due (Rs)': totalDue(member),
+                'Paid Amount (Rs)': paidAmount(member),
+                'Remaining (Rs)': Math.max(0, totalDue(member) - paidAmount(member)),
+                'Status': member.paid ? 'Fully Paid' : 'Pending',
+                'Latest Payment Date': member.paymentDate || ''
+            }))
+        },
+        {
+            name: 'Cheeti Collections',
+            rows: (currentData.cheeti_collections || []).map(collection => ({
+                'Sl No': collection.slNo || '',
+                'Member Name': collection.memberName || '',
+                'Amount (Rs)': collection.amount || 0,
+                'From Year': collection.fromYear || '',
+                'Collection Date': collection.collectionDate || ''
+            }))
+        },
+        {
+            name: 'Expected Collections',
+            rows: (currentData.cheeti_expected || []).map(expected => ({
+                'Member Name': expected.name || '',
+                'Principal (Rs)': expected.amount || 0,
+                'Interest (Rs)': expected.interest || 0,
+                'Expected Total (Rs)': expected.expectedTotal || 0,
+                'From Year': expected.fromYear || ''
+            }))
+        },
+        {
+            name: 'Expenses',
+            rows: (currentData.expenses || []).map(expense => ({
+                'Item': expense.item || '',
+                'Amount (Rs)': expense.amount || 0
+            }))
+        },
+        {
+            name: 'Sponsors',
+            rows: (currentData.sponsors || []).map(sponsor => ({
+                'Sl No': sponsor.slNo || '',
+                'Sponsor Name': sponsor.name || '',
+                'Sponsor Type': sponsor.type || '',
+                'Amount (Rs)': sponsor.amount || 0
+            }))
+        },
+        {
+            name: 'Laddu Winners',
+            rows: (currentData.laddu_winners || []).map(winner => ({
+                'Sl No': winner.slNo || '',
+                'Winner Name': winner.name || '',
+                'Amount (Rs)': winner.amount || 0,
+                'Date': winner.date || ''
+            }))
+        },
+        {
+            name: 'Committee',
+            rows: (currentData.committee || []).map(member => ({
+                'Name': member.name || '',
+                'Role': member.role || ''
+            }))
+        },
+        {
+            name: 'Next Year Committee',
+            rows: (currentData.committee_next_year || []).map(member => ({
+                'Name': member.name || '',
+                'Role': member.role || ''
+            }))
+        }
+    ];
+
+    sheets.forEach(({ name, rows }) => {
+        const worksheet = XLSX.utils.json_to_sheet(rows.length > 0 ? rows : [{ 'No records': '' }]);
+        worksheet['!cols'] = Object.keys(rows[0] || { 'No records': '' }).map(key => ({ wch: Math.max(14, key.length + 2) }));
+        XLSX.utils.book_append_sheet(workbook, worksheet, name);
+    });
+
+    XLSX.writeFile(workbook, `vinayaka-chavithi-${currentData.year}-data.xlsx`);
+    showSuccess(`✅ ${currentData.year} Excel workbook downloaded`);
+}
+
 // Export for global access
 if (typeof window !== 'undefined') {
     window.saveDataToGitHub = saveDataToGitHub;
@@ -330,6 +444,7 @@ if (typeof window !== 'undefined') {
     window.saveYearData = saveYearData;
     window.saveYearDataToFile = saveYearDataToFile;
     window.downloadDataAsJSON = downloadDataAsJSON;
+    window.downloadYearDataAsExcel = downloadYearDataAsExcel;
 }
 
 console.log('✅ Data Saver module loaded');

@@ -66,6 +66,11 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initial DOM setup
     setupInitialDOM();
+
+    // Set member-facing language before loading dashboard data.
+    if (window.DashboardLocalization) {
+        window.DashboardLocalization.initialize();
+    }
     
     // Wait for config and then initialize
     waitForConfig(async function() {

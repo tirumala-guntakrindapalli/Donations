@@ -6,6 +6,7 @@
     <title>Vinayaka Chavithi Committee - Welcome</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>🕉️</text></svg>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Telugu:wght@400;600;700;800&display=swap">
     <style>
         * {
             margin: 0;
@@ -20,6 +21,10 @@
             color: #2c3e50;
             scroll-behavior: smooth;
             overflow-x: hidden;
+        }
+
+        html[lang="te"] body {
+            font-family: 'Noto Sans Telugu', 'Nirmala UI', sans-serif;
         }
 
         /* Animated Background Particles */
@@ -81,6 +86,48 @@
 
         .admin-login-btn i {
             font-size: 1.1rem;
+        }
+
+        .language-selector {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+        }
+
+        .language-selector select {
+            appearance: none;
+            background: rgba(255, 255, 255, 0.15);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50px;
+            color: white;
+            cursor: pointer;
+            font: inherit;
+            font-weight: 600;
+            padding: 10px 14px;
+            text-align: center;
+            text-align-last: center;
+        }
+
+        .language-selector select:focus {
+            outline: 2px solid white;
+            outline-offset: 2px;
+        }
+
+        .language-selector option {
+            color: #2c3e50;
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
         }
 
         /* Hero Section */
@@ -689,8 +736,34 @@
 
         /* Responsive */
         @media (max-width: 768px) {
+            .language-selector {
+                top: 14px;
+                left: 14px;
+            }
+
+            .language-selector select {
+                height: 40px;
+                min-width: 106px;
+                padding: 0 12px;
+                font-size: 0.85rem;
+                text-align: center;
+                text-align-last: center;
+            }
+
+            .admin-login-btn {
+                top: 14px;
+                right: 14px;
+                height: 40px;
+                padding: 0 16px;
+                font-size: 0.85rem;
+            }
+
+            .admin-login-btn i {
+                font-size: 1rem;
+            }
+
             .hero {
-                padding: 50px 15px 30px;
+                padding: 82px 15px 30px;
             }
 
             .hero h1 {
@@ -809,13 +882,6 @@
                 font-size: 1.05rem;
             }
 
-            .admin-login-btn {
-                top: 10px;
-                right: 10px;
-                padding: 9px 18px;
-                font-size: 0.8rem;
-            }
-
             .committee-section {
                 padding: 25px 15px;
                 margin: 0 10px 25px;
@@ -865,6 +931,25 @@
 
         /* Extra Small Devices */
         @media (max-width: 480px) {
+            .language-selector {
+                position: fixed;
+                top: 12px;
+                left: 12px;
+                display: flex;
+                justify-content: flex-start;
+                margin: 0;
+            }
+
+            .language-selector select {
+                background: rgba(255, 255, 255, 0.2);
+                width: 85px;
+                font-size: 0.78rem;
+                padding: 0 4px;
+                height: 36px;
+                text-align: center;
+                text-align-last: center;
+            }
+
             .hero h1 {
                 font-size: 1.6rem;
             }
@@ -945,9 +1030,16 @@
     </div>
 
     <!-- Admin Login Button (Top Right) -->
+    <div class="language-selector">
+        <label for="languageSelect" class="sr-only">Language</label>
+        <select id="languageSelect" aria-label="Language">
+            <option value="en">English</option>
+            <option value="te">తెలుగు</option>
+        </select>
+    </div>
     <a href="dashboard.html?login=true" class="admin-login-btn">
         <i class="fas fa-user-shield"></i>
-        Admin Login
+        <span data-i18n="adminLogin">Admin Login</span>
     </a>
 
     <!-- Hero Section -->
@@ -955,9 +1047,9 @@
         <div class="logo">
             <i class="fas fa-om"></i>
         </div>
-        <h1>Vinayaka Chavithi Committee</h1>
+        <h1 data-i18n="committeeName">Vinayaka Chavithi Committee</h1>
         <p class="location">(Muchivolu)</p>
-        <p class="subtitle">Celebrating Together, Managing Transparently</p>
+        <p class="subtitle" data-i18n="heroSubtitle">Celebrating Together, Managing Transparently</p>
         <p class="year" id="currentYear">2026</p>
     </div>
 
@@ -965,24 +1057,18 @@
     <div class="welcome-message">
         <h2>
             <i class="fas fa-hands-praying"></i>
-            <span style="display: block;">Welcome</span>
-            <span style="display: block;">to</span>
-            <span style="display: block;">Our Community</span>
+            <span style="display: block;" data-i18n="welcomeLine1">Welcome</span>
+            <span style="display: block;" data-i18n="welcomeLine2">to</span>
+            <span style="display: block;" data-i18n="welcomeLine3">Our Community</span>
         </h2>
         <p>
-            🙏 <strong>नमस्ते!</strong> Welcome to the <span class="highlight">Vinayaka Chavithi Committee Portal</span>, 
-            your trusted platform for celebrating together with complete transparency and devotion. Experience the power 
-            of community unity in honoring Lord Ganesha's divine blessings.
+            <span data-i18n="welcomeText1">🙏 <strong>Namaste!</strong> Welcome to the <span class="highlight">Vinayaka Chavithi Committee Portal</span>, your trusted platform for celebrating together with complete transparency and devotion. Experience the power of community unity in honoring Lord Ganesha's divine blessings.</span>
         </p>
         <p>
-            We believe in <strong>absolute transparency</strong> and <strong>efficient management</strong> of all community resources. 
-            This portal provides real-time insights into our collective efforts, ensuring every rupee and every contribution 
-            is honored and accounted for with the utmost integrity.
+            <span data-i18n="welcomeText2">We believe in <strong>absolute transparency</strong> and <strong>efficient management</strong> of all community resources. This portal provides real-time insights into our collective efforts, ensuring every rupee and every contribution is honored and accounted for with the utmost integrity.</span>
         </p>
         <p>
-            <strong>✨ Our Sacred Mission:</strong> To create a memorable, spiritually enriching Vinayaka Chavithi celebration 
-            that brings our community together while maintaining unwavering transparency in all financial and organizational 
-            matters. Together, we make Lord Ganesha's festival truly blessed!
+            <span data-i18n="welcomeText3"><strong>✨ Our Sacred Mission:</strong> To create a memorable, spiritually enriching Vinayaka Chavithi celebration that brings our community together while maintaining unwavering transparency in all financial and organizational matters. Together, we make Lord Ganesha's festival truly blessed!</span>
         </p>
     </div>
 
@@ -992,32 +1078,32 @@
             <div class="icon">
                 <i class="fas fa-chart-line"></i>
             </div>
-            <h3>Real-Time Dashboard</h3>
-            <p>View live metrics, charts, and comprehensive reports of all donations and expenses with beautiful visualizations.</p>
+            <h3 data-i18n="featureDashboardTitle">Real-Time Dashboard</h3>
+            <p data-i18n="featureDashboardText">View live metrics, charts, and comprehensive reports of all donations and expenses with beautiful visualizations.</p>
         </div>
 
         <div class="feature-card">
             <div class="icon">
                 <i class="fas fa-hand-holding-usd"></i>
             </div>
-            <h3>Donation Tracking</h3>
-            <p>Complete transparency of all contributions from community members with detailed donor information and amounts.</p>
+            <h3 data-i18n="featureDonationsTitle">Donation Tracking</h3>
+            <p data-i18n="featureDonationsText">Complete transparency of all contributions from community members with detailed donor information and amounts.</p>
         </div>
 
         <div class="feature-card">
             <div class="icon">
                 <i class="fas fa-users"></i>
             </div>
-            <h3>Cheeti Management</h3>
-            <p>Track monthly installments, member contributions, and payment schedules for our community savings fund.</p>
+            <h3 data-i18n="featureCheetiTitle">Cheeti Management</h3>
+            <p data-i18n="featureCheetiText">Track monthly installments, member contributions, and payment schedules for our community savings fund.</p>
         </div>
 
         <div class="feature-card">
             <div class="icon">
                 <i class="fas fa-receipt"></i>
             </div>
-            <h3>Expense Reports</h3>
-            <p>Detailed breakdown of all festival expenses including decorations, prasadam, and event management costs.</p>
+            <h3 data-i18n="featureExpensesTitle">Expense Reports</h3>
+            <p data-i18n="featureExpensesText">Detailed breakdown of all festival expenses including decorations, prasadam, and event management costs.</p>
         </div>
     </div>
 
@@ -1028,39 +1114,39 @@
                 <div class="image-placeholder">
                     <i class="fas fa-gopuram"></i>
                 </div>
-                <div class="label">Temple Decorations</div>
+                <div class="label" data-i18n="imageTemple">Temple Decorations</div>
             </div>
 
             <div class="image-card">
                 <div class="image-placeholder">
                     <i class="fas fa-om"></i>
                 </div>
-                <div class="label">Lord Ganesha Idol</div>
+                <div class="label" data-i18n="imageIdol">Lord Ganesha Idol</div>
             </div>
 
             <div class="image-card">
                 <div class="image-placeholder">
                     <i class="fas fa-hands-praying"></i>
                 </div>
-                <div class="label">Community Prayers</div>
+                <div class="label" data-i18n="imagePrayers">Community Prayers</div>
             </div>
 
             <div class="image-card">
                 <div class="image-placeholder">
                     <i class="fas fa-gift"></i>
                 </div>
-                <div class="label">Prasadam Distribution</div>
+                <div class="label" data-i18n="imagePrasadam">Prasadam Distribution</div>
             </div>
         </div>
     </div>
 
     <!-- CTA Section -->
     <div class="cta">
-        <h2>✨ Experience Complete Transparency ✨</h2>
+        <h2 data-i18n="ctaTitle">✨ Experience Complete Transparency ✨</h2>
         <div class="cta-buttons">
             <a href="dashboard.html" class="btn btn-primary" onclick="showDashboardLoading(event)">
                 <i class="fas fa-chart-pie"></i>
-                <span>Explore Dashboard</span>
+                <span data-i18n="exploreDashboard">Explore Dashboard</span>
             </a>
         </div>
     </div>
@@ -1068,8 +1154,8 @@
     <!-- Committee Section -->
     <div class="committee-section">
         <div class="section-header">
-            <h2><i class="fas fa-users-cog"></i> Committee Members <span id="committeeYear">2026</span></h2>
-            <p>Meet the dedicated team organizing this year's festival</p>
+            <h2><i class="fas fa-users-cog"></i> <span data-i18n="committeeMembers">Committee Members</span> <span id="committeeYear">2026</span></h2>
+            <p data-i18n="committeeSubtitle">Meet the dedicated team organizing this year's festival</p>
         </div>
         <div class="committee-grid" id="committeeGrid">
             <!-- Committee members will be loaded here -->
@@ -1078,12 +1164,13 @@
 
     <!-- Footer -->
     <div class="footer">
-        <p>© <span id="footerYear">2026</span> Vinayaka Chavithi Committee (Muchivolu)</p>
-        <p>🙏 Powered by Community • 💎 Managed with Transparency • ✨ Blessed by Lord Ganesha</p>
+        <p>© <span id="footerYear">2026</span> <span data-i18n="footerCommittee">Vinayaka Chavithi Committee (Muchivolu)</span></p>
+        <p data-i18n="footerTagline">🙏 Powered by Community • 💎 Managed with Transparency • ✨ Blessed by Lord Ganesha</p>
     </div>
 
     <!-- Load Dashboard Configuration -->
     <script src="dashboard-config.js"></script>
+    <script src="js/localization/home-localization.js"></script>
 
     <script>
         // Set current year dynamically
@@ -1232,6 +1319,8 @@
         function displayCommitteeMembers(committee) {
             const committeeGrid = document.getElementById('committeeGrid');
             if (!committeeGrid) return;
+
+            window.lastLoadedCommittee = committee;
             
             const roleColors = {
                 'Organizer': '#e74c3c',
@@ -1251,7 +1340,7 @@
                         <div class="home-committee-avatar">${initials}</div>
                         <h3 class="home-committee-name">${member.name}</h3>
                         <span class="home-committee-role" style="background: ${roleColor};">
-                            ${member.role}
+                            ${HomeLocalization.getRoleLabel(member.role)}
                         </span>
                     </div>
                 `;
@@ -1260,6 +1349,8 @@
 
         // Load committee members when page loads
         document.addEventListener('DOMContentLoaded', function() {
+            window.renderHomeCommittee = displayCommitteeMembers;
+            HomeLocalization.initialize();
             waitForConfig(loadCommitteeMembers);
             
             // Hide page loader

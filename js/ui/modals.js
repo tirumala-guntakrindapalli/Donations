@@ -352,6 +352,13 @@ function showEditModal(type, index) {
                     <span>Payment Received</span>
                 </label>
             </div>
+            <div class="edit-form-group">
+                <label for="editReceiver">Received By</label>
+                <select id="editReceiver">
+                    <option value="">-- Select Receiver --</option>
+                    ${((currentData.committee_next_year && currentData.committee_next_year.length) ? currentData.committee_next_year : (currentData.committee || [])).map(m => `<option value="${m.name}" ${member.receiver === m.name ? 'selected' : ''}>${m.name}${m.role ? ' (' + m.role + ')' : ''}</option>`).join('')}
+                </select>
+            </div>
             <p style="color: #7f8c8d; font-size: 0.9rem; margin-top: 15px;">
                 <i class="fas fa-info-circle"></i> Total Due: <span id="totalDueAmount">${formatCurrency((member.amount || 0) + (member.interest || 0) + (member.lateFee || 0))}</span>
             </p>

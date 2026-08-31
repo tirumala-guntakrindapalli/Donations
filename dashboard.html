@@ -7,7 +7,9 @@
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>🕉️</text></svg>">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Telugu:wght@400;600;700;800&display=swap">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
     <style>
         /* Enhanced UI Styles */
         html {
@@ -19,6 +21,46 @@
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             background-attachment: fixed;
             -webkit-overflow-scrolling: touch;
+        }
+
+        html[lang="te"] body {
+            font-family: 'Noto Sans Telugu', 'Nirmala UI', sans-serif;
+        }
+
+        .dashboard-language-selector {
+            appearance: none;
+            background: rgba(255, 255, 255, 0.15);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            color: white;
+            cursor: pointer;
+            font: inherit;
+            font-weight: 600;
+            font-size: 0.9rem;
+            height: 42px;
+            width: 118px;
+            padding: 0 12px;
+            text-align: center;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .dashboard-language-selector:hover {
+            background: rgba(255, 255, 255, 0.25);
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        .dashboard-language-selector:focus {
+            outline: none;
+            border-color: rgba(255, 255, 255, 0.7);
+            box-shadow: 0 0 0 3px rgba(255,255,255,0.1);
+        }
+
+        .dashboard-language-selector option {
+            color: #2c3e50;
         }
         
         /* Admin Panel Styles */
@@ -251,7 +293,7 @@
         }
         
         .table-content {
-            max-height: 500px;
+            max-height: 650px;
             overflow-x: auto;
             overflow-y: auto;
             -webkit-overflow-scrolling: touch;
@@ -272,13 +314,56 @@
         /* Mobile: Reduce table height to fit screen better */
         @media (max-width: 768px) {
             .table-content {
-                max-height: 350px;
+                max-height: 450px;
             }
         }
         
         @media (max-width: 480px) {
             .table-content {
-                max-height: 300px;
+                max-height: 350px;
+            }
+        }
+        
+        /* Fit Columns toggle button - only useful/visible on mobile where tables need horizontal scroll */
+        .fit-columns-btn {
+            display: none;
+        }
+        
+        @media (max-width: 768px) {
+            .fit-columns-btn {
+                display: inline-flex;
+                align-items: center;
+                gap: 4px;
+            }
+        }
+        
+        /* Fit Columns view: shrink font/padding so all columns fit without horizontal scrolling */
+        @media (max-width: 768px) {
+            .table-content.fit-columns table {
+                min-width: 100%;
+                table-layout: fixed;
+            }
+            
+            .table-content.fit-columns th,
+            .table-content.fit-columns td {
+                padding: 5px 4px !important;
+                font-size: 0.68rem !important;
+                white-space: normal !important;
+                word-break: break-word;
+                line-height: 1.25;
+            }
+            
+            .table-content.fit-columns .action-btn {
+                padding: 3px 6px;
+                font-size: 0.6rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .table-content.fit-columns th,
+            .table-content.fit-columns td {
+                padding: 4px 3px !important;
+                font-size: 0.62rem !important;
             }
         }
         
@@ -1633,6 +1718,14 @@
             font-size: 0.95rem;
         }
         
+        .table-header-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-left: auto;
+            margin-right: 10px;
+        }
+        
         .expand-table-btn {
             background: rgba(255,255,255,0.2);
             border: 2px solid rgba(255,255,255,0.3);
@@ -1644,10 +1737,34 @@
             font-weight: 600;
             display: inline-flex;
             align-items: center;
+            justify-content: center;
             gap: 6px;
             transition: all 0.3s;
-            margin-left: auto;
-            margin-right: 10px;
+            white-space: nowrap;
+        }
+        
+        .expand-table-btn i {
+            font-size: 12px;
+        }
+        
+        @media (max-width: 768px) {
+            .dashboard-section-header {
+                flex-wrap: wrap;
+                row-gap: 10px;
+            }
+            
+            .table-header-actions {
+                order: 3;
+                flex: 1 1 100%;
+                margin-left: 0;
+                margin-right: 0;
+            }
+            
+            .table-header-actions .expand-table-btn {
+                flex: 1;
+                font-size: 12px;
+                padding: 7px 8px;
+            }
         }
         
         .expand-table-btn:hover {
@@ -1750,7 +1867,20 @@
             box-sizing: border-box;
         }
 
-        .edit-form-group input:focus {
+        .edit-form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            box-sizing: border-box;
+            background: white;
+            cursor: pointer;
+        }
+
+        .edit-form-group input:focus,
+        .edit-form-group select:focus {
             outline: none;
             border-color: #667eea;
             box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
@@ -1862,7 +1992,7 @@
     </div>
 
     <!-- Generic Custom Confirm Modal -->
-    <div id="customConfirmModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 10000; align-items: center; justify-content: center; overflow-y: auto; -webkit-overflow-scrolling: touch; padding: 20px;" onclick="event.stopPropagation();">
+    <div id="customConfirmModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 100001; align-items: center; justify-content: center; overflow-y: auto; -webkit-overflow-scrolling: touch; padding: 20px;" onclick="event.stopPropagation();">
         <div class="confirm-modal" style="animation: slideDown 0.3s ease; margin: auto;" onclick="event.stopPropagation();">
             <div class="confirm-modal-header" id="customConfirmHeader">
                 <i class="fas fa-question-circle" id="customConfirmIcon"></i>
@@ -1935,21 +2065,25 @@
             </a>
         </div>
         <div class="header-center">
-            <h1><i class="fas fa-om"></i> Vinayaka Chavithi Dashboard</h1>
+            <h1><i class="fas fa-om"></i> <span data-i18n="dashboardTitle">Vinayaka Chavithi Dashboard</span></h1>
             <div class="year-selector">
                 <label for="yearSelect"><i class="fas fa-calendar-alt"></i></label>
                 <select id="yearSelect" class="year-dropdown">
                     <!-- Options will be populated dynamically -->
                 </select>
             </div>
-            <p class="generated-date">Last Updated: <span id="generatedDate"></span></p>
+            <p class="generated-date"><span data-i18n="lastUpdated">Last Updated:</span> <span id="generatedDate"></span></p>
         </div>
         <div class="header-controls">
+            <select id="dashboardLanguageSelect" class="dashboard-language-selector" aria-label="Language">
+                <option value="en">English</option>
+                <option value="te">తెలుగు</option>
+            </select>
             <button id="refreshBtn" class="btn btn-primary" title="Refresh Data">
-                <i class="fas fa-sync-alt"></i> Refresh
+                <i class="fas fa-sync-alt"></i> <span data-i18n="refresh">Refresh</span>
             </button>
             <button id="adminLoginBtn" class="btn btn-primary">
-                <i class="fas fa-lock"></i> Admin Login
+                <i class="fas fa-lock"></i> <span data-i18n="adminLogin">Admin Login</span>
             </button>
         </div>
     </div>
@@ -1989,6 +2123,9 @@
                 <div style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); padding: 15px; border-radius: 0 0 10px 10px; border: 1px solid #dee2e6; border-top: none;">
                     <button onclick="manualSyncCommittee()" style="background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%); color: white; border: none; padding: 10px 18px; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; transition: all 0.3s; box-shadow: 0 2px 8px rgba(139, 92, 246, 0.3);" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 12px rgba(139, 92, 246, 0.5)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 8px rgba(139, 92, 246, 0.3)'" title="Sync committee from previous year's planning">
                         <i class="fas fa-sync-alt"></i> Sync Committee from Previous Year
+                    </button>
+                    <button onclick="downloadYearDataAsExcel()" style="background: linear-gradient(135deg, #16a34a 0%, #15803d 100%); color: white; border: none; padding: 10px 18px; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; transition: all 0.3s; box-shadow: 0 2px 8px rgba(22, 163, 74, 0.3); margin-top: 10px;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 12px rgba(22, 163, 74, 0.5)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 8px rgba(22, 163, 74, 0.3)'" title="Download the selected year as an Excel workbook">
+                        <i class="fas fa-file-excel"></i> Download Selected Year Excel
                     </button>
                 </div>
             </div>
@@ -2116,6 +2253,12 @@
                             <label>Late Fee (₹) <span id="adminLateFeeAutoCalc" style="color: #ff9800; font-size: 0.85rem;"></span></label>
                             <input type="number" id="repaymentLateFee" value="0" min="0" oninput="markFormChanged()">
                             <div id="adminLateFeeInfo" style="color: #666; font-size: 0.85rem; margin-top: 5px;"></div>
+                        </div>
+                        <div class="form-group">
+                            <label>Received By</label>
+                            <select id="repaymentReceiver" class="form-select" onchange="markFormChanged()">
+                                <option value="">-- Select Receiver --</option>
+                            </select>
                         </div>
                         <div class="form-group">
                             <label>
@@ -2427,13 +2570,12 @@
         <div class="welcome-hero">
             <div class="welcome-hero-content">
                 <p>
-                    Welcome to the Vinayaka Chavithi Community Financial Dashboard. Our celebration brings together devotion, 
-                    community spirit, and transparency in managing resources for Lord Ganesha's festivities.
+                    <span data-i18n="welcomeText">Welcome to the Vinayaka Chavithi Community Financial Dashboard. Our celebration brings together devotion, community spirit, and transparency in managing resources for Lord Ganesha's festivities.</span>
                 </p>
                 <p>
-                    <span class="highlight">🙏 Unity in Devotion</span>
-                    <span class="highlight">💰 Financial Transparency</span>
-                    <span class="highlight">🎉 Community Celebration</span>
+                    <span class="highlight" data-i18n="unity">🙏 Unity in Devotion</span>
+                    <span class="highlight" data-i18n="transparency">💰 Financial Transparency</span>
+                    <span class="highlight" data-i18n="celebration">🎉 Community Celebration</span>
                 </p>
             </div>
         </div>
@@ -2455,8 +2597,8 @@
         <div class="dashboard-section">
             <div class="dashboard-section-header color-purple" onclick="toggleDashboardSection(this)">
                 <div class="dashboard-section-title">
-                    <h2><i class="fas fa-chart-bar"></i> Key Metrics Overview</h2>
-                    <p class="section-subtitle">Real-time financial statistics at a glance</p>
+                    <h2><i class="fas fa-chart-bar"></i> <span data-i18n="metricsTitle">Key Metrics Overview</span></h2>
+                    <p class="section-subtitle" data-i18n="metricsSubtitle">Real-time financial statistics at a glance</p>
                 </div>
                 <i class="fas fa-chevron-down dashboard-toggle"></i>
             </div>
@@ -2468,7 +2610,7 @@
                 </div>
                 <div class="metric-content">
                     <div class="metric-value" id="totalDonations">₹0</div>
-                    <div class="metric-label">Total Donations</div>
+                    <div class="metric-label" data-i18n="totalDonations">Total Donations</div>
                 </div>
             </div>
 
@@ -2478,7 +2620,7 @@
                 </div>
                 <div class="metric-content">
                     <div class="metric-value" id="totalDonors">0</div>
-                    <div class="metric-label">Total Donors</div>
+                    <div class="metric-label" data-i18n="totalDonors">Total Donors</div>
                 </div>
             </div>
 
@@ -2488,7 +2630,7 @@
                 </div>
                 <div class="metric-content">
                     <div class="metric-value" id="avgDonation">₹0</div>
-                    <div class="metric-label">Average Donation</div>
+                    <div class="metric-label" data-i18n="averageDonation">Average Donation</div>
                 </div>
             </div>
 
@@ -2498,8 +2640,8 @@
                 </div>
                 <div class="metric-content">
                     <div class="metric-value" id="ladduWinnings">₹0</div>
-                    <div class="metric-label">Laddu Winnings</div>
-                    <div style="font-size: 11px; color: #95a5a6; margin-top: 2px;">Added to Total Amount</div>
+                    <div class="metric-label" data-i18n="ladduWinnings">Laddu Winnings</div>
+                    <div style="font-size: 11px; color: #95a5a6; margin-top: 2px;" data-i18n="addedToTotal">Added to Total Amount</div>
                 </div>
             </div>
 
@@ -2509,7 +2651,7 @@
                 </div>
                 <div class="metric-content">
                     <div class="metric-value" id="totalIncome">₹0</div>
-                    <div class="metric-label">Total Amount</div>
+                    <div class="metric-label" data-i18n="totalAmount">Total Amount</div>
                 </div>
             </div>
 
@@ -2519,7 +2661,7 @@
                 </div>
                 <div class="metric-content">
                     <div class="metric-value" id="totalExpenses">₹0</div>
-                    <div class="metric-label">Total Expenses</div>
+                    <div class="metric-label" data-i18n="totalExpenses">Total Expenses</div>
                 </div>
             </div>
 
@@ -2529,7 +2671,7 @@
                 </div>
                 <div class="metric-content">
                     <div class="metric-value" id="balance">₹0</div>
-                    <div class="metric-label">Balance</div>
+                    <div class="metric-label" data-i18n="balance">Balance</div>
                 </div>
             </div>
 
@@ -2539,7 +2681,7 @@
                 </div>
                 <div class="metric-content">
                     <div class="metric-value" id="cheetiMembers">0</div>
-                    <div class="metric-label">Cheeti Members</div>
+                    <div class="metric-label" data-i18n="cheetiMembers">Cheeti Members</div>
                 </div>
             </div>
 
@@ -2549,8 +2691,8 @@
                 </div>
                 <div class="metric-content">
                     <div class="metric-value" id="remainingBalanceAfterCheeti">₹0</div>
-                    <div class="metric-label">Remaining Balance After Cheeti</div>
-                    <div style="font-size: 11px; color: #95a5a6; margin-top: 2px;">Balance minus total cheeti amount</div>
+                    <div class="metric-label" data-i18n="remainingBalance">Remaining Balance After Cheeti</div>
+                    <div style="font-size: 11px; color: #95a5a6; margin-top: 2px;" data-i18n="balanceMinusCheeti">Balance minus total cheeti amount</div>
                 </div>
             </div>
 
@@ -2560,8 +2702,8 @@
                 </div>
                 <div class="metric-content">
                     <div class="metric-value" id="cheetiInterest">₹0</div>
-                    <div class="metric-label">Estimated Next Year Interest</div>
-                    <div style="font-size: 11px; color: #95a5a6; margin-top: 2px;">From current year members</div>
+                    <div class="metric-label" data-i18n="estimatedInterest">Estimated Next Year Interest</div>
+                    <div style="font-size: 11px; color: #95a5a6; margin-top: 2px;" data-i18n="currentYearMembers">From current year members</div>
                 </div>
             </div>
 
@@ -2571,8 +2713,8 @@
                 </div>
                 <div class="metric-content">
                     <div class="metric-value" id="estimatedNextYearTotal">₹0</div>
-                    <div class="metric-label">Estimated Total Amount Next Year</div>
-                    <div style="font-size: 11px; color: #95a5a6; margin-top: 2px;">Current balance plus estimated interest</div>
+                    <div class="metric-label" data-i18n="estimatedNextYearTotal">Estimated Total Amount Next Year</div>
+                    <div style="font-size: 11px; color: #95a5a6; margin-top: 2px;" data-i18n="balancePlusInterest">Current balance plus estimated interest</div>
                 </div>
             </div>
         </div>
@@ -2582,12 +2724,17 @@
         <div class="dashboard-section">
             <div class="dashboard-section-header color-green-gradient" onclick="toggleDashboardSection(this)">
                 <div class="dashboard-section-title">
-                    <h2><i class="fas fa-hand-holding-heart"></i> Donations</h2>
-                    <p class="section-subtitle">All donation contributions</p>
+                    <h2><i class="fas fa-hand-holding-heart"></i> <span data-i18n="donations">Donations</span></h2>
+                    <p class="section-subtitle" data-i18n="donationsSubtitle">All donation contributions</p>
                 </div>
-                <button class="expand-table-btn" onclick="showTableModal('donors'); event.stopPropagation();" title="Expand donations table">
-                    <i class="fas fa-expand-alt"></i> Expand
-                </button>
+                <div class="table-header-actions">
+                    <button class="expand-table-btn" onclick="showTableModal('donors'); event.stopPropagation();" title="Expand donations table">
+                        <i class="fas fa-expand-alt"></i> <span data-i18n="expand">Expand</span>
+                    </button>
+                    <button class="expand-table-btn fit-columns-btn" onclick="toggleFitColumns(this); event.stopPropagation();" title="Shrink columns to fit screen without scrolling">
+                        <span data-i18n="fitColumns">Fit Columns</span>
+                    </button>
+                </div>
                 <i class="fas fa-chevron-down dashboard-toggle"></i>
             </div>
             <div class="dashboard-section-content">
@@ -2595,9 +2742,9 @@
                     <table>
                         <thead>
                             <tr>
-                                <th>Rank</th>
-                                <th>Name</th>
-                                <th>Amount</th>
+                                <th data-i18n="rank">Rank</th>
+                                <th data-i18n="name">Name</th>
+                                <th data-i18n="amount">Amount</th>
                                 <th id="donorActionsHeader" style="display: none;">Actions</th>
                             </tr>
                         </thead>
@@ -2610,29 +2757,37 @@
         <div class="dashboard-section">
             <div class="dashboard-section-header color-blue-gradient" onclick="toggleDashboardSection(this)">
                 <div class="dashboard-section-title">
-                    <h2><i class="fas fa-user-friends"></i> Cheeti Members</h2>
-                    <p class="section-subtitle">Cheeti amounts and estimated interest</p>
+                    <h2><i class="fas fa-user-friends"></i> <span data-i18n="cheetiMembers">Cheeti Members</span></h2>
+                    <p class="section-subtitle" data-i18n="cheetiSubtitle">Cheeti amounts and estimated interest</p>
                 </div>
-                <button class="expand-table-btn" onclick="showTableModal('cheetiMembers'); event.stopPropagation();" title="Expand cheeti members table">
-                    <i class="fas fa-expand-alt"></i> Expand
-                </button>
+                <div class="table-header-actions">
+                    <button class="expand-table-btn" onclick="showTableModal('cheetiMembers'); event.stopPropagation();" title="Expand cheeti members table">
+                        <i class="fas fa-expand-alt"></i> <span data-i18n="expand">Expand</span>
+                    </button>
+                    <button class="expand-table-btn fit-columns-btn" onclick="toggleFitColumns(this); event.stopPropagation();" title="Shrink columns to fit screen without scrolling">
+                        <span data-i18n="fitColumns">Fit Columns</span>
+                    </button>
+                </div>
                 <i class="fas fa-chevron-down dashboard-toggle"></i>
             </div>
             <div class="dashboard-section-content">
+                <div id="cheetiCutoverMemberNotice" role="note" style="display: none; margin: 0 0 14px; padding: 12px 14px; background: #fff3cd; border-left: 4px solid #f59e0b; color: #7c2d12; line-height: 1.5;">
+                    <strong><i class="fas fa-exclamation-triangle"></i> <span data-i18n="importantPayment">Important: Cheeti Payment</span></strong>
+                    <span id="cheetiCutoverMemberMessage"></span>
+                </div>
                 <div class="table-content">
-                    <div id="cheetiCutoverMemberNotice" role="note" style="display: none; margin: 14px 14px 0; padding: 12px 14px; background: #fff3cd; border-left: 4px solid #f59e0b; color: #7c2d12; line-height: 1.5;">
-                        <strong><i class="fas fa-exclamation-triangle"></i> Important: Cheeti Payment</strong>
-                        <span id="cheetiCutoverMemberMessage"></span>
-                    </div>
                     <table>
                         <thead>
                             <tr>
-                                <th>Sl No</th>
-                                <th>Name</th>
-                                <th>Amount</th>
-                                <th>Interest</th>
-                                <th style="font-size: 0.85em; white-space: nowrap;">Total (inc. late fees)</th>
-                                <th>Paid Date</th>
+                                <th data-i18n="rank">Sl No</th>
+                                <th data-i18n="name">Name</th>
+                                <th data-i18n="amount">Amount</th>
+                                <th data-i18n="interest">Interest</th>
+                                <th style="font-size: 0.85em; white-space: nowrap;" data-i18n="total">Total (inc. late fees)</th>
+                                <th data-i18n="paidAmount">Paid Amount</th>
+                                <th data-i18n="remainingBalanceDue">Remaining Balance</th>
+                                <th data-i18n="paidDate">Paid Date</th>
+                                <th data-i18n="receivedBy">Received By</th>
                                 <th id="cheetiActionsHeader" style="display: none;">Actions</th>
                             </tr>
                         </thead>
@@ -2649,9 +2804,14 @@
                     <h2><i class="fas fa-money-check-alt"></i> Cheeti Payment Tracking</h2>
                     <p class="section-subtitle">Admin view of repayments and late fees</p>
                 </div>
-                <button class="expand-table-btn" onclick="showTableModal('cheetiPaid'); event.stopPropagation();" title="Expand cheeti payment table">
-                    <i class="fas fa-expand-alt"></i> Expand
-                </button>
+                <div class="table-header-actions">
+                    <button class="expand-table-btn" onclick="showTableModal('cheetiPaid'); event.stopPropagation();" title="Expand cheeti payment table">
+                        <i class="fas fa-expand-alt"></i> <span data-i18n="expand">Expand</span>
+                    </button>
+                    <button class="expand-table-btn fit-columns-btn" onclick="toggleFitColumns(this); event.stopPropagation();" title="Shrink columns to fit screen without scrolling">
+                        <span data-i18n="fitColumns">Fit Columns</span>
+                    </button>
+                </div>
                 <i class="fas fa-chevron-down dashboard-toggle"></i>
             </div>
             <div class="dashboard-section-content">
@@ -2665,8 +2825,11 @@
                                 <th>Interest</th>
                                 <th>Late Fee</th>
                                 <th>Total Due</th>
+                                <th>Paid Amount</th>
+                                <th>Remaining Balance</th>
                                 <th>Status</th>
                                 <th>Payment Date</th>
+                                <th>Received By</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -2679,12 +2842,17 @@
         <div class="dashboard-section">
             <div class="dashboard-section-header color-orange-gradient" onclick="toggleDashboardSection(this)">
                 <div class="dashboard-section-title">
-                    <h2><i class="fas fa-receipt"></i> Expenses</h2>
-                    <p class="section-subtitle">All recorded festival expenses</p>
+                    <h2><i class="fas fa-receipt"></i> <span data-i18n="expenses">Expenses</span></h2>
+                    <p class="section-subtitle" data-i18n="expensesSubtitle">All recorded festival expenses</p>
                 </div>
-                <button class="expand-table-btn" onclick="showTableModal('expenses'); event.stopPropagation();" title="Expand expenses table">
-                    <i class="fas fa-expand-alt"></i> Expand
-                </button>
+                <div class="table-header-actions">
+                    <button class="expand-table-btn" onclick="showTableModal('expenses'); event.stopPropagation();" title="Expand expenses table">
+                        <i class="fas fa-expand-alt"></i> <span data-i18n="expand">Expand</span>
+                    </button>
+                    <button class="expand-table-btn fit-columns-btn" onclick="toggleFitColumns(this); event.stopPropagation();" title="Shrink columns to fit screen without scrolling">
+                        <span data-i18n="fitColumns">Fit Columns</span>
+                    </button>
+                </div>
                 <i class="fas fa-chevron-down dashboard-toggle"></i>
             </div>
             <div class="dashboard-section-content">
@@ -2692,8 +2860,8 @@
                     <table id="expensesTable">
                         <thead>
                             <tr>
-                                <th>Item</th>
-                                <th>Amount</th>
+                                <th data-i18n="item">Item</th>
+                                <th data-i18n="amount">Amount</th>
                                 <th id="expenseActionsHeader" style="display: none;">Actions</th>
                             </tr>
                         </thead>
@@ -2706,8 +2874,8 @@
         <div class="dashboard-section" id="committeeSection" style="display: none;">
             <div class="dashboard-section-header color-orange-gradient" onclick="toggleDashboardSection(this)">
                 <div class="dashboard-section-title">
-                    <h2><i class="fas fa-users-cog"></i> Committee Members</h2>
-                    <p class="section-subtitle">Meet the dedicated team organizing this year's festival</p>
+                    <h2><i class="fas fa-users-cog"></i> <span data-i18n="committeeMembers">Committee Members</span></h2>
+                    <p class="section-subtitle" data-i18n="committeeSubtitle">Meet the dedicated team organizing this year's festival</p>
                 </div>
                 <i class="fas fa-chevron-down dashboard-toggle"></i>
             </div>
@@ -2721,8 +2889,8 @@
 
     <!-- Footer -->
     <div class="footer">
-        <p>© <span id="footerYear">2026</span> Vinayaka Chavithi Committee (Muchivolu)</p>
-        <p>🙏 Powered by Community • 💎 Managed with Transparency • ✨ Blessed by Lord Ganesha</p>
+        <p>© <span id="footerYear">2026</span> <span data-i18n="footerCommittee">Vinayaka Chavithi Committee (Muchivolu)</span></p>
+        <p data-i18n="footerTagline">🙏 Powered by Community • 💎 Managed with Transparency • ✨ Blessed by Lord Ganesha</p>
     </div>
     
     <!-- Table Fullscreen Modal -->
@@ -2742,6 +2910,7 @@
 
     <!-- Scripts -->
     <script src="dashboard-config.js"></script>
+    <script src="js/localization/dashboard-localization.js"></script>
     
     <!-- Modular JavaScript Files (31 modules in dependency order) -->
     <!-- Phase 1: Core Foundation -->
@@ -3000,6 +3169,42 @@
             });
         }
         
+        // Toggle "Fit Columns" view for a single table section - shrinks font/padding on mobile
+        // so all columns fit without horizontal scrolling. State is remembered per section.
+        function toggleFitColumns(button) {
+            const section = button.closest('.dashboard-section');
+            const tableContent = section ? section.querySelector('.table-content') : null;
+            if (!tableContent) return;
+            
+            const isFit = tableContent.classList.toggle('fit-columns');
+            const sectionTitle = section.querySelector('h2').textContent.trim();
+            localStorage.setItem(`fitColumns_${sectionTitle}`, isFit ? 'on' : 'off');
+            updateFitColumnsButton(button, isFit);
+        }
+        
+        function updateFitColumnsButton(button, isFit) {
+            const translate = window.DashboardLocalization?.translate || (key => ({ fitColumns: 'Fit Columns', normalView: 'Normal View' }[key] || key));
+            const key = isFit ? 'normalView' : 'fitColumns';
+            button.innerHTML = `<span data-i18n="${key}">${translate(key)}</span>`;
+            button.title = isFit ? 'Switch back to normal table view' : 'Shrink columns to fit screen without scrolling';
+        }
+        
+        // Restore saved "Fit Columns" preference per section
+        function restoreFitColumnsStates() {
+            document.querySelectorAll('.fit-columns-btn').forEach(button => {
+                const section = button.closest('.dashboard-section');
+                const tableContent = section ? section.querySelector('.table-content') : null;
+                if (!tableContent) return;
+                
+                const sectionTitle = section.querySelector('h2').textContent.trim();
+                const isFit = localStorage.getItem(`fitColumns_${sectionTitle}`) === 'on';
+                if (isFit) {
+                    tableContent.classList.add('fit-columns');
+                }
+                updateFitColumnsButton(button, isFit);
+            });
+        }
+        
         // Track currently open table modal
         let currentTableModalType = null;
         
@@ -3214,6 +3419,9 @@
                 restoreDashboardSectionStates();
                 restoreTableCardStates();
             }, 500);
+            
+            // Restore per-section "Fit Columns" view preferences
+            restoreFitColumnsStates();
         });
     </script>
 </body>

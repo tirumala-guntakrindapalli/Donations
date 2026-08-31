@@ -350,6 +350,7 @@ function updateCheetiForm() {
         
         // Populate member dropdown
         populateMemberDropdown();
+        populateReceiverDropdown();
     }
 }
 
@@ -365,6 +366,9 @@ function populateMemberDropdown() {
         return;
     }
     
+    // Preserve current selection - this can be repopulated mid-edit (e.g. auto-refresh)
+    const previousValue = memberSelect.value;
+    
     // Clear existing options except first one
     memberSelect.innerHTML = '<option value="">-- Select Member --</option>';
     
@@ -376,7 +380,42 @@ function populateMemberDropdown() {
         memberSelect.appendChild(option);
     });
     
+    if (previousValue && currentData.cheeti[previousValue]) {
+        memberSelect.value = previousValue;
+    }
+    
     console.log(`✅ Populated member dropdown with ${currentData.cheeti.length} members`);
+}
+
+/**
+ * Populate receiver dropdown with the incoming (next year) committee, who actually collects repayment
+ */
+function populateReceiverDropdown() {
+    const receiverSelect = document.getElementById('repaymentReceiver');
+    const currentData = window.DashboardState ? window.DashboardState.getCurrentData() : window.currentData;
+    
+    if (!receiverSelect || !currentData) {
+        return;
+    }
+    
+    const committeeList = (currentData.committee_next_year && currentData.committee_next_year.length)
+        ? currentData.committee_next_year
+        : (currentData.committee || []);
+    
+    // Preserve current selection - this can be repopulated mid-edit (e.g. auto-refresh)
+    const previousValue = receiverSelect.value;
+    
+    receiverSelect.innerHTML = '<option value="">-- Select Receiver --</option>';
+    committeeList.forEach(m => {
+        const option = document.createElement('option');
+        option.value = m.name;
+        option.textContent = m.role ? `${m.name} (${m.role})` : m.name;
+        receiverSelect.appendChild(option);
+    });
+    
+    if (previousValue && committeeList.some(m => m.name === previousValue)) {
+        receiverSelect.value = previousValue;
+    }
 }
 
 /**
@@ -439,6 +478,11 @@ function loadMemberDetails() {
         }
     }
     
+    const receiverSelect = document.getElementById('repaymentReceiver');
+    if (receiverSelect) {
+        receiverSelect.value = member.receiver || '';
+    }
+    
     console.log(`✅ Loaded details for member: ${member.name}`);
 }
 
@@ -457,6 +501,7 @@ function populateCheetiTable(cheetiData) {
     const formatCurrency = window.formatCurrency || function(amount) {
         return '₹' + amount.toLocaleString('en-IN');
     };
+    const translate = window.DashboardLocalization?.translate || (key => ({ viewPaymentHistory: 'View payment history' }[key] || key));
 
     updateMemberCutoverNotice();
 
@@ -465,11 +510,22 @@ function populateCheetiTable(cheetiData) {
     
     tbody.innerHTML = cheetiData.map((c, index) => {
         const totalWithLateFee = (c.amount || 0) + (c.interest || 0) + (c.lateFee || 0);
+        const remainingBalance = Math.max(0, totalWithLateFee - (c.paidAmount || 0));
         const paymentDate = c.paymentDate ? new Date(`${c.paymentDate}T00:00:00`) : null;
         const paidOnOrAfterCutover = paymentDate && cutoverDate && !Number.isNaN(cutoverDate.getTime()) && paymentDate >= cutoverDate;
         const formattedPaymentDate = paymentDate && !Number.isNaN(paymentDate.getTime())
             ? paymentDate.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })
             : '-';
+        
+        // Installments can be collected by different committee members over time
+        const paymentHistory = c.paymentHistory || [];
+        const receivers = [...new Set(paymentHistory.map(p => p.receiver).filter(Boolean))];
+        const showHistoryIcon = paymentHistory.length > 1 || receivers.length > 1;
+        const lastReceiver = paymentHistory.length ? (paymentHistory[paymentHistory.length - 1].receiver || '-') : (c.receiver || '-');
+        const receiverText = showHistoryIcon
+            ? `${lastReceiver} <button class="action-btn" style="background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%); color: white; padding: 4px 8px;" onclick="showCheetiPaymentHistory(${index})" title="${translate('viewPaymentHistory')}"><i class="fas fa-eye"></i></button>`
+            : lastReceiver;
+        
         return `
         <tr id="cheeti-member-row-${index}" data-index="${index}">
             <td>${c.slNo}</td>
@@ -477,7 +533,10 @@ function populateCheetiTable(cheetiData) {
             <td>${formatCurrency(c.amount)}</td>
             <td>${formatCurrency(c.interest || 0)}</td>
             <td><strong>${formatCurrency(totalWithLateFee)}</strong></td>
+            <td class="paid-amount-cell">${formatCurrency(c.paidAmount || 0)}</td>
+            <td class="remaining-balance-cell"><strong>${formatCurrency(remainingBalance)}</strong></td>
             <td style="${paidOnOrAfterCutover ? 'color: #dc2626; font-weight: 700;' : ''}">${formattedPaymentDate}</td>
+            <td>${receiverText}</td>
             <td style="${isAdmin ? '' : 'display: none;'}">
                 ${isAdmin ? `<div style="display: flex; gap: 6px; justify-content: center;"><button class="action-btn edit" onclick="showEditModal('cheeti', ${index})">
                     <i class="fas fa-edit"></i> Edit
@@ -518,13 +577,23 @@ function updateMemberCutoverNotice() {
 
     const selectedYear = currentData.year;
     const lateFeePerDay = currentData.cheeti_settings.late_fee_per_day || 50;
-    const formattedDeadline = deadline.toLocaleDateString('en-IN', {
+    const localization = window.DashboardLocalization;
+    const locale = localization?.getLocale?.() || 'en-IN';
+    let formattedDeadline = deadline.toLocaleDateString(locale, {
         day: 'numeric',
         month: 'long',
         year: 'numeric'
     });
 
-    message.textContent = ` Please pay your ${selectedYear} cheeti amount by ${formattedDeadline}. After this date, ₹${lateFeePerDay.toLocaleString('en-IN')} will be added for each late day.`;
+    if (locale === 'te-IN') {
+        const month = deadline.toLocaleDateString(locale, { month: 'long' });
+        formattedDeadline = `${deadline.getFullYear()} ${month} ${deadline.getDate()}`;
+    }
+
+    const formattedFee = lateFeePerDay.toLocaleString(locale);
+    message.textContent = localization
+        ? localization.translate('paymentNotice', { year: selectedYear, deadline: formattedDeadline, fee: formattedFee })
+        : ` Please pay your ${selectedYear} cheeti amount by ${formattedDeadline}. After this date, ₹${formattedFee} will be added for each late day.`;
     notice.style.display = 'block';
 }
 
@@ -546,9 +615,19 @@ function populateCheetiPaidTable(cheetiData) {
     
     tbody.innerHTML = cheetiData.map((c, index) => {
         const totalDue = (c.amount || 0) + (c.interest || 0) + (c.lateFee || 0);
+        const remainingBalance = Math.max(0, totalDue - (c.paidAmount || 0));
         const statusClass = c.paid ? 'paid' : 'unpaid';
         const statusText = c.paid ? '✓ Paid' : '✗ Pending';
         const formattedDate = c.paymentDate ? new Date(c.paymentDate).toLocaleDateString('en-IN') : '-';
+        
+        // Installments can be collected by different committee members over time
+        const paymentHistory = c.paymentHistory || [];
+        const receivers = [...new Set(paymentHistory.map(p => p.receiver).filter(Boolean))];
+        const showHistoryIcon = paymentHistory.length > 1 || receivers.length > 1;
+        const lastReceiver = paymentHistory.length ? (paymentHistory[paymentHistory.length - 1].receiver || '-') : (c.receiver || '-');
+        const receiverText = showHistoryIcon
+            ? `${lastReceiver} <button class="action-btn" style="background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%); color: white; padding: 4px 8px;" onclick="showCheetiPaymentHistory(${index})" title="View payment history"><i class="fas fa-eye"></i></button>`
+            : lastReceiver;
         
         return `
             <tr id="cheeti-row-${index}" data-index="${index}">
@@ -558,10 +637,13 @@ function populateCheetiPaidTable(cheetiData) {
                 <td>${formatCurrency(c.interest || 0)}</td>
                 <td class="late-fee-cell">${formatCurrency(c.lateFee || 0)}</td>
                 <td><strong>${formatCurrency(totalDue)}</strong></td>
+                <td class="paid-amount-cell">${formatCurrency(c.paidAmount || 0)}</td>
+                <td class="remaining-balance-cell"><strong>${formatCurrency(remainingBalance)}</strong></td>
                 <td class="status-cell">
                     <span class="paid-status ${statusClass}">${statusText}</span>
                 </td>
                 <td class="date-cell">${formattedDate}</td>
+                <td>${receiverText}</td>
                 <td>
                     <div style="display: flex; gap: 6px; justify-content: center;"><button class="action-btn edit" onclick="editCheetiEntry(${index})">
                         <i class="fas fa-edit"></i> Edit
@@ -574,6 +656,58 @@ function populateCheetiPaidTable(cheetiData) {
     }).join('');
     
     console.log(`✅ Cheeti paid table populated with ${cheetiData.length} entries`);
+}
+
+/**
+ * Show a date-wise breakdown of installments and who received each one
+ * @param {number} index - Index of cheeti member
+ */
+function showCheetiPaymentHistory(index) {
+    const currentData = window.DashboardState ? window.DashboardState.getCurrentData() : window.currentData;
+    const member = currentData && currentData.cheeti ? currentData.cheeti[index] : null;
+    if (!member) return;
+    
+    const formatCurrency = window.formatCurrency || function(amount) {
+        return '₹' + amount.toLocaleString('en-IN');
+    };
+    const translate = window.DashboardLocalization?.translate || (key => ({
+        historyDate: 'Date', historyAmount: 'Amount', historyReceivedBy: 'Received By',
+        noInstallments: 'No installments recorded', closeAction: 'Close'
+    }[key] || key));
+    
+    const history = [...(member.paymentHistory || [])].sort((a, b) => new Date(a.date) - new Date(b.date));
+    
+    const rows = history.map(p => `
+        <tr>
+            <td style="padding: 8px; border-bottom: 1px solid #e0e0e0;">${p.date ? new Date(p.date).toLocaleDateString('en-IN') : '-'}</td>
+            <td style="padding: 8px; border-bottom: 1px solid #e0e0e0;">${formatCurrency(p.amount || 0)}</td>
+            <td style="padding: 8px; border-bottom: 1px solid #e0e0e0;">${p.receiver || '-'}</td>
+        </tr>
+    `).join('');
+    
+    const message = `
+        <table style="width: 100%; border-collapse: collapse; text-align: left;">
+            <thead>
+                <tr>
+                    <th style="padding: 8px; border-bottom: 2px solid #dee2e6;">${translate('historyDate')}</th>
+                    <th style="padding: 8px; border-bottom: 2px solid #dee2e6;">${translate('historyAmount')}</th>
+                    <th style="padding: 8px; border-bottom: 2px solid #dee2e6;">${translate('historyReceivedBy')}</th>
+                </tr>
+            </thead>
+            <tbody>${rows || `<tr><td colspan="3" style="padding: 8px; text-align: center;">${translate('noInstallments')}</td></tr>`}</tbody>
+        </table>
+    `;
+    
+    if (typeof showCustomConfirm === 'function') {
+        showCustomConfirm({
+            title: window.DashboardLocalization ? window.DashboardLocalization.translate('paymentHistoryTitle', { name: member.name }) : `Payment History - ${member.name}`,
+            message,
+            icon: 'fas fa-history',
+            iconColor: '#8b5cf6',
+            confirmText: translate('closeAction'),
+            cancelText: ''
+        });
+    }
 }
 
 /**
@@ -599,12 +733,14 @@ async function saveCheetiPaymentFromModal(index) {
     const lateFeeInput = document.getElementById('editLateFee');
     const paidInput = document.getElementById('editPaid');
     const dateInput = document.getElementById('editPaymentDate');
+    const receiverInput = document.getElementById('editReceiver');
     
     if (!lateFeeInput || !paidInput || !dateInput) return;
     
     const lateFee = parseFloat(lateFeeInput.value) || 0;
     const isPaid = paidInput.checked;
     const paymentDate = dateInput.value;
+    const receiver = receiverInput ? receiverInput.value : (member.receiver || '');
     
     // Store original values for tracking
     const oldPayment = { 
@@ -612,7 +748,10 @@ async function saveCheetiPaymentFromModal(index) {
         lateFee: member.lateFee, 
         paid: member.paid, 
         paymentDate: member.paymentDate,
-        total: member.total 
+        total: member.total,
+        receiver: member.receiver,
+        paidAmount: member.paidAmount || 0,
+        paymentHistory: member.paymentHistory ? [...member.paymentHistory] : []
     };
     
     // Update member payment details
@@ -620,6 +759,13 @@ async function saveCheetiPaymentFromModal(index) {
     member.paid = isPaid;
     member.paymentDate = isPaid ? paymentDate : null;
     member.total = (member.amount || 0) + (member.interest || 0) + lateFee;
+    member.receiver = receiver;
+    // Keep paidAmount in sync so Remaining Balance reflects a reverted (unpaid) status
+    member.paidAmount = isPaid ? member.total : 0;
+    // Reverting clears prior installments too, otherwise old receivers/amounts would still show up
+    if (!isPaid) {
+        member.paymentHistory = [];
+    }
     
     // Store days overdue if applicable
     if (paymentDate) {
@@ -645,7 +791,7 @@ async function saveCheetiPaymentFromModal(index) {
     // Track change for draft mode (payment status update is an edit)
     trackChange('edit', 'cheeti', {
         old: oldPayment,
-        new: { name: member.name, lateFee: lateFee, paid: isPaid, paymentDate: paymentDate, total: member.total },
+        new: { name: member.name, lateFee: lateFee, paid: isPaid, paymentDate: paymentDate, total: member.total, receiver: receiver, paidAmount: member.paidAmount, paymentHistory: member.paymentHistory },
         index: index,
         type: 'payment_update'
     });
@@ -912,6 +1058,13 @@ async function removeCheetiCollectionFromNextYear(member) {
         const selectedYear = currentData ? parseInt(currentData.year, 10) : new Date().getFullYear();
         const targetYear = selectedYear + 1;
         const draftMode = window.DashboardState ? window.DashboardState.getDraftMode() : window.draftMode;
+        
+        // Mirror addCheetiCollectionToCurrentYear's guard: cross-year income only applies to past-year borrowers
+        if (selectedYear >= new Date().getFullYear()) {
+            console.log('Not removing collection - already in current real-world year');
+            return;
+        }
+        
         const expectedCollection = {
             name: member.name,
             amount: member.amount || 0,
@@ -931,6 +1084,7 @@ async function removeCheetiCollectionFromNextYear(member) {
                 fromYear: selectedYear,
                 expectedCollection
             });
+            showInfo(`ℹ️ Payment reverted. When you publish, ${member.name}'s payment will also be removed from ${targetYear}'s income.`);
             return;
         }
 
@@ -984,6 +1138,8 @@ async function recordPayment() {
     const paymentAmount = parseFloat(document.getElementById('repaymentAmount').value);
     const lateFee = parseFloat(document.getElementById('repaymentLateFee').value) || 0;
     const markFullyPaid = document.getElementById('repaymentPaid').checked;
+    const receiverInput = document.getElementById('repaymentReceiver');
+    const receiver = receiverInput ? receiverInput.value : '';
     
     if (!memberIndex || memberIndex === '') {
         showError('Please select a member');
@@ -1016,7 +1172,8 @@ async function recordPayment() {
         paymentDate: member.paymentDate || null,
         lateFee: member.lateFee || 0,
         total: member.total || (member.amount + member.interest),
-        paidAmount: member.paidAmount || 0
+        paidAmount: member.paidAmount || 0,
+        receiver: member.receiver || ''
     };
     
     // Partial payments do not clear the deadline: calculate the fee using this payment date.
@@ -1048,8 +1205,9 @@ async function recordPayment() {
     currentData.cheeti[memberIndex].lateFee = finalLateFee;
     currentData.cheeti[memberIndex].total = totalDue;
     currentData.cheeti[memberIndex].paidAmount = paidAmount;
+    currentData.cheeti[memberIndex].receiver = receiver;
     currentData.cheeti[memberIndex].paymentHistory = member.paymentHistory || [];
-    currentData.cheeti[memberIndex].paymentHistory.push({ amount: paymentAmount, date: paymentDate });
+    currentData.cheeti[memberIndex].paymentHistory.push({ amount: paymentAmount, date: paymentDate, receiver: receiver });
     
     // Store days overdue if applicable
     if (daysOverdue > 0) {
@@ -1075,7 +1233,8 @@ async function recordPayment() {
             paymentDate,
             lateFee: finalLateFee,
             total: totalDue,
-            paidAmount
+            paidAmount,
+            receiver
         },
         index: memberIndex
     });
@@ -1099,6 +1258,8 @@ async function recordPayment() {
     document.getElementById('repaymentAmount').value = '';
     document.getElementById('repaymentLateFee').value = '0';
     document.getElementById('repaymentPaid').checked = false;
+    const repaymentReceiverEl = document.getElementById('repaymentReceiver');
+    if (repaymentReceiverEl) repaymentReceiverEl.value = '';
     const memberDetails = document.getElementById('memberDetails');
     if (memberDetails) memberDetails.style.display = 'none';
     
@@ -1303,8 +1464,10 @@ if (typeof window !== 'undefined') {
     window.validateCheetiMember = validateCheetiMember;
     window.updateCheetiForm = updateCheetiForm;
     window.populateMemberDropdown = populateMemberDropdown;
+    window.populateReceiverDropdown = populateReceiverDropdown;
     window.loadMemberDetails = loadMemberDetails;
     window.populateCheetiTable = populateCheetiTable;
+    window.showCheetiPaymentHistory = showCheetiPaymentHistory;
     window.updateMemberCutoverNotice = updateMemberCutoverNotice;
     window.populateCheetiPaidTable = populateCheetiPaidTable;
     window.editCheetiEntry = editCheetiEntry;

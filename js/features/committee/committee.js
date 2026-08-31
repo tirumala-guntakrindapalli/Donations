@@ -207,12 +207,13 @@ function updateCommitteeManagementList() {
                 <div style="display: flex; flex-direction: column; gap: 8px;">
                     ${currentCommittee.map(member => {
                         const roleColor = roleColors[member.role] || '#34495e';
+                        const roleLabel = window.DashboardLocalization?.getRoleLabel(member.role) || member.role;
                         return `
                             <div style="display: flex; align-items: center; justify-content: space-between; padding: 10px; background: #f5f5f5; border-radius: 6px;">
                                 <div>
                                     <strong style="color: #333;">${member.name}</strong>
                                     <span style="margin-left: 10px; padding: 3px 10px; background: ${roleColor}; color: white; border-radius: 12px; font-size: 12px; font-weight: 600;">
-                                        ${member.role}
+                                        ${roleLabel}
                                     </span>
                                 </div>
                             </div>
@@ -244,12 +245,13 @@ function updateCommitteeManagementList() {
             <div style="display: flex; flex-direction: column; gap: 8px;">
                 ${nextYearCommittee.map((member, index) => {
                     const roleColor = roleColors[member.role] || '#34495e';
+                    const roleLabel = window.DashboardLocalization?.getRoleLabel(member.role) || member.role;
                     return `
                         <div style="display: flex; align-items: center; justify-content: space-between; padding: 10px; background: #e8f5e9; border-radius: 6px; border-left: 4px solid #4caf50;">
                             <div>
                                 <strong style="color: #333;">${member.name}</strong>
                                 <span style="margin-left: 10px; padding: 3px 10px; background: ${roleColor}; color: white; border-radius: 12px; font-size: 12px; font-weight: 600;">
-                                    ${member.role}
+                                    ${roleLabel}
                                 </span>
                             </div>
                             <button onclick="showCommitteeDeleteModal(${index})" style="padding: 6px 12px; background: #f44336; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 12px;" title="Remove member">
@@ -350,6 +352,7 @@ function populateCommitteeTable(committeeData) {
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
                     ${committeeData.map((member) => {
                         const roleColor = roleColors[member.role] || '#34495e';
+                        const roleLabel = window.DashboardLocalization?.getRoleLabel(member.role) || member.role;
                         const initials = member.name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
                         
                         return `
@@ -357,7 +360,7 @@ function populateCommitteeTable(committeeData) {
                                 <div class="committee-avatar">${initials}</div>
                                 <h3 class="committee-name">${member.name}</h3>
                                 <span class="committee-role" style="background: ${roleColor};">
-                                    ${member.role}
+                                    ${roleLabel}
                                 </span>
                             </div>
                         `;
@@ -378,6 +381,7 @@ function populateCommitteeTable(committeeData) {
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
                     ${nextYearCommittee.map((member) => {
                         const roleColor = roleColors[member.role] || '#34495e';
+                        const roleLabel = window.DashboardLocalization?.getRoleLabel(member.role) || member.role;
                         const initials = member.name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
                         
                         return `
@@ -385,7 +389,7 @@ function populateCommitteeTable(committeeData) {
                                 <div class="committee-avatar">${initials}</div>
                                 <h3 class="committee-name">${member.name}</h3>
                                 <span class="committee-role" style="background: ${roleColor};">
-                                    ${member.role}
+                                    ${roleLabel}
                                 </span>
                             </div>
                         `;

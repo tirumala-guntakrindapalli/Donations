@@ -302,6 +302,7 @@ async function publishAllChanges() {
             });
             
             // Process each year only once (batch all updates per year)
+            const failedYears = [];
             for (const [targetYear, updates] of Object.entries(updatesByYear)) {
                 try {
                     const currentYearData = await loadYearData(parseInt(targetYear));
@@ -381,11 +382,19 @@ async function publishAllChanges() {
                     }
                 } catch (error) {
                     console.error(`Error processing cross-year updates for ${targetYear}:`, error);
+                    // Keep this year's updates queued so they aren't silently lost - surface it instead
+                    failedYears.push(targetYear);
                 }
             }
             
-            // Clear pending updates
-            window.pendingCrossYearUpdates = [];
+            // Only drop updates that were actually applied; keep failed ones queued for retry
+            window.pendingCrossYearUpdates = failedYears.length
+                ? window.pendingCrossYearUpdates.filter(update => failedYears.includes(String(update.targetYear)))
+                : [];
+            
+            if (failedYears.length) {
+                showError(`⚠️ Cross-year update failed for year(s): ${failedYears.join(', ')}. These changes remain queued - try publishing again.`);
+            }
         }
         
         // Clear draft state

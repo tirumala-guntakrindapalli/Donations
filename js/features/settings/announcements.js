@@ -11,6 +11,7 @@ async function updateAnnouncements() {
     const DashboardState = window.DashboardState || {};
     const currentData = DashboardState.getCurrentData ? DashboardState.getCurrentData() : window.currentData;
     const loadYearData = window.loadYearData;
+    const translate = window.DashboardLocalization?.translate || (key => key);
     
     // Get the new announcements section elements
     const announcementsSection = document.getElementById('announcementsSection');
@@ -61,7 +62,7 @@ async function updateAnnouncements() {
             badges.push({
                 type: 'sponsor',
                 icon: '🙏',
-                text: `${s.type} Sponsor: ${s.name}${amountText}`
+                text: `${translate('sponsorLabel', { type: s.type })} ${s.name}${amountText}`
             });
         });
     }
@@ -73,7 +74,7 @@ async function updateAnnouncements() {
             badges.push({
                 type: 'winner',
                 icon: '🏆',
-                text: `Laddu Winner: ${w.name}${amountText}`
+                text: `${translate('ladduWinner')} ${w.name}${amountText}`
             });
         });
     }
@@ -99,12 +100,12 @@ async function updateAnnouncements() {
             if (usingPreviousYear && displayYear) {
                 sectionHeading.innerHTML = `
                     <i class="fas fa-star" style="color: #ff9800;"></i>
-                    ${displayYear} Highlights
+                    ${displayYear} ${translate('highlights')}
                 `;
             } else {
                 sectionHeading.innerHTML = `
                     <i class="fas fa-star" style="color: #ff9800;"></i>
-                    Highlights
+                    ${translate('highlights')}
                 `;
             }
         }

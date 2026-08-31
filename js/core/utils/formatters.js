@@ -20,7 +20,8 @@ function setGeneratedDate() {
     const element = document.getElementById('generatedDate');
     if (element) {
         const date = new Date();
-        element.textContent = date.toLocaleString('en-US', {
+        const locale = window.DashboardLocalization?.getLocale?.() || 'en-US';
+        element.textContent = date.toLocaleString(locale, {
             year: 'numeric', 
             month: 'long', 
             day: 'numeric',
@@ -38,12 +39,13 @@ function setGeneratedDate() {
  */
 function formatDate(date, options = {}) {
     const dateObj = typeof date === 'string' ? new Date(date) : date;
+    const locale = window.DashboardLocalization?.getLocale?.() || 'en-US';
     const defaultOptions = {
         year: 'numeric',
         month: 'short',
         day: 'numeric'
     };
-    return dateObj.toLocaleString('en-US', { ...defaultOptions, ...options });
+    return dateObj.toLocaleString(locale, { ...defaultOptions, ...options });
 }
 
 /**
