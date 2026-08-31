@@ -1,6 +1,6 @@
 {
   "year": "2025",
-  "lastUpdated": "2026-08-31T10:04:01.740Z",
+  "lastUpdated": "2026-08-31T10:06:20.541Z",
   "settings": {
     "dashboard_enabled": true
   },
@@ -356,11 +356,11 @@
       "interest": 3312,
       "total": 30912,
       "lateFee": 0,
-      "paid": true,
-      "paymentDate": "2026-08-31",
+      "paid": false,
+      "paymentDate": null,
       "days_overdue": 0,
       "paidAmount": 30912,
-      "receiver": "B Amarnadh Reddy",
+      "receiver": "",
       "paymentHistory": [
         {
           "amount": 30000,
