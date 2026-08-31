@@ -1,6 +1,6 @@
 {
   "year": "2025",
-  "lastUpdated": "2026-08-31T04:56:23.562Z",
+  "lastUpdated": "2026-08-31T04:56:58.867Z",
   "settings": {
     "dashboard_enabled": true
   },
@@ -357,8 +357,16 @@
       "total": 30912,
       "lateFee": 0,
       "paid": false,
-      "paymentDate": "",
-      "days_overdue": 0
+      "paymentDate": "2026-08-31",
+      "days_overdue": 0,
+      "paidAmount": 30000,
+      "receiver": "G Venkatesh (Sr)",
+      "paymentHistory": [
+        {
+          "amount": 30000,
+          "date": "2026-08-31"
+        }
+      ]
     },
     {
       "slNo": 3,
