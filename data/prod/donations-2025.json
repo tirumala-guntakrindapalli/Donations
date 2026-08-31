@@ -1,6 +1,6 @@
 {
   "year": "2025",
-  "lastUpdated": "2026-08-31T18:32:40.692Z",
+  "lastUpdated": "2026-08-31T18:33:21.522Z",
   "donations": [
     {
       "slNo": 1,
@@ -623,7 +623,8 @@
           "date": "2026-08-31",
           "receiver": "P Rosi Reddy"
         }
-      ]
+      ],
+      "paymentMode": "Cash"
     },
     {
       "slNo": 28,
@@ -698,7 +699,8 @@
           "date": "2026-08-31",
           "receiver": "P Sasidhar"
         }
-      ]
+      ],
+      "paymentMode": "UPI"
     },
     {
       "slNo": 34,
