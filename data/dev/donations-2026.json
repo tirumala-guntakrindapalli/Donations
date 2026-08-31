@@ -1,9 +1,18 @@
 {
   "year": "2026",
-  "lastUpdated": "2026-08-31T10:21:10.543Z",
+  "lastUpdated": "2026-08-31T10:27:01.692Z",
   "donations": [],
   "cheeti": [],
-  "cheeti_collections": [],
+  "cheeti_collections": [
+    {
+      "slNo": 1,
+      "memberName": "M Krishna Reddy",
+      "amount": 29972,
+      "fromYear": 2025,
+      "collectionDate": "2026-08-31",
+      "addedOn": "2026-08-31T10:27:01.143Z"
+    }
+  ],
   "cheeti_expected": [
     {
       "name": "P Hari",
