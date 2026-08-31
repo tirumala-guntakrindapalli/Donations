@@ -1,6 +1,6 @@
 {
   "year": "2026",
-  "lastUpdated": "2026-08-31T10:47:03.499Z",
+  "lastUpdated": "2026-08-31T17:11:50.311Z",
   "donations": [],
   "cheeti": [],
   "cheeti_collections": [
@@ -11,6 +11,14 @@
       "fromYear": 2025,
       "collectionDate": "2026-08-31",
       "addedOn": "2026-08-31T10:47:02.828Z"
+    },
+    {
+      "slNo": 2,
+      "memberName": "P Sasidhar",
+      "amount": 28000,
+      "fromYear": 2025,
+      "collectionDate": "2026-08-31",
+      "addedOn": "2026-08-31T17:11:49.757Z"
     }
   ],
   "cheeti_expected": [
