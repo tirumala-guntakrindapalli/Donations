@@ -1,16 +1,16 @@
 {
   "year": "2026",
-  "lastUpdated": "2026-08-31T10:39:00.247Z",
+  "lastUpdated": "2026-08-31T10:43:49.136Z",
   "donations": [],
   "cheeti": [],
   "cheeti_collections": [
     {
       "slNo": 1,
       "memberName": "M Krishna Reddy",
-      "amount": 33872,
+      "amount": 30912,
       "fromYear": 2025,
       "collectionDate": "2026-08-31",
-      "addedOn": "2026-08-31T10:38:59.707Z"
+      "addedOn": "2026-08-31T10:43:48.538Z"
     }
   ],
   "cheeti_expected": [
@@ -324,13 +324,6 @@
     },
     {
       "name": "P Sasidhar",
-      "amount": 27600,
-      "interest": 3312,
-      "expectedTotal": 30912,
-      "fromYear": 2025
-    },
-    {
-      "name": "M Krishna Reddy",
       "amount": 27600,
       "interest": 3312,
       "expectedTotal": 30912,
