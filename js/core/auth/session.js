@@ -95,7 +95,7 @@ async function createAdminSession() {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                message: 'Create admin session lock',
+                message: 'Create admin session lock [skip ci]',
                 content: btoa(JSON.stringify(sessionData, null, 2)) // Encode to base64
             })
         });
@@ -159,7 +159,7 @@ async function releaseAdminSession() {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                message: 'Release admin session lock',
+                message: 'Release admin session lock [skip ci]',
                 sha: fileData.sha
             })
         });
