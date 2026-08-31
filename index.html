@@ -312,6 +312,10 @@
             border: 1px solid rgba(255,255,255,0.5);
             position: relative;
             overflow: hidden;
+            display: block;
+            text-decoration: none;
+            color: inherit;
+            cursor: pointer;
         }
 
         .feature-card::before {
@@ -1072,39 +1076,50 @@
         </p>
     </div>
 
+    <!-- CTA Section -->
+    <div class="cta">
+        <h2 data-i18n="ctaTitle">✨ Experience Complete Transparency ✨</h2>
+        <div class="cta-buttons">
+            <a href="dashboard.html" class="btn btn-primary" onclick="showDashboardLoading(event)">
+                <i class="fas fa-chart-pie"></i>
+                <span data-i18n="exploreDashboard">Explore Dashboard</span>
+            </a>
+        </div>
+    </div>
+
     <!-- Features Grid -->
     <div class="features">
-        <div class="feature-card">
+        <a href="dashboard.html" class="feature-card" onclick="showDashboardLoading(event)">
             <div class="icon">
                 <i class="fas fa-chart-line"></i>
             </div>
             <h3 data-i18n="featureDashboardTitle">Real-Time Dashboard</h3>
             <p data-i18n="featureDashboardText">View live metrics, charts, and comprehensive reports of all donations and expenses with beautiful visualizations.</p>
-        </div>
+        </a>
 
-        <div class="feature-card">
+        <a href="dashboard.html" class="feature-card" onclick="showDashboardLoading(event)">
             <div class="icon">
                 <i class="fas fa-hand-holding-usd"></i>
             </div>
             <h3 data-i18n="featureDonationsTitle">Donation Tracking</h3>
             <p data-i18n="featureDonationsText">Complete transparency of all contributions from community members with detailed donor information and amounts.</p>
-        </div>
+        </a>
 
-        <div class="feature-card">
+        <a href="dashboard.html" class="feature-card" onclick="showDashboardLoading(event)">
             <div class="icon">
                 <i class="fas fa-users"></i>
             </div>
             <h3 data-i18n="featureCheetiTitle">Cheeti Management</h3>
             <p data-i18n="featureCheetiText">Track monthly installments, member contributions, and payment schedules for our community savings fund.</p>
-        </div>
+        </a>
 
-        <div class="feature-card">
+        <a href="dashboard.html" class="feature-card" onclick="showDashboardLoading(event)">
             <div class="icon">
                 <i class="fas fa-receipt"></i>
             </div>
             <h3 data-i18n="featureExpensesTitle">Expense Reports</h3>
             <p data-i18n="featureExpensesText">Detailed breakdown of all festival expenses including decorations, prasadam, and event management costs.</p>
-        </div>
+        </a>
     </div>
 
     <!-- Images Section -->
@@ -1137,17 +1152,6 @@
                 </div>
                 <div class="label" data-i18n="imagePrasadam">Prasadam Distribution</div>
             </div>
-        </div>
-    </div>
-
-    <!-- CTA Section -->
-    <div class="cta">
-        <h2 data-i18n="ctaTitle">✨ Experience Complete Transparency ✨</h2>
-        <div class="cta-buttons">
-            <a href="dashboard.html" class="btn btn-primary" onclick="showDashboardLoading(event)">
-                <i class="fas fa-chart-pie"></i>
-                <span data-i18n="exploreDashboard">Explore Dashboard</span>
-            </a>
         </div>
     </div>
 

@@ -351,6 +351,7 @@ function updateCheetiForm() {
         // Populate member dropdown
         populateMemberDropdown();
         populateReceiverDropdown();
+        populatePaymentModeDropdown();
     }
 }
 
@@ -419,6 +420,31 @@ function populateReceiverDropdown() {
 }
 
 /**
+ * Populate payment mode dropdown - rendered via JS (like the receiver dropdown) rather than
+ * static HTML options, since statically-authored selects were seen mis-anchoring their native
+ * dropdown on mobile; a JS-populated select does not have this issue.
+ */
+function populatePaymentModeDropdown() {
+    const modeSelect = document.getElementById('repaymentMode');
+    if (!modeSelect) return;
+    
+    const previousValue = modeSelect.value;
+    const modes = ['Cash', 'UPI', 'Bank Transfer', 'Cheque', 'Other'];
+    
+    modeSelect.innerHTML = '<option value="">-- Select Payment Mode --</option>';
+    modes.forEach(mode => {
+        const option = document.createElement('option');
+        option.value = mode;
+        option.textContent = mode;
+        modeSelect.appendChild(option);
+    });
+    
+    if (previousValue && modes.includes(previousValue)) {
+        modeSelect.value = previousValue;
+    }
+}
+
+/**
  * Load member details when selected from dropdown (for payment collection)
  */
 function loadMemberDetails() {
@@ -483,6 +509,11 @@ function loadMemberDetails() {
         receiverSelect.value = member.receiver || '';
     }
     
+    const paymentModeSelect = document.getElementById('repaymentMode');
+    if (paymentModeSelect) {
+        paymentModeSelect.value = member.paymentMode || '';
+    }
+    
     console.log(`✅ Loaded details for member: ${member.name}`);
 }
 
@@ -522,12 +553,13 @@ function populateCheetiTable(cheetiData) {
         const receivers = [...new Set(paymentHistory.map(p => p.receiver).filter(Boolean))];
         const showHistoryIcon = paymentHistory.length > 1 || receivers.length > 1;
         const lastReceiver = paymentHistory.length ? (paymentHistory[paymentHistory.length - 1].receiver || '-') : (c.receiver || '-');
+        const lastPaymentMode = paymentHistory.length ? (paymentHistory[paymentHistory.length - 1].paymentMode || '-') : (c.paymentMode || '-');
         const receiverText = showHistoryIcon
             ? `${lastReceiver} <button class="action-btn" style="background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%); color: white; padding: 4px 8px;" onclick="showCheetiPaymentHistory(${index})" title="${translate('viewPaymentHistory')}"><i class="fas fa-eye"></i></button>`
             : lastReceiver;
         
         return `
-        <tr id="cheeti-member-row-${index}" data-index="${index}">
+        <tr id="cheeti-member-row-${index}" data-index="${index}" data-status="${c.paid ? 'paid' : 'pending'}" data-receiver="${lastReceiver}" data-payment-mode="${lastPaymentMode}">
             <td>${c.slNo}</td>
             <td>${c.name}</td>
             <td>${formatCurrency(c.amount)}</td>
@@ -537,6 +569,7 @@ function populateCheetiTable(cheetiData) {
             <td class="remaining-balance-cell"><strong>${formatCurrency(remainingBalance)}</strong></td>
             <td style="${paidOnOrAfterCutover ? 'color: #dc2626; font-weight: 700;' : ''}">${formattedPaymentDate}</td>
             <td>${receiverText}</td>
+            <td>${lastPaymentMode}</td>
             <td style="${isAdmin ? '' : 'display: none;'}">
                 ${isAdmin ? `<div style="display: flex; gap: 6px; justify-content: center;"><button class="action-btn edit" onclick="showEditModal('cheeti', ${index})">
                     <i class="fas fa-edit"></i> Edit
@@ -547,6 +580,9 @@ function populateCheetiTable(cheetiData) {
         </tr>
     `;
     }).join('');
+    
+    populateCheetiReceiverFilterOptions(cheetiData, 'cheetiMembersReceiverFilter');
+    filterCheetiTable('cheetiTableBody', 'cheetiMembers');
     
     console.log(`✅ Cheeti table populated with ${cheetiData.length} entries`);
 }
@@ -625,12 +661,13 @@ function populateCheetiPaidTable(cheetiData) {
         const receivers = [...new Set(paymentHistory.map(p => p.receiver).filter(Boolean))];
         const showHistoryIcon = paymentHistory.length > 1 || receivers.length > 1;
         const lastReceiver = paymentHistory.length ? (paymentHistory[paymentHistory.length - 1].receiver || '-') : (c.receiver || '-');
+        const lastPaymentMode = paymentHistory.length ? (paymentHistory[paymentHistory.length - 1].paymentMode || '-') : (c.paymentMode || '-');
         const receiverText = showHistoryIcon
             ? `${lastReceiver} <button class="action-btn" style="background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%); color: white; padding: 4px 8px;" onclick="showCheetiPaymentHistory(${index})" title="View payment history"><i class="fas fa-eye"></i></button>`
             : lastReceiver;
         
         return `
-            <tr id="cheeti-row-${index}" data-index="${index}">
+            <tr id="cheeti-row-${index}" data-index="${index}" data-status="${c.paid ? 'paid' : 'pending'}" data-receiver="${lastReceiver}" data-payment-mode="${lastPaymentMode}">
                 <td>${c.slNo}</td>
                 <td>${c.name}</td>
                 <td>${formatCurrency(c.amount || 0)}</td>
@@ -644,6 +681,7 @@ function populateCheetiPaidTable(cheetiData) {
                 </td>
                 <td class="date-cell">${formattedDate}</td>
                 <td>${receiverText}</td>
+                <td>${lastPaymentMode}</td>
                 <td>
                     <div style="display: flex; gap: 6px; justify-content: center;"><button class="action-btn edit" onclick="editCheetiEntry(${index})">
                         <i class="fas fa-edit"></i> Edit
@@ -655,7 +693,69 @@ function populateCheetiPaidTable(cheetiData) {
         `;
     }).join('');
     
+    populateCheetiReceiverFilterOptions(cheetiData, 'cheetiPaidReceiverFilter');
+    filterCheetiTable('cheetiPaidTableBody', 'cheetiPaid');
+    
     console.log(`✅ Cheeti paid table populated with ${cheetiData.length} entries`);
+}
+
+/**
+ * Populate a receiver filter dropdown with the distinct receivers found in the current data,
+ * preserving the currently selected value if it still exists.
+ * @param {Array} cheetiData - Array of cheeti member objects
+ * @param {string} selectId - Id of the receiver <select> filter to populate
+ */
+function populateCheetiReceiverFilterOptions(cheetiData, selectId) {
+    const select = document.getElementById(selectId);
+    if (!select) return;
+    
+    const receivers = new Set();
+    cheetiData.forEach(c => {
+        if (c.receiver) receivers.add(c.receiver);
+        (c.paymentHistory || []).forEach(p => { if (p.receiver) receivers.add(p.receiver); });
+    });
+    
+    const previousValue = select.value;
+    select.innerHTML = '<option value="">All Receivers</option>' +
+        [...receivers].sort().map(name => `<option value="${name}">${name}</option>`).join('');
+    
+    if (previousValue && receivers.has(previousValue)) {
+        select.value = previousValue;
+    }
+}
+
+/**
+ * Filter a cheeti table's rows by Status / Received By / Payment Mode using the row's data attributes.
+ * @param {string} tbodyId - Id of the table body to filter
+ * @param {string} filterPrefix - Prefix used for the filter <select> ids (e.g. 'cheetiMembers', 'cheetiPaid')
+ */
+function filterCheetiTable(tbodyId, filterPrefix) {
+    const tbody = document.getElementById(tbodyId);
+    if (!tbody) return;
+    
+    const status = document.getElementById(`${filterPrefix}StatusFilter`)?.value || '';
+    const receiver = document.getElementById(`${filterPrefix}ReceiverFilter`)?.value || '';
+    const mode = document.getElementById(`${filterPrefix}ModeFilter`)?.value || '';
+    
+    tbody.querySelectorAll('tr[data-index]').forEach(row => {
+        const matchesStatus = !status || row.dataset.status === status;
+        const matchesReceiver = !receiver || row.dataset.receiver === receiver;
+        const matchesMode = !mode || row.dataset.paymentMode === mode;
+        row.style.display = (matchesStatus && matchesReceiver && matchesMode) ? '' : 'none';
+    });
+}
+
+/**
+ * Reset all quick filters for a given cheeti table
+ * @param {string} filterPrefix - Prefix used for the filter <select> ids
+ */
+function clearCheetiFilters(filterPrefix) {
+    ['StatusFilter', 'ReceiverFilter', 'ModeFilter'].forEach(suffix => {
+        const el = document.getElementById(`${filterPrefix}${suffix}`);
+        if (el) el.value = '';
+    });
+    const tbodyId = filterPrefix === 'cheetiMembers' ? 'cheetiTableBody' : 'cheetiPaidTableBody';
+    filterCheetiTable(tbodyId, filterPrefix);
 }
 
 /**
@@ -671,7 +771,7 @@ function showCheetiPaymentHistory(index) {
         return '₹' + amount.toLocaleString('en-IN');
     };
     const translate = window.DashboardLocalization?.translate || (key => ({
-        historyDate: 'Date', historyAmount: 'Amount', historyReceivedBy: 'Received By',
+        historyDate: 'Date', historyAmount: 'Amount', historyReceivedBy: 'Received By', historyPaymentMode: 'Payment Mode',
         noInstallments: 'No installments recorded', closeAction: 'Close'
     }[key] || key));
     
@@ -682,6 +782,7 @@ function showCheetiPaymentHistory(index) {
             <td style="padding: 8px; border-bottom: 1px solid #e0e0e0;">${p.date ? new Date(p.date).toLocaleDateString('en-IN') : '-'}</td>
             <td style="padding: 8px; border-bottom: 1px solid #e0e0e0;">${formatCurrency(p.amount || 0)}</td>
             <td style="padding: 8px; border-bottom: 1px solid #e0e0e0;">${p.receiver || '-'}</td>
+            <td style="padding: 8px; border-bottom: 1px solid #e0e0e0;">${p.paymentMode || '-'}</td>
         </tr>
     `).join('');
     
@@ -692,9 +793,10 @@ function showCheetiPaymentHistory(index) {
                     <th style="padding: 8px; border-bottom: 2px solid #dee2e6;">${translate('historyDate')}</th>
                     <th style="padding: 8px; border-bottom: 2px solid #dee2e6;">${translate('historyAmount')}</th>
                     <th style="padding: 8px; border-bottom: 2px solid #dee2e6;">${translate('historyReceivedBy')}</th>
+                    <th style="padding: 8px; border-bottom: 2px solid #dee2e6;">${translate('historyPaymentMode')}</th>
                 </tr>
             </thead>
-            <tbody>${rows || `<tr><td colspan="3" style="padding: 8px; text-align: center;">${translate('noInstallments')}</td></tr>`}</tbody>
+            <tbody>${rows || `<tr><td colspan="4" style="padding: 8px; text-align: center;">${translate('noInstallments')}</td></tr>`}</tbody>
         </table>
     `;
     
@@ -734,6 +836,7 @@ async function saveCheetiPaymentFromModal(index) {
     const paidInput = document.getElementById('editPaid');
     const dateInput = document.getElementById('editPaymentDate');
     const receiverInput = document.getElementById('editReceiver');
+    const paymentModeInput = document.getElementById('editPaymentMode');
     
     if (!lateFeeInput || !paidInput || !dateInput) return;
     
@@ -741,6 +844,17 @@ async function saveCheetiPaymentFromModal(index) {
     const isPaid = paidInput.checked;
     const paymentDate = dateInput.value;
     const receiver = receiverInput ? receiverInput.value : (member.receiver || '');
+    const paymentMode = paymentModeInput ? paymentModeInput.value : (member.paymentMode || '');
+    
+    if (isPaid && !receiver) {
+        showError('Please select who received the payment');
+        return;
+    }
+    
+    if (isPaid && !paymentMode) {
+        showError('Please select the payment mode');
+        return;
+    }
     
     // Store original values for tracking
     const oldPayment = { 
@@ -750,6 +864,7 @@ async function saveCheetiPaymentFromModal(index) {
         paymentDate: member.paymentDate,
         total: member.total,
         receiver: member.receiver,
+        paymentMode: member.paymentMode,
         paidAmount: member.paidAmount || 0,
         paymentHistory: member.paymentHistory ? [...member.paymentHistory] : []
     };
@@ -760,6 +875,7 @@ async function saveCheetiPaymentFromModal(index) {
     member.paymentDate = isPaid ? paymentDate : null;
     member.total = (member.amount || 0) + (member.interest || 0) + lateFee;
     member.receiver = receiver;
+    member.paymentMode = paymentMode;
     // Keep paidAmount in sync so Remaining Balance reflects a reverted (unpaid) status
     member.paidAmount = isPaid ? member.total : 0;
     // Reverting clears prior installments too, otherwise old receivers/amounts would still show up
@@ -791,13 +907,14 @@ async function saveCheetiPaymentFromModal(index) {
     // Track change for draft mode (payment status update is an edit)
     trackChange('edit', 'cheeti', {
         old: oldPayment,
-        new: { name: member.name, lateFee: lateFee, paid: isPaid, paymentDate: paymentDate, total: member.total, receiver: receiver, paidAmount: member.paidAmount, paymentHistory: member.paymentHistory },
+        new: { name: member.name, lateFee: lateFee, paid: isPaid, paymentDate: paymentDate, total: member.total, receiver: receiver, paymentMode: paymentMode, paidAmount: member.paidAmount, paymentHistory: member.paymentHistory },
         index: index,
         type: 'payment_update'
     });
     if (isPaid && paymentDate) {
         await addCheetiCollectionToCurrentYear(member.name, member.total, paymentDate, { replaceExisting: true, isFinalPayment: true });
-    } else if (oldPayment.paid) {
+    } else if (oldPayment.paid || (oldPayment.paidAmount && oldPayment.paidAmount > 0)) {
+        // Covers both a full revert and a partial-installment revert (paidAmount reset to 0 here)
         await removeCheetiCollectionFromNextYear(member);
     }
     
@@ -1140,6 +1257,8 @@ async function recordPayment() {
     const markFullyPaid = document.getElementById('repaymentPaid').checked;
     const receiverInput = document.getElementById('repaymentReceiver');
     const receiver = receiverInput ? receiverInput.value : '';
+    const paymentModeInput = document.getElementById('repaymentMode');
+    const paymentMode = paymentModeInput ? paymentModeInput.value : '';
     
     if (!memberIndex || memberIndex === '') {
         showError('Please select a member');
@@ -1153,6 +1272,16 @@ async function recordPayment() {
 
     if (!paymentAmount || paymentAmount <= 0) {
         showError('Please enter the amount received');
+        return;
+    }
+    
+    if (!receiver) {
+        showError('Please select who received the payment');
+        return;
+    }
+    
+    if (!paymentMode) {
+        showError('Please select the payment mode');
         return;
     }
     
@@ -1173,7 +1302,8 @@ async function recordPayment() {
         lateFee: member.lateFee || 0,
         total: member.total || (member.amount + member.interest),
         paidAmount: member.paidAmount || 0,
-        receiver: member.receiver || ''
+        receiver: member.receiver || '',
+        paymentMode: member.paymentMode || ''
     };
     
     // Partial payments do not clear the deadline: calculate the fee using this payment date.
@@ -1206,8 +1336,9 @@ async function recordPayment() {
     currentData.cheeti[memberIndex].total = totalDue;
     currentData.cheeti[memberIndex].paidAmount = paidAmount;
     currentData.cheeti[memberIndex].receiver = receiver;
+    currentData.cheeti[memberIndex].paymentMode = paymentMode;
     currentData.cheeti[memberIndex].paymentHistory = member.paymentHistory || [];
-    currentData.cheeti[memberIndex].paymentHistory.push({ amount: paymentAmount, date: paymentDate, receiver: receiver });
+    currentData.cheeti[memberIndex].paymentHistory.push({ amount: paymentAmount, date: paymentDate, receiver: receiver, paymentMode: paymentMode });
     
     // Store days overdue if applicable
     if (daysOverdue > 0) {
@@ -1234,7 +1365,8 @@ async function recordPayment() {
             lateFee: finalLateFee,
             total: totalDue,
             paidAmount,
-            receiver
+            receiver,
+            paymentMode
         },
         index: memberIndex
     });
@@ -1260,6 +1392,8 @@ async function recordPayment() {
     document.getElementById('repaymentPaid').checked = false;
     const repaymentReceiverEl = document.getElementById('repaymentReceiver');
     if (repaymentReceiverEl) repaymentReceiverEl.value = '';
+    const repaymentModeEl = document.getElementById('repaymentMode');
+    if (repaymentModeEl) repaymentModeEl.value = '';
     const memberDetails = document.getElementById('memberDetails');
     if (memberDetails) memberDetails.style.display = 'none';
     
@@ -1465,9 +1599,13 @@ if (typeof window !== 'undefined') {
     window.updateCheetiForm = updateCheetiForm;
     window.populateMemberDropdown = populateMemberDropdown;
     window.populateReceiverDropdown = populateReceiverDropdown;
+    window.populatePaymentModeDropdown = populatePaymentModeDropdown;
     window.loadMemberDetails = loadMemberDetails;
     window.populateCheetiTable = populateCheetiTable;
     window.showCheetiPaymentHistory = showCheetiPaymentHistory;
+    window.populateCheetiReceiverFilterOptions = populateCheetiReceiverFilterOptions;
+    window.filterCheetiTable = filterCheetiTable;
+    window.clearCheetiFilters = clearCheetiFilters;
     window.updateMemberCutoverNotice = updateMemberCutoverNotice;
     window.populateCheetiPaidTable = populateCheetiPaidTable;
     window.editCheetiEntry = editCheetiEntry;

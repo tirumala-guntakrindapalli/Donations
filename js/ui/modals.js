@@ -353,10 +353,17 @@ function showEditModal(type, index) {
                 </label>
             </div>
             <div class="edit-form-group">
-                <label for="editReceiver">Received By</label>
+                <label for="editReceiver">Received By <span style="color: #e74c3c;">*</span> <span style="font-weight: 400; color: #7f8c8d;">(required if marking as paid)</span></label>
                 <select id="editReceiver">
                     <option value="">-- Select Receiver --</option>
                     ${((currentData.committee_next_year && currentData.committee_next_year.length) ? currentData.committee_next_year : (currentData.committee || [])).map(m => `<option value="${m.name}" ${member.receiver === m.name ? 'selected' : ''}>${m.name}${m.role ? ' (' + m.role + ')' : ''}</option>`).join('')}
+                </select>
+            </div>
+            <div class="edit-form-group">
+                <label for="editPaymentMode">Payment Mode <span style="color: #e74c3c;">*</span> <span style="font-weight: 400; color: #7f8c8d;">(required if marking as paid)</span></label>
+                <select id="editPaymentMode">
+                    <option value="">-- Select Payment Mode --</option>
+                    ${['Cash', 'UPI', 'Bank Transfer', 'Cheque', 'Other'].map(mode => `<option value="${mode}" ${member.paymentMode === mode ? 'selected' : ''}>${mode}</option>`).join('')}
                 </select>
             </div>
             <p style="color: #7f8c8d; font-size: 0.9rem; margin-top: 15px;">
