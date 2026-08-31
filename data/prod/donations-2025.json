@@ -1,6 +1,6 @@
 {
   "year": "2025",
-  "lastUpdated": "2026-08-31T03:27:23.184Z",
+  "lastUpdated": "2026-08-31T13:00:50.023Z",
   "donations": [
     {
       "slNo": 1,
@@ -819,7 +819,8 @@
           "amount": 30912,
           "date": "2026-08-31"
         }
-      ]
+      ],
+      "receiver": "P Sasidhar"
     },
     {
       "slNo": 46,
