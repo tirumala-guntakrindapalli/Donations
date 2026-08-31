@@ -1,6 +1,6 @@
 {
   "year": "2025",
-  "lastUpdated": "2026-08-31T10:28:02.184Z",
+  "lastUpdated": "2026-08-31T10:28:34.769Z",
   "settings": {
     "dashboard_enabled": true
   },
@@ -330,22 +330,11 @@
       "total": 30912,
       "lateFee": 0,
       "paid": false,
-      "paymentDate": "2026-08-31",
+      "paymentDate": null,
       "days_overdue": 0,
-      "paidAmount": 30872,
-      "paymentHistory": [
-        {
-          "amount": 29972,
-          "date": "2026-08-31",
-          "receiver": "P Sasidhar"
-        },
-        {
-          "amount": 900,
-          "date": "2026-08-31",
-          "receiver": "G Venkatesh (Sr)"
-        }
-      ],
-      "receiver": "G Venkatesh (Sr)"
+      "paidAmount": 0,
+      "paymentHistory": [],
+      "receiver": ""
     },
     {
       "slNo": 2,
