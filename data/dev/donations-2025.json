@@ -1,6 +1,6 @@
 {
   "year": "2025",
-  "lastUpdated": "2026-08-31T17:29:34.414Z",
+  "lastUpdated": "2026-08-31T17:30:09.786Z",
   "settings": {
     "dashboard_enabled": true
   },
@@ -354,13 +354,13 @@
       "interest": 3312,
       "total": 30912,
       "lateFee": 0,
-      "paid": true,
-      "paymentDate": "2026-08-31",
+      "paid": false,
+      "paymentDate": null,
       "days_overdue": 0,
-      "paidAmount": 30912,
-      "receiver": "G Venkatesh (Sr)",
+      "paidAmount": 0,
+      "receiver": "",
       "paymentHistory": [],
-      "paymentMode": "Cash"
+      "paymentMode": ""
     },
     {
       "slNo": 3,
