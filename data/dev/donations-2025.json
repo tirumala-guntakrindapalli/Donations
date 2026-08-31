@@ -1,6 +1,6 @@
 {
   "year": "2025",
-  "lastUpdated": "2026-08-31T17:30:09.786Z",
+  "lastUpdated": "2026-08-31T17:36:37.750Z",
   "settings": {
     "dashboard_enabled": true
   },
@@ -355,12 +355,19 @@
       "total": 30912,
       "lateFee": 0,
       "paid": false,
-      "paymentDate": null,
+      "paymentDate": "2026-08-31",
       "days_overdue": 0,
-      "paidAmount": 0,
-      "receiver": "",
-      "paymentHistory": [],
-      "paymentMode": ""
+      "paidAmount": 2500,
+      "receiver": "G Venkatesh (Sr)",
+      "paymentHistory": [
+        {
+          "amount": 2500,
+          "date": "2026-08-31",
+          "receiver": "G Venkatesh (Sr)",
+          "paymentMode": "UPI"
+        }
+      ],
+      "paymentMode": "UPI"
     },
     {
       "slNo": 3,
