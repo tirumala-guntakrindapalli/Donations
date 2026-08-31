@@ -1,6 +1,6 @@
 {
   "year": "2025",
-  "lastUpdated": "2026-08-31T10:38:57.817Z",
+  "lastUpdated": "2026-08-31T10:40:02.429Z",
   "settings": {
     "dashboard_enabled": true
   },
@@ -330,17 +330,11 @@
       "total": 30912,
       "lateFee": 0,
       "paid": false,
-      "paymentDate": "2026-08-31",
+      "paymentDate": null,
       "days_overdue": 0,
-      "paidAmount": 3000,
-      "paymentHistory": [
-        {
-          "amount": 3000,
-          "date": "2026-08-31",
-          "receiver": "P Sasidhar"
-        }
-      ],
-      "receiver": "P Sasidhar"
+      "paidAmount": 0,
+      "paymentHistory": [],
+      "receiver": ""
     },
     {
       "slNo": 2,
