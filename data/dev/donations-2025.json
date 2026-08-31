@@ -1,6 +1,6 @@
 {
   "year": "2025",
-  "lastUpdated": "2026-08-31T17:26:48.855Z",
+  "lastUpdated": "2026-08-31T17:27:29.274Z",
   "settings": {
     "dashboard_enabled": true
   },
@@ -369,18 +369,24 @@
       "interest": 3312,
       "total": 30912,
       "lateFee": 0,
-      "paid": false,
+      "paid": true,
       "paymentDate": "2026-08-31",
       "days_overdue": 0,
-      "paidAmount": 25000,
+      "paidAmount": 30912,
       "receiver": "P Sasidhar",
-      "paymentMode": "Bank Transfer",
+      "paymentMode": "UPI",
       "paymentHistory": [
         {
           "amount": 25000,
           "date": "2026-08-31",
           "receiver": "P Sasidhar",
           "paymentMode": "Bank Transfer"
+        },
+        {
+          "amount": 5912,
+          "date": "2026-08-31",
+          "receiver": "P Sasidhar",
+          "paymentMode": "UPI"
         }
       ]
     },
