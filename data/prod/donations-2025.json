@@ -1,6 +1,6 @@
 {
   "year": "2025",
-  "lastUpdated": "2026-08-31T18:35:12.126Z",
+  "lastUpdated": "2026-08-31T18:46:49.004Z",
   "donations": [
     {
       "slNo": 1,
@@ -832,13 +832,13 @@
       "interest": 3312,
       "total": 30912,
       "lateFee": 0,
-      "paid": true,
-      "paymentDate": "",
+      "paid": false,
+      "paymentDate": null,
       "days_overdue": 0,
-      "paidAmount": 30912,
+      "paidAmount": 0,
       "paymentHistory": [],
-      "receiver": "P Sasidhar",
-      "paymentMode": "UPI"
+      "receiver": "",
+      "paymentMode": ""
     },
     {
       "slNo": 46,
