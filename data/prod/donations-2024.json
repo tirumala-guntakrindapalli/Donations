@@ -1,9 +1,10 @@
 {
   "year": "2024",
   "settings": {
-    "dashboard_enabled": true
+    "dashboard_enabled": true,
+    "cheeti_members_public": false
   },
-  "lastUpdated": "2026-04-11T08:46:05.758Z",
+  "lastUpdated": "2026-09-01T16:01:04.149Z",
   "donations": [
     {
       "slNo": 1,
