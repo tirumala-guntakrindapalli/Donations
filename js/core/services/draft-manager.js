@@ -183,21 +183,22 @@ function trackChange(action, category, details) {
     }
     
     // Smart tracking for visibility toggles
-    if (action === 'toggle_visibility' && category === 'year_visibility') {
+    if (action === 'toggle_visibility' && (category === 'year_visibility' || category === 'cheeti_members_visibility')) {
         const year = details.year;
         const newState = details.enabled;
         
         const existingToggleIndex = unpublishedChanges.findIndex(c => 
             c.action === 'toggle_visibility' && 
-            c.category === 'year_visibility' && 
+            c.category === category &&
             c.details.year === year
         );
+
+        const originalData = window.DashboardState ? window.DashboardState.getOriginalData() : window.originalData;
+        const originalState = category === 'year_visibility'
+            ? Boolean(originalData?.settings?.dashboard_enabled)
+            : originalData?.settings?.cheeti_members_public !== false;
         
         if (existingToggleIndex !== -1) {
-            // Get the original state from originalData
-            const originalData = window.DashboardState ? window.DashboardState.getOriginalData() : window.originalData;
-            const originalState = originalData.settings && originalData.settings.dashboard_enabled === true;
-            
             // If toggling back to original state, remove the change (cancel out)
             if (newState === originalState) {
                 unpublishedChanges.splice(existingToggleIndex, 1);
@@ -211,7 +212,7 @@ function trackChange(action, category, details) {
                 unpublishedChanges[existingToggleIndex] = {
                     timestamp: new Date().toISOString(),
                     action: 'toggle_visibility',
-                    category: 'year_visibility',
+                    category: category,
                     details: {
                         year: year,
                         enabled: newState
@@ -225,9 +226,6 @@ function trackChange(action, category, details) {
             }
         } else {
             // Check if this matches the original state
-            const originalData = window.DashboardState ? window.DashboardState.getOriginalData() : window.originalData;
-            const originalState = originalData.settings && originalData.settings.dashboard_enabled === true;
-            
             // If toggling to the same state as original, don't track it
             if (newState === originalState) {
                 return;
@@ -514,6 +512,28 @@ function generateChangesPreview() {
         });
         preview += `</div></div>`;
     }
+
+    // Show visibility changes
+    if (grouped.toggle_visibility.length > 0) {
+        preview += `
+            <div style="margin-bottom: 15px; padding: 12px; background: #e3f2fd; border-left: 4px solid #2196f3; border-radius: 6px;">
+                <div style="font-weight: 600; color: #0d47a1; margin-bottom: 8px;">
+                    <i class="fas fa-eye"></i> VISIBILITY CHANGES (${grouped.toggle_visibility.length})
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 6px;">
+        `;
+        grouped.toggle_visibility.forEach((change) => {
+            const details = formatChangeDetails(change);
+            const categoryIcon = getCategoryIconForChange(change.category);
+            preview += `
+                <div style="background: rgba(255,255,255,0.7); padding: 8px 12px; border-radius: 6px; display: flex; align-items: center; gap: 8px; font-size: 0.95rem;">
+                    <span style="font-size: 1.2rem;">${categoryIcon}</span>
+                    <span style="color: #0d47a1;">${details}</span>
+                </div>
+            `;
+        });
+        preview += `</div></div>`;
+    }
     
     preview += `
         </div>
@@ -547,7 +567,8 @@ function getCategoryIconForChange(category) {
         'committee_next_year': '👥',
         'committee_next': '👥',
         'laddu': '🎁',
-        'year_visibility': '📅'
+        'year_visibility': '📅',
+        'cheeti_members_visibility': '👥'
     };
     return icons[category] || '📋';
 }
@@ -650,7 +671,10 @@ function formatChangeDetails(change) {
             return details.action || 'Settings updated';
             
         case 'year_visibility':
-            return `Year ${details.year} visibility ${details.enabled ? 'enabled' : 'disabled'}`;
+            return `Year ${details.year} dashboard will be ${details.enabled ? 'visible to the public' : 'hidden from the public'}`;
+
+        case 'cheeti_members_visibility':
+            return `Cheeti members table for ${details.year} will be ${details.enabled ? 'shown to the public' : 'hidden from the public'}`;
             
         default:
             // Fallback for unknown categories

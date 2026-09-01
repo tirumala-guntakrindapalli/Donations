@@ -2548,6 +2548,15 @@
                 <div id="dashboardStatusInfo" style="margin-top: 10px; padding: 10px; border-radius: 6px; font-size: 13px;">
                     <!-- Status will be updated dynamically -->
                 </div>
+                <label style="display: flex; align-items: center; gap: 12px; cursor: pointer; font-size: 15px; padding: 10px; margin-top: 10px; background: #f5f5f5; border-radius: 6px;">
+                    <input type="checkbox" id="cheetiMembersPublicCheckbox" onchange="toggleCheetiMembersPublicVisibility()" style="width: 22px; height: 22px; cursor: pointer;">
+                    <span style="font-weight: 600; color: #333;">
+                        <i class="fas fa-users" style="color: #2196f3;"></i> Show Cheeti Members Table to Public
+                    </span>
+                </label>
+                <div id="cheetiMembersVisibilityInfo" style="margin-top: 10px; padding: 10px; border-radius: 6px; font-size: 13px;">
+                    <!-- Status will be updated dynamically -->
+                </div>
             </div>
             
             <!-- All Years Overview -->
@@ -2822,7 +2831,7 @@
             </div>
         </div>
 
-        <div class="dashboard-section">
+        <div class="dashboard-section" id="cheetiMembersSection">
             <div class="dashboard-section-header color-blue-gradient" onclick="toggleDashboardSection(this)">
                 <div class="dashboard-section-title">
                     <h2><i class="fas fa-user-friends"></i> <span data-i18n="cheetiMembers">Cheeti Members</span></h2>
@@ -3065,7 +3074,7 @@
     <script src="js/core/services/github-api.js?v=20260831"></script>
     <script src="js/core/services/data-loader.js?v=20260831"></script>
     <script src="js/core/services/data-saver.js?v=20260831"></script>
-    <script src="js/core/services/draft-manager.js?v=20260831"></script>
+    <script src="js/core/services/draft-manager.js?v=20260901"></script>
     
     <!-- Phase 5A: Core Financial Features -->
     <script src="js/features/donations/donations.js?v=20260831"></script>
@@ -3079,10 +3088,10 @@
     
     <!-- Phase 6: Visualization & Reports -->
     <script src="js/features/charts/charts.js?v=20260831"></script>
-    <script src="js/features/reports/data-processor.js?v=20260831"></script>
+    <script src="js/features/reports/data-processor.js?v=20260901"></script>
     
     <!-- Phase 7: Settings & Configuration -->
-    <script src="js/features/settings/dashboard-visibility.js?v=20260831"></script>
+    <script src="js/features/settings/dashboard-visibility.js?v=20260901"></script>
     <script src="js/features/settings/year-visibility.js?v=20260831"></script>
     <script src="js/features/settings/announcements.js?v=20260831"></script>
     

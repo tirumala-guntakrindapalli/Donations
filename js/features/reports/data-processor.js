@@ -78,6 +78,10 @@ function processData() {
     if (typeof hideDashboardDisabledMessage === 'function') {
         hideDashboardDisabledMessage();
     }
+
+    if (typeof updateCheetiMembersVisibility === 'function') {
+        updateCheetiMembersVisibility();
+    }
     
     // Extract data arrays
     const donationsData = currentData.donations || [];

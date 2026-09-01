@@ -50,6 +50,72 @@ function toggleDashboardVisibility() {
 }
 
 /**
+ * Toggle public visibility of the Cheeti members table
+ */
+function toggleCheetiMembersPublicVisibility() {
+    const DashboardState = window.DashboardState || {};
+    const isAdmin = DashboardState.isAdmin ? DashboardState.isAdmin() : window.isAdmin;
+    const currentData = DashboardState.getCurrentData ? DashboardState.getCurrentData() : window.currentData;
+    const checkbox = document.getElementById('cheetiMembersPublicCheckbox');
+
+    if (!isAdmin) {
+        window.showError('You must be logged in as admin');
+        return;
+    }
+
+    if (!currentData || !checkbox) return;
+
+    if (!currentData.settings) {
+        currentData.settings = {};
+    }
+
+    currentData.settings.cheeti_members_public = checkbox.checked;
+
+    if (window.trackChange) {
+        window.trackChange('toggle_visibility', 'cheeti_members_visibility', {
+            year: parseInt(currentData.year),
+            enabled: checkbox.checked
+        });
+    }
+
+    updateCheetiMembersVisibility();
+    window.showSuccess(checkbox.checked
+        ? 'Cheeti members table is visible to the public (pending publish)'
+        : 'Cheeti members table is hidden from the public (pending publish)');
+}
+
+/**
+ * Apply the Cheeti members table setting and update its admin control
+ */
+function updateCheetiMembersVisibility() {
+    const DashboardState = window.DashboardState || {};
+    const isAdmin = DashboardState.isAdmin ? DashboardState.isAdmin() : window.isAdmin;
+    const currentData = DashboardState.getCurrentData ? DashboardState.getCurrentData() : window.currentData;
+    const section = document.getElementById('cheetiMembersSection');
+    const checkbox = document.getElementById('cheetiMembersPublicCheckbox');
+    const statusInfo = document.getElementById('cheetiMembersVisibilityInfo');
+
+    if (!currentData) return;
+
+    // Preserve the public behavior of existing data unless an admin explicitly disables it.
+    const isPublic = !currentData.settings || currentData.settings.cheeti_members_public !== false;
+
+    if (section) {
+        section.style.display = isAdmin || isPublic ? '' : 'none';
+    }
+
+    if (checkbox) {
+        checkbox.checked = isPublic;
+    }
+
+    if (statusInfo) {
+        statusInfo.innerHTML = isPublic
+            ? '<div style="background: #e8f5e9; color: #2e7d32; border-left: 3px solid #4caf50; padding: 8px 12px;"><i class="fas fa-check-circle"></i> Cheeti members table is visible to the public</div>'
+            : '<div style="background: #ffebee; color: #c62828; border-left: 3px solid #f44336; padding: 8px 12px;"><i class="fas fa-eye-slash"></i> Cheeti members table is hidden from the public</div>';
+    }
+}
+
+/**
  * Update Dashboard Status Display
  * Updates the UI to show current visibility status
  */
@@ -109,6 +175,8 @@ function updateDashboardStatusDisplay() {
     if (loadAllYearsVisibility) {
         loadAllYearsVisibility();
     }
+
+    updateCheetiMembersVisibility();
 }
 
 /**
@@ -303,6 +371,8 @@ function hideDashboardDisabledMessage() {
 
 // Export to window for backward compatibility
 window.toggleDashboardVisibility = toggleDashboardVisibility;
+window.toggleCheetiMembersPublicVisibility = toggleCheetiMembersPublicVisibility;
+window.updateCheetiMembersVisibility = updateCheetiMembersVisibility;
 window.updateDashboardStatusDisplay = updateDashboardStatusDisplay;
 window.checkDashboardVisibility = checkDashboardVisibility;
 window.showDashboardDisabledMessage = showDashboardDisabledMessage;
