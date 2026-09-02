@@ -469,23 +469,42 @@ async function initializeNewYear(year) {
         
         let estimatedCollections = 0;
         let estimatedDetails = [];
+        let actualCollections = [];
         let committeeMembers = [];
         
         // Calculate estimated collections from previous year's cheeti members
         // All members from previous year are expected to pay in current year
         if (previousData && previousData.cheeti && previousData.cheeti.length > 0) {
             previousData.cheeti.forEach(member => {
-                const expectedAmount = member.amount + member.interest;
+                const expectedAmount = (member.amount || 0) + (member.interest || 0) + (member.lateFee || 0);
+                const paidAmount = Math.min(member.paidAmount || (member.paid ? expectedAmount : 0), expectedAmount);
                 estimatedCollections += expectedAmount;
-                estimatedDetails.push({
-                    name: member.name,
-                    amount: member.amount,
-                    interest: member.interest,
-                    expectedTotal: expectedAmount,
-                    fromYear: previousYear
-                });
+
+                if (!member.paid) {
+                    estimatedDetails.push({
+                        name: member.name,
+                        amount: member.amount,
+                        interest: member.interest,
+                        expectedTotal: expectedAmount,
+                        fromYear: previousYear
+                    });
+                }
+
+                if (paidAmount > 0) {
+                    const paymentHistory = member.paymentHistory || [];
+                    const latestPayment = paymentHistory[paymentHistory.length - 1];
+                    actualCollections.push({
+                        slNo: actualCollections.length + 1,
+                        memberName: member.name,
+                        amount: paidAmount,
+                        fromYear: previousYear,
+                        collectionDate: latestPayment?.date || member.paymentDate || '',
+                        addedOn: new Date().toISOString()
+                    });
+                }
             });
             console.log(`📊 Estimated collections from ${previousYear}: ₹${estimatedCollections.toLocaleString('en-IN')}`);
+            console.log(`💰 Existing collections from ${previousYear}: ₹${actualCollections.reduce((sum, collection) => sum + collection.amount, 0).toLocaleString('en-IN')}`);
         }
         
         // Copy committee from previous year's committee_next_year
@@ -499,7 +518,7 @@ async function initializeNewYear(year) {
             lastUpdated: new Date().toISOString(),
             donations: [],
             cheeti: [],
-            cheeti_collections: [],
+            cheeti_collections: actualCollections,
             cheeti_expected: estimatedDetails, // Store expected collections details for reference
             expenses: [],
             sponsors: [],
@@ -527,6 +546,10 @@ async function initializeNewYear(year) {
             : `✅ ${year} is ready\n\nYour new year data has been saved successfully.`;
         if (estimatedCollections > 0) {
             successMsg += `\n📊 Expected collections: ₹${estimatedCollections.toLocaleString('en-IN')}`;
+        }
+        const actualCollectionsTotal = actualCollections.reduce((sum, collection) => sum + collection.amount, 0);
+        if (actualCollectionsTotal > 0) {
+            successMsg += `\n💰 Previous-year collections carried forward: ₹${actualCollectionsTotal.toLocaleString('en-IN')}`;
         }
         if (committeeMembers.length > 0) {
             successMsg += `\n👥 Committee: ${committeeMembers.length} member(s)`;
