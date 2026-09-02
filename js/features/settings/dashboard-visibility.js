@@ -100,9 +100,19 @@ function updateCheetiMembersVisibility() {
     // Preserve the public behavior of existing data unless an admin explicitly disables it.
     const isPublic = !currentData.settings || currentData.settings.cheeti_members_public !== false;
 
+    const isVisible = isAdmin || isPublic;
+
     if (section) {
-        section.style.display = isAdmin || isPublic ? '' : 'none';
+        section.style.display = isVisible ? '' : 'none';
     }
+
+    // Cheeti-derived metric cards follow the cheeti members table visibility
+    ['cheetiMembersMetricCard', 'remainingBalanceAfterCheetiMetricCard', 'cheetiInterestMetricCard', 'estimatedNextYearTotalMetricCard'].forEach(id => {
+        const card = document.getElementById(id);
+        if (card) {
+            card.style.display = isVisible ? '' : 'none';
+        }
+    });
 
     if (checkbox) {
         checkbox.checked = isPublic;
