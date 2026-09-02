@@ -1,7 +1,28 @@
 {
   "year": "2026",
-  "lastUpdated": "2026-09-02T06:37:23.392Z",
-  "donations": [],
+  "lastUpdated": "2026-09-02T06:39:21.674Z",
+  "donations": [
+    {
+      "slNo": 1,
+      "name": "G Venkatesh Jr",
+      "amount": 2016
+    },
+    {
+      "slNo": 2,
+      "name": "B Uma",
+      "amount": 1001
+    },
+    {
+      "slNo": 3,
+      "name": "P Sasidhar",
+      "amount": 2116
+    },
+    {
+      "slNo": 4,
+      "name": "M Somu",
+      "amount": 2116
+    }
+  ],
   "cheeti": [],
   "cheeti_collections": [
     {
