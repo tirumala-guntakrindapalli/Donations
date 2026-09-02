@@ -1,6 +1,6 @@
 {
   "year": "2026",
-  "lastUpdated": "2026-09-02T06:39:21.674Z",
+  "lastUpdated": "2026-09-02T06:39:43.108Z",
   "donations": [
     {
       "slNo": 1,
@@ -393,6 +393,7 @@
   ],
   "committee_next_year": [],
   "settings": {
-    "dashboard_enabled": true
+    "dashboard_enabled": true,
+    "cheeti_members_public": false
   }
 }
