@@ -1,6 +1,6 @@
 {
   "year": "2026",
-  "lastUpdated": "2026-09-03T10:30:55.619Z",
+  "lastUpdated": "2026-09-03T10:38:45.086Z",
   "donations": [
     {
       "slNo": 1,
@@ -84,6 +84,22 @@
       "fromYear": 2025,
       "collectionDate": "2026-09-02",
       "addedOn": "2026-09-02T08:51:58.768Z"
+    },
+    {
+      "slNo": 6,
+      "memberName": "K Venu",
+      "amount": 30912,
+      "fromYear": 2025,
+      "collectionDate": "2026-09-03",
+      "addedOn": "2026-09-03T10:38:44.544Z"
+    },
+    {
+      "slNo": 7,
+      "memberName": "B Amarnadh Reddy",
+      "amount": 30912,
+      "fromYear": 2025,
+      "collectionDate": "2026-09-03",
+      "addedOn": "2026-09-03T10:38:44.544Z"
     }
   ],
   "cheeti_expected": [
@@ -172,13 +188,6 @@
       "fromYear": 2025
     },
     {
-      "name": "K Venu",
-      "amount": 27600,
-      "interest": 3312,
-      "expectedTotal": 30912,
-      "fromYear": 2025
-    },
-    {
       "name": "P Narendra",
       "amount": 27600,
       "interest": 3312,
@@ -250,13 +259,6 @@
     },
     {
       "name": "B Raja Reddy",
-      "amount": 27600,
-      "interest": 3312,
-      "expectedTotal": 30912,
-      "fromYear": 2025
-    },
-    {
-      "name": "B Amarnadh Reddy",
       "amount": 27600,
       "interest": 3312,
       "expectedTotal": 30912,
