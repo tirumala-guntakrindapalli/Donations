@@ -1,6 +1,6 @@
 {
   "year": "2026",
-  "lastUpdated": "2026-09-03T10:38:45.086Z",
+  "lastUpdated": "2026-09-03T15:53:19.797Z",
   "donations": [
     {
       "slNo": 1,
@@ -100,6 +100,22 @@
       "fromYear": 2025,
       "collectionDate": "2026-09-03",
       "addedOn": "2026-09-03T10:38:44.544Z"
+    },
+    {
+      "slNo": 8,
+      "memberName": "V Munikumar",
+      "amount": 30912,
+      "fromYear": 2025,
+      "collectionDate": "2026-09-03",
+      "addedOn": "2026-09-03T15:53:18.988Z"
+    },
+    {
+      "slNo": 9,
+      "memberName": "V Sankaramma",
+      "amount": 30912,
+      "fromYear": 2025,
+      "collectionDate": "2026-09-03",
+      "addedOn": "2026-09-03T15:53:18.988Z"
     }
   ],
   "cheeti_expected": [
@@ -210,20 +226,6 @@
     },
     {
       "name": "P Sudharsan",
-      "amount": 27600,
-      "interest": 3312,
-      "expectedTotal": 30912,
-      "fromYear": 2025
-    },
-    {
-      "name": "V Munikumar",
-      "amount": 27600,
-      "interest": 3312,
-      "expectedTotal": 30912,
-      "fromYear": 2025
-    },
-    {
-      "name": "V Sankaramma",
       "amount": 27600,
       "interest": 3312,
       "expectedTotal": 30912,
