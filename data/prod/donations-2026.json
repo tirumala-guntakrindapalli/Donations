@@ -1,6 +1,6 @@
 {
   "year": "2026",
-  "lastUpdated": "2026-09-02T16:31:09.652Z",
+  "lastUpdated": "2026-09-03T10:30:55.619Z",
   "donations": [
     {
       "slNo": 1,
@@ -31,6 +31,16 @@
       "slNo": 6,
       "name": "C Munisubba Reddy",
       "amount": 2116
+    },
+    {
+      "slNo": 7,
+      "name": "V Sankaramma (Receiver B Amarnadh Reddy)",
+      "amount": 2058
+    },
+    {
+      "slNo": 8,
+      "name": "V Muni (Receiver B Amarnadh Reddy)",
+      "amount": 2058
     }
   ],
   "cheeti": [],
