@@ -1,6 +1,6 @@
 {
   "year": "2026",
-  "lastUpdated": "2026-09-03T15:53:19.797Z",
+  "lastUpdated": "2026-09-04T15:33:57.246Z",
   "donations": [
     {
       "slNo": 1,
@@ -41,6 +41,11 @@
       "slNo": 8,
       "name": "V Muni (Receiver B Amarnadh Reddy)",
       "amount": 2058
+    },
+    {
+      "slNo": 9,
+      "name": "B Chandra Reddy",
+      "amount": 1116
     }
   ],
   "cheeti": [],
