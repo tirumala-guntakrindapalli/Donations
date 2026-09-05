@@ -1,6 +1,6 @@
 {
   "year": "2026",
-  "lastUpdated": "2026-09-05T04:51:30.919Z",
+  "lastUpdated": "2026-09-05T04:57:35.637Z",
   "donations": [
     {
       "slNo": 1,
@@ -150,6 +150,22 @@
       "fromYear": 2025,
       "collectionDate": "2026-09-05",
       "addedOn": "2026-09-05T04:51:30.283Z"
+    },
+    {
+      "slNo": 13,
+      "memberName": "P Somu",
+      "amount": 30912,
+      "fromYear": 2025,
+      "collectionDate": "2026-09-03",
+      "addedOn": "2026-09-05T04:57:34.997Z"
+    },
+    {
+      "slNo": 14,
+      "memberName": "M Venkatesh (Sr)",
+      "amount": 30912,
+      "fromYear": 2025,
+      "collectionDate": "2026-09-03",
+      "addedOn": "2026-09-05T04:57:34.998Z"
     }
   ],
   "cheeti_expected": [
@@ -337,20 +353,6 @@
     },
     {
       "name": "T Mahadeva Reddy",
-      "amount": 27600,
-      "interest": 3312,
-      "expectedTotal": 30912,
-      "fromYear": 2025
-    },
-    {
-      "name": "P Somu",
-      "amount": 27600,
-      "interest": 3312,
-      "expectedTotal": 30912,
-      "fromYear": 2025
-    },
-    {
-      "name": "M Venkatesh (Sr)",
       "amount": 27600,
       "interest": 3312,
       "expectedTotal": 30912,
