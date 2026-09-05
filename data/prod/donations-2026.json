@@ -1,6 +1,6 @@
 {
   "year": "2026",
-  "lastUpdated": "2026-09-05T09:35:42.307Z",
+  "lastUpdated": "2026-09-05T15:51:49.309Z",
   "carried_forward_balance": 345,
   "donations": [
     {
@@ -72,6 +72,11 @@
       "slNo": 14,
       "name": "V Suneel",
       "amount": 2016
+    },
+    {
+      "slNo": 15,
+      "name": "Avulapati Ravi (Mohan Sai) (Receiver P Rosi Reedy)",
+      "amount": 12000
     }
   ],
   "cheeti": [],
