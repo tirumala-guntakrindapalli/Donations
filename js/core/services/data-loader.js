@@ -471,6 +471,16 @@ async function initializeNewYear(year) {
         let estimatedDetails = [];
         let actualCollections = [];
         let committeeMembers = [];
+        let carriedForwardBalance = 0;
+
+        if (previousData) {
+            const previousDonations = (previousData.donations || []).reduce((sum, donation) => sum + (donation.amount || 0), 0);
+            const previousCollections = (previousData.cheeti_collections || []).reduce((sum, collection) => sum + (collection.amount || 0), 0);
+            const previousLadduWinnings = (previousData.laddu_winners || []).reduce((sum, winner) => sum + (winner.amount || 0), 0);
+            const previousExpenses = (previousData.expenses || []).reduce((sum, expense) => sum + (expense.amount || 0), 0);
+            const previousCheetiAmount = (previousData.cheeti || []).reduce((sum, member) => sum + (member.amount || 0), 0);
+            carriedForwardBalance = previousDonations + previousCollections + previousLadduWinnings - previousExpenses - previousCheetiAmount;
+        }
         
         // Calculate estimated collections from previous year's cheeti members
         // All members from previous year are expected to pay in current year
@@ -516,6 +526,7 @@ async function initializeNewYear(year) {
         const newYearData = {
             year: year.toString(),
             lastUpdated: new Date().toISOString(),
+            carried_forward_balance: carriedForwardBalance,
             donations: [],
             cheeti: [],
             cheeti_collections: actualCollections,

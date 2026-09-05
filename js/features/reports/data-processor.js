@@ -27,7 +27,8 @@ function updateMetrics(donations, cheeti, expenses, report) {
     
     // Total income = donations + actual cheeti collections + laddu winnings
     // Note: We calculate directly from data arrays, not from the report array which may be stale
-    const totalIncome = totalDonations + actualCheetiCollections + ladduWinnings;
+    const carriedForwardBalance = currentData.carried_forward_balance || 0;
+    const totalIncome = carriedForwardBalance + totalDonations + actualCheetiCollections + ladduWinnings;
     const balance = totalIncome - totalExpenses;
     const totalCheetiAmount = cheeti.reduce((sum, member) => sum + (member.amount || 0), 0);
     const remainingBalanceAfterCheeti = balance - totalCheetiAmount;
@@ -171,6 +172,7 @@ function calculateFinancialSummary() {
     const cheeti = currentData.cheeti || [];
     const ladduWinners = currentData.laddu_winners || [];
     const cheetiCollections = currentData.cheeti_collections || [];
+    const carriedForwardBalance = currentData.carried_forward_balance || 0;
     
     const totalDonations = donations.reduce((sum, d) => sum + d.amount, 0);
     const totalExpenses = expenses.reduce((sum, e) => sum + e.amount, 0);
@@ -179,7 +181,7 @@ function calculateFinancialSummary() {
     const totalLadduWinnings = ladduWinners.reduce((sum, w) => sum + (w.amount || 0), 0);
     const totalCheetiCollections = cheetiCollections.reduce((sum, c) => sum + (c.amount || 0), 0);
     
-    const totalIncome = totalDonations + totalCheetiCollections + totalLadduWinnings;
+    const totalIncome = carriedForwardBalance + totalDonations + totalCheetiCollections + totalLadduWinnings;
     const balance = totalIncome - totalExpenses;
     
     return {
@@ -190,6 +192,7 @@ function calculateFinancialSummary() {
         expenseCount: expenses.length,
         totalIncome,
         balance,
+        carriedForwardBalance,
         totalCheetiPrincipal,
         totalCheetiInterest,
         totalCheetiValue: totalCheetiPrincipal + totalCheetiInterest,
