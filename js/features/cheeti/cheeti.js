@@ -1422,6 +1422,7 @@ function autoCalculateLateFeeForPaymentForm() {
     const lateFeeInfo = document.getElementById('adminLateFeeInfo');
     const lateFeeAutoCalc = document.getElementById('adminLateFeeAutoCalc');
     const totalDueDisplay = document.getElementById('memberTotalDue');
+    const remainingAmountDisplay = document.getElementById('memberRemainingAmount');
     const memberSelect = document.getElementById('cheetiMemberSelect');
     
     if (!dateInput || !dateInput.value || !memberSelect || !memberSelect.value) return;
@@ -1451,10 +1452,14 @@ function autoCalculateLateFeeForPaymentForm() {
             lateFeeAutoCalc.textContent = '(Auto-calculated)';
         }
         
-        // Update total due display
+        // Update total due and remaining amount displays
+        const newTotal = (member.amount || 0) + (member.interest || 0) + calculatedLateFee;
         if (totalDueDisplay) {
-            const newTotal = (member.amount || 0) + (member.interest || 0) + calculatedLateFee;
             totalDueDisplay.textContent = `₹${newTotal.toLocaleString('en-IN')}`;
+        }
+        if (remainingAmountDisplay) {
+            const paidAmount = member.paidAmount || 0;
+            remainingAmountDisplay.textContent = `₹${Math.max(0, newTotal - paidAmount).toLocaleString('en-IN')}`;
         }
     } else {
         // No late fee
@@ -1462,10 +1467,16 @@ function autoCalculateLateFeeForPaymentForm() {
         if (lateFeeAutoCalc) lateFeeAutoCalc.textContent = '';
         if (lateFeeInput) lateFeeInput.value = 0;
         
-        // Reset total due display
-        if (totalDueDisplay && member) {
+        // Reset total due and remaining amount displays
+        if (member) {
             const newTotal = (member.amount || 0) + (member.interest || 0);
-            totalDueDisplay.textContent = `₹${newTotal.toLocaleString('en-IN')}`;
+            if (totalDueDisplay) {
+                totalDueDisplay.textContent = `₹${newTotal.toLocaleString('en-IN')}`;
+            }
+            if (remainingAmountDisplay) {
+                const paidAmount = member.paidAmount || 0;
+                remainingAmountDisplay.textContent = `₹${Math.max(0, newTotal - paidAmount).toLocaleString('en-IN')}`;
+            }
         }
     }
 }
