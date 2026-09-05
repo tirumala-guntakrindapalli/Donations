@@ -1,6 +1,6 @@
 {
   "year": "2026",
-  "lastUpdated": "2026-09-05T04:57:35.637Z",
+  "lastUpdated": "2026-09-05T06:01:58.551Z",
   "donations": [
     {
       "slNo": 1,
@@ -51,6 +51,11 @@
       "slNo": 10,
       "name": "B Sudhakar Reddy",
       "amount": 3016
+    },
+    {
+      "slNo": 11,
+      "name": "G Dharma Reddy",
+      "amount": 2116
     }
   ],
   "cheeti": [],
