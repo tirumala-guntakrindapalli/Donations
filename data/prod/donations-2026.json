@@ -1,6 +1,6 @@
 {
   "year": "2026",
-  "lastUpdated": "2026-09-05T04:43:48.930Z",
+  "lastUpdated": "2026-09-05T04:51:30.919Z",
   "donations": [
     {
       "slNo": 1,
@@ -126,6 +126,30 @@
       "fromYear": 2025,
       "collectionDate": "2026-09-03",
       "addedOn": "2026-09-03T15:53:18.988Z"
+    },
+    {
+      "slNo": 10,
+      "memberName": "V Sudhakar",
+      "amount": 30912,
+      "fromYear": 2025,
+      "collectionDate": "2026-09-05",
+      "addedOn": "2026-09-05T04:51:30.282Z"
+    },
+    {
+      "slNo": 11,
+      "memberName": "P Vikram",
+      "amount": 30912,
+      "fromYear": 2025,
+      "collectionDate": "2026-09-05",
+      "addedOn": "2026-09-05T04:51:30.282Z"
+    },
+    {
+      "slNo": 12,
+      "memberName": "P Tirumala Reddy",
+      "amount": 30912,
+      "fromYear": 2025,
+      "collectionDate": "2026-09-05",
+      "addedOn": "2026-09-05T04:51:30.283Z"
     }
   ],
   "cheeti_expected": [
@@ -201,13 +225,6 @@
     },
     {
       "name": "P Tharun",
-      "amount": 27600,
-      "interest": 3312,
-      "expectedTotal": 30912,
-      "fromYear": 2025
-    },
-    {
-      "name": "P Vikram",
       "amount": 27600,
       "interest": 3312,
       "expectedTotal": 30912,
@@ -305,13 +322,6 @@
       "fromYear": 2025
     },
     {
-      "name": "V Sudhakar",
-      "amount": 27600,
-      "interest": 3312,
-      "expectedTotal": 30912,
-      "fromYear": 2025
-    },
-    {
       "name": "M Balaji Reddy",
       "amount": 27600,
       "interest": 3312,
@@ -376,13 +386,6 @@
     },
     {
       "name": "P Sekhar Reddy (Post)",
-      "amount": 27600,
-      "interest": 3312,
-      "expectedTotal": 30912,
-      "fromYear": 2025
-    },
-    {
-      "name": "P Tirumala Reddy",
       "amount": 27600,
       "interest": 3312,
       "expectedTotal": 30912,
