@@ -1,6 +1,6 @@
 {
   "year": "2025",
-  "lastUpdated": "2026-09-05T04:57:33.023Z",
+  "lastUpdated": "2026-09-05T14:42:14.237Z",
   "donations": [
     {
       "slNo": 1,
@@ -1464,7 +1464,7 @@
     "cheeti_members_public": false
   },
   "cheeti_settings": {
-    "cutover_date": "2026-09-08",
+    "cutover_date": "2026-09-07",
     "late_fee_per_day": 100
   }
 }
