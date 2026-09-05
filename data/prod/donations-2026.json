@@ -1,6 +1,6 @@
 {
   "year": "2026",
-  "lastUpdated": "2026-09-05T15:51:49.309Z",
+  "lastUpdated": "2026-09-05T15:52:42.035Z",
   "carried_forward_balance": 345,
   "donations": [
     {
@@ -192,6 +192,14 @@
       "fromYear": 2025,
       "collectionDate": "2026-09-03",
       "addedOn": "2026-09-05T04:57:34.998Z"
+    },
+    {
+      "slNo": 15,
+      "memberName": "M Somu",
+      "amount": 30912,
+      "fromYear": 2025,
+      "collectionDate": "2026-09-05",
+      "addedOn": "2026-09-05T15:52:41.528Z"
     }
   ],
   "cheeti_expected": [
@@ -344,13 +352,6 @@
     },
     {
       "name": "K Surendra",
-      "amount": 27600,
-      "interest": 3312,
-      "expectedTotal": 30912,
-      "fromYear": 2025
-    },
-    {
-      "name": "M Somu",
       "amount": 27600,
       "interest": 3312,
       "expectedTotal": 30912,
