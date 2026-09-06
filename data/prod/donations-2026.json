@@ -1,6 +1,6 @@
 {
   "year": "2026",
-  "lastUpdated": "2026-09-06T09:26:15.741Z",
+  "lastUpdated": "2026-09-06T11:02:02.387Z",
   "carried_forward_balance": 345,
   "donations": [
     {
@@ -216,14 +216,6 @@
     },
     {
       "slNo": 17,
-      "memberName": "T Mahadeva Reddy",
-      "amount": 6912,
-      "fromYear": 2025,
-      "collectionDate": "2026-09-06",
-      "addedOn": "2026-09-06T09:15:26.321Z"
-    },
-    {
-      "slNo": 18,
       "memberName": "T Nagur Reddy",
       "amount": 30912,
       "fromYear": 2025,
@@ -231,7 +223,7 @@
       "addedOn": "2026-09-06T09:15:26.321Z"
     },
     {
-      "slNo": 19,
+      "slNo": 18,
       "memberName": "K Surendra",
       "amount": 30912,
       "fromYear": 2025,
