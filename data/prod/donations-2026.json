@@ -1,6 +1,6 @@
 {
   "year": "2026",
-  "lastUpdated": "2026-09-06T12:54:01.293Z",
+  "lastUpdated": "2026-09-06T16:11:22.636Z",
   "carried_forward_balance": 345,
   "donations": [
     {
@@ -87,6 +87,11 @@
       "slNo": 17,
       "name": "P Tharun (Receiver B Amarnadh Reddy)",
       "amount": 1008
+    },
+    {
+      "slNo": 18,
+      "name": "M Nagaraju",
+      "amount": 1088
     }
   ],
   "cheeti": [],
