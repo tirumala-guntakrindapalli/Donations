@@ -1,6 +1,6 @@
 {
   "year": "2025",
-  "lastUpdated": "2026-09-06T09:26:13.235Z",
+  "lastUpdated": "2026-09-06T11:01:59.108Z",
   "donations": [
     {
       "slNo": 1,
@@ -881,19 +881,12 @@
       "total": 30912,
       "lateFee": 0,
       "paid": false,
-      "paymentDate": "2026-09-06",
+      "paymentDate": null,
       "days_overdue": 0,
-      "paidAmount": 6912,
-      "receiver": "P Rosi Reddy",
-      "paymentMode": "UPI",
-      "paymentHistory": [
-        {
-          "amount": 6912,
-          "date": "2026-09-06",
-          "receiver": "P Rosi Reddy",
-          "paymentMode": "UPI"
-        }
-      ]
+      "paidAmount": 0,
+      "receiver": "",
+      "paymentMode": "",
+      "paymentHistory": []
     },
     {
       "slNo": 38,
