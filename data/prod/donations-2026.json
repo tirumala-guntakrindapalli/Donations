@@ -1,6 +1,6 @@
 {
   "year": "2026",
-  "lastUpdated": "2026-09-06T11:02:02.387Z",
+  "lastUpdated": "2026-09-06T11:09:57.967Z",
   "carried_forward_balance": 345,
   "donations": [
     {
@@ -229,6 +229,14 @@
       "fromYear": 2025,
       "collectionDate": "2026-09-06",
       "addedOn": "2026-09-06T09:17:18.401Z"
+    },
+    {
+      "slNo": 19,
+      "memberName": "T Mahadeva Reddy",
+      "amount": 30912,
+      "fromYear": 2025,
+      "collectionDate": "2026-09-06",
+      "addedOn": "2026-09-06T11:09:57.323Z"
     }
   ],
   "cheeti_expected": [
@@ -381,13 +389,6 @@
     },
     {
       "name": "T Gurunadham Reddy",
-      "amount": 27600,
-      "interest": 3312,
-      "expectedTotal": 30912,
-      "fromYear": 2025
-    },
-    {
-      "name": "T Mahadeva Reddy",
       "amount": 27600,
       "interest": 3312,
       "expectedTotal": 30912,
