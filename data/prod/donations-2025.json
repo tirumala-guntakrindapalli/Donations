@@ -1,6 +1,6 @@
 {
   "year": "2025",
-  "lastUpdated": "2026-09-05T15:52:39.624Z",
+  "lastUpdated": "2026-09-06T09:15:24.182Z",
   "donations": [
     {
       "slNo": 1,
@@ -403,9 +403,20 @@
       "interest": 3312,
       "total": 30912,
       "lateFee": 0,
-      "paid": false,
-      "paymentDate": "",
-      "days_overdue": 0
+      "paid": true,
+      "paymentDate": "2026-09-06",
+      "days_overdue": 0,
+      "paidAmount": 30912,
+      "receiver": "P Rosi Reddy",
+      "paymentMode": "Cash",
+      "paymentHistory": [
+        {
+          "amount": 30912,
+          "date": "2026-09-06",
+          "receiver": "P Rosi Reddy",
+          "paymentMode": "Cash"
+        }
+      ]
     },
     {
       "slNo": 9,
@@ -525,8 +536,19 @@
       "total": 30912,
       "lateFee": 0,
       "paid": false,
-      "paymentDate": "",
-      "days_overdue": 0
+      "paymentDate": "2026-09-06",
+      "days_overdue": 0,
+      "paidAmount": 24000,
+      "receiver": "P Rosi Reddy",
+      "paymentMode": "Cash",
+      "paymentHistory": [
+        {
+          "amount": 24000,
+          "date": "2026-09-06",
+          "receiver": "P Rosi Reddy",
+          "paymentMode": "Cash"
+        }
+      ]
     },
     {
       "slNo": 17,
@@ -645,9 +667,20 @@
       "interest": 3312,
       "total": 30912,
       "lateFee": 0,
-      "paid": false,
-      "paymentDate": "",
-      "days_overdue": 0
+      "paid": true,
+      "paymentDate": "2026-09-06",
+      "days_overdue": 0,
+      "paidAmount": 30912,
+      "receiver": "P Sasidhar",
+      "paymentMode": "UPI",
+      "paymentHistory": [
+        {
+          "amount": 30912,
+          "date": "2026-09-06",
+          "receiver": "P Sasidhar",
+          "paymentMode": "UPI"
+        }
+      ]
     },
     {
       "slNo": 25,
@@ -844,8 +877,19 @@
       "total": 30912,
       "lateFee": 0,
       "paid": false,
-      "paymentDate": "",
-      "days_overdue": 0
+      "paymentDate": "2026-09-06",
+      "days_overdue": 0,
+      "paidAmount": 6912,
+      "receiver": "P Rosi Reddy",
+      "paymentMode": "UPI",
+      "paymentHistory": [
+        {
+          "amount": 6912,
+          "date": "2026-09-06",
+          "receiver": "P Rosi Reddy",
+          "paymentMode": "UPI"
+        }
+      ]
     },
     {
       "slNo": 38,
