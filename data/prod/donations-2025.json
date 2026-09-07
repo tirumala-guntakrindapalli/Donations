@@ -1,6 +1,6 @@
 {
   "year": "2025",
-  "lastUpdated": "2026-09-07T18:35:44.507Z",
+  "lastUpdated": "2026-09-07T18:39:00.566Z",
   "donations": [
     {
       "slNo": 1,
@@ -1157,9 +1157,20 @@
       "interest": 3492,
       "total": 32592,
       "lateFee": 0,
-      "paid": false,
-      "paymentDate": "",
-      "days_overdue": 0
+      "paid": true,
+      "paymentDate": "2026-09-07",
+      "days_overdue": 0,
+      "paidAmount": 32592,
+      "receiver": "P Rosi Reddy",
+      "paymentMode": "Cash",
+      "paymentHistory": [
+        {
+          "amount": 32592,
+          "date": "2026-09-07",
+          "receiver": "P Rosi Reddy",
+          "paymentMode": "Cash"
+        }
+      ]
     },
     {
       "slNo": 41,
@@ -1168,9 +1179,20 @@
       "interest": 3312,
       "total": 30912,
       "lateFee": 0,
-      "paid": false,
-      "paymentDate": "",
-      "days_overdue": 0
+      "paid": true,
+      "paymentDate": "2026-09-07",
+      "days_overdue": 0,
+      "paidAmount": 30912,
+      "receiver": "B Amarnadh Reddy",
+      "paymentMode": "Cash",
+      "paymentHistory": [
+        {
+          "amount": 30912,
+          "date": "2026-09-07",
+          "receiver": "B Amarnadh Reddy",
+          "paymentMode": "Cash"
+        }
+      ]
     },
     {
       "slNo": 42,
@@ -1179,9 +1201,20 @@
       "interest": 3312,
       "total": 30912,
       "lateFee": 0,
-      "paid": false,
-      "paymentDate": "",
-      "days_overdue": 0
+      "paid": true,
+      "paymentDate": "2026-09-07",
+      "days_overdue": 0,
+      "paidAmount": 30912,
+      "receiver": "M Bala Subramanyam Reddy",
+      "paymentMode": "Cash",
+      "paymentHistory": [
+        {
+          "amount": 30912,
+          "date": "2026-09-07",
+          "receiver": "M Bala Subramanyam Reddy",
+          "paymentMode": "Cash"
+        }
+      ]
     },
     {
       "slNo": 43,
