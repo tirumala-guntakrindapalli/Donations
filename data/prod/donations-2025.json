@@ -1,6 +1,6 @@
 {
   "year": "2025",
-  "lastUpdated": "2026-09-07T09:28:56.392Z",
+  "lastUpdated": "2026-09-07T18:35:44.507Z",
   "donations": [
     {
       "slNo": 1,
@@ -359,9 +359,20 @@
       "interest": 3312,
       "total": 30912,
       "lateFee": 0,
-      "paid": false,
-      "paymentDate": "",
-      "days_overdue": 0
+      "paid": true,
+      "paymentDate": "2026-09-07",
+      "days_overdue": 0,
+      "paidAmount": 30912,
+      "receiver": "B Amarnadh Reddy",
+      "paymentMode": "Cash",
+      "paymentHistory": [
+        {
+          "amount": 30912,
+          "date": "2026-09-07",
+          "receiver": "B Amarnadh Reddy",
+          "paymentMode": "Cash"
+        }
+      ]
     },
     {
       "slNo": 5,
@@ -370,9 +381,20 @@
       "interest": 3312,
       "total": 30912,
       "lateFee": 0,
-      "paid": false,
-      "paymentDate": "",
-      "days_overdue": 0
+      "paid": true,
+      "paymentDate": "2026-09-07",
+      "days_overdue": 0,
+      "paidAmount": 30912,
+      "receiver": "P Rosi Reddy",
+      "paymentMode": "Cash",
+      "paymentHistory": [
+        {
+          "amount": 30912,
+          "date": "2026-09-07",
+          "receiver": "P Rosi Reddy",
+          "paymentMode": "Cash"
+        }
+      ]
     },
     {
       "slNo": 6,
@@ -381,9 +403,20 @@
       "interest": 3312,
       "total": 30912,
       "lateFee": 0,
-      "paid": false,
-      "paymentDate": "",
-      "days_overdue": 0
+      "paid": true,
+      "paymentDate": "2026-09-07",
+      "days_overdue": 0,
+      "paidAmount": 30912,
+      "receiver": "P Rosi Reddy",
+      "paymentMode": "Cash",
+      "paymentHistory": [
+        {
+          "amount": 30912,
+          "date": "2026-09-07",
+          "receiver": "P Rosi Reddy",
+          "paymentMode": "Cash"
+        }
+      ]
     },
     {
       "slNo": 7,
@@ -392,9 +425,20 @@
       "interest": 3312,
       "total": 30912,
       "lateFee": 0,
-      "paid": false,
-      "paymentDate": "",
-      "days_overdue": 0
+      "paid": true,
+      "paymentDate": "2026-09-07",
+      "days_overdue": 0,
+      "paidAmount": 30912,
+      "receiver": "B Amarnadh Reddy",
+      "paymentMode": "Cash",
+      "paymentHistory": [
+        {
+          "amount": 30912,
+          "date": "2026-09-07",
+          "receiver": "B Amarnadh Reddy",
+          "paymentMode": "Cash"
+        }
+      ]
     },
     {
       "slNo": 8,
@@ -579,13 +623,20 @@
       "interest": 3312,
       "total": 30912,
       "lateFee": 0,
-      "paid": false,
-      "paymentDate": null,
+      "paid": true,
+      "paymentDate": "2026-09-07",
       "days_overdue": 0,
-      "paidAmount": 0,
-      "receiver": "",
-      "paymentMode": "",
-      "paymentHistory": []
+      "paidAmount": 30912,
+      "receiver": "P Rosi Reddy",
+      "paymentMode": "Cash",
+      "paymentHistory": [
+        {
+          "amount": 30912,
+          "date": "2026-09-07",
+          "receiver": "P Rosi Reddy",
+          "paymentMode": "Cash"
+        }
+      ]
     },
     {
       "slNo": 17,
@@ -616,9 +667,20 @@
       "interest": 3312,
       "total": 30912,
       "lateFee": 0,
-      "paid": false,
-      "paymentDate": "",
-      "days_overdue": 0
+      "paid": true,
+      "paymentDate": "2026-09-07",
+      "days_overdue": 0,
+      "paidAmount": 30912,
+      "receiver": "P Rosi Reddy",
+      "paymentMode": "Cash",
+      "paymentHistory": [
+        {
+          "amount": 30912,
+          "date": "2026-09-07",
+          "receiver": "P Rosi Reddy",
+          "paymentMode": "Cash"
+        }
+      ]
     },
     {
       "slNo": 19,
@@ -627,9 +689,20 @@
       "interest": 3312,
       "total": 30912,
       "lateFee": 0,
-      "paid": false,
-      "paymentDate": "",
-      "days_overdue": 0
+      "paid": true,
+      "paymentDate": "2026-09-07",
+      "days_overdue": 0,
+      "paidAmount": 30912,
+      "receiver": "P Rosi Reddy",
+      "paymentMode": "Cash",
+      "paymentHistory": [
+        {
+          "amount": 30912,
+          "date": "2026-09-07",
+          "receiver": "P Rosi Reddy",
+          "paymentMode": "Cash"
+        }
+      ]
     },
     {
       "slNo": 20,
@@ -682,9 +755,20 @@
       "interest": 3312,
       "total": 30912,
       "lateFee": 0,
-      "paid": false,
-      "paymentDate": "",
-      "days_overdue": 0
+      "paid": true,
+      "paymentDate": "2026-09-07",
+      "days_overdue": 0,
+      "paidAmount": 30912,
+      "receiver": "P Rosi Reddy",
+      "paymentMode": "Cash",
+      "paymentHistory": [
+        {
+          "amount": 30912,
+          "date": "2026-09-07",
+          "receiver": "P Rosi Reddy",
+          "paymentMode": "Cash"
+        }
+      ]
     },
     {
       "slNo": 23,
@@ -693,9 +777,20 @@
       "interest": 3312,
       "total": 30912,
       "lateFee": 0,
-      "paid": false,
-      "paymentDate": "",
-      "days_overdue": 0
+      "paid": true,
+      "paymentDate": "2026-09-07",
+      "days_overdue": 0,
+      "paidAmount": 30912,
+      "receiver": "P Rosi Reddy",
+      "paymentMode": "Cash",
+      "paymentHistory": [
+        {
+          "amount": 30912,
+          "date": "2026-09-07",
+          "receiver": "P Rosi Reddy",
+          "paymentMode": "Cash"
+        }
+      ]
     },
     {
       "slNo": 24,
@@ -726,9 +821,20 @@
       "interest": 3312,
       "total": 30912,
       "lateFee": 0,
-      "paid": false,
-      "paymentDate": "",
-      "days_overdue": 0
+      "paid": true,
+      "paymentDate": "2026-09-07",
+      "days_overdue": 0,
+      "paidAmount": 30912,
+      "receiver": "B Amarnadh Reddy",
+      "paymentMode": "Cash",
+      "paymentHistory": [
+        {
+          "amount": 30912,
+          "date": "2026-09-07",
+          "receiver": "B Amarnadh Reddy",
+          "paymentMode": "Cash"
+        }
+      ]
     },
     {
       "slNo": 26,
@@ -737,9 +843,20 @@
       "interest": 3312,
       "total": 30912,
       "lateFee": 0,
-      "paid": false,
-      "paymentDate": "",
-      "days_overdue": 0
+      "paid": true,
+      "paymentDate": "2026-09-07",
+      "days_overdue": 0,
+      "paidAmount": 30912,
+      "receiver": "B Amarnadh Reddy",
+      "paymentMode": "Cash",
+      "paymentHistory": [
+        {
+          "amount": 30912,
+          "date": "2026-09-07",
+          "receiver": "B Amarnadh Reddy",
+          "paymentMode": "Cash"
+        }
+      ]
     },
     {
       "slNo": 27,
@@ -792,9 +909,20 @@
       "interest": 3312,
       "total": 30912,
       "lateFee": 0,
-      "paid": false,
-      "paymentDate": "",
-      "days_overdue": 0
+      "paid": true,
+      "paymentDate": "2026-09-07",
+      "days_overdue": 0,
+      "paidAmount": 30912,
+      "receiver": "B Amarnadh Reddy",
+      "paymentMode": "Cash",
+      "paymentHistory": [
+        {
+          "amount": 30912,
+          "date": "2026-09-07",
+          "receiver": "B Amarnadh Reddy",
+          "paymentMode": "Cash"
+        }
+      ]
     },
     {
       "slNo": 30,
@@ -847,9 +975,20 @@
       "interest": 3312,
       "total": 30912,
       "lateFee": 0,
-      "paid": false,
-      "paymentDate": "",
-      "days_overdue": 0
+      "paid": true,
+      "paymentDate": "2026-09-07",
+      "days_overdue": 0,
+      "paidAmount": 30912,
+      "receiver": "B Amarnadh Reddy",
+      "paymentMode": "Cash",
+      "paymentHistory": [
+        {
+          "amount": 30912,
+          "date": "2026-09-07",
+          "receiver": "B Amarnadh Reddy",
+          "paymentMode": "Cash"
+        }
+      ]
     },
     {
       "slNo": 33,
@@ -924,9 +1063,20 @@
       "interest": 3312,
       "total": 30912,
       "lateFee": 0,
-      "paid": false,
-      "paymentDate": "",
-      "days_overdue": 0
+      "paid": true,
+      "paymentDate": "2026-09-07",
+      "days_overdue": 0,
+      "paidAmount": 30912,
+      "receiver": "B Amarnadh Reddy",
+      "paymentMode": "Cash",
+      "paymentHistory": [
+        {
+          "amount": 30912,
+          "date": "2026-09-07",
+          "receiver": "B Amarnadh Reddy",
+          "paymentMode": "Cash"
+        }
+      ]
     },
     {
       "slNo": 37,
