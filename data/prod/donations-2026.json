@@ -1,6 +1,6 @@
 {
   "year": "2026",
-  "lastUpdated": "2026-09-07T14:14:59.563Z",
+  "lastUpdated": "2026-09-07T14:37:50.879Z",
   "carried_forward_balance": 345,
   "donations": [
     {
@@ -102,6 +102,11 @@
       "slNo": 20,
       "name": "P Sudharsan",
       "amount": 2116
+    },
+    {
+      "slNo": 21,
+      "name": "B Raja Reddy",
+      "amount": 1026
     }
   ],
   "cheeti": [],
