@@ -1,6 +1,6 @@
 {
   "year": "2026",
-  "lastUpdated": "2026-09-07T15:39:12.993Z",
+  "lastUpdated": "2026-09-07T17:36:05.740Z",
   "carried_forward_balance": 345,
   "donations": [
     {
@@ -107,6 +107,31 @@
       "slNo": 21,
       "name": "B Raja Reddy (Receiver B Amarnadh Reddy)",
       "amount": 1026
+    },
+    {
+      "slNo": 22,
+      "name": "V Munihara Reddy (Receiver B Amarnadh Reddy)",
+      "amount": 1116
+    },
+    {
+      "slNo": 23,
+      "name": "P Gurava Reddy (Receiver B Amarnadh Reddy)",
+      "amount": 1116
+    },
+    {
+      "slNo": 24,
+      "name": "M Bala Subramanyam Reddy (Receiver B Amarnadh Reddy)",
+      "amount": 1118
+    },
+    {
+      "slNo": 25,
+      "name": "P Gurunadham Reddy (Receiver B Amarnadh Reddy)",
+      "amount": 1000
+    },
+    {
+      "slNo": 26,
+      "name": "J Suresh (Receiver B Amarnadh Reddy)",
+      "amount": 1116
     }
   ],
   "cheeti": [],
