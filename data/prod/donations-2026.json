@@ -1,6 +1,6 @@
 {
   "year": "2026",
-  "lastUpdated": "2026-09-07T18:35:46.961Z",
+  "lastUpdated": "2026-09-07T18:39:02.918Z",
   "carried_forward_balance": 345,
   "donations": [
     {
@@ -439,6 +439,30 @@
       "fromYear": 2025,
       "collectionDate": "2026-09-07",
       "addedOn": "2026-09-07T18:35:46.449Z"
+    },
+    {
+      "slNo": 39,
+      "memberName": "P Venkata Subba Reddy",
+      "amount": 32592,
+      "fromYear": 2025,
+      "collectionDate": "2026-09-07",
+      "addedOn": "2026-09-07T18:39:02.354Z"
+    },
+    {
+      "slNo": 40,
+      "memberName": "P Eshwar Reddy (Polam)",
+      "amount": 30912,
+      "fromYear": 2025,
+      "collectionDate": "2026-09-07",
+      "addedOn": "2026-09-07T18:39:02.354Z"
+    },
+    {
+      "slNo": 41,
+      "memberName": "P Ganga Subbarami Reddy (Sr)",
+      "amount": 30912,
+      "fromYear": 2025,
+      "collectionDate": "2026-09-07",
+      "addedOn": "2026-09-07T18:39:02.354Z"
     }
   ],
   "cheeti_expected": [
@@ -464,21 +488,7 @@
       "fromYear": 2025
     },
     {
-      "name": "P Venkata Subba Reddy",
-      "amount": 29100,
-      "interest": 3492,
-      "expectedTotal": 32592,
-      "fromYear": 2025
-    },
-    {
       "name": "P Eshwar Reddy (Poloam)",
-      "amount": 27600,
-      "interest": 3312,
-      "expectedTotal": 30912,
-      "fromYear": 2025
-    },
-    {
-      "name": "P Ganga Subbarami Reddy (Sr)",
       "amount": 27600,
       "interest": 3312,
       "expectedTotal": 30912,
