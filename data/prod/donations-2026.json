@@ -1,6 +1,6 @@
 {
   "year": "2026",
-  "lastUpdated": "2026-09-07T17:36:05.740Z",
+  "lastUpdated": "2026-09-07T18:35:46.961Z",
   "carried_forward_balance": 345,
   "donations": [
     {
@@ -327,6 +327,118 @@
       "fromYear": 2025,
       "collectionDate": "2026-09-07",
       "addedOn": "2026-09-07T09:28:58.242Z"
+    },
+    {
+      "slNo": 25,
+      "memberName": "P Gurunadham Reddy",
+      "amount": 30912,
+      "fromYear": 2025,
+      "collectionDate": "2026-09-07",
+      "addedOn": "2026-09-07T18:35:46.449Z"
+    },
+    {
+      "slNo": 26,
+      "memberName": "V Munihara Reddy",
+      "amount": 30912,
+      "fromYear": 2025,
+      "collectionDate": "2026-09-07",
+      "addedOn": "2026-09-07T18:35:46.449Z"
+    },
+    {
+      "slNo": 27,
+      "memberName": "P Gurava Reddy",
+      "amount": 30912,
+      "fromYear": 2025,
+      "collectionDate": "2026-09-07",
+      "addedOn": "2026-09-07T18:35:46.449Z"
+    },
+    {
+      "slNo": 28,
+      "memberName": "M Venkata Subba Reddy (Naveen)",
+      "amount": 30912,
+      "fromYear": 2025,
+      "collectionDate": "2026-09-07",
+      "addedOn": "2026-09-07T18:35:46.449Z"
+    },
+    {
+      "slNo": 29,
+      "memberName": "M Bala Subramanyam Reddy",
+      "amount": 30912,
+      "fromYear": 2025,
+      "collectionDate": "2026-09-07",
+      "addedOn": "2026-09-07T18:35:46.449Z"
+    },
+    {
+      "slNo": 30,
+      "memberName": "J Suresh",
+      "amount": 30912,
+      "fromYear": 2025,
+      "collectionDate": "2026-09-07",
+      "addedOn": "2026-09-07T18:35:46.449Z"
+    },
+    {
+      "slNo": 31,
+      "memberName": "P Sudharsan",
+      "amount": 30912,
+      "fromYear": 2025,
+      "collectionDate": "2026-09-07",
+      "addedOn": "2026-09-07T18:35:46.449Z"
+    },
+    {
+      "slNo": 32,
+      "memberName": "Y Chandu Kumar",
+      "amount": 30912,
+      "fromYear": 2025,
+      "collectionDate": "2026-09-07",
+      "addedOn": "2026-09-07T18:35:46.449Z"
+    },
+    {
+      "slNo": 33,
+      "memberName": "C Munisubba Reddy",
+      "amount": 30912,
+      "fromYear": 2025,
+      "collectionDate": "2026-09-07",
+      "addedOn": "2026-09-07T18:35:46.449Z"
+    },
+    {
+      "slNo": 34,
+      "memberName": "B Chandra Redy",
+      "amount": 30912,
+      "fromYear": 2025,
+      "collectionDate": "2026-09-07",
+      "addedOn": "2026-09-07T18:35:46.449Z"
+    },
+    {
+      "slNo": 35,
+      "memberName": "B Raja Reddy",
+      "amount": 30912,
+      "fromYear": 2025,
+      "collectionDate": "2026-09-07",
+      "addedOn": "2026-09-07T18:35:46.449Z"
+    },
+    {
+      "slNo": 36,
+      "memberName": "B Uday Kumar",
+      "amount": 30912,
+      "fromYear": 2025,
+      "collectionDate": "2026-09-07",
+      "addedOn": "2026-09-07T18:35:46.449Z"
+    },
+    {
+      "slNo": 37,
+      "memberName": "T Maheshwar Reddy",
+      "amount": 30912,
+      "fromYear": 2025,
+      "collectionDate": "2026-09-07",
+      "addedOn": "2026-09-07T18:35:46.449Z"
+    },
+    {
+      "slNo": 38,
+      "memberName": "T Gurunadham Reddy",
+      "amount": 30912,
+      "fromYear": 2025,
+      "collectionDate": "2026-09-07",
+      "addedOn": "2026-09-07T18:35:46.449Z"
     }
   ],
   "cheeti_expected": [
@@ -346,104 +458,6 @@
     },
     {
       "name": "P Hari",
-      "amount": 27600,
-      "interest": 3312,
-      "expectedTotal": 30912,
-      "fromYear": 2025
-    },
-    {
-      "name": "P Gurunadham Reddy",
-      "amount": 27600,
-      "interest": 3312,
-      "expectedTotal": 30912,
-      "fromYear": 2025
-    },
-    {
-      "name": "V Munihara Reddy",
-      "amount": 27600,
-      "interest": 3312,
-      "expectedTotal": 30912,
-      "fromYear": 2025
-    },
-    {
-      "name": "P Gurava Reddy",
-      "amount": 27600,
-      "interest": 3312,
-      "expectedTotal": 30912,
-      "fromYear": 2025
-    },
-    {
-      "name": "M Venkata Subba Reddy (Naveen)",
-      "amount": 27600,
-      "interest": 3312,
-      "expectedTotal": 30912,
-      "fromYear": 2025
-    },
-    {
-      "name": "M Bala Subramanyam Reddy",
-      "amount": 27600,
-      "interest": 3312,
-      "expectedTotal": 30912,
-      "fromYear": 2025
-    },
-    {
-      "name": "J Suresh",
-      "amount": 27600,
-      "interest": 3312,
-      "expectedTotal": 30912,
-      "fromYear": 2025
-    },
-    {
-      "name": "P Sudharsan",
-      "amount": 27600,
-      "interest": 3312,
-      "expectedTotal": 30912,
-      "fromYear": 2025
-    },
-    {
-      "name": "Y Chandu Kumar",
-      "amount": 27600,
-      "interest": 3312,
-      "expectedTotal": 30912,
-      "fromYear": 2025
-    },
-    {
-      "name": "C Munisubba Reddy",
-      "amount": 27600,
-      "interest": 3312,
-      "expectedTotal": 30912,
-      "fromYear": 2025
-    },
-    {
-      "name": "B Chandra Redy",
-      "amount": 27600,
-      "interest": 3312,
-      "expectedTotal": 30912,
-      "fromYear": 2025
-    },
-    {
-      "name": "B Raja Reddy",
-      "amount": 27600,
-      "interest": 3312,
-      "expectedTotal": 30912,
-      "fromYear": 2025
-    },
-    {
-      "name": "B Uday Kumar",
-      "amount": 27600,
-      "interest": 3312,
-      "expectedTotal": 30912,
-      "fromYear": 2025
-    },
-    {
-      "name": "T Maheshwar Reddy",
-      "amount": 27600,
-      "interest": 3312,
-      "expectedTotal": 30912,
-      "fromYear": 2025
-    },
-    {
-      "name": "T Gurunadham Reddy",
       "amount": 27600,
       "interest": 3312,
       "expectedTotal": 30912,
