@@ -1,6 +1,6 @@
 {
   "year": "2026",
-  "lastUpdated": "2026-09-07T09:28:18.715Z",
+  "lastUpdated": "2026-09-07T09:28:58.757Z",
   "carried_forward_balance": 345,
   "donations": [
     {
@@ -284,6 +284,14 @@
       "fromYear": 2025,
       "collectionDate": "2026-09-07",
       "addedOn": "2026-09-07T09:28:18.223Z"
+    },
+    {
+      "slNo": 24,
+      "memberName": "M Balaji Reddy",
+      "amount": 30912,
+      "fromYear": 2025,
+      "collectionDate": "2026-09-07",
+      "addedOn": "2026-09-07T09:28:58.242Z"
     }
   ],
   "cheeti_expected": [
@@ -394,13 +402,6 @@
     },
     {
       "name": "T Maheshwar Reddy",
-      "amount": 27600,
-      "interest": 3312,
-      "expectedTotal": 30912,
-      "fromYear": 2025
-    },
-    {
-      "name": "M Balaji Reddy",
       "amount": 27600,
       "interest": 3312,
       "expectedTotal": 30912,
