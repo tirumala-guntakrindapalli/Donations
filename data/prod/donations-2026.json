@@ -1,6 +1,6 @@
 {
   "year": "2026",
-  "lastUpdated": "2026-09-10T04:00:32.469Z",
+  "lastUpdated": "2026-09-10T04:01:11.230Z",
   "carried_forward_balance": 345,
   "donations": [
     {
@@ -492,6 +492,14 @@
       "fromYear": 2025,
       "collectionDate": "2026-09-08",
       "addedOn": "2026-09-10T03:52:13.810Z"
+    },
+    {
+      "slNo": 45,
+      "memberName": "P Eshwar Reddy (Polam)",
+      "amount": 30912,
+      "fromYear": 2025,
+      "collectionDate": "2026-09-07",
+      "addedOn": "2026-09-10T04:01:10.706Z"
     }
   ],
   "cheeti_expected": [
@@ -504,13 +512,6 @@
     },
     {
       "name": "G Narayana",
-      "amount": 27600,
-      "interest": 3312,
-      "expectedTotal": 30912,
-      "fromYear": 2025
-    },
-    {
-      "name": "P Eshwar Reddy (Polam)",
       "amount": 27600,
       "interest": 3312,
       "expectedTotal": 30912,
