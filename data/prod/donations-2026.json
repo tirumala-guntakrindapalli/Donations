@@ -504,13 +504,6 @@
   ],
   "cheeti_expected": [
     {
-      "name": "P Eshwar Reddy (Poloam)",
-      "amount": 27600,
-      "interest": 3312,
-      "expectedTotal": 30912,
-      "fromYear": 2025
-    },
-    {
       "name": "G Narayana",
       "amount": 27600,
       "interest": 3312,
