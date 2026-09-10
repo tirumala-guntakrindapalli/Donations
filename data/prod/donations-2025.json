@@ -1,6 +1,6 @@
 {
   "year": "2025",
-  "lastUpdated": "2026-09-07T18:39:00.566Z",
+  "lastUpdated": "2026-09-10T03:52:11.955Z",
   "donations": [
     {
       "slNo": 1,
@@ -324,33 +324,66 @@
       "name": "M Krishna Reddy",
       "amount": 27600,
       "interest": 3312,
-      "total": 30912,
-      "lateFee": 0,
-      "paid": false,
-      "paymentDate": "",
-      "days_overdue": 0
+      "total": 31012,
+      "lateFee": 100,
+      "paid": true,
+      "paymentDate": "2026-09-08",
+      "days_overdue": 1,
+      "paidAmount": 31012,
+      "receiver": "P Rosi Reddy",
+      "paymentMode": "Cash",
+      "paymentHistory": [
+        {
+          "amount": 31012,
+          "date": "2026-09-08",
+          "receiver": "P Rosi Reddy",
+          "paymentMode": "Cash"
+        }
+      ]
     },
     {
       "slNo": 2,
       "name": "P Sasidhar",
       "amount": 27600,
       "interest": 3312,
-      "total": 30912,
-      "lateFee": 0,
-      "paid": false,
-      "paymentDate": "",
-      "days_overdue": 0
+      "total": 31012,
+      "lateFee": 100,
+      "paid": true,
+      "paymentDate": "2026-09-08",
+      "days_overdue": 1,
+      "paidAmount": 31012,
+      "receiver": "P Rosi Reddy",
+      "paymentMode": "Cash",
+      "paymentHistory": [
+        {
+          "amount": 31012,
+          "date": "2026-09-08",
+          "receiver": "P Rosi Reddy",
+          "paymentMode": "Cash"
+        }
+      ]
     },
     {
       "slNo": 3,
       "name": "P Hari",
       "amount": 27600,
       "interest": 3312,
-      "total": 30912,
-      "lateFee": 0,
-      "paid": false,
-      "paymentDate": "",
-      "days_overdue": 0
+      "total": 31012,
+      "lateFee": 100,
+      "paid": true,
+      "paymentDate": "2026-09-08",
+      "days_overdue": 1,
+      "paidAmount": 31012,
+      "receiver": "P Rosi Reddy",
+      "paymentMode": "Cash",
+      "paymentHistory": [
+        {
+          "amount": 31012,
+          "date": "2026-09-08",
+          "receiver": "P Rosi Reddy",
+          "paymentMode": "Cash"
+        }
+      ]
     },
     {
       "slNo": 4,
@@ -1232,11 +1265,22 @@
       "name": "P Sekhar Reddy (Post)",
       "amount": 27600,
       "interest": 3312,
-      "total": 30912,
-      "lateFee": 0,
-      "paid": false,
-      "paymentDate": "",
-      "days_overdue": 0
+      "total": 31012,
+      "lateFee": 100,
+      "paid": true,
+      "paymentDate": "2026-09-08",
+      "days_overdue": 1,
+      "paidAmount": 31012,
+      "receiver": "P Rosi Reddy",
+      "paymentMode": "Cash",
+      "paymentHistory": [
+        {
+          "amount": 31012,
+          "date": "2026-09-08",
+          "receiver": "P Rosi Reddy",
+          "paymentMode": "Cash"
+        }
+      ]
     },
     {
       "slNo": 45,
