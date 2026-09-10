@@ -1,6 +1,6 @@
 {
   "year": "2025",
-  "lastUpdated": "2026-09-10T03:52:11.955Z",
+  "lastUpdated": "2026-09-10T04:00:30.010Z",
   "donations": [
     {
       "slNo": 1,
@@ -1212,20 +1212,13 @@
       "interest": 3312,
       "total": 30912,
       "lateFee": 0,
-      "paid": true,
-      "paymentDate": "2026-09-07",
+      "paid": false,
+      "paymentDate": null,
       "days_overdue": 0,
-      "paidAmount": 30912,
-      "receiver": "B Amarnadh Reddy",
-      "paymentMode": "Cash",
-      "paymentHistory": [
-        {
-          "amount": 30912,
-          "date": "2026-09-07",
-          "receiver": "B Amarnadh Reddy",
-          "paymentMode": "Cash"
-        }
-      ]
+      "paidAmount": 0,
+      "receiver": "",
+      "paymentMode": "",
+      "paymentHistory": []
     },
     {
       "slNo": 42,
