@@ -1,6 +1,6 @@
 {
   "year": "2026",
-  "lastUpdated": "2026-09-10T03:52:48.380Z",
+  "lastUpdated": "2026-09-10T04:00:32.469Z",
   "carried_forward_balance": 345,
   "donations": [
     {
@@ -455,14 +455,6 @@
     },
     {
       "slNo": 40,
-      "memberName": "P Eshwar Reddy (Polam)",
-      "amount": 30912,
-      "fromYear": 2025,
-      "collectionDate": "2026-09-07",
-      "addedOn": "2026-09-07T18:39:02.354Z"
-    },
-    {
-      "slNo": 41,
       "memberName": "P Ganga Subbarami Reddy (Sr)",
       "amount": 30912,
       "fromYear": 2025,
@@ -470,7 +462,7 @@
       "addedOn": "2026-09-07T18:39:02.354Z"
     },
     {
-      "slNo": 42,
+      "slNo": 41,
       "memberName": "M Krishna Reddy",
       "amount": 31012,
       "fromYear": 2025,
@@ -478,7 +470,7 @@
       "addedOn": "2026-09-10T03:52:13.810Z"
     },
     {
-      "slNo": 43,
+      "slNo": 42,
       "memberName": "P Sasidhar",
       "amount": 31012,
       "fromYear": 2025,
@@ -486,7 +478,7 @@
       "addedOn": "2026-09-10T03:52:13.810Z"
     },
     {
-      "slNo": 44,
+      "slNo": 43,
       "memberName": "P Hari",
       "amount": 31012,
       "fromYear": 2025,
@@ -494,7 +486,7 @@
       "addedOn": "2026-09-10T03:52:13.810Z"
     },
     {
-      "slNo": 45,
+      "slNo": 44,
       "memberName": "P Sekhar Reddy (Post)",
       "amount": 31012,
       "fromYear": 2025,
@@ -512,6 +504,13 @@
     },
     {
       "name": "G Narayana",
+      "amount": 27600,
+      "interest": 3312,
+      "expectedTotal": 30912,
+      "fromYear": 2025
+    },
+    {
+      "name": "P Eshwar Reddy (Polam)",
       "amount": 27600,
       "interest": 3312,
       "expectedTotal": 30912,
