@@ -1,6 +1,6 @@
 {
   "year": "2026",
-  "lastUpdated": "2026-09-07T18:39:02.918Z",
+  "lastUpdated": "2026-09-10T03:48:25.326Z",
   "carried_forward_balance": 345,
   "donations": [
     {
@@ -132,6 +132,11 @@
       "slNo": 26,
       "name": "J Suresh (Receiver B Amarnadh Reddy)",
       "amount": 1116
+    },
+    {
+      "slNo": 27,
+      "name": "P Somu",
+      "amount": 1516
     }
   ],
   "cheeti": [],
