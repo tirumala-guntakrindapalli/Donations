@@ -1,6 +1,6 @@
 {
   "year": "2026",
-  "lastUpdated": "2026-09-12T05:41:45.949Z",
+  "lastUpdated": "2026-09-12T07:41:36.224Z",
   "carried_forward_balance": 345,
   "donations": [
     {
@@ -217,6 +217,11 @@
       "slNo": 43,
       "name": "U Ramana Reddy (Receiver B Amarnadh Reddy)",
       "amount": 1016
+    },
+    {
+      "slNo": 44,
+      "name": "P Rosi Reddy",
+      "amount": 1501
     }
   ],
   "cheeti": [],
