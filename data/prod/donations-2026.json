@@ -1,6 +1,6 @@
 {
   "year": "2026",
-  "lastUpdated": "2026-09-12T01:55:31.954Z",
+  "lastUpdated": "2026-09-12T02:20:36.478Z",
   "carried_forward_balance": 345,
   "donations": [
     {
@@ -157,6 +157,11 @@
       "slNo": 31,
       "name": "M Venkatesh Jr (Receiver B Amarnadh Reddy)",
       "amount": 1116
+    },
+    {
+      "slNo": 32,
+      "name": "P Narendra",
+      "amount": 501
     }
   ],
   "cheeti": [],
