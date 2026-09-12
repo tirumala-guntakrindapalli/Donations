@@ -1,6 +1,6 @@
 {
   "year": "2026",
-  "lastUpdated": "2026-09-12T04:32:39.771Z",
+  "lastUpdated": "2026-09-12T04:37:47.680Z",
   "carried_forward_balance": 345,
   "donations": [
     {
@@ -177,6 +177,36 @@
       "slNo": 35,
       "name": "B Kiran",
       "amount": 1016
+    },
+    {
+      "slNo": 36,
+      "name": "M Krishna Reddy",
+      "amount": 1000
+    },
+    {
+      "slNo": 37,
+      "name": "K Srinivasulu Reddy",
+      "amount": 1001
+    },
+    {
+      "slNo": 38,
+      "name": "M Rama lakshmamma ( Narayana Reddy )",
+      "amount": 1000
+    },
+    {
+      "slNo": 39,
+      "name": "B Penchala Reddy",
+      "amount": 501
+    },
+    {
+      "slNo": 40,
+      "name": "B Ramayya",
+      "amount": 502
+    },
+    {
+      "slNo": 41,
+      "name": "P Raghava Reddy (VRO)",
+      "amount": 5116
     }
   ],
   "cheeti": [],
