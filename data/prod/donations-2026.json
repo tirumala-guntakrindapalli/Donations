@@ -1,6 +1,6 @@
 {
   "year": "2026",
-  "lastUpdated": "2026-09-12T07:41:36.224Z",
+  "lastUpdated": "2026-09-12T10:54:14.170Z",
   "carried_forward_balance": 345,
   "donations": [
     {
@@ -222,6 +222,11 @@
       "slNo": 44,
       "name": "P Rosi Reddy",
       "amount": 1501
+    },
+    {
+      "slNo": 45,
+      "name": "M Narasimha Reddy",
+      "amount": 7116
     }
   ],
   "cheeti": [],
