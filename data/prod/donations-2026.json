@@ -1,6 +1,6 @@
 {
   "year": "2026",
-  "lastUpdated": "2026-09-12T04:37:47.680Z",
+  "lastUpdated": "2026-09-12T04:56:19.990Z",
   "carried_forward_balance": 345,
   "donations": [
     {
@@ -207,6 +207,11 @@
       "slNo": 41,
       "name": "P Raghava Reddy (VRO)",
       "amount": 5116
+    },
+    {
+      "slNo": 42,
+      "name": "T Maheshwar Reddy",
+      "amount": 1000
     }
   ],
   "cheeti": [],
