@@ -1,6 +1,6 @@
 {
   "year": "2026",
-  "lastUpdated": "2026-09-12T04:20:02.693Z",
+  "lastUpdated": "2026-09-12T04:32:39.771Z",
   "carried_forward_balance": 345,
   "donations": [
     {
@@ -167,6 +167,16 @@
       "slNo": 33,
       "name": "P Hari Krishna Reddy",
       "amount": 2016
+    },
+    {
+      "slNo": 34,
+      "name": "P Siva Sr (Receiver B Amarnadh Reddy)",
+      "amount": 1516
+    },
+    {
+      "slNo": 35,
+      "name": "B Kiran",
+      "amount": 1016
     }
   ],
   "cheeti": [],
