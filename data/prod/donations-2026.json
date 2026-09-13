@@ -1,6 +1,6 @@
 {
   "year": "2026",
-  "lastUpdated": "2026-09-13T15:05:07.881Z",
+  "lastUpdated": "2026-09-13T15:24:01.813Z",
   "carried_forward_balance": 345,
   "donations": [
     {
@@ -337,6 +337,11 @@
       "slNo": 67,
       "name": "V Venkatarami Reddy",
       "amount": 1001
+    },
+    {
+      "slNo": 68,
+      "name": "P Ganga Subbarami Reddy",
+      "amount": 2222
     }
   ],
   "cheeti": [],
