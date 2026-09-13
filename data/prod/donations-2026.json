@@ -1,6 +1,6 @@
 {
   "year": "2026",
-  "lastUpdated": "2026-09-13T11:54:28.856Z",
+  "lastUpdated": "2026-09-13T11:55:43.880Z",
   "carried_forward_balance": 345,
   "donations": [
     {
@@ -312,6 +312,11 @@
       "slNo": 62,
       "name": "M Subbarami Reddy",
       "amount": 1001
+    },
+    {
+      "slNo": 63,
+      "name": "T Ramu Reddy",
+      "amount": 501
     }
   ],
   "cheeti": [],
