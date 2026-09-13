@@ -1,6 +1,6 @@
 {
   "year": "2026",
-  "lastUpdated": "2026-09-13T04:50:00.756Z",
+  "lastUpdated": "2026-09-13T05:18:54.520Z",
   "carried_forward_balance": 345,
   "donations": [
     {
@@ -292,6 +292,11 @@
       "slNo": 58,
       "name": "C Venkatasubbayya",
       "amount": 501
+    },
+    {
+      "slNo": 59,
+      "name": "P Balarami Reddy (Receiver B Amarnadh Reddy)",
+      "amount": 3011
     }
   ],
   "cheeti": [],
