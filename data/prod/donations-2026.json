@@ -1,6 +1,6 @@
 {
   "year": "2026",
-  "lastUpdated": "2026-09-13T14:08:32.594Z",
+  "lastUpdated": "2026-09-13T15:05:07.881Z",
   "carried_forward_balance": 345,
   "donations": [
     {
@@ -332,6 +332,11 @@
       "slNo": 66,
       "name": "Giddaluru Sai (Receiver B Amarnadh Reddy)",
       "amount": 516
+    },
+    {
+      "slNo": 67,
+      "name": "V Venkatarami Reddy",
+      "amount": 1001
     }
   ],
   "cheeti": [],
