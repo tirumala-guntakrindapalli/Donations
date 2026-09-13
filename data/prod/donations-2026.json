@@ -1,6 +1,6 @@
 {
   "year": "2026",
-  "lastUpdated": "2026-09-12T10:57:17.650Z",
+  "lastUpdated": "2026-09-13T01:46:00.373Z",
   "carried_forward_balance": 345,
   "donations": [
     {
@@ -231,6 +231,11 @@
     {
       "slNo": 46,
       "name": "M Madhav Reddy (Receiver B Amarnadh Reddy)",
+      "amount": 1000
+    },
+    {
+      "slNo": 47,
+      "name": "V Manohar Reddy",
       "amount": 1000
     }
   ],
