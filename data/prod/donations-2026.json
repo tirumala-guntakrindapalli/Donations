@@ -1,6 +1,6 @@
 {
   "year": "2026",
-  "lastUpdated": "2026-09-13T11:45:20.854Z",
+  "lastUpdated": "2026-09-13T11:54:28.856Z",
   "carried_forward_balance": 345,
   "donations": [
     {
@@ -307,6 +307,11 @@
       "slNo": 61,
       "name": "P Murali Mohan Reddy",
       "amount": 1000
+    },
+    {
+      "slNo": 62,
+      "name": "M Subbarami Reddy",
+      "amount": 1001
     }
   ],
   "cheeti": [],
