@@ -1,6 +1,6 @@
 {
   "year": "2026",
-  "lastUpdated": "2026-09-13T02:08:41.227Z",
+  "lastUpdated": "2026-09-13T04:13:48.278Z",
   "carried_forward_balance": 345,
   "donations": [
     {
@@ -242,6 +242,46 @@
       "slNo": 48,
       "name": "B Madhav Reddy",
       "amount": 1000
+    },
+    {
+      "slNo": 49,
+      "name": "K Ramchandra Reddy",
+      "amount": 201
+    },
+    {
+      "slNo": 50,
+      "name": "K Murali Reddy",
+      "amount": 501
+    },
+    {
+      "slNo": 51,
+      "name": "P Veeraswamy Reddy",
+      "amount": 101
+    },
+    {
+      "slNo": 52,
+      "name": "G Venkatesh Sr",
+      "amount": 1000
+    },
+    {
+      "slNo": 53,
+      "name": "G Anand Reddy",
+      "amount": 551
+    },
+    {
+      "slNo": 54,
+      "name": "G Srinivasulu Reddy Jr",
+      "amount": 500
+    },
+    {
+      "slNo": 55,
+      "name": "M Chalama Reddy",
+      "amount": 1116
+    },
+    {
+      "slNo": 56,
+      "name": "T Mahadeva Reddy",
+      "amount": 1116
     }
   ],
   "cheeti": [],
