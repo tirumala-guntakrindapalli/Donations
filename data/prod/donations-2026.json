@@ -1,6 +1,6 @@
 {
   "year": "2026",
-  "lastUpdated": "2026-09-14T08:37:17.227Z",
+  "lastUpdated": "2026-09-14T11:32:47.347Z",
   "carried_forward_balance": 345,
   "donations": [
     {
@@ -442,6 +442,16 @@
       "slNo": 88,
       "name": "B Amarnadh Reddy (Receiver B Amarnadh Reddy)",
       "amount": 1516
+    },
+    {
+      "slNo": 89,
+      "name": "K Venu",
+      "amount": 1001
+    },
+    {
+      "slNo": 90,
+      "name": "E Ramanayya Naidu",
+      "amount": 500
     }
   ],
   "cheeti": [],
