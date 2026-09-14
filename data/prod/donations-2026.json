@@ -1,6 +1,6 @@
 {
   "year": "2026",
-  "lastUpdated": "2026-09-14T16:54:42.078Z",
+  "lastUpdated": "2026-09-14T19:40:10.617Z",
   "carried_forward_balance": 345,
   "donations": [
     {
@@ -841,7 +841,14 @@
       "amount": 0
     }
   ],
-  "laddu_winners": [],
+  "laddu_winners": [
+    {
+      "slNo": 1,
+      "name": "B Chandra Reddy",
+      "amount": 21000,
+      "date": "2026-09-14T19:39:56.668Z"
+    }
+  ],
   "committee": [
     {
       "role": "Organizer",
