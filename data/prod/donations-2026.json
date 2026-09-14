@@ -1,6 +1,6 @@
 {
   "year": "2026",
-  "lastUpdated": "2026-09-14T01:59:14.269Z",
+  "lastUpdated": "2026-09-14T02:56:40.633Z",
   "carried_forward_balance": 345,
   "donations": [
     {
@@ -361,7 +361,7 @@
     {
       "slNo": 72,
       "name": "P Eshwar Reddy (Conductor)",
-      "amount": 1000
+      "amount": 1016
     },
     {
       "slNo": 73,
@@ -377,6 +377,16 @@
       "slNo": 75,
       "name": "M Gurunadham Reddy (Receiver B Amarnadh Reddy)",
       "amount": 500
+    },
+    {
+      "slNo": 76,
+      "name": "G Ramarao (Suresh)",
+      "amount": 1016
+    },
+    {
+      "slNo": 77,
+      "name": "Y Chandu Kumar",
+      "amount": 2016
     }
   ],
   "cheeti": [],
