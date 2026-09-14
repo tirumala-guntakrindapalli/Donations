@@ -1,6 +1,6 @@
 {
   "year": "2026",
-  "lastUpdated": "2026-09-14T16:52:48.511Z",
+  "lastUpdated": "2026-09-14T16:54:12.422Z",
   "carried_forward_balance": 345,
   "donations": [
     {
@@ -838,6 +838,12 @@
       "slNo": 2,
       "name": "P Narendra",
       "type": "Day - 1 Prasadam",
+      "amount": 0
+    },
+    {
+      "slNo": 3,
+      "name": "Avulapati Sai",
+      "type": "Vigraham (Idol)",
       "amount": 0
     }
   ],
