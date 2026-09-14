@@ -1,6 +1,6 @@
 {
   "year": "2026",
-  "lastUpdated": "2026-09-14T11:32:47.347Z",
+  "lastUpdated": "2026-09-14T16:52:48.511Z",
   "carried_forward_balance": 345,
   "donations": [
     {
@@ -827,7 +827,20 @@
   ],
   "cheeti_expected": [],
   "expenses": [],
-  "sponsors": [],
+  "sponsors": [
+    {
+      "slNo": 1,
+      "name": "G Narayana Reddy",
+      "type": "Laddu",
+      "amount": 0
+    },
+    {
+      "slNo": 2,
+      "name": "P Narendra",
+      "type": "Day - 1 Prasadam",
+      "amount": 0
+    }
+  ],
   "laddu_winners": [],
   "committee": [
     {
