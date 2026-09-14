@@ -1,6 +1,6 @@
 {
   "year": "2025",
-  "lastUpdated": "2026-09-10T04:01:08.778Z",
+  "lastUpdated": "2026-09-14T05:49:41.745Z",
   "donations": [
     {
       "slNo": 1,
@@ -1254,11 +1254,22 @@
       "name": "G Narayana",
       "amount": 27600,
       "interest": 3312,
-      "total": 30912,
-      "lateFee": 0,
-      "paid": false,
-      "paymentDate": "",
-      "days_overdue": 0
+      "total": 31612,
+      "lateFee": 700,
+      "paid": true,
+      "paymentDate": "2026-09-14",
+      "days_overdue": 7,
+      "paidAmount": 31612,
+      "receiver": "P Rosi Reddy",
+      "paymentMode": "Cash",
+      "paymentHistory": [
+        {
+          "amount": 31612,
+          "date": "2026-09-14",
+          "receiver": "P Rosi Reddy",
+          "paymentMode": "Cash"
+        }
+      ]
     },
     {
       "slNo": 44,
