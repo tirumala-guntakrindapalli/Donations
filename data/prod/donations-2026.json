@@ -1,6 +1,6 @@
 {
   "year": "2026",
-  "lastUpdated": "2026-09-14T00:03:44.153Z",
+  "lastUpdated": "2026-09-14T01:33:45.081Z",
   "carried_forward_balance": 345,
   "donations": [
     {
@@ -367,6 +367,11 @@
       "slNo": 73,
       "name": "M Tirupal Reddy",
       "amount": 5000
+    },
+    {
+      "slNo": 74,
+      "name": "J Somu",
+      "amount": 1116
     }
   ],
   "cheeti": [],
