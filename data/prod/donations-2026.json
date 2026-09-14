@@ -1,6 +1,6 @@
 {
   "year": "2026",
-  "lastUpdated": "2026-09-14T03:56:03.674Z",
+  "lastUpdated": "2026-09-14T05:29:10.735Z",
   "carried_forward_balance": 345,
   "donations": [
     {
@@ -402,6 +402,31 @@
       "slNo": 80,
       "name": "Sanapuri Narayana",
       "amount": 116
+    },
+    {
+      "slNo": 81,
+      "name": "P Gangi Reddy",
+      "amount": 1020
+    },
+    {
+      "slNo": 82,
+      "name": "P Sankar Reddy Sr",
+      "amount": 500
+    },
+    {
+      "slNo": 83,
+      "name": "Panapati Suresh",
+      "amount": 216
+    },
+    {
+      "slNo": 84,
+      "name": "T Samba Siva Reddy",
+      "amount": 500
+    },
+    {
+      "slNo": 85,
+      "name": "K Jayarama Naidu",
+      "amount": 100
     }
   ],
   "cheeti": [],
