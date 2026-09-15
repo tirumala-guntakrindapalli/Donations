@@ -1,6 +1,6 @@
 {
   "year": "2026",
-  "lastUpdated": "2026-09-15T07:22:00.411Z",
+  "lastUpdated": "2026-09-15T14:53:37.326Z",
   "carried_forward_balance": 345,
   "donations": [
     {
@@ -457,6 +457,11 @@
       "slNo": 91,
       "name": "Pulluru Eshwar Reddy Jr",
       "amount": 2116
+    },
+    {
+      "slNo": 92,
+      "name": "M Venkatesh Sr",
+      "amount": 1001
     }
   ],
   "cheeti": [],
