@@ -1,6 +1,6 @@
 {
   "year": "2026",
-  "lastUpdated": "2026-09-15T14:53:37.326Z",
+  "lastUpdated": "2026-09-15T14:56:18.622Z",
   "carried_forward_balance": 345,
   "donations": [
     {
@@ -855,6 +855,12 @@
       "name": "P Sasidhar, M Krishna Reddy, M Nagaraju",
       "type": "Day - 2 Prasadam",
       "amount": 0
+    },
+    {
+      "slNo": 4,
+      "name": "Avulapati Ravi (Mohan Sai)",
+      "type": "Vigraham (Idol)",
+      "amount": 12000
     }
   ],
   "laddu_winners": [
