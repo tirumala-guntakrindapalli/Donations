@@ -1,6 +1,6 @@
 {
   "year": "2026",
-  "lastUpdated": "2026-09-17T19:00:26.847Z",
+  "lastUpdated": "2026-09-17T19:04:18.820Z",
   "carried_forward_balance": 345,
   "donations": [
     {
@@ -1400,7 +1400,7 @@
     },
     {
       "item": "Drinks",
-      "amount": 1940
+      "amount": 1990
     },
     {
       "item": "Fruits",
