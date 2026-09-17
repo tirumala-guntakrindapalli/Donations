@@ -1,6 +1,6 @@
 {
   "year": "2026",
-  "lastUpdated": "2026-09-17T16:18:59.821Z",
+  "lastUpdated": "2026-09-17T16:21:48.142Z",
   "carried_forward_balance": 345,
   "donations": [
     {
@@ -471,6 +471,11 @@
     {
       "slNo": 94,
       "name": "T Gurunadham Reddy",
+      "amount": 1000
+    },
+    {
+      "slNo": 95,
+      "name": "P Venkata Subba Reddy",
       "amount": 1000
     }
   ],
