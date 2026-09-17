@@ -1,6 +1,6 @@
 {
   "year": "2026",
-  "lastUpdated": "2026-09-17T15:12:21.487Z",
+  "lastUpdated": "2026-09-17T15:42:23.357Z",
   "carried_forward_balance": 345,
   "donations": [
     {
@@ -846,7 +846,84 @@
     }
   ],
   "cheeti_expected": [],
-  "expenses": [],
+  "expenses": [
+    {
+      "item": "Vigraham",
+      "amount": 19000
+    },
+    {
+      "item": "Lighting",
+      "amount": 60000
+    },
+    {
+      "item": "Muni Event",
+      "amount": 65500
+    },
+    {
+      "item": "Melam",
+      "amount": 41000
+    },
+    {
+      "item": "Crackers",
+      "amount": 11000
+    },
+    {
+      "item": "Poolu",
+      "amount": 14600
+    },
+    {
+      "item": "Kolatam",
+      "amount": 5300
+    },
+    {
+      "item": "Pujari",
+      "amount": 5232
+    },
+    {
+      "item": "Mimicry Event",
+      "amount": 3600
+    },
+    {
+      "item": "Cool Water",
+      "amount": 1000
+    },
+    {
+      "item": "Drinks",
+      "amount": 1940
+    },
+    {
+      "item": "Fruits",
+      "amount": 2900
+    },
+    {
+      "item": "Utti Samagri",
+      "amount": 3840
+    },
+    {
+      "item": "Homam",
+      "amount": 8880
+    },
+    {
+      "item": "Meals",
+      "amount": 3060
+    },
+    {
+      "item": "Auto, Tractor",
+      "amount": 2200
+    },
+    {
+      "item": "Petrol",
+      "amount": 1000
+    },
+    {
+      "item": "Pattalu",
+      "amount": 400
+    },
+    {
+      "item": "Chairs",
+      "amount": 900
+    }
+  ],
   "sponsors": [
     {
       "slNo": 1,
