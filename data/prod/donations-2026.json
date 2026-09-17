@@ -1,6 +1,6 @@
 {
   "year": "2026",
-  "lastUpdated": "2026-09-17T17:06:34.367Z",
+  "lastUpdated": "2026-09-17T19:00:26.847Z",
   "carried_forward_balance": 345,
   "donations": [
     {
@@ -484,7 +484,508 @@
       "amount": 1000
     }
   ],
-  "cheeti": [],
+  "cheeti": [
+    {
+      "slNo": 1,
+      "name": "M Krishna Reddy",
+      "amount": 26500,
+      "interest": 3180,
+      "total": 29680,
+      "paid": false,
+      "paymentDate": null,
+      "lateFee": 0
+    },
+    {
+      "slNo": 2,
+      "name": "P Sasidhar",
+      "amount": 26500,
+      "interest": 3180,
+      "total": 29680,
+      "paid": false,
+      "paymentDate": null,
+      "lateFee": 0
+    },
+    {
+      "slNo": 3,
+      "name": "P Hari Krishna Reddy",
+      "amount": 26500,
+      "interest": 3180,
+      "total": 29680,
+      "paid": false,
+      "paymentDate": null,
+      "lateFee": 0
+    },
+    {
+      "slNo": 4,
+      "name": "P Sekhar Reddy (Post)",
+      "amount": 26500,
+      "interest": 3180,
+      "total": 29680,
+      "paid": false,
+      "paymentDate": null,
+      "lateFee": 0
+    },
+    {
+      "slNo": 5,
+      "name": "P Gurunadham Reddy",
+      "amount": 26500,
+      "interest": 3180,
+      "total": 29680,
+      "paid": false,
+      "paymentDate": null,
+      "lateFee": 0
+    },
+    {
+      "slNo": 6,
+      "name": "V Munihara Reddy",
+      "amount": 26500,
+      "interest": 3180,
+      "total": 29680,
+      "paid": false,
+      "paymentDate": null,
+      "lateFee": 0
+    },
+    {
+      "slNo": 7,
+      "name": "P Gurava Reddy",
+      "amount": 26500,
+      "interest": 3180,
+      "total": 29680,
+      "paid": false,
+      "paymentDate": null,
+      "lateFee": 0
+    },
+    {
+      "slNo": 8,
+      "name": "P Narendra",
+      "amount": 26500,
+      "interest": 3180,
+      "total": 29680,
+      "paid": false,
+      "paymentDate": null,
+      "lateFee": 0
+    },
+    {
+      "slNo": 9,
+      "name": "P Tharun",
+      "amount": 26500,
+      "interest": 3180,
+      "total": 29680,
+      "paid": false,
+      "paymentDate": null,
+      "lateFee": 0
+    },
+    {
+      "slNo": 10,
+      "name": "P Vikram",
+      "amount": 26500,
+      "interest": 3180,
+      "total": 29680,
+      "paid": false,
+      "paymentDate": null,
+      "lateFee": 0
+    },
+    {
+      "slNo": 11,
+      "name": "P Rosi Reddy",
+      "amount": 26500,
+      "interest": 3180,
+      "total": 29680,
+      "paid": false,
+      "paymentDate": null,
+      "lateFee": 0
+    },
+    {
+      "slNo": 12,
+      "name": "M BalaSubramanyam Reddy",
+      "amount": 26500,
+      "interest": 3180,
+      "total": 29680,
+      "paid": false,
+      "paymentDate": null,
+      "lateFee": 0
+    },
+    {
+      "slNo": 13,
+      "name": "G Venkatesh Sr",
+      "amount": 26500,
+      "interest": 3180,
+      "total": 29680,
+      "paid": false,
+      "paymentDate": null,
+      "lateFee": 0
+    },
+    {
+      "slNo": 14,
+      "name": "G Tirumala",
+      "amount": 26500,
+      "interest": 3180,
+      "total": 29680,
+      "paid": false,
+      "paymentDate": null,
+      "lateFee": 0
+    },
+    {
+      "slNo": 15,
+      "name": "P Sudarshan",
+      "amount": 26500,
+      "interest": 3180,
+      "total": 29680,
+      "paid": false,
+      "paymentDate": null,
+      "lateFee": 0
+    },
+    {
+      "slNo": 16,
+      "name": "J Suresh",
+      "amount": 26500,
+      "interest": 3180,
+      "total": 29680,
+      "paid": false,
+      "paymentDate": null,
+      "lateFee": 0
+    },
+    {
+      "slNo": 17,
+      "name": "V Muni Kumar",
+      "amount": 26500,
+      "interest": 3180,
+      "total": 29680,
+      "paid": false,
+      "paymentDate": null,
+      "lateFee": 0
+    },
+    {
+      "slNo": 18,
+      "name": "V Sankaramma",
+      "amount": 26500,
+      "interest": 3180,
+      "total": 29680,
+      "paid": false,
+      "paymentDate": null,
+      "lateFee": 0
+    },
+    {
+      "slNo": 19,
+      "name": "Y Chandu Kumar",
+      "amount": 26500,
+      "interest": 3180,
+      "total": 29680,
+      "paid": false,
+      "paymentDate": null,
+      "lateFee": 0
+    },
+    {
+      "slNo": 20,
+      "name": "C Muni Subba Reddy",
+      "amount": 26500,
+      "interest": 3180,
+      "total": 29680,
+      "paid": false,
+      "paymentDate": null,
+      "lateFee": 0
+    },
+    {
+      "slNo": 21,
+      "name": "T Nagur Reddy",
+      "amount": 26500,
+      "interest": 3180,
+      "total": 29680,
+      "paid": false,
+      "paymentDate": null,
+      "lateFee": 0
+    },
+    {
+      "slNo": 22,
+      "name": "B Chandra Reddy",
+      "amount": 26500,
+      "interest": 3180,
+      "total": 29680,
+      "paid": false,
+      "paymentDate": null,
+      "lateFee": 0
+    },
+    {
+      "slNo": 23,
+      "name": "B Raja Reddy",
+      "amount": 26500,
+      "interest": 3180,
+      "total": 29680,
+      "paid": false,
+      "paymentDate": null,
+      "lateFee": 0
+    },
+    {
+      "slNo": 24,
+      "name": "Y Vasudeva Reddy",
+      "amount": 26500,
+      "interest": 3180,
+      "total": 29680,
+      "paid": false,
+      "paymentDate": null,
+      "lateFee": 0
+    },
+    {
+      "slNo": 25,
+      "name": "M Somu",
+      "amount": 26500,
+      "interest": 3180,
+      "total": 29680,
+      "paid": false,
+      "paymentDate": null,
+      "lateFee": 0
+    },
+    {
+      "slNo": 26,
+      "name": "T Maheshwar Reddy",
+      "amount": 26500,
+      "interest": 3180,
+      "total": 29680,
+      "paid": false,
+      "paymentDate": null,
+      "lateFee": 0
+    },
+    {
+      "slNo": 27,
+      "name": "V Suneel",
+      "amount": 26500,
+      "interest": 3180,
+      "total": 29680,
+      "paid": false,
+      "paymentDate": null,
+      "lateFee": 0
+    },
+    {
+      "slNo": 28,
+      "name": "V Sudhakar",
+      "amount": 26500,
+      "interest": 3180,
+      "total": 29680,
+      "paid": false,
+      "paymentDate": null,
+      "lateFee": 0
+    },
+    {
+      "slNo": 29,
+      "name": "M Balaji",
+      "amount": 26500,
+      "interest": 3180,
+      "total": 29680,
+      "paid": false,
+      "paymentDate": null,
+      "lateFee": 0
+    },
+    {
+      "slNo": 30,
+      "name": "B Amarnadh Reddy",
+      "amount": 26500,
+      "interest": 3180,
+      "total": 29680,
+      "paid": false,
+      "paymentDate": null,
+      "lateFee": 0
+    },
+    {
+      "slNo": 31,
+      "name": "B Uday",
+      "amount": 26500,
+      "interest": 3180,
+      "total": 29680,
+      "paid": false,
+      "paymentDate": null,
+      "lateFee": 0
+    },
+    {
+      "slNo": 32,
+      "name": "K Surendra Reddy",
+      "amount": 26500,
+      "interest": 3180,
+      "total": 29680,
+      "paid": false,
+      "paymentDate": null,
+      "lateFee": 0
+    },
+    {
+      "slNo": 33,
+      "name": "G Uday",
+      "amount": 26500,
+      "interest": 3180,
+      "total": 29680,
+      "paid": false,
+      "paymentDate": null,
+      "lateFee": 0
+    },
+    {
+      "slNo": 34,
+      "name": "P Tirumala Reddy",
+      "amount": 26500,
+      "interest": 3180,
+      "total": 29680,
+      "paid": false,
+      "paymentDate": null,
+      "lateFee": 0
+    },
+    {
+      "slNo": 35,
+      "name": "T Mahadeva Reddy",
+      "amount": 26500,
+      "interest": 3180,
+      "total": 29680,
+      "paid": false,
+      "paymentDate": null,
+      "lateFee": 0
+    },
+    {
+      "slNo": 36,
+      "name": "P Somu",
+      "amount": 26500,
+      "interest": 3180,
+      "total": 29680,
+      "paid": false,
+      "paymentDate": null,
+      "lateFee": 0
+    },
+    {
+      "slNo": 37,
+      "name": "M Venkatesh Sr",
+      "amount": 26500,
+      "interest": 3180,
+      "total": 29680,
+      "paid": false,
+      "paymentDate": null,
+      "lateFee": 0
+    },
+    {
+      "slNo": 38,
+      "name": "P Eshwar Reddy",
+      "amount": 26500,
+      "interest": 3180,
+      "total": 29680,
+      "paid": false,
+      "paymentDate": null,
+      "lateFee": 0
+    },
+    {
+      "slNo": 39,
+      "name": "K Venu Reddy",
+      "amount": 26500,
+      "interest": 3180,
+      "total": 29680,
+      "paid": false,
+      "paymentDate": null,
+      "lateFee": 0
+    },
+    {
+      "slNo": 40,
+      "name": "M Naveen Reddy",
+      "amount": 26500,
+      "interest": 3180,
+      "total": 29680,
+      "paid": false,
+      "paymentDate": null,
+      "lateFee": 0
+    },
+    {
+      "slNo": 41,
+      "name": "M Nagaraju",
+      "amount": 26500,
+      "interest": 3180,
+      "total": 29680,
+      "paid": false,
+      "paymentDate": null,
+      "lateFee": 0
+    },
+    {
+      "slNo": 42,
+      "name": "P Ganga Subbarami Reddy",
+      "amount": 26500,
+      "interest": 3180,
+      "total": 29680,
+      "paid": false,
+      "paymentDate": null,
+      "lateFee": 0
+    },
+    {
+      "slNo": 43,
+      "name": "G Narayana Reddy",
+      "amount": 26500,
+      "interest": 3180,
+      "total": 29680,
+      "paid": false,
+      "paymentDate": null,
+      "lateFee": 0
+    },
+    {
+      "slNo": 44,
+      "name": "B Kiran Kumar",
+      "amount": 26500,
+      "interest": 3180,
+      "total": 29680,
+      "paid": false,
+      "paymentDate": null,
+      "lateFee": 0
+    },
+    {
+      "slNo": 45,
+      "name": "P Raghava Reddy (Bhargav)",
+      "amount": 26500,
+      "interest": 3180,
+      "total": 29680,
+      "paid": false,
+      "paymentDate": null,
+      "lateFee": 0
+    },
+    {
+      "slNo": 46,
+      "name": "P Siva Sr",
+      "amount": 26500,
+      "interest": 3180,
+      "total": 29680,
+      "paid": false,
+      "paymentDate": null,
+      "lateFee": 0
+    },
+    {
+      "slNo": 47,
+      "name": "M Srinivasulu Reddy",
+      "amount": 26500,
+      "interest": 3180,
+      "total": 29680,
+      "paid": false,
+      "paymentDate": null,
+      "lateFee": 0
+    },
+    {
+      "slNo": 48,
+      "name": "P Venkata Subba Reddy",
+      "amount": 26500,
+      "interest": 3180,
+      "total": 29680,
+      "paid": false,
+      "paymentDate": null,
+      "lateFee": 0
+    },
+    {
+      "slNo": 49,
+      "name": "T Gurunadham Reddy",
+      "amount": 26500,
+      "interest": 3180,
+      "total": 29680,
+      "paid": false,
+      "paymentDate": null,
+      "lateFee": 0
+    },
+    {
+      "slNo": 50,
+      "name": "M Venkatesh Jr",
+      "amount": 26500,
+      "interest": 3180,
+      "total": 29680,
+      "paid": false,
+      "paymentDate": null,
+      "lateFee": 0
+    }
+  ],
   "cheeti_collections": [
     {
       "slNo": 1,
