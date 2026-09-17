@@ -1,6 +1,6 @@
 {
   "year": "2026",
-  "lastUpdated": "2026-09-17T16:42:17.860Z",
+  "lastUpdated": "2026-09-17T17:06:34.367Z",
   "carried_forward_balance": 345,
   "donations": [
     {
@@ -1008,7 +1008,48 @@
       "name": "J Suresh"
     }
   ],
-  "committee_next_year": [],
+  "committee_next_year": [
+    {
+      "name": "P Sasidhar",
+      "role": "Organizer"
+    },
+    {
+      "name": "G Tirumala",
+      "role": "Organizer"
+    },
+    {
+      "name": "P Rosi Reddy",
+      "role": "Member"
+    },
+    {
+      "name": "B Amarnadh Reddy",
+      "role": "Member"
+    },
+    {
+      "name": "M Bala Subramanyam Reddy",
+      "role": "Member"
+    },
+    {
+      "name": "P Tharun",
+      "role": "Member"
+    },
+    {
+      "name": "P Siva Sr",
+      "role": "Member"
+    },
+    {
+      "name": "M Krishna Reddy",
+      "role": "Member"
+    },
+    {
+      "name": "T Nagur Reddy",
+      "role": "Member"
+    },
+    {
+      "name": "B Uday",
+      "role": "Member"
+    }
+  ],
   "settings": {
     "dashboard_enabled": true,
     "cheeti_members_public": false
